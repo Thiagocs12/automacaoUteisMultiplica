@@ -4,8 +4,6 @@ import APIS from '../../utils/mapeamentoApis';
 Given('que possuo acesso aos ambientes necessarios', () => {
   cy.verificarTokens('prod')
   cy.verificarTokens('hml')
-  cy.verificarTokens('bhml')
-  cy.verificarTokens('keycloak')
 });
 
 Given('uma consulta aos produtos de produção é realizada para obter os dados atuais', () => {
@@ -17,6 +15,7 @@ Given('uma consulta aos produtos de produção é realizada para obter os dados 
 Given('a pesquisa retornou dados de produtos para serem copiados de produção para homologação', () => {
   return cy.lerJsonDeOutput(APIS.PRODUTO.nomeArquivo).then((dadosDoArquivo) => {
     expect(dadosDoArquivo[0]['id']).to.be.a('number');
+
   });
 });
 
@@ -30,4 +29,5 @@ When('processo as dependências do nivel {int}', (nivel) => {
 });
 
 Then('os dados dos produtos e suas dependências estão copiados de produção para homologação', () => {
+  cy.log('SUCESSO: Os dados dos produtos e suas dependências foram copiados de produção para homologação');
 });

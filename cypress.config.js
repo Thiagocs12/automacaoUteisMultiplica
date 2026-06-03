@@ -44,6 +44,11 @@ export default defineConfig({
           if (!conteudoBruto || !conteudoBruto.trim()) return [];
           return JSON.parse(conteudoBruto);
         },
+        escreverJson({ caminhoArquivo, conteudo }) {
+          const caminhoCompleto = path.join(process.cwd(), caminhoArquivo);
+          fs.writeFileSync(caminhoCompleto, JSON.stringify(conteudo, null, 2), 'utf8');
+          return null;
+        },
         listarArquivos(caminho) {
           const diretorioCompleto = path.resolve(caminho);
 

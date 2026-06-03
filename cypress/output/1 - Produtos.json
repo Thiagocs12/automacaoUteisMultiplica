@@ -9,7 +9,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -18,10 +19,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 24,
+      "id": 43,
       "descricao": "DUPLICATA - BOLETO",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -37,7 +39,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 24
     },
     "focoNegocio": {
       "id": 1,
@@ -52,7 +55,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 2,
@@ -67,7 +71,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -76,7 +81,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -89,7 +95,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -113,7 +120,7 @@
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
     "idHml": 41,
-    "atualizar": false
+    "atualizar": true
   },
   {
     "id": 102,
@@ -134,7 +141,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 16,
@@ -168,7 +176,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 11,
@@ -192,7 +201,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -250,7 +260,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 16,
@@ -284,7 +295,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 15,
@@ -308,7 +320,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -357,7 +370,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -366,7 +380,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 8,
@@ -400,7 +415,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 2,
@@ -415,7 +431,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -424,7 +441,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 8,
@@ -473,7 +491,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -482,7 +501,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 25,
@@ -516,7 +536,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 2,
@@ -531,7 +552,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -540,7 +562,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 7,
@@ -589,7 +612,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -598,7 +622,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 26,
@@ -632,7 +657,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 2,
@@ -647,7 +673,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -656,7 +683,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 21,
@@ -748,7 +776,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 1,
@@ -772,7 +801,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -785,7 +815,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -830,7 +861,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 28,
@@ -864,7 +896,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 1,
@@ -888,7 +921,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -946,7 +980,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 28,
@@ -980,7 +1015,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 1,
@@ -1004,7 +1040,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -1096,7 +1133,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 1,
@@ -1120,7 +1158,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -1178,7 +1217,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 26,
@@ -1212,7 +1252,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 2,
@@ -1227,7 +1268,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -1236,7 +1278,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -1249,7 +1292,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -1294,7 +1338,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 26,
@@ -1328,7 +1373,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 2,
@@ -1343,7 +1389,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -1352,7 +1399,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -1410,7 +1458,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 26,
@@ -1444,7 +1493,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 1,
@@ -1468,7 +1518,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -1560,7 +1611,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 1,
@@ -1584,7 +1636,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -1633,7 +1686,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -1642,10 +1696,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 24,
+      "id": 43,
       "descricao": "DUPLICATA - BOLETO",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -1661,7 +1716,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 24
     },
     "focoNegocio": {
       "id": 1,
@@ -1676,7 +1732,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 2,
@@ -1691,7 +1748,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -1700,7 +1758,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 9,
@@ -1749,7 +1808,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -1761,7 +1821,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 24,
+      "id": 43,
       "descricao": "DUPLICATA - BOLETO",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -1777,7 +1837,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 24
     },
     "focoNegocio": {
       "id": 1,
@@ -1792,7 +1853,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 2,
@@ -1807,7 +1869,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -1816,7 +1879,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -1829,7 +1893,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -1908,7 +1973,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 2,
@@ -1923,7 +1989,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -1932,7 +1999,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -1981,7 +2049,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -2024,7 +2093,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 2,
@@ -2039,7 +2109,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -2048,7 +2119,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 8,
@@ -2097,7 +2169,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -2140,7 +2213,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 2,
@@ -2155,7 +2229,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -2164,7 +2239,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 7,
@@ -2213,7 +2289,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -2256,7 +2333,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 2,
@@ -2271,7 +2349,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -2280,7 +2359,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 21,
@@ -2396,7 +2476,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -2561,7 +2642,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -2570,7 +2652,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 21,
@@ -2619,7 +2702,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -2628,7 +2712,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -2677,7 +2762,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -2686,7 +2772,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 20,
@@ -2735,7 +2822,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -2744,7 +2832,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -2772,8 +2861,8 @@
     "siglaProduto": "013101 Samsung",
     "dataCadastro": "2026-05-15T12:07:45.053",
     "usuarioCadastro": "rosana.silva",
-    "dataUltimaAlteracao": "2026-05-15T12:14:13.337",
-    "usuarioUltimaAlteracao": "rosana.silva",
+    "dataUltimaAlteracao": "2026-05-29T11:00:13.85",
+    "usuarioUltimaAlteracao": "gustavo.silva",
     "garantiaCategoria": null,
     "indOperacaoEstruturada": false,
     "indDisponivelHomeBanking": true,
@@ -2793,7 +2882,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -2802,7 +2892,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 20,
@@ -2851,7 +2942,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -2860,7 +2952,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -2918,7 +3011,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 20,
@@ -2976,7 +3070,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 29,
@@ -3034,7 +3129,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 20,
@@ -3092,7 +3188,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 29,
@@ -3141,7 +3238,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -3150,7 +3248,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 21,
@@ -3199,7 +3298,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -3208,7 +3308,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -3221,7 +3322,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -3257,7 +3359,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -3266,7 +3369,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 20,
@@ -3315,7 +3419,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -3324,7 +3429,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -3337,7 +3443,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -3373,7 +3480,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -3382,7 +3490,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 12,
@@ -3431,7 +3540,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -3440,7 +3550,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -3453,7 +3564,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -3556,7 +3668,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 6,
@@ -3614,7 +3727,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 30,
@@ -3672,7 +3786,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -3730,7 +3845,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 32,
@@ -3788,7 +3904,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -3846,7 +3963,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 32,
@@ -3962,7 +4080,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 32,
@@ -4020,7 +4139,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -4078,7 +4198,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 32,
@@ -4185,7 +4306,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -4197,7 +4319,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 24,
+      "id": 43,
       "descricao": "DUPLICATA - BOLETO",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -4213,7 +4335,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 24
     },
     "focoNegocio": {
       "id": 1,
@@ -4228,7 +4351,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 2,
@@ -4243,7 +4367,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -4252,7 +4377,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 9,
@@ -4310,7 +4436,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 30,
@@ -4368,7 +4495,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -4426,7 +4554,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 30,
@@ -4533,7 +4662,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -4591,7 +4721,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -4600,7 +4731,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -4649,7 +4781,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -4707,7 +4840,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -4716,7 +4850,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -4729,7 +4864,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -4765,7 +4901,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -4823,7 +4960,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -4832,7 +4970,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -4890,7 +5029,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 20,
@@ -4948,7 +5088,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -4997,7 +5138,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -5055,7 +5197,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -5064,7 +5207,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -5077,7 +5221,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -5122,7 +5267,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 20,
@@ -5180,7 +5326,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -5238,7 +5385,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 20,
@@ -5296,7 +5444,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -5309,7 +5458,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -5412,7 +5562,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -5461,7 +5612,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -5519,7 +5671,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -5528,7 +5681,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -5541,7 +5695,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -5586,7 +5741,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 11,
@@ -5644,7 +5800,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -5702,7 +5859,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 11,
@@ -5760,7 +5918,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -5773,7 +5932,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -5809,7 +5969,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -5867,7 +6028,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -5876,7 +6038,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -5992,7 +6155,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -6108,7 +6272,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -6121,7 +6286,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -6157,7 +6323,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -6215,7 +6382,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -6224,7 +6392,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -6237,7 +6406,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -6282,7 +6452,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 32,
@@ -6340,7 +6511,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -6398,7 +6570,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 32,
@@ -6514,7 +6687,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 32,
@@ -6572,7 +6746,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -6630,7 +6805,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 32,
@@ -6746,7 +6922,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 30,
@@ -6804,7 +6981,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -6862,7 +7040,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 30,
@@ -6978,7 +7157,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 32,
@@ -7036,7 +7216,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -7094,7 +7275,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 32,
@@ -7201,7 +7383,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -7210,7 +7393,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 8,
@@ -7244,7 +7428,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 2,
@@ -7259,7 +7444,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -7268,7 +7454,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 2,
@@ -7384,7 +7571,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -7558,7 +7746,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 30,
@@ -7674,7 +7863,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 30,
@@ -7790,7 +7980,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 19,
@@ -7848,7 +8039,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -7906,7 +8098,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 19,
@@ -7964,7 +8157,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -8056,7 +8250,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 16,
@@ -8080,7 +8275,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -8138,7 +8334,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 32,
@@ -8196,7 +8393,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -8254,7 +8452,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 32,
@@ -8361,7 +8560,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -8370,7 +8570,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 5,
@@ -8404,7 +8605,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 2,
@@ -8419,7 +8621,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -8428,7 +8631,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 22,
@@ -8486,7 +8690,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 32,
@@ -8544,7 +8749,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -8602,7 +8808,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 32,
@@ -8660,7 +8867,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -8718,7 +8926,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 32,
@@ -8776,7 +8985,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -8834,7 +9044,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 32,
@@ -8941,7 +9152,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -8950,7 +9162,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 22,
@@ -9008,7 +9221,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -9021,7 +9235,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -9124,7 +9339,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -9182,7 +9398,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 27,
@@ -9240,7 +9457,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 8,
@@ -9298,7 +9516,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 27,
@@ -9356,7 +9575,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 7,
@@ -9405,7 +9625,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -9414,7 +9635,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 27,
@@ -9472,7 +9694,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -9485,7 +9708,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -9530,7 +9754,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 36,
@@ -9588,7 +9813,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 9,
@@ -9637,7 +9863,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -9646,7 +9873,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 22,
@@ -9704,7 +9932,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 9,
@@ -9753,7 +9982,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -9762,7 +9992,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 27,
@@ -9820,7 +10051,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 24,
@@ -9869,7 +10101,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -9936,7 +10169,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 24,
@@ -9985,7 +10219,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -10052,7 +10287,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -10065,7 +10301,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -10101,7 +10338,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -10110,7 +10348,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 27,
@@ -10209,7 +10448,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -10326,7 +10566,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 34,
@@ -10384,7 +10625,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -10500,7 +10742,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -10513,7 +10756,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": null,
@@ -10558,7 +10802,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 13,
@@ -10616,7 +10861,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 3,
@@ -10732,7 +10978,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -10964,7 +11211,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -10977,7 +11225,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -11080,7 +11329,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 30,
@@ -11196,7 +11446,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -11254,7 +11505,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 38,
@@ -11352,6 +11604,126 @@
     "atualizar": false
   },
   {
+    "id": 444,
+    "descricao": "AQUISICAO - ANTECIPACAO DE CONTRATO - CONTRATO - PRODUTO - BOLETO",
+    "subProduto": {
+      "id": 13,
+      "descricao": "CONTRATO ",
+      "ativo": null,
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null
+    },
+    "classificacaoProduto": {
+      "id": 1,
+      "descricao": "PRODUTO",
+      "ativo": null,
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
+    },
+    "grupoProduto": {
+      "id": 28,
+      "descricao": "RECEBÍVEIS CONTRATO",
+      "ativo": null,
+      "grupoProdutoRisco": {
+        "id": 1,
+        "descricao": "CLEAN",
+        "ativo": null,
+        "dataCadastro": null,
+        "usuarioCadastro": null,
+        "dataUltimaAlteracao": null,
+        "usuarioUltimaAlteracao": null,
+        "diasVencidoConsideraLiquidez": null
+      },
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null
+    },
+    "focoNegocio": {
+      "id": 1,
+      "descricao": "AQUISICAO",
+      "ativo": null,
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "segmentoTarifador": null,
+      "indFocoAncora": false,
+      "indFocoMultiComex": false,
+      "indFocoCobranca": false,
+      "indRiscoSacado": null,
+      "indIsencaoTarifa": null,
+      "id.old": 1
+    },
+    "tipoProduto": {
+      "id": 1,
+      "descricao": "ANTECIPACAO DE CONTRATO ",
+      "ativo": null,
+      "indPermiteTranche": false,
+      "indEnviaTermoAssinaturaAutomatico": null,
+      "indRealizaChecagem": null,
+      "indConsideraRisco": null,
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "indCadastraGarantia": null,
+      "indNovoNumeroDocumento": null
+    },
+    "produtoIndexador": {
+      "id": 1,
+      "descricao": "PRE",
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "indObrigaTipoProduto": false,
+      "id.old": 1
+    },
+    "produtoTPRecebimento": {
+      "id": 1,
+      "descricao": "BOLETO",
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "indObrigaNN": false,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "indGarantiaSecundaria": null,
+      "indGeraRemessaBancaria": null,
+      "indEmiteBoleto": null,
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
+    },
+    "indClean": false,
+    "indObrigaGarantia": null,
+    "indCoobrigado": true,
+    "indSensibilizaCarteira": false,
+    "ativo": true,
+    "indPermiteCnpjCedenteSacadoIgual": false,
+    "indObrigaXML": false,
+    "codigoLegado": null,
+    "especiePapel": "61",
+    "diasVencimentoEspecifico": "",
+    "siglaProduto": "ACPB",
+    "dataCadastro": "2026-06-01T09:37:24.417",
+    "usuarioCadastro": "jessica.leite",
+    "dataUltimaAlteracao": "2026-06-01T09:39:46.003",
+    "usuarioUltimaAlteracao": "jessica.leite",
+    "garantiaCategoria": null,
+    "indOperacaoEstruturada": false,
+    "indDisponivelHomeBanking": true,
+    "indGarantiaPrimaria": false,
+    "indProdutoManterEmCobranca": false,
+    "idProdutoManterCobranca": null,
+    "idHml": 280,
+    "atualizar": false
+  },
+  {
     "id": 369,
     "descricao": "AQUISICAO FINANCEIRA - IMOVEL - ATIVO IMOBILIARIO ORIUNDO DE DÍVIDA - FINANCEIRA - DEPOSITO EM CONTA",
     "subProduto": {
@@ -11428,7 +11800,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -11544,7 +11917,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -11602,7 +11976,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 19,
@@ -11709,7 +12084,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -11752,7 +12128,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 2,
@@ -11767,7 +12144,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": null,
     "produtoTPRecebimento": {
@@ -11884,7 +12262,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -12049,7 +12428,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -12116,7 +12496,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 11,
@@ -12232,7 +12613,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 8,
@@ -12290,7 +12672,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 37,
@@ -12348,7 +12731,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -12464,7 +12848,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -12630,7 +13015,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 30,
@@ -12688,7 +13074,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -12746,7 +13133,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 41,
@@ -12780,7 +13168,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 41,
@@ -12804,7 +13193,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -12896,7 +13286,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 2,
@@ -12911,7 +13302,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -12920,7 +13312,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 8,
@@ -12981,7 +13374,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 24,
+      "id": 43,
       "descricao": "DUPLICATA - BOLETO",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -12997,7 +13390,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 24
     },
     "focoNegocio": {
       "id": 1,
@@ -13012,7 +13406,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 2,
@@ -13027,7 +13422,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -13036,7 +13432,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -13097,7 +13494,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 24,
+      "id": 43,
       "descricao": "DUPLICATA - BOLETO",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -13113,7 +13510,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 24
     },
     "focoNegocio": {
       "id": 1,
@@ -13128,7 +13526,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 2,
@@ -13143,7 +13542,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -13152,7 +13552,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 9,
@@ -13213,7 +13614,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 24,
+      "id": 43,
       "descricao": "DUPLICATA - BOLETO",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -13229,7 +13630,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 24
     },
     "focoNegocio": {
       "id": 1,
@@ -13244,7 +13646,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 2,
@@ -13259,7 +13662,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -13268,7 +13672,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -13281,7 +13686,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": null,
@@ -13360,7 +13766,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 2,
@@ -13375,7 +13782,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -13384,7 +13792,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 7,
@@ -13476,7 +13885,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 2,
@@ -13491,7 +13901,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -13500,7 +13911,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 21,
@@ -13616,7 +14028,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -13665,7 +14078,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -13674,7 +14088,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 11,
@@ -13723,7 +14138,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -13732,7 +14148,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -13745,7 +14162,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -13781,7 +14199,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -13790,7 +14209,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 46,
@@ -13839,7 +14259,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -13848,7 +14269,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -13861,7 +14283,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -13897,7 +14320,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -13906,7 +14330,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 46,
@@ -13955,7 +14380,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -13964,7 +14390,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 8,
@@ -14013,7 +14440,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -14022,7 +14450,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 46,
@@ -14071,7 +14500,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": null,
     "produtoTPRecebimento": {
@@ -14121,7 +14551,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -14130,7 +14561,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 46,
@@ -14179,7 +14611,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -14188,7 +14621,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 21,
@@ -14304,7 +14738,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -14317,7 +14752,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -14362,7 +14798,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 46,
@@ -14420,7 +14857,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -14536,7 +14974,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -14594,7 +15033,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 46,
@@ -14643,7 +15083,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -14652,7 +15093,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -14665,7 +15107,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -14710,7 +15153,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 46,
@@ -14759,7 +15203,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -14768,7 +15213,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -14826,7 +15272,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 46,
@@ -14983,7 +15430,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -14992,7 +15440,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -15041,7 +15490,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -15099,7 +15549,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -15108,7 +15559,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 8,
@@ -15157,7 +15609,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -15215,7 +15668,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -15224,7 +15678,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 7,
@@ -15273,7 +15728,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -15331,7 +15787,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -15340,7 +15797,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 21,
@@ -15456,7 +15914,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -15729,7 +16188,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -15738,7 +16198,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 46,
@@ -15787,7 +16248,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": null,
     "produtoTPRecebimento": {
@@ -15837,7 +16299,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -15846,7 +16309,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 46,
@@ -15895,7 +16359,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -15904,7 +16369,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 2,
@@ -16020,7 +16486,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -16185,7 +16652,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -16243,7 +16711,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": null,
     "produtoTPRecebimento": {
@@ -16302,7 +16771,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 46,
@@ -16360,7 +16830,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -16467,7 +16938,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -16476,7 +16948,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 8,
@@ -16583,7 +17056,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -16592,7 +17066,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 7,
@@ -16699,7 +17174,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 2
     },
     "produtoIndexador": {
       "id": 1,
@@ -16708,7 +17184,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 21,
@@ -16824,7 +17301,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -16940,7 +17418,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -17288,7 +17767,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -17462,7 +17942,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 17,
@@ -17685,7 +18166,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -17728,7 +18210,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 43,
@@ -17752,7 +18235,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 7,
@@ -17801,7 +18285,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -17810,7 +18295,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 25,
@@ -17844,7 +18330,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 43,
@@ -17868,7 +18355,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 7,
@@ -17960,7 +18448,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": false,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 1
     },
     "tipoProduto": {
       "id": 38,
@@ -17984,7 +18473,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -18100,7 +18590,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -18265,7 +18756,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -18274,7 +18766,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 22,
@@ -18332,7 +18825,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -18345,7 +18839,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -18381,7 +18876,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -18390,7 +18886,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 22,
@@ -18448,7 +18945,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 24,
@@ -18497,7 +18995,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -18564,7 +19063,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 24,
@@ -18788,7 +19288,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,

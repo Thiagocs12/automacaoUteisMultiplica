@@ -7,7 +7,7 @@ Funcionalidade: Sincronização de Dados de Produtos
   Para garantir que o ambiente de Homologação tenha dados consistentes para testes
 
   Contexto: Sincronização de Produtos
-    #Dado que possuo acesso aos ambientes necessarios
+    Dado que possuo acesso aos ambientes necessarios
 
   @produto
   Cenário: Copiar e Sincronizar um Produto e suas Dependências
@@ -18,5 +18,5 @@ Funcionalidade: Sincronização de Dados de Produtos
     E processo as dependências do nivel 2
     E processo as dependências do nivel 3
     E processo as dependências do nivel 4
-    #E processo as dependências do nivel 5
-    #Então os dados dos produtos e suas dependências estão copiados de produção para homologação
+    E processo as dependências do nivel 5
+    Então os dados dos produtos e suas dependências estão copiados de produção para homologação

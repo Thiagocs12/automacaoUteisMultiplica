@@ -6,15 +6,7 @@
     "usuarioCadastro": "regiane.felicio",
     "dataUltimaAlteracao": "2022-02-17T11:55:59.383",
     "usuarioUltimaAlteracao": "regiane.felicio",
-    "indObrigaTipoProduto": null
-  },
-  {
-    "id": 2,
-    "descricao": "PRE COM POS",
-    "dataCadastro": "2022-02-17T11:56:11.377",
-    "usuarioCadastro": "regiane.felicio",
-    "dataUltimaAlteracao": "2022-02-17T11:56:11.377",
-    "usuarioUltimaAlteracao": "regiane.felicio",
-    "indObrigaTipoProduto": null
+    "indObrigaTipoProduto": null,
+    "idHml": 1
   }
 ]
