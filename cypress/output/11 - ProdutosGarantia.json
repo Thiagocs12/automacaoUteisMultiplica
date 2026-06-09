@@ -31,11 +31,10 @@
       "indDisponivelHomeBanking": null,
       "indGarantiaPrimaria": null,
       "indProdutoManterEmCobranca": null,
-      "idProdutoManterCobranca": null,
-      "id.old": 41
+      "idProdutoManterCobranca": null
     },
     "garantiaCategoria": {
-      "id": 19,
+      "id": 28,
       "descricao": "CASH COLATERAL",
       "indPerecivel": null,
       "ativo": null,
@@ -54,8 +53,7 @@
       "indVendaForcada": null,
       "indPassarEtapaJuridico": null,
       "indPassarEtapaCartorioNotas": null,
-      "waiverGarantia": null,
-      "id.old": 28
+      "waiverGarantia": null
     },
     "percGarantia": 100,
     "dataCadastro": "2023-08-07T10:16:31.47",
@@ -96,11 +94,10 @@
       "indDisponivelHomeBanking": null,
       "indGarantiaPrimaria": null,
       "indProdutoManterEmCobranca": null,
-      "idProdutoManterCobranca": null,
-      "id.old": 41
+      "idProdutoManterCobranca": null
     },
     "garantiaCategoria": {
-      "id": 3,
+      "id": 29,
       "descricao": "ESTOQUE",
       "indPerecivel": null,
       "ativo": null,
@@ -119,8 +116,7 @@
       "indVendaForcada": null,
       "indPassarEtapaJuridico": null,
       "indPassarEtapaCartorioNotas": null,
-      "waiverGarantia": null,
-      "id.old": 29
+      "waiverGarantia": null
     },
     "percGarantia": 100,
     "dataCadastro": "2023-08-07T10:16:37.413",
@@ -161,11 +157,10 @@
       "indDisponivelHomeBanking": null,
       "indGarantiaPrimaria": null,
       "indProdutoManterEmCobranca": null,
-      "idProdutoManterCobranca": null,
-      "id.old": 41
+      "idProdutoManterCobranca": null
     },
     "garantiaCategoria": {
-      "id": 6,
+      "id": 30,
       "descricao": "AGRO",
       "indPerecivel": null,
       "ativo": null,
@@ -184,8 +179,7 @@
       "indVendaForcada": null,
       "indPassarEtapaJuridico": null,
       "indPassarEtapaCartorioNotas": null,
-      "waiverGarantia": null,
-      "id.old": 30
+      "waiverGarantia": null
     },
     "percGarantia": 100,
     "dataCadastro": "2023-08-07T10:16:44.347",
@@ -226,11 +220,10 @@
       "indDisponivelHomeBanking": null,
       "indGarantiaPrimaria": null,
       "indProdutoManterEmCobranca": null,
-      "idProdutoManterCobranca": null,
-      "id.old": 41
+      "idProdutoManterCobranca": null
     },
     "garantiaCategoria": {
-      "id": 140,
+      "id": 31,
       "descricao": "CDA/WA",
       "indPerecivel": null,
       "ativo": null,
@@ -249,8 +242,7 @@
       "indVendaForcada": null,
       "indPassarEtapaJuridico": null,
       "indPassarEtapaCartorioNotas": null,
-      "waiverGarantia": null,
-      "id.old": 31
+      "waiverGarantia": null
     },
     "percGarantia": 100,
     "dataCadastro": "2023-08-07T10:16:52.85",
@@ -291,11 +283,10 @@
       "indDisponivelHomeBanking": null,
       "indGarantiaPrimaria": null,
       "indProdutoManterEmCobranca": null,
-      "idProdutoManterCobranca": null,
-      "id.old": 41
+      "idProdutoManterCobranca": null
     },
     "garantiaCategoria": {
-      "id": 119,
+      "id": 32,
       "descricao": "PRODUTO AGROPECUÁRIO MONITORAMENTO CPR",
       "indPerecivel": null,
       "ativo": null,
@@ -314,8 +305,7 @@
       "indVendaForcada": null,
       "indPassarEtapaJuridico": null,
       "indPassarEtapaCartorioNotas": null,
-      "waiverGarantia": null,
-      "id.old": 32
+      "waiverGarantia": null
     },
     "percGarantia": 100,
     "dataCadastro": "2023-08-07T10:16:59.64",
@@ -356,11 +346,10 @@
       "indDisponivelHomeBanking": null,
       "indGarantiaPrimaria": null,
       "indProdutoManterEmCobranca": null,
-      "idProdutoManterCobranca": null,
-      "id.old": 41
+      "idProdutoManterCobranca": null
     },
     "garantiaCategoria": {
-      "id": 5,
+      "id": 33,
       "descricao": "IMÓVEL RURAL",
       "indPerecivel": null,
       "ativo": null,
@@ -379,8 +368,7 @@
       "indVendaForcada": null,
       "indPassarEtapaJuridico": null,
       "indPassarEtapaCartorioNotas": null,
-      "waiverGarantia": null,
-      "id.old": 33
+      "waiverGarantia": null
     },
     "percGarantia": 100,
     "dataCadastro": "2023-08-07T10:17:06.62",
@@ -421,11 +409,10 @@
       "indDisponivelHomeBanking": null,
       "indGarantiaPrimaria": null,
       "indProdutoManterEmCobranca": null,
-      "idProdutoManterCobranca": null,
-      "id.old": 41
+      "idProdutoManterCobranca": null
     },
     "garantiaCategoria": {
-      "id": 134,
+      "id": 35,
       "descricao": "IMÓVEL URBANO",
       "indPerecivel": null,
       "ativo": null,
@@ -444,8 +431,7 @@
       "indVendaForcada": null,
       "indPassarEtapaJuridico": null,
       "indPassarEtapaCartorioNotas": null,
-      "waiverGarantia": null,
-      "id.old": 35
+      "waiverGarantia": null
     },
     "percGarantia": 100,
     "dataCadastro": "2023-08-07T10:17:14.26",
@@ -486,11 +472,10 @@
       "indDisponivelHomeBanking": null,
       "indGarantiaPrimaria": null,
       "indProdutoManterEmCobranca": null,
-      "idProdutoManterCobranca": null,
-      "id.old": 41
+      "idProdutoManterCobranca": null
     },
     "garantiaCategoria": {
-      "id": 153,
+      "id": 37,
       "descricao": "AÇÕES/QUOTAS ",
       "indPerecivel": null,
       "ativo": null,
@@ -509,8 +494,7 @@
       "indVendaForcada": null,
       "indPassarEtapaJuridico": null,
       "indPassarEtapaCartorioNotas": null,
-      "waiverGarantia": null,
-      "id.old": 37
+      "waiverGarantia": null
     },
     "percGarantia": 100,
     "dataCadastro": "2023-08-07T10:17:21.203",
@@ -551,11 +535,10 @@
       "indDisponivelHomeBanking": null,
       "indGarantiaPrimaria": null,
       "indProdutoManterEmCobranca": null,
-      "idProdutoManterCobranca": null,
-      "id.old": 41
+      "idProdutoManterCobranca": null
     },
     "garantiaCategoria": {
-      "id": 154,
+      "id": 38,
       "descricao": "DUPLICATA",
       "indPerecivel": null,
       "ativo": null,
@@ -574,8 +557,7 @@
       "indVendaForcada": null,
       "indPassarEtapaJuridico": null,
       "indPassarEtapaCartorioNotas": null,
-      "waiverGarantia": null,
-      "id.old": 38
+      "waiverGarantia": null
     },
     "percGarantia": 100,
     "dataCadastro": "2023-08-07T10:17:27.337",

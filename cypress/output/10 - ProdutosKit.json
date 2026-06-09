@@ -31,19 +31,17 @@
       "indDisponivelHomeBanking": null,
       "indGarantiaPrimaria": null,
       "indProdutoManterEmCobranca": null,
-      "idProdutoManterCobranca": null,
-      "id.old": 41
+      "idProdutoManterCobranca": null
     },
     "kitDocumento": {
-      "id": 79,
+      "id": 22,
       "descricao": "KIT DOCUMENTOS DA OPERACAO",
       "tipoKit": null,
       "ativo": null,
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null,
-      "id.old": 22
+      "usuarioUltimaAlteracao": null
     },
     "dataCadastro": "2022-10-13T23:38:33.28",
     "usuarioCadastro": "elaine.tarallo",
@@ -83,19 +81,17 @@
       "indDisponivelHomeBanking": null,
       "indGarantiaPrimaria": null,
       "indProdutoManterEmCobranca": null,
-      "idProdutoManterCobranca": null,
-      "id.old": 41
+      "idProdutoManterCobranca": null
     },
     "kitDocumento": {
-      "id": 80,
+      "id": 20,
       "descricao": "KIT TERMOS DA OPERACAO DUPLICATAS",
       "tipoKit": null,
       "ativo": null,
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null,
-      "id.old": 20
+      "usuarioUltimaAlteracao": null
     },
     "dataCadastro": "2022-10-13T23:39:05.753",
     "usuarioCadastro": "elaine.tarallo",
@@ -135,19 +131,17 @@
       "indDisponivelHomeBanking": null,
       "indGarantiaPrimaria": null,
       "indProdutoManterEmCobranca": null,
-      "idProdutoManterCobranca": null,
-      "id.old": 41
+      "idProdutoManterCobranca": null
     },
     "kitDocumento": {
-      "id": 81,
+      "id": 69,
       "descricao": "KIT PORTAL DE DOCUMENTO",
       "tipoKit": null,
       "ativo": null,
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null,
-      "id.old": 69
+      "usuarioUltimaAlteracao": null
     },
     "dataCadastro": "2022-09-11T15:00:00",
     "usuarioCadastro": "carga",

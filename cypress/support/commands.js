@@ -266,75 +266,21 @@ Cypress.Commands.add('pesquisarItensPorNivel', (nivel) => {
         Array.isArray(contentBusca) ? contentBusca : campoDescricao
       );
     };
-
-    if (Array.isArray(contentBusca)) {
+    
+    if (!Array.isArray(contentBusca)) {
       cy.lerJsonDeOutput(nomeArquivo).then((dadosDoArquivo) => {
         for (const dado of dadosDoArquivo) {
-          if (dado.idHml !== null && dado.idHml !== undefined) continue; // ← já possui idHml, ignora
+          //if (dado.idHml !== null && dado.idHml !== undefined) continue;
 
-          const valorBusca = obterValor(dado, contentBusca[0]);
-
+          const valorBusca = dado[campoDescricao]
+          
           cy.executarRequest('hml', `${entidade.urlBusca}${encodeURIComponent(valorBusca)}`).then((resposta) => {
-            const content = resposta.body?.content || [];
-
-            if (!content.length) {
-              salvarId(null, {
-                [contentBusca[0]]: obterValor(dado, contentBusca[0]),
-                [contentBusca[1]]: obterValor(dado, contentBusca[1]),
-              });
-              return;
-            }
-
-            let encontrou = false;
-
-            cy.wrap(content).each((item) => {
-              if (encontrou) return;
-
-              cy.executarRequest('hml', `${entidade.urlBuscaId}${item.id}`).then((resposta2) => {
-                if (encontrou) return;
-
-                const itens = Array.isArray(resposta2.body) ? resposta2.body : [resposta2.body];
-
-                const id = itens.find((item2) => {
-                  const valorItem1 = obterValor(item2, contentBusca[0]);
-                  const valorDado1 = obterValor(dado, contentBusca[0]);
-                  const valorItem2 = obterValor(item2, contentBusca[1]);
-                  const valorDado2 = obterValor(dado, contentBusca[1]);
-
-                  return (
-                    String(valorItem1)?.trim()?.toLowerCase() === String(valorDado1)?.trim()?.toLowerCase() &&
-                    String(valorItem2)?.trim()?.toLowerCase() === String(valorDado2)?.trim()?.toLowerCase()
-                  );
-                })?.id ?? null;
-
-                if (id !== null) {
-                  encontrou = true;
-                  salvarId(id, {
-                    [contentBusca[0]]: obterValor(dado, contentBusca[0]),
-                    [contentBusca[1]]: obterValor(dado, contentBusca[1]),
-                  });
-                }
-              });
-            }).then(() => {
-              if (!encontrou) {
-                salvarId(null, {
-                  [contentBusca[0]]: obterValor(dado, contentBusca[0]),
-                  [contentBusca[1]]: obterValor(dado, contentBusca[1]),
-                });
-              }
-            });
-          });
-        }
-      });
-    } else {
-      cy.lerJsonDeOutput(nomeArquivo).then((dadosDoArquivo) => { // ← trocado lerColunaDeArquivo → lerJsonDeOutput
-        for (const dado of dadosDoArquivo) {
-          if (dado.idHml !== null && dado.idHml !== undefined) continue; // ← já possui idHml, ignora
-
-          const valorBusca = dado[campoDescricao];
-
-          cy.executarRequest('hml', `${entidade.urlBusca}${encodeURIComponent(valorBusca)}`).then((resposta) => {
-            const itens = resposta.body?.content || [];
+            const content = Array.isArray(resposta.body)
+            ? resposta.body
+            : resposta.body?.content || [];
+            
+            console.log(content);
+            cy.pause();
 
             const id = itens.find((item) =>
               String(item?.[campoDescricao])?.trim()?.toLowerCase() ===
@@ -342,7 +288,7 @@ Cypress.Commands.add('pesquisarItensPorNivel', (nivel) => {
             )?.id ?? null;
 
             salvarId(id, valorBusca);
-          });
+          })
         }
       });
     }
@@ -469,8 +415,8 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel) => {
 Cypress.Commands.add('processarEntidadesPorNivel', (nivel) => {
   cy.atualizarIdsDeDependencias(nivel);
   cy.pesquisarItensPorNivel(nivel);
-  cy.atualizarItensExistentesPorNivel(nivel)
-  cy.criarItensInexistentesPorNivel(nivel)
+  //cy.atualizarItensExistentesPorNivel(nivel)
+  //cy.criarItensInexistentesPorNivel(nivel)
 });
 
 /**

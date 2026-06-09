@@ -18,5 +18,5 @@ Funcionalidade: Sincronização de Dados de Produtos
     E processo as dependências do nivel 2
     E processo as dependências do nivel 3
     E processo as dependências do nivel 4
-    E processo as dependências do nivel 5
-    Então os dados dos produtos e suas dependências estão copiados de produção para homologação
+    #E processo as dependências do nivel 5
+    #Então os dados dos produtos e suas dependências estão copiados de produção para homologação

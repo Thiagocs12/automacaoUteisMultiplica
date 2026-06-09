@@ -61,8 +61,7 @@
       "descricao": "TARIFAS CUSTO DE REGISTRO",
       "ativo": true,
       "usuarioUltimaAlteracao": "eduardo.ribeiro",
-      "hibernateLazyInitializer": {},
-      "id.old": 12
+      "hibernateLazyInitializer": {}
     },
     "descricao": "AQUISICAO",
     "ativo": true,

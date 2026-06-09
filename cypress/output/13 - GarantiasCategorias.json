@@ -22,7 +22,7 @@
     "ativo": false,
     "usuarioUltimaAlteracao": "taina.ribeiro",
     "grupoGarantia": {
-      "id": 39,
+      "id": 2,
       "dataCadastro": "2023-09-18T16:37:33.13",
       "dataUltimaAlteracao": "2023-09-18T16:37:33.13",
       "usuarioCadastro": "eduardo.ribeiro",
@@ -42,11 +42,10 @@
       "descricao": "REAL",
       "ativo": true,
       "usuarioUltimaAlteracao": "eduardo.ribeiro",
-      "hibernateLazyInitializer": {},
-      "id.old": 2
+      "hibernateLazyInitializer": {}
     },
     "tipoGarantia": {
-      "id": 26,
+      "id": 1,
       "dataCadastro": "2023-07-31T10:43:04.41",
       "dataUltimaAlteracao": "2023-07-31T10:43:04.41",
       "usuarioCadastro": "laura.contart",
@@ -66,8 +65,7 @@
       "ativo": true,
       "descricao": "CESSÃO FIDUCIÁRIA",
       "usuarioUltimaAlteracao": "laura.contart",
-      "hibernateLazyInitializer": {},
-      "id.old": 1
+      "hibernateLazyInitializer": {}
     },
     "garantiaNivel": {
       "id": 1,
@@ -90,11 +88,10 @@
       "usuarioUltimaAlteracao": "laura.contart",
       "descricao": "NÍVEL 1",
       "ativo": true,
-      "hibernateLazyInitializer": {},
-      "id.old": 1
+      "hibernateLazyInitializer": {}
     },
     "tipoVinculoValor": "GARANTIA",
-    "idGarantiaClassificacao": 18,
+    "idGarantiaClassificacao": 1,
     "indPermiteAltVigencia": false,
     "codigoEsteira": "64c1ab259aaf5e269eccef57",
     "indMultiItens": true,
@@ -102,7 +99,6 @@
     "indPassarEtapaJuridico": false,
     "indPassarEtapaCartorioNotas": false,
     "waiverGarantia": null,
-    "idGarantiaClassificacao.old": 1,
     "idHml": 19
   },
   {
@@ -128,7 +124,7 @@
     "ativo": false,
     "usuarioUltimaAlteracao": "taina.ribeiro",
     "grupoGarantia": {
-      "id": 39,
+      "id": 2,
       "dataCadastro": "2023-09-18T16:37:33.13",
       "dataUltimaAlteracao": "2023-09-18T16:37:33.13",
       "usuarioCadastro": "eduardo.ribeiro",
@@ -148,11 +144,10 @@
       "descricao": "REAL",
       "ativo": true,
       "usuarioUltimaAlteracao": "eduardo.ribeiro",
-      "hibernateLazyInitializer": {},
-      "id.old": 2
+      "hibernateLazyInitializer": {}
     },
     "tipoGarantia": {
-      "id": 5,
+      "id": 2,
       "dataCadastro": "2023-07-31T10:43:25.81",
       "dataUltimaAlteracao": "2023-07-31T10:43:25.81",
       "usuarioCadastro": "laura.contart",
@@ -172,8 +167,7 @@
       "ativo": true,
       "descricao": "ALIENAÇÃO FIDUCIÁRIA",
       "usuarioUltimaAlteracao": "laura.contart",
-      "hibernateLazyInitializer": {},
-      "id.old": 2
+      "hibernateLazyInitializer": {}
     },
     "garantiaNivel": {
       "id": 1,
@@ -196,11 +190,10 @@
       "usuarioUltimaAlteracao": "laura.contart",
       "descricao": "NÍVEL 1",
       "ativo": true,
-      "hibernateLazyInitializer": {},
-      "id.old": 1
+      "hibernateLazyInitializer": {}
     },
     "tipoVinculoValor": "GARANTIA",
-    "idGarantiaClassificacao": 18,
+    "idGarantiaClassificacao": 1,
     "indPermiteAltVigencia": false,
     "codigoEsteira": "64c1ab259aaf5e269eccef57",
     "indMultiItens": true,
@@ -208,7 +201,6 @@
     "indPassarEtapaJuridico": false,
     "indPassarEtapaCartorioNotas": false,
     "waiverGarantia": null,
-    "idGarantiaClassificacao.old": 1,
     "idHml": 3
   },
   {
@@ -234,7 +226,7 @@
     "ativo": false,
     "usuarioUltimaAlteracao": "taina.ribeiro",
     "grupoGarantia": {
-      "id": 39,
+      "id": 2,
       "dataCadastro": "2023-09-18T16:37:33.13",
       "dataUltimaAlteracao": "2023-09-18T16:37:33.13",
       "usuarioCadastro": "eduardo.ribeiro",
@@ -254,11 +246,10 @@
       "descricao": "REAL",
       "ativo": true,
       "usuarioUltimaAlteracao": "eduardo.ribeiro",
-      "hibernateLazyInitializer": {},
-      "id.old": 2
+      "hibernateLazyInitializer": {}
     },
     "tipoGarantia": {
-      "id": 5,
+      "id": 2,
       "dataCadastro": "2023-07-31T10:43:25.81",
       "dataUltimaAlteracao": "2023-07-31T10:43:25.81",
       "usuarioCadastro": "laura.contart",
@@ -278,8 +269,7 @@
       "ativo": true,
       "descricao": "ALIENAÇÃO FIDUCIÁRIA",
       "usuarioUltimaAlteracao": "laura.contart",
-      "hibernateLazyInitializer": {},
-      "id.old": 2
+      "hibernateLazyInitializer": {}
     },
     "garantiaNivel": {
       "id": 1,
@@ -302,11 +292,10 @@
       "usuarioUltimaAlteracao": "laura.contart",
       "descricao": "NÍVEL 1",
       "ativo": true,
-      "hibernateLazyInitializer": {},
-      "id.old": 1
+      "hibernateLazyInitializer": {}
     },
     "tipoVinculoValor": "MERCADO",
-    "idGarantiaClassificacao": 18,
+    "idGarantiaClassificacao": 1,
     "indPermiteAltVigencia": false,
     "codigoEsteira": "67f566faa1eef54753bdd040",
     "indMultiItens": true,
@@ -314,7 +303,6 @@
     "indPassarEtapaJuridico": false,
     "indPassarEtapaCartorioNotas": false,
     "waiverGarantia": null,
-    "idGarantiaClassificacao.old": 1,
     "idHml": 6
   },
   {
@@ -340,7 +328,7 @@
     "ativo": false,
     "usuarioUltimaAlteracao": "lucas.carnovalli",
     "grupoGarantia": {
-      "id": 39,
+      "id": 2,
       "dataCadastro": "2023-09-18T16:37:33.13",
       "dataUltimaAlteracao": "2023-09-18T16:37:33.13",
       "usuarioCadastro": "eduardo.ribeiro",
@@ -360,11 +348,10 @@
       "descricao": "REAL",
       "ativo": true,
       "usuarioUltimaAlteracao": "eduardo.ribeiro",
-      "hibernateLazyInitializer": {},
-      "id.old": 2
+      "hibernateLazyInitializer": {}
     },
     "tipoGarantia": {
-      "id": 26,
+      "id": 1,
       "dataCadastro": "2023-07-31T10:43:04.41",
       "dataUltimaAlteracao": "2023-07-31T10:43:04.41",
       "usuarioCadastro": "laura.contart",
@@ -384,8 +371,7 @@
       "ativo": true,
       "descricao": "CESSÃO FIDUCIÁRIA",
       "usuarioUltimaAlteracao": "laura.contart",
-      "hibernateLazyInitializer": {},
-      "id.old": 1
+      "hibernateLazyInitializer": {}
     },
     "garantiaNivel": {
       "id": 1,
@@ -408,11 +394,10 @@
       "usuarioUltimaAlteracao": "laura.contart",
       "descricao": "NÍVEL 1",
       "ativo": true,
-      "hibernateLazyInitializer": {},
-      "id.old": 1
+      "hibernateLazyInitializer": {}
     },
     "tipoVinculoValor": "GARANTIA",
-    "idGarantiaClassificacao": 18,
+    "idGarantiaClassificacao": 1,
     "indPermiteAltVigencia": false,
     "codigoEsteira": "67f566faa1eef54753bdd040",
     "indMultiItens": true,
@@ -420,7 +405,6 @@
     "indPassarEtapaJuridico": false,
     "indPassarEtapaCartorioNotas": false,
     "waiverGarantia": null,
-    "idGarantiaClassificacao.old": 1,
     "idHml": 140
   },
   {
@@ -446,7 +430,7 @@
     "ativo": true,
     "usuarioUltimaAlteracao": "lucas.carnovalli",
     "grupoGarantia": {
-      "id": 39,
+      "id": 2,
       "dataCadastro": "2023-09-18T16:37:33.13",
       "dataUltimaAlteracao": "2023-09-18T16:37:33.13",
       "usuarioCadastro": "eduardo.ribeiro",
@@ -466,11 +450,10 @@
       "descricao": "REAL",
       "ativo": true,
       "usuarioUltimaAlteracao": "eduardo.ribeiro",
-      "hibernateLazyInitializer": {},
-      "id.old": 2
+      "hibernateLazyInitializer": {}
     },
     "tipoGarantia": {
-      "id": 5,
+      "id": 2,
       "dataCadastro": "2023-07-31T10:43:25.81",
       "dataUltimaAlteracao": "2023-07-31T10:43:25.81",
       "usuarioCadastro": "laura.contart",
@@ -490,8 +473,7 @@
       "ativo": true,
       "descricao": "ALIENAÇÃO FIDUCIÁRIA",
       "usuarioUltimaAlteracao": "laura.contart",
-      "hibernateLazyInitializer": {},
-      "id.old": 2
+      "hibernateLazyInitializer": {}
     },
     "garantiaNivel": {
       "id": 1,
@@ -514,11 +496,10 @@
       "usuarioUltimaAlteracao": "laura.contart",
       "descricao": "NÍVEL 1",
       "ativo": true,
-      "hibernateLazyInitializer": {},
-      "id.old": 1
+      "hibernateLazyInitializer": {}
     },
     "tipoVinculoValor": "GARANTIA",
-    "idGarantiaClassificacao": 18,
+    "idGarantiaClassificacao": 1,
     "indPermiteAltVigencia": false,
     "codigoEsteira": "64c1ab259aaf5e269eccef57",
     "indMultiItens": true,
@@ -526,7 +507,6 @@
     "indPassarEtapaJuridico": false,
     "indPassarEtapaCartorioNotas": false,
     "waiverGarantia": null,
-    "idGarantiaClassificacao.old": 1,
     "idHml": 119
   },
   {
@@ -552,7 +532,7 @@
     "ativo": false,
     "usuarioUltimaAlteracao": "thiago.santos",
     "grupoGarantia": {
-      "id": 20,
+      "id": 1,
       "dataCadastro": "2023-09-18T16:05:18.533",
       "dataUltimaAlteracao": "2023-09-18T16:05:18.533",
       "usuarioCadastro": "eduardo.ribeiro",
@@ -572,11 +552,10 @@
       "descricao": "IMÓVEL",
       "ativo": true,
       "usuarioUltimaAlteracao": "eduardo.ribeiro",
-      "hibernateLazyInitializer": {},
-      "id.old": 1
+      "hibernateLazyInitializer": {}
     },
     "tipoGarantia": {
-      "id": 5,
+      "id": 2,
       "dataCadastro": "2023-07-31T10:43:25.81",
       "dataUltimaAlteracao": "2023-07-31T10:43:25.81",
       "usuarioCadastro": "laura.contart",
@@ -596,8 +575,7 @@
       "ativo": true,
       "descricao": "ALIENAÇÃO FIDUCIÁRIA",
       "usuarioUltimaAlteracao": "laura.contart",
-      "hibernateLazyInitializer": {},
-      "id.old": 2
+      "hibernateLazyInitializer": {}
     },
     "garantiaNivel": {
       "id": 1,
@@ -620,11 +598,10 @@
       "usuarioUltimaAlteracao": "laura.contart",
       "descricao": "NÍVEL 1",
       "ativo": true,
-      "hibernateLazyInitializer": {},
-      "id.old": 1
+      "hibernateLazyInitializer": {}
     },
     "tipoVinculoValor": "MERCADO",
-    "idGarantiaClassificacao": 23,
+    "idGarantiaClassificacao": 3,
     "indPermiteAltVigencia": false,
     "codigoEsteira": "67f572ae17731571dbfbc60b",
     "indMultiItens": true,
@@ -632,7 +609,6 @@
     "indPassarEtapaJuridico": false,
     "indPassarEtapaCartorioNotas": false,
     "waiverGarantia": null,
-    "idGarantiaClassificacao.old": 3,
     "idHml": 5
   },
   {
@@ -658,7 +634,7 @@
     "ativo": false,
     "usuarioUltimaAlteracao": "taina.ribeiro",
     "grupoGarantia": {
-      "id": 20,
+      "id": 1,
       "dataCadastro": "2023-09-18T16:05:18.533",
       "dataUltimaAlteracao": "2023-09-18T16:05:18.533",
       "usuarioCadastro": "eduardo.ribeiro",
@@ -678,11 +654,10 @@
       "descricao": "IMÓVEL",
       "ativo": true,
       "usuarioUltimaAlteracao": "eduardo.ribeiro",
-      "hibernateLazyInitializer": {},
-      "id.old": 1
+      "hibernateLazyInitializer": {}
     },
     "tipoGarantia": {
-      "id": 5,
+      "id": 2,
       "dataCadastro": "2023-07-31T10:43:25.81",
       "dataUltimaAlteracao": "2023-07-31T10:43:25.81",
       "usuarioCadastro": "laura.contart",
@@ -702,8 +677,7 @@
       "ativo": true,
       "descricao": "ALIENAÇÃO FIDUCIÁRIA",
       "usuarioUltimaAlteracao": "laura.contart",
-      "hibernateLazyInitializer": {},
-      "id.old": 2
+      "hibernateLazyInitializer": {}
     },
     "garantiaNivel": {
       "id": 1,
@@ -726,11 +700,10 @@
       "usuarioUltimaAlteracao": "laura.contart",
       "descricao": "NÍVEL 1",
       "ativo": true,
-      "hibernateLazyInitializer": {},
-      "id.old": 1
+      "hibernateLazyInitializer": {}
     },
     "tipoVinculoValor": "MERCADO",
-    "idGarantiaClassificacao": 23,
+    "idGarantiaClassificacao": 3,
     "indPermiteAltVigencia": false,
     "codigoEsteira": "67f572ae17731571dbfbc60b",
     "indMultiItens": true,
@@ -738,7 +711,6 @@
     "indPassarEtapaJuridico": false,
     "indPassarEtapaCartorioNotas": false,
     "waiverGarantia": null,
-    "idGarantiaClassificacao.old": 3,
     "idHml": 134
   },
   {
@@ -764,7 +736,7 @@
     "ativo": false,
     "usuarioUltimaAlteracao": "taina.ribeiro",
     "grupoGarantia": {
-      "id": 39,
+      "id": 2,
       "dataCadastro": "2023-09-18T16:37:33.13",
       "dataUltimaAlteracao": "2023-09-18T16:37:33.13",
       "usuarioCadastro": "eduardo.ribeiro",
@@ -784,11 +756,10 @@
       "descricao": "REAL",
       "ativo": true,
       "usuarioUltimaAlteracao": "eduardo.ribeiro",
-      "hibernateLazyInitializer": {},
-      "id.old": 2
+      "hibernateLazyInitializer": {}
     },
     "tipoGarantia": {
-      "id": 5,
+      "id": 2,
       "dataCadastro": "2023-07-31T10:43:25.81",
       "dataUltimaAlteracao": "2023-07-31T10:43:25.81",
       "usuarioCadastro": "laura.contart",
@@ -808,8 +779,7 @@
       "ativo": true,
       "descricao": "ALIENAÇÃO FIDUCIÁRIA",
       "usuarioUltimaAlteracao": "laura.contart",
-      "hibernateLazyInitializer": {},
-      "id.old": 2
+      "hibernateLazyInitializer": {}
     },
     "garantiaNivel": {
       "id": 1,
@@ -832,11 +802,10 @@
       "usuarioUltimaAlteracao": "laura.contart",
       "descricao": "NÍVEL 1",
       "ativo": true,
-      "hibernateLazyInitializer": {},
-      "id.old": 1
+      "hibernateLazyInitializer": {}
     },
     "tipoVinculoValor": "GARANTIA",
-    "idGarantiaClassificacao": 28,
+    "idGarantiaClassificacao": 4,
     "indPermiteAltVigencia": false,
     "codigoEsteira": "67f566faa1eef54753bdd040",
     "indMultiItens": true,
@@ -844,7 +813,6 @@
     "indPassarEtapaJuridico": false,
     "indPassarEtapaCartorioNotas": false,
     "waiverGarantia": null,
-    "idGarantiaClassificacao.old": 4,
     "idHml": 153
   },
   {
@@ -870,7 +838,7 @@
     "ativo": false,
     "usuarioUltimaAlteracao": "taina.ribeiro",
     "grupoGarantia": {
-      "id": 39,
+      "id": 2,
       "dataCadastro": "2023-09-18T16:37:33.13",
       "dataUltimaAlteracao": "2023-09-18T16:37:33.13",
       "usuarioCadastro": "eduardo.ribeiro",
@@ -890,11 +858,10 @@
       "descricao": "REAL",
       "ativo": true,
       "usuarioUltimaAlteracao": "eduardo.ribeiro",
-      "hibernateLazyInitializer": {},
-      "id.old": 2
+      "hibernateLazyInitializer": {}
     },
     "tipoGarantia": {
-      "id": 26,
+      "id": 1,
       "dataCadastro": "2023-07-31T10:43:04.41",
       "dataUltimaAlteracao": "2023-07-31T10:43:04.41",
       "usuarioCadastro": "laura.contart",
@@ -914,8 +881,7 @@
       "ativo": true,
       "descricao": "CESSÃO FIDUCIÁRIA",
       "usuarioUltimaAlteracao": "laura.contart",
-      "hibernateLazyInitializer": {},
-      "id.old": 1
+      "hibernateLazyInitializer": {}
     },
     "garantiaNivel": {
       "id": 1,
@@ -938,11 +904,10 @@
       "usuarioUltimaAlteracao": "laura.contart",
       "descricao": "NÍVEL 1",
       "ativo": true,
-      "hibernateLazyInitializer": {},
-      "id.old": 1
+      "hibernateLazyInitializer": {}
     },
     "tipoVinculoValor": "GARANTIA",
-    "idGarantiaClassificacao": 18,
+    "idGarantiaClassificacao": 1,
     "indPermiteAltVigencia": false,
     "codigoEsteira": "67f566faa1eef54753bdd040",
     "indMultiItens": true,
@@ -950,7 +915,6 @@
     "indPassarEtapaJuridico": false,
     "indPassarEtapaCartorioNotas": false,
     "waiverGarantia": null,
-    "idGarantiaClassificacao.old": 1,
     "idHml": 154
   }
 ]
