@@ -1,4 +1,4 @@
-import MAPEAMENTOS_APIS from '../utils/mapeamentoApis';
+import MAPEAMENTOS_APIS from '../utils/mapeamentoProdutos';
 
 const multiflow = MAPEAMENTOS_APIS.MULTIFLOW;
 

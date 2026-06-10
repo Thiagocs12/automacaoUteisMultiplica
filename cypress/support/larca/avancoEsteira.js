@@ -1,4 +1,4 @@
-import MAPEAMENTOS_APIS from '../../utils/mapeamentoApis';
+import MAPEAMENTOS_APIS from '../../utils/mapeamentoProdutos';
 import MAPEAMENTOS_ETAPAS from '../../utils/mapeamentoEtapas';
 import tokens from '../../temp/tokens.json';
 

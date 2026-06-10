@@ -1,6 +1,6 @@
 const LIMITE_LOTE = 20;
 const ENTIDADES_IGNORADAS = ['PRODUTO', 'GRUPOS_KEYCLOAK', 'MULTIFLOW', 'SELECIONAR_CEDENTE'];
-import MAPEAMENTOS_APIS from '../utils/mapeamentoApis';
+import MAPEAMENTOS_APIS from '../utils/mapeamentoProdutos';
 import MAPEAMENTOS_ETAPAS from '../utils/mapeamentoEtapas';
 import { obterValor } from './utils';
 import tokens from '../temp/tokens.json';

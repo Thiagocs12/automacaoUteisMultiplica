@@ -1,5 +1,5 @@
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
-import APIS from '../../utils/mapeamentoApis';
+import APIS from '../../utils/mapeamentoProdutos';
 
 Given('que possuo acesso aos ambientes necessarios', () => {
   cy.verificarTokens('prod')
