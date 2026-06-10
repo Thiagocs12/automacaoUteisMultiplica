@@ -5,12 +5,13 @@ import MAPEAMENTOS_APIS from '../../utils/mapeamentoProdutos';
 Given('que possuo acesso aos ambientes necessarios', () => {
   cy.verificarTokens('prod')
   cy.verificarTokens('hml')
-  cy.verificarTokens('keycloak')
+  //cy.verificarTokens('keycloak')
 });
 
 Given('uma consulta aos produtos de produção é realizada para obter os dados atuais', () => {
   cy.executarRequest('prod', `${MAPEAMENTOS_APIS.PRODUTO.urlListAll}`).then((resposta) => {
     cy.salvarNovosRegistros(resposta.body, `cypress/output/${MAPEAMENTOS_APIS.PRODUTO.nomeArquivo}`);
+    cy.pause();
   });
 });
 
@@ -20,9 +21,11 @@ Given('a pesquisa retornou dados de produtos para serem copiados de produção p
   });
 });
 
-When('pesquiso as dependências desses produtos', () => {
+When('pesquiso as dependências da entidade {string}', (entidade) => {
   cy.voltarIdsOriginais();
-  cy.pesquisarDependenciasLigacao();
+  if (entidade === 'produtos') {
+    cy.pesquisarDependenciasLigacao(MAPEAMENTOS_APIS);
+  }
 });
 
 When('processo as dependências do nivel {int} da entidade {string}', (nivel, entidade) => {

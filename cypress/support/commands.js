@@ -1,5 +1,6 @@
 const LIMITE_LOTE = 20;
 const ENTIDADES_IGNORADAS = ['PRODUTO', 'GRUPOS_KEYCLOAK', 'MULTIFLOW', 'SELECIONAR_CEDENTE'];
+const caminhoLog = 'cypress/output/Produtos/ultimosUpdates.json';
 import { obterValor } from './utils';
 import tokens from '../temp/tokens.json';
 import MAPEAMENTOS_APIS from '../utils/mapeamentoProdutos';
@@ -69,19 +70,19 @@ Cypress.Commands.add('lerJsonDeOutput', (nomeArquivo) => {
   return cy.task('lerJsonSeExistir', { caminhoArquivo }, { log: false });
 });
 
-Cypress.Commands.add('pesquisarDependenciasLigacao', () => {
-  Object.entries(MAPEAMENTOS_APIS)
+Cypress.Commands.add('pesquisarDependenciasLigacao', (entidade) => {
+  Object.entries(entidade)
     .filter(([chave]) => !ENTIDADES_IGNORADAS.includes(chave))
     .filter(([, entidade]) => entidade?.nomeArquivoReferencia && entidade?.campoBusca && entidade?.nomeArquivo && entidade?.urlBuscaId)
     .forEach(([, entidade]) => {
       const { nomeArquivoReferencia, campoBusca, nomeArquivo, urlBuscaId } = entidade;
       const caminhoArquivo = `cypress/output/${nomeArquivo}`;
-      const ehArquivoProduto = nomeArquivoReferencia === '1 - Produtos.json';
+      const ehArquivoBase = nomeArquivoReferencia.includes('Produtos/1 - Produtos.json');
       const registrosAcumulados = [];
 
       cy.task('escreverJson', { caminhoArquivo, conteudo: [] }).then(() => {
         cy.readFile(`cypress/output/${nomeArquivoReferencia}`).then((dadosDoArquivo) => {
-          const dadosFiltrados = ehArquivoProduto
+          const dadosFiltrados = ehArquivoBase
             ? dadosDoArquivo.filter((item) => item.atualizar === true)
             : dadosDoArquivo;
 
@@ -113,7 +114,6 @@ Cypress.Commands.add('pesquisarDependenciasLigacao', () => {
 });
 
 Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel, mapeamentoEntidade) => {
-  const caminhoLog = 'cypress/output/ultimosUpdates.json';
 
   for (const chaveEntidade in mapeamentoEntidade) {
     if (!Object.prototype.hasOwnProperty.call(mapeamentoEntidade, chaveEntidade)) continue;
@@ -176,8 +176,6 @@ Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel, mapeamentoEntidad
 });
 
 Cypress.Commands.add('atualizarItensExistentesPorNivel', (nivel, mapeamentoEntidade) => {
-  const caminhoLog = 'cypress/output/ultimosUpdates.json';
-
   for (const chaveEntidade in mapeamentoEntidade) {
     if (!Object.prototype.hasOwnProperty.call(mapeamentoEntidade, chaveEntidade)) continue;
 
@@ -468,7 +466,7 @@ Cypress.Commands.add('verificarDiretorioNaoVazio', (caminho) => {
  * });
  */
 Cypress.Commands.add('salvarNovosRegistros', (novosDados, caminhoArquivo) => {
-  const caminhoLog = 'cypress/output/ultimosUpdates.json';
+  const caminhoLog = 'cypress/output/Produtos/ultimosUpdates.json';
 
   const chaveEntidade = Object.keys(MAPEAMENTOS_APIS).find(
     (chave) => MAPEAMENTOS_APIS[chave].nomeArquivo === caminhoArquivo.split('/').pop()
