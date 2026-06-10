@@ -107,6 +107,7 @@ const MAPEAMENTOS_APIS = {
   PRODUTO_KIT: {
     urlBuscaId: 'mc-cadastro-ms/api/v1/produtoKit/findAllProdutoKitByProdutoId/',
     urlBusca: 'mc-cadastro-ms/api/v1/produtoKit/findAllProdutoKitByProdutoId/',
+    url: 'mc-cadastro-ms/api/v1/produtoKit',
     nomeArquivo: '10 - ProdutosKit.json',
     nivelDependencia: 5,
     nomeArquivoReferencia: '1 - Produtos.json',
@@ -120,6 +121,7 @@ const MAPEAMENTOS_APIS = {
   PRODUTO_GARANTIA: {
     urlBuscaId: 'mc-cadastro-ms/api/v1/produtoGarantia/findAllProdutoGarantiaByProdutoId/',
     urlBusca: 'mc-cadastro-ms/api/v1/produtoGarantia/findAllProdutoGarantiaByProdutoId/',
+    url: 'mc-cadastro-ms/api/v1/produtoGarantia',
     nomeArquivo: '11 - ProdutosGarantia.json',
     nivelDependencia: 5,
     nomeArquivoReferencia: '1 - Produtos.json',
@@ -133,6 +135,7 @@ const MAPEAMENTOS_APIS = {
   PRODUTO_TARIFA: {
     urlBuscaId: 'mc-cadastro-ms/api/v1/produtoTarifa/findAllProdutoTarifaByProdutoId/',
     urlBusca: 'mc-cadastro-ms/api/v1/produtoTarifa/findAllProdutoTarifaByProdutoId/',
+    url: 'mc-cadastro-ms/api/v1/produtoTarifa',
     nomeArquivo: '12 - ProdutosTarifa.json',
     nivelDependencia: 5,
     nomeArquivoReferencia: '1 - Produtos.json',
@@ -204,7 +207,7 @@ const MAPEAMENTOS_APIS = {
     nomeArquivoReferencia: '12 - ProdutosTarifa.json',
     campoBusca: 'tarifa',
     campoDescricao: 'nomeTarifa',
-    contentBusca: ['nomeTarifa', 'codigoSubCategori.id'],
+    contentBusca: ['nomeTarifa', 'codigoSubCategoria.id'],
     dependencia: [
       { idSubstituido: 'eventoTarifador.id', arquivoDependencia: '19 - Eventos.json' },
     ]
@@ -239,7 +242,7 @@ const MAPEAMENTOS_APIS = {
     nivelDependencia: 2,
     nomeArquivoReferencia: '19 - Eventos.json',
     campoBusca: 'situacao',
-    contentBusca: ['descricao', 'tipoSituacao.descricao'],
+    //contentBusca: ['descricao', 'tipoSituacao.descricao'],
     dependencia: [
       { idSubstituido: 'tipoSituacao.id', arquivoDependencia: '22 - TipoSituacao.json' }
     ],

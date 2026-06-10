@@ -1,8 +1,8 @@
 [
   {
-    "id": 2,
-    "dataCadastro": "2022-02-17T11:28:17.587",
-    "dataUltimaAlteracao": "2024-11-25T10:27:37.613",
+    "id": 20,
+    "dataCadastro": "2022-10-13T10:28:00.613",
+    "dataUltimaAlteracao": "2022-10-13T10:28:00.613",
     "usuarioCadastro": "regiane.felicio",
     "consultoriaEspecializada": {
       "id": 1,
@@ -17,16 +17,16 @@
       "usuarioUltimaAlteracao": "tiago.roque",
       "hibernateLazyInitializer": {}
     },
-    "indPermiteTranche": true,
-    "indRealizaChecagem": true,
-    "indConsideraRisco": false,
-    "indEnviaTermoAssinaturaAutomatico": false,
-    "descricao": "ANTECIPACAO DE DUPLICATA",
+    "indPermiteTranche": false,
+    "indRealizaChecagem": false,
+    "indConsideraRisco": true,
+    "indEnviaTermoAssinaturaAutomatico": true,
+    "descricao": "CONSORCIO",
     "ativo": true,
-    "usuarioUltimaAlteracao": "rodrigo.meneses",
+    "usuarioUltimaAlteracao": "regiane.felicio",
     "especiePapel": "01",
     "indCadastraGarantia": false,
-    "indNovoNumeroDocumento": true,
-    "idHml": 2
+    "indNovoNumeroDocumento": false,
+    "idHml": 50
   }
 ]

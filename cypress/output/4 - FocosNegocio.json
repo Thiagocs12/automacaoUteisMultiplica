@@ -1,9 +1,9 @@
 [
   {
-    "id": 1,
-    "dataCadastro": "2022-02-17T11:24:28.163",
-    "dataUltimaAlteracao": "2024-03-28T21:22:23.523",
-    "usuarioCadastro": "regiane.felicio",
+    "id": 8,
+    "dataCadastro": "2022-06-23T15:35:15.11",
+    "dataUltimaAlteracao": "2024-11-01T22:17:52.507",
+    "usuarioCadastro": "tiago.roque",
     "consultoriaEspecializada": {
       "id": 1,
       "dataCadastro": "2021-01-01T00:00:00",
@@ -17,65 +17,20 @@
       "usuarioUltimaAlteracao": "tiago.roque",
       "hibernateLazyInitializer": {}
     },
-    "segmentoTarifador": {
-      "id": 12,
-      "dataCadastro": "2024-03-28T21:15:53.057",
-      "dataUltimaAlteracao": "2024-03-28T21:15:53.057",
-      "usuarioCadastro": "eduardo.ribeiro",
-      "consultoriaEspecializada": {
-        "id": 1,
-        "dataCadastro": "2021-01-01T00:00:00",
-        "dataUltimaAlteracao": "2022-02-17T18:58:57.403",
-        "usuarioCadastro": "tiago.roque",
-        "cnpj": "29695351000146",
-        "keyCloakClient": null,
-        "keyCloakSecret": null,
-        "descricao": "PERPETUO CONSULTORIA ESPECIALIZADA LTDA",
-        "ativo": true,
-        "usuarioUltimaAlteracao": "tiago.roque",
-        "hibernateLazyInitializer": {}
-      },
-      "sistema": {
-        "id": 1,
-        "dataCadastro": "2021-01-01T00:00:00",
-        "dataUltimaAlteracao": "2021-01-01T00:00:00",
-        "usuarioCadastro": "tiago.roque",
-        "consultoriaEspecializada": {
-          "id": 1,
-          "dataCadastro": "2021-01-01T00:00:00",
-          "dataUltimaAlteracao": "2022-02-17T18:58:57.403",
-          "usuarioCadastro": "tiago.roque",
-          "cnpj": "29695351000146",
-          "keyCloakClient": null,
-          "keyCloakSecret": null,
-          "descricao": "PERPETUO CONSULTORIA ESPECIALIZADA LTDA",
-          "ativo": true,
-          "usuarioUltimaAlteracao": "tiago.roque",
-          "hibernateLazyInitializer": {}
-        },
-        "descricao": "Beyond",
-        "ativo": true,
-        "usuarioUltimaAlteracao": "tiago.roque",
-        "hibernateLazyInitializer": {}
-      },
-      "descricao": "TARIFAS CUSTO DE REGISTRO",
-      "ativo": true,
-      "usuarioUltimaAlteracao": "eduardo.ribeiro",
-      "hibernateLazyInitializer": {}
-    },
-    "descricao": "AQUISICAO",
+    "segmentoTarifador": null,
+    "descricao": "COBRANCA SIMPLES",
     "ativo": true,
-    "usuarioUltimaAlteracao": "eduardo.ribeiro",
+    "usuarioUltimaAlteracao": "tiago.roque",
     "indFocoAncora": false,
     "indFocoMultiComex": false,
-    "indFocoCobranca": false,
+    "indFocoCobranca": true,
     "indRiscoSacado": false,
     "indPrioridadeLiquidacao": null,
     "indPrioridadeEncargos": null,
     "indRegraLiquidacaoAntecipada": null,
     "indRegraLiquidacaoAmenor": null,
     "percMinimoAceitoLiquidacao": null,
-    "indIsencaoTarifa": false,
-    "idHml": 1
+    "indIsencaoTarifa": true,
+    "idHml": 6
   }
 ]

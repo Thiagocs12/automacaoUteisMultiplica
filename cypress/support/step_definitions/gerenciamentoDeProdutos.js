@@ -25,7 +25,6 @@ When('pesquiso as dependências desses produtos', () => {
 });
 
 When('processo as dependências do nivel {int}', (nivel) => {
-  cy.voltarIdsOriginais();
   cy.processarEntidadesPorNivel(nivel);
 });
 

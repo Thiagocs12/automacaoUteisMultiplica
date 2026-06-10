@@ -1,3 +1,4 @@
+const LIMITE_LOTE = 20;
 const ENTIDADES_IGNORADAS = ['PRODUTO', 'GRUPOS_KEYCLOAK', 'MULTIFLOW', 'SELECIONAR_CEDENTE'];
 import MAPEAMENTOS_APIS from '../utils/mapeamentoApis';
 import MAPEAMENTOS_ETAPAS from '../utils/mapeamentoEtapas';
@@ -96,8 +97,6 @@ Cypress.Commands.add('pesquisarDependenciasLigacao', () => {
                 .filter((id) => id != null)
             ),
           ];
-
-          cy.log(`IDs únicos para busca (${nomeArquivo}): ${idsUnicos.join(', ')}`);
 
           idsUnicos.forEach((id) => {
             cy.executarRequest('prod', `${urlBuscaId}${encodeURIComponent(id)}`).then((resposta) => {
@@ -249,16 +248,9 @@ Cypress.Commands.add('pesquisarItensPorNivel', (nivel) => {
     const campoDescricao = entidade.campoDescricao || 'descricao';
     const contentBusca = entidade.contentBusca || 'falseId';
 
-    if (
-      chaveEntidade === 'GRUPOS_KEYCLOAK' ||
-      entidade.nivelDependencia !== nivel
-    ) continue;
+    if (chaveEntidade === 'GRUPOS_KEYCLOAK' || entidade.nivelDependencia !== nivel) continue;
 
     const salvarId = (id, dado) => {
-      if (id === null) {
-        cy.log(`[LOG] - Registro "${JSON.stringify(dado)}" não encontrado exatamente no ambiente, setando null`);
-      }
-
       cy.setIdHmlPorDescricao(
         id,
         dado,
@@ -266,29 +258,59 @@ Cypress.Commands.add('pesquisarItensPorNivel', (nivel) => {
         Array.isArray(contentBusca) ? contentBusca : campoDescricao
       );
     };
-    
-    if (!Array.isArray(contentBusca)) {
+
+    if (Array.isArray(contentBusca)) {
       cy.lerJsonDeOutput(nomeArquivo).then((dadosDoArquivo) => {
         for (const dado of dadosDoArquivo) {
-          //if (dado.idHml !== null && dado.idHml !== undefined) continue;
+          if (dado.idHml !== null && dado.idHml !== undefined) continue;
 
-          const valorBusca = dado[campoDescricao]
-          
+          const valorChave1 = obterValor(dado, contentBusca[0]);
+          const valorChave2 = obterValor(dado, contentBusca[1]);
+
+          cy.executarRequest('hml', `${entidade.urlBusca}${valorChave1}`).then((resposta) => {
+            const content = Array.isArray(resposta.body)
+              ? resposta.body
+              : resposta.body?.content || [];
+
+            if (!content.length) {
+              salvarId(null, {
+                [contentBusca[0]]: valorChave1,
+                [contentBusca[1]]: valorChave2,
+              });
+              return;
+            }
+
+            const itemEncontrado = content.find((item) =>
+              String(obterValor(item, contentBusca[1]))?.trim()?.toLowerCase() ===
+              String(valorChave2)?.trim()?.toLowerCase()
+            );
+
+            salvarId(itemEncontrado?.id ?? null, {
+              [contentBusca[0]]: valorChave1,
+              [contentBusca[1]]: valorChave2,
+            });
+          });
+        }
+      });
+    } else {
+      cy.lerJsonDeOutput(nomeArquivo).then((dadosDoArquivo) => {
+        for (const dado of dadosDoArquivo) {
+          if (dado.idHml !== null && dado.idHml !== undefined) continue;
+
+          const valorBusca = dado[campoDescricao];
+
           cy.executarRequest('hml', `${entidade.urlBusca}${encodeURIComponent(valorBusca)}`).then((resposta) => {
             const content = Array.isArray(resposta.body)
-            ? resposta.body
-            : resposta.body?.content || [];
-            
-            console.log(content);
-            cy.pause();
+              ? resposta.body
+              : resposta.body?.content || [];
 
-            const id = itens.find((item) =>
+            const id = content.find((item) =>
               String(item?.[campoDescricao])?.trim()?.toLowerCase() ===
               String(valorBusca)?.trim()?.toLowerCase()
             )?.id ?? null;
 
             salvarId(id, valorBusca);
-          })
+          });
         }
       });
     }
@@ -331,10 +353,6 @@ Cypress.Commands.add('setIdHmlPorDescricao', (id, descricao, nomeArquivo, campoD
     }
 
     item.idHml = id;
-
-    cy.log(
-      `[LOG] Setando idHml: ${id} em "${nomeArquivo}"`
-    );
 
     cy.writeFile(filePath, conteudo, { log: false });
   });
@@ -415,8 +433,10 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel) => {
 Cypress.Commands.add('processarEntidadesPorNivel', (nivel) => {
   cy.atualizarIdsDeDependencias(nivel);
   cy.pesquisarItensPorNivel(nivel);
-  //cy.atualizarItensExistentesPorNivel(nivel)
-  //cy.criarItensInexistentesPorNivel(nivel)
+  cy.log('executando pesquisarItensPorNivel')
+  cy.atualizarItensExistentesPorNivel(nivel)
+  cy.log('executando atualizarItensExistentesPorNivel')
+  cy.criarItensInexistentesPorNivel(nivel)
 });
 
 /**
@@ -463,7 +483,6 @@ Cypress.Commands.add('salvarNovosRegistros', (novosDados, caminhoArquivo) => {
   cy.task('lerJsonSeExistir', { caminhoArquivo }).then((dadosExistentes) => {
     if (!isProduto) {
       cy.writeFile(caminhoArquivo, novosDados);
-      cy.log(`[salvarNovosRegistros] ${novosDados.length} registro(s) salvos para ${chaveEntidade}`);
       return;
     }
 
@@ -473,30 +492,49 @@ Cypress.Commands.add('salvarNovosRegistros', (novosDados, caminhoArquivo) => {
       const log = logAtual ?? {};
       const registrosLog = log[chaveEntidade] ?? [];
 
-      // Limpa flag 'atualizar' de todos os itens existentes
       const listaAtual = (dadosExistentes ?? []).map((item) => ({ ...item, atualizar: false }));
 
-      const dadosAtualizados = listaAtual
+      const candidatos = listaAtual
         .map((existente) => {
           const itemNovo = novosDados.find((novo) => novo.id === existente.id);
-          if (!itemNovo) return existente;
+          if (!itemNovo) return null;
 
           const registroLog = registrosLog.find((r) => r.id === existente.id);
           const estaVencido = !registroLog || (agora - new Date(registroLog.dataAtualizacao)) > seteDiasEmMs;
 
-          return { ...existente, atualizar: estaVencido };
+          if (!estaVencido) return null;
+
+          const dataOrdenacao = registroLog ? new Date(registroLog.dataAtualizacao) : new Date(0);
+
+          return { id: existente.id, dataOrdenacao };
         })
+        .filter(Boolean);
+
+      const idsNovos = novosDados
+        .filter((novo) => !listaAtual.some((existente) => existente.id === novo.id))
+        .map((novo) => ({ id: novo.id, dataOrdenacao: new Date(0) }));
+
+      const idsLoteParaAtualizar = [...candidatos, ...idsNovos]
+        .sort((a, b) => a.dataOrdenacao - b.dataOrdenacao)
+        .slice(0, LIMITE_LOTE)
+        .map((item) => item.id);
+
+      const dadosAtualizados = listaAtual
+        .map((existente) => ({
+          ...existente,
+          atualizar: idsLoteParaAtualizar.includes(existente.id),
+        }))
         .concat(
-          // Ids novos que ainda não existem na lista → sempre atualizar: true
           novosDados
             .filter((novo) => !listaAtual.some((existente) => existente.id === novo.id))
-            .map((novo) => ({ ...novo, idHml: null, atualizar: true }))
+            .map((novo) => ({
+              ...novo,
+              idHml: null,
+              atualizar: idsLoteParaAtualizar.includes(novo.id),
+            }))
         );
 
-      const totalParaAtualizar = dadosAtualizados.filter((item) => item.atualizar).length;
-
       cy.writeFile(caminhoArquivo, dadosAtualizados);
-      cy.log(`[salvarNovosRegistros] ${totalParaAtualizar} produto(s) marcados para atualizar`);
     });
   });
 });
@@ -517,7 +555,6 @@ Cypress.Commands.add('voltarIdsOriginais', () => {
 
     cy.task('lerJsonSeExistir', { caminhoArquivo }).then((itens) => {
       if (!itens) {
-        cy.log(`[voltarIdsOriginais] Arquivo não encontrado, pulando: ${caminhoArquivo}`);
         return;
       }
 

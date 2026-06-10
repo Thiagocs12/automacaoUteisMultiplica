@@ -1,22 +1,23 @@
 [
   {
-    "id": 24,
-    "descricao": "DUPLICATA - BOLETO",
+    "id": 34,
+    "descricao": "COMEX CLEAN",
     "ativo": true,
     "grupoProdutoRisco": {
-      "id": 5,
-      "descricao": "BOLETO",
+      "id": 1,
+      "descricao": "CLEAN",
       "ativo": null,
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "diasVencidoConsideraLiquidez": null
+      "diasVencidoConsideraLiquidez": null,
+      "id.old": 1
     },
-    "dataCadastro": "2024-04-10T14:07:39.787",
-    "usuarioCadastro": "jessica.leite",
-    "dataUltimaAlteracao": "2024-04-10T14:07:39.787",
-    "usuarioUltimaAlteracao": "jessica.leite",
-    "idHml": 43
+    "dataCadastro": "2024-05-16T14:55:28.747",
+    "usuarioCadastro": "taina.ribeiro",
+    "dataUltimaAlteracao": "2024-05-16T14:55:28.747",
+    "usuarioUltimaAlteracao": "taina.ribeiro",
+    "idHml": 50
   }
 ]

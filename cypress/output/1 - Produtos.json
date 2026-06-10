@@ -1,5 +1,114 @@
 [
   {
+    "id": 422,
+    "descricao": "AQUISICAO LARCA - ANTECIPACAO DE DUPLICATA - DUPLICATA - SERVICO - BOLETO ESPECIAL",
+    "subProduto": {
+      "id": 8,
+      "descricao": "DUPLICATA",
+      "ativo": null,
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
+    },
+    "classificacaoProduto": {
+      "id": 2,
+      "descricao": "SERVICO",
+      "ativo": null,
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null
+    },
+    "grupoProduto": {
+      "id": 46,
+      "descricao": "PRODUTO LARCA",
+      "ativo": null,
+      "grupoProdutoRisco": {
+        "id": 11,
+        "descricao": "GRUPO LARCA",
+        "ativo": null,
+        "dataCadastro": null,
+        "usuarioCadastro": null,
+        "dataUltimaAlteracao": null,
+        "usuarioUltimaAlteracao": null,
+        "diasVencidoConsideraLiquidez": null
+      },
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null
+    },
+    "focoNegocio": {
+      "id": 18,
+      "descricao": "AQUISICAO LARCA",
+      "ativo": null,
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "segmentoTarifador": null,
+      "indFocoAncora": false,
+      "indFocoMultiComex": false,
+      "indFocoCobranca": false,
+      "indRiscoSacado": null,
+      "indIsencaoTarifa": null
+    },
+    "tipoProduto": {
+      "id": 2,
+      "descricao": "ANTECIPACAO DE DUPLICATA",
+      "ativo": null,
+      "indPermiteTranche": true,
+      "indEnviaTermoAssinaturaAutomatico": null,
+      "indRealizaChecagem": null,
+      "indConsideraRisco": null,
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "indCadastraGarantia": null,
+      "indNovoNumeroDocumento": null
+    },
+    "produtoIndexador": null,
+    "produtoTPRecebimento": {
+      "id": 2,
+      "descricao": "BOLETO ESPECIAL",
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "indObrigaNN": false,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "indGarantiaSecundaria": null,
+      "indGeraRemessaBancaria": null,
+      "indEmiteBoleto": null,
+      "indGeraOperacaoTitulosRejeitados": null
+    },
+    "indClean": false,
+    "indObrigaGarantia": null,
+    "indCoobrigado": false,
+    "indSensibilizaCarteira": false,
+    "ativo": true,
+    "indPermiteCnpjCedenteSacadoIgual": false,
+    "indObrigaXML": false,
+    "codigoLegado": null,
+    "especiePapel": "14",
+    "diasVencimentoEspecifico": "",
+    "siglaProduto": "LAPBE",
+    "dataCadastro": "2026-05-06T16:54:00",
+    "usuarioCadastro": "thiago.santos",
+    "dataUltimaAlteracao": "2026-05-06T16:54:00",
+    "usuarioUltimaAlteracao": "thiago.santos",
+    "garantiaCategoria": null,
+    "indOperacaoEstruturada": false,
+    "indDisponivelHomeBanking": true,
+    "indGarantiaPrimaria": false,
+    "indProdutoManterEmCobranca": false,
+    "idProdutoManterCobranca": null,
+    "idHml": 262,
+    "atualizar": false
+  },
+  {
     "id": 41,
     "descricao": "AQUISICAO - ANTECIPACAO DE DUPLICATA - DUPLICATA - PRODUTO - BOLETO",
     "subProduto": {
@@ -9,7 +118,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -18,7 +128,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 24,
@@ -76,7 +187,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -89,7 +201,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -113,7 +226,7 @@
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
     "idHml": 41,
-    "atualizar": true
+    "atualizar": false
   },
   {
     "id": 102,
@@ -134,10 +247,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 16,
+      "id": 28,
       "descricao": "OUTROS",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -171,7 +285,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 11,
+      "id": 32,
       "descricao": "AQUISICAO DE CHEQUE",
       "ativo": null,
       "indPermiteTranche": false,
@@ -192,7 +306,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -235,7 +350,7 @@
     "id": 202,
     "descricao": "AQUISICAO - NOTA PROMISSORIA - NOTA PROMISSORIA - PRODUTO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 24,
+      "id": 61,
       "descricao": "NOTA PROMISSORIA",
       "ativo": null,
       "dataCadastro": null,
@@ -250,10 +365,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 16,
+      "id": 28,
       "descricao": "OUTROS",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -308,7 +424,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -349,7 +466,7 @@
   },
   {
     "id": 52,
-    "descricao": "AQUISICAO - ANTECIPACAO DE DUPLICATA - DUPLICATA - PRODUTO- ESCROW SEM TRAVA",
+    "descricao": "AQUISICAO - ANTECIPACAO DE DUPLICATA - DUPLICATA - PRODUTO - ESCROW SEM TRAVA",
     "subProduto": {
       "id": 8,
       "descricao": "DUPLICATA",
@@ -357,7 +474,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -366,10 +484,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 8,
+      "id": 19,
       "descricao": "DUPLICATA CLEAN",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -424,7 +543,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 8,
@@ -460,7 +580,7 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 52,
+    "idHml": 282,
     "atualizar": false
   },
   {
@@ -473,7 +593,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -482,10 +603,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 25,
+      "id": 44,
       "descricao": "DUPLICATA ESCROW COM TRAVA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -540,7 +662,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 7,
@@ -589,7 +712,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -598,10 +722,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 26,
+      "id": 46,
       "descricao": "INTERCOMPANY/COMISSÁRIA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -656,10 +781,11 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
-      "id": 21,
+      "id": 11,
       "descricao": "COMISSARIA",
       "dataCadastro": null,
       "usuarioCadastro": null,
@@ -699,7 +825,7 @@
     "id": 297,
     "descricao": "AQUISICAO - ANTECIPACAO DE CONTRATO - CONTRATO - SERVIÇO - BOLETO",
     "subProduto": {
-      "id": 13,
+      "id": 43,
       "descricao": "CONTRATO ",
       "ativo": null,
       "dataCadastro": null,
@@ -772,7 +898,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -785,7 +912,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -830,7 +958,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 28,
@@ -888,7 +1017,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -931,7 +1061,7 @@
     "id": 83,
     "descricao": "AQUISICAO - ANTECIPACAO DE CONTRATO - CONTRATO - PRODUTO - DEPOSITO EM CONTA ",
     "subProduto": {
-      "id": 13,
+      "id": 43,
       "descricao": "CONTRATO ",
       "ativo": null,
       "dataCadastro": null,
@@ -946,7 +1076,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 28,
@@ -1004,7 +1135,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -1047,7 +1179,7 @@
     "id": 87,
     "descricao": "AQUISICAO - ANTECIPACAO DE CONTRATO - CONTRATO - SERVICO - DEPOSITO EM CONTA ",
     "subProduto": {
-      "id": 13,
+      "id": 43,
       "descricao": "CONTRATO ",
       "ativo": null,
       "dataCadastro": null,
@@ -1120,7 +1252,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -1163,7 +1296,7 @@
     "id": 28,
     "descricao": "AQUISICAO - ANTECIPACAO DE DUPLICATA - DUPLICATA INTERCOMPANY - PRODUTO - BOLETO",
     "subProduto": {
-      "id": 9,
+      "id": 52,
       "descricao": "DUPLICATA INTERCOMPANY",
       "ativo": null,
       "dataCadastro": null,
@@ -1178,10 +1311,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 26,
+      "id": 46,
       "descricao": "INTERCOMPANY/COMISSÁRIA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -1236,7 +1370,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -1249,7 +1384,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -1279,7 +1415,7 @@
     "id": 290,
     "descricao": "AQUISICAO - ANTECIPACAO DE DUPLICATA - DUPLICATA INTERCOMPANY - PRODUTO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 9,
+      "id": 52,
       "descricao": "DUPLICATA INTERCOMPANY",
       "ativo": null,
       "dataCadastro": null,
@@ -1294,10 +1430,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 26,
+      "id": 46,
       "descricao": "INTERCOMPANY/COMISSÁRIA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -1352,7 +1489,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -1395,7 +1533,7 @@
     "id": 287,
     "descricao": "AQUISICAO - ANTECIPACAO DE CONTRATO - INTERCOMPANY - PRODUTO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 43,
+      "id": 34,
       "descricao": "INTERCOMPANY",
       "ativo": null,
       "dataCadastro": null,
@@ -1410,10 +1548,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 26,
+      "id": 46,
       "descricao": "INTERCOMPANY/COMISSÁRIA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -1468,7 +1607,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -1511,7 +1651,7 @@
     "id": 288,
     "descricao": "AQUISICAO - ANTECIPACAO DE CONTRATO - INTERCOMPANY - SERVICO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 43,
+      "id": 34,
       "descricao": "INTERCOMPANY",
       "ativo": null,
       "dataCadastro": null,
@@ -1529,7 +1669,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 26,
+      "id": 46,
       "descricao": "INTERCOMPANY/COMISSÁRIA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -1584,7 +1724,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -1625,7 +1766,7 @@
   },
   {
     "id": 43,
-    "descricao": "AQUISICAO - ANTECIPACAO DE DUPLICATA - DUPLICATA  - PRODUTO- PRE IMPRESSO",
+    "descricao": "AQUISICAO - ANTECIPACAO DE DUPLICATA - DUPLICATA - PRODUTO - PRE IMPRESSO",
     "subProduto": {
       "id": 8,
       "descricao": "DUPLICATA",
@@ -1633,7 +1774,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -1642,7 +1784,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 24,
@@ -1700,10 +1843,11 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
-      "id": 9,
+      "id": 29,
       "descricao": "PRE-IMPRESSO",
       "dataCadastro": null,
       "usuarioCadastro": null,
@@ -1736,7 +1880,7 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 44,
+    "idHml": 283,
     "atualizar": false
   },
   {
@@ -1749,7 +1893,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -1816,7 +1961,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -1829,7 +1975,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -1859,7 +2006,7 @@
     "id": 30,
     "descricao": "AQUISICAO - ANTECIPACAO DE DUPLICATA - DUPLICATA INTERCOMPANY - SERVICO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 9,
+      "id": 52,
       "descricao": "DUPLICATA INTERCOMPANY",
       "ativo": null,
       "dataCadastro": null,
@@ -1877,7 +2024,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 26,
+      "id": 46,
       "descricao": "INTERCOMPANY/COMISSÁRIA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -1932,7 +2079,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -1981,7 +2129,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -1993,7 +2142,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 8,
+      "id": 19,
       "descricao": "DUPLICATA CLEAN",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -2048,7 +2197,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 8,
@@ -2097,7 +2247,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -2109,7 +2260,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 25,
+      "id": 44,
       "descricao": "DUPLICATA ESCROW COM TRAVA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -2164,7 +2315,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 7,
@@ -2213,7 +2365,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -2225,7 +2378,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 26,
+      "id": 46,
       "descricao": "INTERCOMPANY/COMISSÁRIA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -2280,10 +2433,11 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
-      "id": 21,
+      "id": 11,
       "descricao": "COMISSARIA",
       "dataCadastro": null,
       "usuarioCadastro": null,
@@ -2341,7 +2495,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 17,
+      "id": 29,
       "descricao": "CCB/NC",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -2396,7 +2550,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -2457,7 +2612,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 17,
+      "id": 29,
       "descricao": "CCB/NC",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -2561,7 +2716,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -2570,7 +2726,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 21,
@@ -2628,7 +2785,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -2677,7 +2835,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -2686,10 +2845,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 20,
+      "id": 46,
       "descricao": "FORNECEDOR ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -2744,7 +2904,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -2793,7 +2954,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -2802,10 +2964,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 20,
+      "id": 46,
       "descricao": "FORNECEDOR ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -2860,7 +3023,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -2903,7 +3067,7 @@
     "id": 308,
     "descricao": "AQUISICAO FORNECEDOR ANCORA - ANCORA - CONTRATO - PRODUTO - PGTO TERCEIROS",
     "subProduto": {
-      "id": 13,
+      "id": 43,
       "descricao": "CONTRATO ",
       "ativo": null,
       "dataCadastro": null,
@@ -2918,10 +3082,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 20,
+      "id": 46,
       "descricao": "FORNECEDOR ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -2976,7 +3141,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 29,
@@ -3019,7 +3185,7 @@
     "id": 307,
     "descricao": "AQUISICAO FORNECEDOR ANCORA - ANCORA PF - CONTRATO - PRODUTO - PGTO TERCEIROS",
     "subProduto": {
-      "id": 13,
+      "id": 43,
       "descricao": "CONTRATO ",
       "ativo": null,
       "dataCadastro": null,
@@ -3034,10 +3200,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 20,
+      "id": 46,
       "descricao": "FORNECEDOR ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -3071,7 +3238,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 37,
+      "id": 40,
       "descricao": "ANCORA PF",
       "ativo": null,
       "indPermiteTranche": true,
@@ -3092,7 +3259,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 29,
@@ -3141,7 +3309,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -3150,7 +3319,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 21,
@@ -3208,7 +3378,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -3221,7 +3392,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -3257,7 +3429,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -3266,10 +3439,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 20,
+      "id": 46,
       "descricao": "FORNECEDOR ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -3324,7 +3498,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -3337,7 +3512,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -3373,7 +3549,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -3382,10 +3559,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 12,
+      "id": 24,
       "descricao": "ANCORA RISCO SACADO",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -3440,7 +3618,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -3453,7 +3632,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -3501,7 +3681,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 17,
+      "id": 29,
       "descricao": "CCB/NC",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -3556,7 +3736,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 6,
@@ -3614,7 +3795,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 30,
@@ -3672,7 +3854,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -3730,10 +3913,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 32,
+      "id": 46,
       "descricao": "OUTROS - FINANCEIRO",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -3788,7 +3972,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -3846,10 +4031,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 32,
+      "id": 46,
       "descricao": "OUTROS - FINANCEIRO",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -3962,10 +4148,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 32,
+      "id": 46,
       "descricao": "OUTROS - FINANCEIRO",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -3999,7 +4186,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 25,
+      "id": 37,
       "descricao": "LCA",
       "ativo": null,
       "indPermiteTranche": false,
@@ -4020,7 +4207,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -4078,10 +4266,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 32,
+      "id": 46,
       "descricao": "OUTROS - FINANCEIRO",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -4115,7 +4304,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 25,
+      "id": 37,
       "descricao": "LCA",
       "ativo": null,
       "indPermiteTranche": false,
@@ -4185,7 +4374,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -4252,10 +4442,11 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
-      "id": 9,
+      "id": 29,
       "descricao": "PRE-IMPRESSO",
       "dataCadastro": null,
       "usuarioCadastro": null,
@@ -4310,7 +4501,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 30,
@@ -4347,7 +4539,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 30,
+      "id": 40,
       "descricao": "CR",
       "ativo": null,
       "indPermiteTranche": false,
@@ -4368,7 +4560,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -4426,7 +4619,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 30,
@@ -4463,7 +4657,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 30,
+      "id": 40,
       "descricao": "CR",
       "ativo": null,
       "indPermiteTranche": false,
@@ -4533,7 +4727,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -4600,7 +4795,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -4649,7 +4845,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -4661,7 +4858,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 11,
+      "id": 50,
       "descricao": "ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -4677,7 +4874,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 34
     },
     "focoNegocio": {
       "id": 2,
@@ -4716,7 +4914,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -4729,7 +4928,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -4765,7 +4965,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -4777,7 +4978,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 20,
+      "id": 46,
       "descricao": "FORNECEDOR ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -4832,7 +5033,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -4875,7 +5077,7 @@
     "id": 305,
     "descricao": "AQUISICAO FORNECEDOR ANCORA – ANCORA PF - CONTRATO - PRODUTO – DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 13,
+      "id": 43,
       "descricao": "CONTRATO ",
       "ativo": null,
       "dataCadastro": null,
@@ -4890,10 +5092,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 20,
+      "id": 46,
       "descricao": "FORNECEDOR ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -4927,7 +5130,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 37,
+      "id": 40,
       "descricao": "ANCORA PF",
       "ativo": null,
       "indPermiteTranche": true,
@@ -4948,7 +5151,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -4997,7 +5201,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -5009,7 +5214,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 12,
+      "id": 24,
       "descricao": "ANCORA RISCO SACADO",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -5064,7 +5269,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -5077,7 +5283,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -5107,7 +5314,7 @@
     "id": 303,
     "descricao": "AQUISICAO FORNECEDOR ANCORA - ANTECIPACAO CONTRATO - PRODUTO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 13,
+      "id": 43,
       "descricao": "CONTRATO ",
       "ativo": null,
       "dataCadastro": null,
@@ -5122,10 +5329,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 20,
+      "id": 46,
       "descricao": "FORNECEDOR ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -5180,7 +5388,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -5223,7 +5432,7 @@
     "id": 304,
     "descricao": "AQUISICAO FORNECEDOR ANCORA - ANTECIPACAO CONTRATO - PRODUTO - BOLETO",
     "subProduto": {
-      "id": 13,
+      "id": 43,
       "descricao": "CONTRATO ",
       "ativo": null,
       "dataCadastro": null,
@@ -5238,10 +5447,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 20,
+      "id": 46,
       "descricao": "FORNECEDOR ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -5296,7 +5506,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -5309,7 +5520,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -5339,7 +5551,7 @@
     "id": 302,
     "descricao": "AQUISICAO FORNECEDOR ANCORA - ANTECIPACAO CONTRATO - SERVICO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 13,
+      "id": 43,
       "descricao": "CONTRATO ",
       "ativo": null,
       "dataCadastro": null,
@@ -5357,7 +5569,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 20,
+      "id": 46,
       "descricao": "FORNECEDOR ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -5412,7 +5624,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -5461,7 +5674,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -5473,7 +5687,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 20,
+      "id": 46,
       "descricao": "FORNECEDOR ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -5528,7 +5742,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -5541,7 +5756,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -5571,7 +5787,7 @@
     "id": 299,
     "descricao": "AQUISICAO ANCORA – ANTECIPACAO CONTRATO - PRODUTO – DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 13,
+      "id": 43,
       "descricao": "CONTRATO ",
       "ativo": null,
       "dataCadastro": null,
@@ -5586,10 +5802,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 11,
+      "id": 50,
       "descricao": "ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -5605,7 +5822,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 34
     },
     "focoNegocio": {
       "id": 2,
@@ -5644,7 +5862,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -5687,7 +5906,7 @@
     "id": 300,
     "descricao": "AQUISICAO ANCORA – ANTECIPACAO CONTRATO - PRODUTO – BOLETO",
     "subProduto": {
-      "id": 13,
+      "id": 43,
       "descricao": "CONTRATO ",
       "ativo": null,
       "dataCadastro": null,
@@ -5702,10 +5921,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 11,
+      "id": 50,
       "descricao": "ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -5721,7 +5941,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 34
     },
     "focoNegocio": {
       "id": 2,
@@ -5760,7 +5981,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -5773,7 +5995,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -5809,7 +6032,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -5876,7 +6100,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -5919,7 +6144,7 @@
     "id": 298,
     "descricao": "AQUISICAO ANCORA – ANTECIPACAO CONTRATO - SERVICO – DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 13,
+      "id": 43,
       "descricao": "CONTRATO ",
       "ativo": null,
       "dataCadastro": null,
@@ -5937,7 +6162,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 11,
+      "id": 50,
       "descricao": "ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -5953,7 +6178,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 34
     },
     "focoNegocio": {
       "id": 2,
@@ -5992,7 +6218,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -6035,7 +6262,7 @@
     "id": 301,
     "descricao": "AQUISICAO ANCORA – ANTECIPACAO CONTRATO - SERVICO – BOLETO",
     "subProduto": {
-      "id": 13,
+      "id": 43,
       "descricao": "CONTRATO ",
       "ativo": null,
       "dataCadastro": null,
@@ -6053,7 +6280,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 11,
+      "id": 50,
       "descricao": "ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -6069,7 +6296,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 34
     },
     "focoNegocio": {
       "id": 2,
@@ -6108,7 +6336,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -6121,7 +6350,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -6157,7 +6387,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -6224,7 +6455,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -6237,7 +6469,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -6267,7 +6500,7 @@
     "id": 222,
     "descricao": "AQUISICAO FINANCEIRA - CRI - CRI - PRODUTO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 31,
+      "id": 23,
       "descricao": "CRI",
       "ativo": null,
       "dataCadastro": null,
@@ -6282,10 +6515,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 32,
+      "id": 46,
       "descricao": "OUTROS - FINANCEIRO",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -6319,7 +6553,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 19,
+      "id": 30,
       "descricao": "CRI",
       "ativo": null,
       "indPermiteTranche": false,
@@ -6340,7 +6574,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -6383,7 +6618,7 @@
     "id": 213,
     "descricao": "AQUISICAO FINANCEIRA - CRI - CRI - PRODUTO - DEPOSITO EM CONTA - PRE COM POS",
     "subProduto": {
-      "id": 31,
+      "id": 23,
       "descricao": "CRI",
       "ativo": null,
       "dataCadastro": null,
@@ -6398,10 +6633,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 32,
+      "id": 46,
       "descricao": "OUTROS - FINANCEIRO",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -6435,7 +6671,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 19,
+      "id": 30,
       "descricao": "CRI",
       "ativo": null,
       "indPermiteTranche": false,
@@ -6514,10 +6750,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 32,
+      "id": 46,
       "descricao": "OUTROS - FINANCEIRO",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -6551,7 +6788,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 26,
+      "id": 29,
       "descricao": "CDB",
       "ativo": null,
       "indPermiteTranche": false,
@@ -6572,7 +6809,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -6630,10 +6868,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 32,
+      "id": 46,
       "descricao": "OUTROS - FINANCEIRO",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -6667,7 +6906,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 26,
+      "id": 29,
       "descricao": "CDB",
       "ativo": null,
       "indPermiteTranche": false,
@@ -6746,7 +6985,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 30,
@@ -6804,7 +7044,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -6862,7 +7103,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 30,
@@ -6963,7 +7205,7 @@
     "id": 225,
     "descricao": "AQUISICAO FINANCEIRA - DEBENTURE PUBLICA - DEBENTURE PUBLICA - PRODUTO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 32,
+      "id": 47,
       "descricao": "DEBENTURE PUBLICA",
       "ativo": null,
       "dataCadastro": null,
@@ -6978,10 +7220,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 32,
+      "id": 46,
       "descricao": "OUTROS - FINANCEIRO",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -7036,7 +7279,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -7079,7 +7323,7 @@
     "id": 214,
     "descricao": "AQUISICAO FINANCEIRA - DEBENTURE PUBLICA - DEBENTURE PUBLICA - PRODUTO - DEPOSITO EM CONTA - PRE COM POS",
     "subProduto": {
-      "id": 32,
+      "id": 47,
       "descricao": "DEBENTURE PUBLICA",
       "ativo": null,
       "dataCadastro": null,
@@ -7094,10 +7338,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 32,
+      "id": 46,
       "descricao": "OUTROS - FINANCEIRO",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -7201,7 +7446,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -7210,10 +7456,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 8,
+      "id": 19,
       "descricao": "DUPLICATA CLEAN",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -7268,7 +7515,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 2,
@@ -7311,7 +7559,7 @@
     "id": 109,
     "descricao": "AQUISICAO FINANCEIRA - NOTA COMERCIAL - NOTA COMERCIAL - FINANCEIRA - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 17,
+      "id": 15,
       "descricao": "NOTA COMERCIAL",
       "ativo": null,
       "dataCadastro": null,
@@ -7329,7 +7577,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 17,
+      "id": 29,
       "descricao": "CCB/NC",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -7363,7 +7611,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 13,
+      "id": 8,
       "descricao": "NOTA COMERCIAL",
       "ativo": null,
       "indPermiteTranche": false,
@@ -7384,7 +7632,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -7427,7 +7676,7 @@
     "id": 120,
     "descricao": "AQUISICAO FINANCEIRA - NOTA COMERCIAL - NOTA COMERCIAL - FINANCEIRA - DEPOSITO EM CONTA - PRE COM POS",
     "subProduto": {
-      "id": 17,
+      "id": 15,
       "descricao": "NOTA COMERCIAL",
       "ativo": null,
       "dataCadastro": null,
@@ -7445,7 +7694,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 17,
+      "id": 29,
       "descricao": "CCB/NC",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -7479,7 +7728,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 13,
+      "id": 8,
       "descricao": "NOTA COMERCIAL",
       "ativo": null,
       "indPermiteTranche": false,
@@ -7543,7 +7792,7 @@
     "id": 113,
     "descricao": "AQUISICAO FINANCEIRA - CRA - PRODUTO - DEPOSITO EM CONTA - PRE COM POS",
     "subProduto": {
-      "id": 18,
+      "id": 16,
       "descricao": "CRA",
       "ativo": null,
       "dataCadastro": null,
@@ -7558,7 +7807,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 30,
@@ -7659,7 +7909,7 @@
     "id": 295,
     "descricao": "AQUISICAO FINANCEIRA - CRA DOLAR - PRODUTO - DEPOSITO EM CONTA - PRE COM POS",
     "subProduto": {
-      "id": 18,
+      "id": 16,
       "descricao": "CRA",
       "ativo": null,
       "dataCadastro": null,
@@ -7674,7 +7924,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 30,
@@ -7696,7 +7947,7 @@
       "usuarioUltimaAlteracao": null
     },
     "focoNegocio": {
-      "id": 15,
+      "id": 18,
       "descricao": "AQUISICAO FINANCEIRA DOLAR",
       "ativo": null,
       "dataCadastro": null,
@@ -7775,7 +8026,7 @@
     "id": 296,
     "descricao": "AQUISICAO JUDICIAL - PROCESSO JUDICIAL - CLAIM TRABALHISTA ADVOGADO - PRODUTO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 49,
+      "id": 31,
       "descricao": "CLAIM TRABALHISTA ADVOGADO",
       "ativo": null,
       "dataCadastro": null,
@@ -7790,7 +8041,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 19,
@@ -7827,7 +8079,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 35,
+      "id": 38,
       "descricao": "PROCESSO JUDICIAL",
       "ativo": null,
       "indPermiteTranche": true,
@@ -7848,7 +8100,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -7906,7 +8159,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 19,
@@ -7943,7 +8197,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 35,
+      "id": 38,
       "descricao": "PROCESSO JUDICIAL",
       "ativo": null,
       "indPermiteTranche": true,
@@ -7964,7 +8218,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -8059,7 +8314,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 16,
+      "id": 32,
       "descricao": "NPL ",
       "ativo": null,
       "indPermiteTranche": false,
@@ -8080,7 +8335,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -8138,10 +8394,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 32,
+      "id": 46,
       "descricao": "OUTROS - FINANCEIRO",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -8175,7 +8432,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 27,
+      "id": 40,
       "descricao": "LCI",
       "ativo": null,
       "indPermiteTranche": false,
@@ -8196,7 +8453,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -8254,10 +8512,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 32,
+      "id": 46,
       "descricao": "OUTROS - FINANCEIRO",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -8291,7 +8550,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 27,
+      "id": 40,
       "descricao": "LCI",
       "ativo": null,
       "indPermiteTranche": false,
@@ -8361,7 +8620,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -8370,10 +8630,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 5,
+      "id": 28,
       "descricao": "BOLETO ESPECIAL",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -8428,7 +8689,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 22,
@@ -8471,7 +8733,7 @@
     "id": 203,
     "descricao": "AQUISICAO FINANCEIRA - CONSORCIO  - CONTRATO CANCELADO - PRODUTO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 26,
+      "id": 61,
       "descricao": "CONTRATO CANCELADO",
       "ativo": null,
       "dataCadastro": null,
@@ -8486,10 +8748,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 32,
+      "id": 46,
       "descricao": "OUTROS - FINANCEIRO",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -8523,7 +8786,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 20,
+      "id": 50,
       "descricao": "CONSORCIO",
       "ativo": null,
       "indPermiteTranche": false,
@@ -8535,7 +8798,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 20
     },
     "produtoIndexador": {
       "id": 1,
@@ -8544,7 +8808,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -8602,10 +8867,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 32,
+      "id": 46,
       "descricao": "OUTROS - FINANCEIRO",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -8639,7 +8905,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 20,
+      "id": 50,
       "descricao": "CONSORCIO",
       "ativo": null,
       "indPermiteTranche": false,
@@ -8651,7 +8917,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 20
     },
     "produtoIndexador": {
       "id": 1,
@@ -8660,7 +8927,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -8703,7 +8971,7 @@
     "id": 229,
     "descricao": "AQUISICAO FINANCEIRA - BONDS - BONDS - PRODUTO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 37,
+      "id": 24,
       "descricao": "BONDS",
       "ativo": null,
       "dataCadastro": null,
@@ -8718,10 +8986,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 32,
+      "id": 46,
       "descricao": "OUTROS - FINANCEIRO",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -8755,7 +9024,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 28,
+      "id": 29,
       "descricao": "BONDS",
       "ativo": null,
       "indPermiteTranche": false,
@@ -8776,7 +9045,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -8819,7 +9089,7 @@
     "id": 219,
     "descricao": "AQUISICAO FINANCEIRA - BONDS - BONDS - PRODUTO - DEPOSITO EM CONTA - PRE COM POS",
     "subProduto": {
-      "id": 37,
+      "id": 24,
       "descricao": "BONDS",
       "ativo": null,
       "dataCadastro": null,
@@ -8834,10 +9104,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 32,
+      "id": 46,
       "descricao": "OUTROS - FINANCEIRO",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -8871,7 +9142,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 28,
+      "id": 29,
       "descricao": "BONDS",
       "ativo": null,
       "indPermiteTranche": false,
@@ -8941,7 +9212,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -8950,10 +9222,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 22,
+      "id": 50,
       "descricao": "TRUSTEE",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -8969,10 +9242,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 34
     },
     "focoNegocio": {
-      "id": 8,
+      "id": 6,
       "descricao": "COBRANCA SIMPLES",
       "ativo": null,
       "dataCadastro": null,
@@ -8984,7 +9258,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": true,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 8
     },
     "tipoProduto": {
       "id": 9,
@@ -9008,7 +9283,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -9021,7 +9297,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -9069,7 +9346,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 22,
+      "id": 50,
       "descricao": "TRUSTEE",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -9085,10 +9362,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 34
     },
     "focoNegocio": {
-      "id": 8,
+      "id": 6,
       "descricao": "COBRANCA SIMPLES",
       "ativo": null,
       "dataCadastro": null,
@@ -9100,10 +9378,11 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": true,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 8
     },
     "tipoProduto": {
-      "id": 11,
+      "id": 32,
       "descricao": "AQUISICAO DE CHEQUE",
       "ativo": null,
       "indPermiteTranche": false,
@@ -9124,7 +9403,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -9167,7 +9447,7 @@
     "id": 67,
     "descricao": "COBRANCA SIMPLES - MULTISOLUÇOES SOFT GARANTIA - CONTRATO - PRODUTO - ESCROW SEM TRAVA",
     "subProduto": {
-      "id": 13,
+      "id": 43,
       "descricao": "CONTRATO ",
       "ativo": null,
       "dataCadastro": null,
@@ -9182,7 +9462,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 27,
@@ -9204,7 +9485,7 @@
       "usuarioUltimaAlteracao": null
     },
     "focoNegocio": {
-      "id": 8,
+      "id": 6,
       "descricao": "COBRANCA SIMPLES",
       "ativo": null,
       "dataCadastro": null,
@@ -9216,7 +9497,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": true,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 8
     },
     "tipoProduto": {
       "id": 21,
@@ -9240,7 +9522,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 8,
@@ -9283,7 +9566,7 @@
     "id": 209,
     "descricao": "COBRANCA SIMPLES - MULTISOLUCOES SOFT GARANTIA - CONTRATO - PRODUTO - ESCROW COM TRAVA",
     "subProduto": {
-      "id": 13,
+      "id": 43,
       "descricao": "CONTRATO ",
       "ativo": null,
       "dataCadastro": null,
@@ -9298,7 +9581,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 27,
@@ -9320,7 +9604,7 @@
       "usuarioUltimaAlteracao": null
     },
     "focoNegocio": {
-      "id": 8,
+      "id": 6,
       "descricao": "COBRANCA SIMPLES",
       "ativo": null,
       "dataCadastro": null,
@@ -9332,7 +9616,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": true,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 8
     },
     "tipoProduto": {
       "id": 21,
@@ -9356,7 +9641,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 7,
@@ -9405,7 +9691,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -9414,7 +9701,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 27,
@@ -9436,7 +9724,7 @@
       "usuarioUltimaAlteracao": null
     },
     "focoNegocio": {
-      "id": 8,
+      "id": 6,
       "descricao": "COBRANCA SIMPLES",
       "ativo": null,
       "dataCadastro": null,
@@ -9448,7 +9736,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": true,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 8
     },
     "tipoProduto": {
       "id": 21,
@@ -9472,7 +9761,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -9485,7 +9775,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -9515,7 +9806,7 @@
     "id": 359,
     "descricao": "COBRANCA SIMPLES - MULTISOLUCOES SOFT GARANTIA - DUPLICATA S/XML - PRE IMPRESSO",
     "subProduto": {
-      "id": 51,
+      "id": 57,
       "descricao": "DUPLICATA S/ XML",
       "ativo": null,
       "dataCadastro": null,
@@ -9530,7 +9821,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 36,
@@ -9552,7 +9844,7 @@
       "usuarioUltimaAlteracao": null
     },
     "focoNegocio": {
-      "id": 8,
+      "id": 6,
       "descricao": "COBRANCA SIMPLES",
       "ativo": null,
       "dataCadastro": null,
@@ -9564,7 +9856,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": true,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 8
     },
     "tipoProduto": {
       "id": 21,
@@ -9588,10 +9881,11 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
-      "id": 9,
+      "id": 29,
       "descricao": "PRE-IMPRESSO",
       "dataCadastro": null,
       "usuarioCadastro": null,
@@ -9637,7 +9931,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -9646,10 +9941,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 22,
+      "id": 50,
       "descricao": "TRUSTEE",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -9665,10 +9961,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 34
     },
     "focoNegocio": {
-      "id": 8,
+      "id": 6,
       "descricao": "COBRANCA SIMPLES",
       "ativo": null,
       "dataCadastro": null,
@@ -9680,10 +9977,11 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": true,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 8
     },
     "tipoProduto": {
-      "id": 22,
+      "id": 50,
       "descricao": "MULTISOLUCOES TRUSTEE",
       "ativo": null,
       "indPermiteTranche": false,
@@ -9695,7 +9993,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 20
     },
     "produtoIndexador": {
       "id": 1,
@@ -9704,10 +10003,11 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
-      "id": 9,
+      "id": 29,
       "descricao": "PRE-IMPRESSO",
       "dataCadastro": null,
       "usuarioCadastro": null,
@@ -9753,7 +10053,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -9762,7 +10063,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 27,
@@ -9784,7 +10086,7 @@
       "usuarioUltimaAlteracao": null
     },
     "focoNegocio": {
-      "id": 8,
+      "id": 6,
       "descricao": "COBRANCA SIMPLES",
       "ativo": null,
       "dataCadastro": null,
@@ -9796,7 +10098,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": true,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 8
     },
     "tipoProduto": {
       "id": 21,
@@ -9820,10 +10123,11 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
-      "id": 24,
+      "id": 28,
       "descricao": "BOLETO PRE IMPRESSO",
       "dataCadastro": null,
       "usuarioCadastro": null,
@@ -9833,7 +10137,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 30
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -9869,7 +10174,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -9900,7 +10206,7 @@
       "usuarioUltimaAlteracao": null
     },
     "focoNegocio": {
-      "id": 8,
+      "id": 6,
       "descricao": "COBRANCA SIMPLES",
       "ativo": null,
       "dataCadastro": null,
@@ -9912,7 +10218,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": true,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 8
     },
     "tipoProduto": {
       "id": 21,
@@ -9936,10 +10243,11 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
-      "id": 24,
+      "id": 28,
       "descricao": "BOLETO PRE IMPRESSO",
       "dataCadastro": null,
       "usuarioCadastro": null,
@@ -9949,7 +10257,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 30
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -9985,7 +10294,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -10016,7 +10326,7 @@
       "usuarioUltimaAlteracao": null
     },
     "focoNegocio": {
-      "id": 8,
+      "id": 6,
       "descricao": "COBRANCA SIMPLES",
       "ativo": null,
       "dataCadastro": null,
@@ -10028,7 +10338,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": true,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 8
     },
     "tipoProduto": {
       "id": 21,
@@ -10052,7 +10363,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -10065,7 +10377,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -10101,7 +10414,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -10110,7 +10424,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 27,
@@ -10132,7 +10447,7 @@
       "usuarioUltimaAlteracao": null
     },
     "focoNegocio": {
-      "id": 8,
+      "id": 6,
       "descricao": "COBRANCA SIMPLES",
       "ativo": null,
       "dataCadastro": null,
@@ -10144,7 +10459,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": true,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 8
     },
     "tipoProduto": {
       "id": 21,
@@ -10209,7 +10525,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -10240,7 +10557,7 @@
       "usuarioUltimaAlteracao": null
     },
     "focoNegocio": {
-      "id": 8,
+      "id": 6,
       "descricao": "COBRANCA SIMPLES",
       "ativo": null,
       "dataCadastro": null,
@@ -10252,7 +10569,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": true,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 8
     },
     "tipoProduto": {
       "id": 21,
@@ -10311,7 +10629,7 @@
     "id": 286,
     "descricao": "AQUISICAO COMEX - ANTECIPACAO DE EXPORTACAO - INTERCOMPANY - PRODUTO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 43,
+      "id": 34,
       "descricao": "INTERCOMPANY",
       "ativo": null,
       "dataCadastro": null,
@@ -10326,10 +10644,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 34,
+      "id": 50,
       "descricao": "COMEX CLEAN",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -10345,7 +10664,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 34
     },
     "focoNegocio": {
       "id": 3,
@@ -10384,7 +10704,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -10427,7 +10748,7 @@
     "id": 390,
     "descricao": "COBRANCA SIMPLES - MULTISOLUCOES TRUSTEE - CONTRATO - SERVICO – BOLETO",
     "subProduto": {
-      "id": 13,
+      "id": 43,
       "descricao": "CONTRATO ",
       "ativo": null,
       "dataCadastro": null,
@@ -10464,7 +10785,7 @@
       "usuarioUltimaAlteracao": null
     },
     "focoNegocio": {
-      "id": 8,
+      "id": 6,
       "descricao": "COBRANCA SIMPLES",
       "ativo": null,
       "dataCadastro": null,
@@ -10476,10 +10797,11 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": true,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 8
     },
     "tipoProduto": {
-      "id": 22,
+      "id": 50,
       "descricao": "MULTISOLUCOES TRUSTEE",
       "ativo": null,
       "indPermiteTranche": false,
@@ -10491,7 +10813,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 20
     },
     "produtoIndexador": {
       "id": 1,
@@ -10500,7 +10823,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -10513,7 +10837,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": null,
@@ -10558,10 +10883,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 13,
+      "id": 44,
       "descricao": "COMEX",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -10616,7 +10942,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 3,
@@ -10711,7 +11038,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 13,
+      "id": 8,
       "descricao": "NOTA COMERCIAL",
       "ativo": null,
       "indPermiteTranche": false,
@@ -10732,7 +11059,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -10827,7 +11155,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 13,
+      "id": 8,
       "descricao": "NOTA COMERCIAL",
       "ativo": null,
       "indPermiteTranche": false,
@@ -10891,7 +11219,7 @@
     "id": 353,
     "descricao": "COBRANCA SIMPLES - CONTRATOS - CONTRATO - SERVICO - BOLETO",
     "subProduto": {
-      "id": 13,
+      "id": 43,
       "descricao": "CONTRATO ",
       "ativo": null,
       "dataCadastro": null,
@@ -10909,7 +11237,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 22,
+      "id": 50,
       "descricao": "TRUSTEE",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -10925,10 +11253,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 34
     },
     "focoNegocio": {
-      "id": 8,
+      "id": 6,
       "descricao": "COBRANCA SIMPLES",
       "ativo": null,
       "dataCadastro": null,
@@ -10940,10 +11269,11 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": true,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 8
     },
     "tipoProduto": {
-      "id": 23,
+      "id": 32,
       "descricao": "CONTRATOS",
       "ativo": null,
       "indPermiteTranche": false,
@@ -10964,7 +11294,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -10977,7 +11308,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -11007,7 +11339,7 @@
     "id": 354,
     "descricao": "COBRANCA SIMPLES - CONTRATOS - CONTRATO - SERVICO - CARTAO",
     "subProduto": {
-      "id": 13,
+      "id": 43,
       "descricao": "CONTRATO ",
       "ativo": null,
       "dataCadastro": null,
@@ -11025,7 +11357,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 22,
+      "id": 50,
       "descricao": "TRUSTEE",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -11041,10 +11373,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 34
     },
     "focoNegocio": {
-      "id": 8,
+      "id": 6,
       "descricao": "COBRANCA SIMPLES",
       "ativo": null,
       "dataCadastro": null,
@@ -11056,10 +11389,11 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": true,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 8
     },
     "tipoProduto": {
-      "id": 23,
+      "id": 32,
       "descricao": "CONTRATOS",
       "ativo": null,
       "indPermiteTranche": false,
@@ -11080,10 +11414,11 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
-      "id": 30,
+      "id": 28,
       "descricao": "CARTAO",
       "dataCadastro": null,
       "usuarioCadastro": null,
@@ -11093,7 +11428,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 30
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -11123,7 +11459,7 @@
     "id": 352,
     "descricao": "COBRANCA SIMPLES - CONTRATOS - CONTRATO - SERVICO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 13,
+      "id": 43,
       "descricao": "CONTRATO ",
       "ativo": null,
       "dataCadastro": null,
@@ -11141,7 +11477,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 22,
+      "id": 50,
       "descricao": "TRUSTEE",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -11157,10 +11493,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 34
     },
     "focoNegocio": {
-      "id": 8,
+      "id": 6,
       "descricao": "COBRANCA SIMPLES",
       "ativo": null,
       "dataCadastro": null,
@@ -11172,10 +11509,11 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": true,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 8
     },
     "tipoProduto": {
-      "id": 23,
+      "id": 32,
       "descricao": "CONTRATOS",
       "ativo": null,
       "indPermiteTranche": false,
@@ -11196,7 +11534,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -11239,7 +11578,7 @@
     "id": 367,
     "descricao": "ACORDO JUDICIAL - AQUISICAO JUDICIAL - PRECATORIO - ACORDO JUDICIAL PRECATORIO - PRODUTO- DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 54,
+      "id": 58,
       "descricao": "ACORDO JUDICIAL PRECATORIO",
       "ativo": null,
       "dataCadastro": null,
@@ -11254,7 +11593,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 38,
@@ -11291,7 +11631,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 36,
+      "id": 39,
       "descricao": "PRECATORIO",
       "ativo": null,
       "indPermiteTranche": false,
@@ -11355,7 +11695,7 @@
     "id": 444,
     "descricao": "AQUISICAO - ANTECIPACAO DE CONTRATO - CONTRATO - PRODUTO - BOLETO",
     "subProduto": {
-      "id": 13,
+      "id": 43,
       "descricao": "CONTRATO ",
       "ativo": null,
       "dataCadastro": null,
@@ -11370,7 +11710,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 28,
@@ -11428,7 +11769,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -11441,7 +11783,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": null,
@@ -11456,7 +11799,7 @@
     "siglaProduto": "ACPB",
     "dataCadastro": "2026-06-01T09:37:24.417",
     "usuarioCadastro": "jessica.leite",
-    "dataUltimaAlteracao": "2026-06-01T09:39:46.003",
+    "dataUltimaAlteracao": "2026-06-08T13:26:16.863",
     "usuarioUltimaAlteracao": "jessica.leite",
     "garantiaCategoria": null,
     "indOperacaoEstruturada": false,
@@ -11471,7 +11814,7 @@
     "id": 369,
     "descricao": "AQUISICAO FINANCEIRA - IMOVEL - ATIVO IMOBILIARIO ORIUNDO DE DÍVIDA - FINANCEIRA - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 55,
+      "id": 34,
       "descricao": "ATIVO IMOBILIARIO ORIUNDO DE DÍVIDA",
       "ativo": null,
       "dataCadastro": null,
@@ -11544,7 +11887,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -11587,7 +11931,7 @@
     "id": 370,
     "descricao": "AQUISICAO FINANCEIRA - IMOVEL - ATIVO IMOBILIÁRIO PARA INVESTIMENTO - FINANCEIRA - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 56,
+      "id": 47,
       "descricao": "ATIVO IMOBILIÁRIO PARA INVESTIMENTO",
       "ativo": null,
       "dataCadastro": null,
@@ -11660,7 +12004,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -11703,7 +12048,7 @@
     "id": 291,
     "descricao": "AQUISICAO JUDICIAL - PROCESSO JUDICIAL - PRECATORIO - PRODUTO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 42,
+      "id": 26,
       "descricao": "PROCESSO JUDICIAL PRECATORIO",
       "ativo": null,
       "dataCadastro": null,
@@ -11718,7 +12063,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 19,
@@ -11755,7 +12101,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 36,
+      "id": 39,
       "descricao": "PRECATORIO",
       "ativo": null,
       "indPermiteTranche": false,
@@ -11825,7 +12171,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -11979,7 +12326,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 23,
+      "id": 32,
       "descricao": "CONTRATOS",
       "ativo": null,
       "indPermiteTranche": false,
@@ -12000,7 +12347,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -12095,7 +12443,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 23,
+      "id": 32,
       "descricao": "CONTRATOS",
       "ativo": null,
       "indPermiteTranche": false,
@@ -12165,7 +12513,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -12196,7 +12545,7 @@
       "usuarioUltimaAlteracao": null
     },
     "focoNegocio": {
-      "id": 8,
+      "id": 6,
       "descricao": "COBRANCA SIMPLES",
       "ativo": null,
       "dataCadastro": null,
@@ -12208,7 +12557,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": true,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 8
     },
     "tipoProduto": {
       "id": 21,
@@ -12232,7 +12582,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 11,
@@ -12275,7 +12626,7 @@
     "id": 281,
     "descricao": "COBRANCA SIMPLES - MULTISOLUCOES SOFT GARANTIA - CONTRATO - SERVICO - ESCROW SEM TRAVA ",
     "subProduto": {
-      "id": 13,
+      "id": 43,
       "descricao": "CONTRATO ",
       "ativo": null,
       "dataCadastro": null,
@@ -12312,7 +12663,7 @@
       "usuarioUltimaAlteracao": null
     },
     "focoNegocio": {
-      "id": 8,
+      "id": 6,
       "descricao": "COBRANCA SIMPLES",
       "ativo": null,
       "dataCadastro": null,
@@ -12324,7 +12675,8 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": true,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 8
     },
     "tipoProduto": {
       "id": 21,
@@ -12348,7 +12700,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 8,
@@ -12391,7 +12744,7 @@
     "id": 366,
     "descricao": "AQUISIÇÃO DE ATIVO - CESSÃO FIDUCIÁRIA DE DIREITO - GARANTIA - GARANTIA - PRODUTO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 23,
+      "id": 61,
       "descricao": "GARANTIA ",
       "ativo": null,
       "dataCadastro": null,
@@ -12406,7 +12759,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 37,
@@ -12464,7 +12818,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -12507,7 +12862,7 @@
     "id": 361,
     "descricao": "AQUISICAO FINANCEIRA - IMOVEL - COMPRA COM RETROVENDA - FINANCEIRA - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 53,
+      "id": 62,
       "descricao": "COMPRA COM RETROVENDA",
       "ativo": null,
       "dataCadastro": null,
@@ -12580,7 +12935,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -12746,7 +13102,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 30,
@@ -12804,7 +13161,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -12847,7 +13205,7 @@
     "id": 377,
     "descricao": "RECEBIVEIS DE CARTOES - AQUISICAO - ANTECIPACAO DE CARTOES - CARTOES - PRODUTO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 59,
+      "id": 34,
       "descricao": "CARTOES",
       "ativo": null,
       "dataCadastro": null,
@@ -12862,10 +13220,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 41,
+      "id": 38,
       "descricao": "RECEBIVEIS DE CARTOES",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -12899,7 +13258,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 41,
+      "id": 42,
       "descricao": "ANTECIPACAO DE CARTOES",
       "ativo": null,
       "indPermiteTranche": false,
@@ -12920,7 +13279,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -12963,7 +13323,7 @@
     "id": 379,
     "descricao": "CTE - AQUISICAO - ANTECIPACAO DE DUPLICATA - CTE - SERVICO - ESCROW SEM TRAVA",
     "subProduto": {
-      "id": 60,
+      "id": 47,
       "descricao": "CTE",
       "ativo": null,
       "dataCadastro": null,
@@ -12981,7 +13341,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 8,
+      "id": 19,
       "descricao": "DUPLICATA CLEAN",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -13036,7 +13396,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 8,
@@ -13079,7 +13440,7 @@
     "id": 382,
     "descricao": "CTE - AQUISICAO - ANTECIPACAO DE DUPLICATA - CTE - SERVICO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 60,
+      "id": 47,
       "descricao": "CTE",
       "ativo": null,
       "dataCadastro": null,
@@ -13152,7 +13513,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -13195,7 +13557,7 @@
     "id": 380,
     "descricao": "CTE - AQUISICAO - ANTECIPACAO DE DUPLICATA - CTE - SERVICO - PRE IMPRESSO",
     "subProduto": {
-      "id": 60,
+      "id": 47,
       "descricao": "CTE",
       "ativo": null,
       "dataCadastro": null,
@@ -13268,10 +13630,11 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
-      "id": 9,
+      "id": 29,
       "descricao": "PRE-IMPRESSO",
       "dataCadastro": null,
       "usuarioCadastro": null,
@@ -13311,7 +13674,7 @@
     "id": 378,
     "descricao": "CTE - AQUISICAO - ANTECIPACAO DE DUPLICATA - CTE - SERVICO - BOLETO",
     "subProduto": {
-      "id": 60,
+      "id": 47,
       "descricao": "CTE",
       "ativo": null,
       "dataCadastro": null,
@@ -13384,7 +13747,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -13397,7 +13761,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": null,
@@ -13427,7 +13792,7 @@
     "id": 391,
     "descricao": "CTE - AQUISICAO - ANTECIPACAO DE DUPLICATA - CTE - SERVICO - ESCROW COM TRAVA",
     "subProduto": {
-      "id": 60,
+      "id": 47,
       "descricao": "CTE",
       "ativo": null,
       "dataCadastro": null,
@@ -13445,7 +13810,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 25,
+      "id": 44,
       "descricao": "DUPLICATA ESCROW COM TRAVA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -13500,7 +13865,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 7,
@@ -13543,7 +13909,7 @@
     "id": 381,
     "descricao": "CTE - AQUISICAO - ANTECIPACAO DE DUPLICATA - CTE - SERVICO - COMISSARIA",
     "subProduto": {
-      "id": 60,
+      "id": 47,
       "descricao": "CTE",
       "ativo": null,
       "dataCadastro": null,
@@ -13561,7 +13927,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 26,
+      "id": 46,
       "descricao": "INTERCOMPANY/COMISSÁRIA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -13616,10 +13982,11 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
-      "id": 21,
+      "id": 11,
       "descricao": "COMISSARIA",
       "dataCadastro": null,
       "usuarioCadastro": null,
@@ -13677,7 +14044,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 17,
+      "id": 29,
       "descricao": "CCB/NC",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -13732,7 +14099,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -13781,7 +14149,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -13790,10 +14159,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 11,
+      "id": 50,
       "descricao": "ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -13809,7 +14179,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 34
     },
     "focoNegocio": {
       "id": 2,
@@ -13848,7 +14219,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -13861,7 +14233,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -13897,7 +14270,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -13906,7 +14280,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 46,
@@ -13964,7 +14339,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -13977,7 +14353,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -14004,8 +14381,8 @@
     "atualizar": false
   },
   {
-    "id": 421,
-    "descricao": "AQUISICAO LARCA - ANTECIPACAO DE DUPLICATA - DUPLICATA - PRODUTO- ESCROW SEM TRAVA",
+    "id": 446,
+    "descricao": "AQUISICAO LARCA - ANTECIPACAO DE DUPLICATA - DUPLICATA - SERVICO - BOLETO",
     "subProduto": {
       "id": 8,
       "descricao": "DUPLICATA",
@@ -14013,11 +14390,12 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
-      "id": 1,
-      "descricao": "PRODUTO",
+      "id": 2,
+      "descricao": "SERVICO",
       "ativo": null,
       "dataCadastro": null,
       "usuarioCadastro": null,
@@ -14080,7 +14458,128 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
+    },
+    "produtoTPRecebimento": {
+      "id": 1,
+      "descricao": "BOLETO",
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "indObrigaNN": false,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "indGarantiaSecundaria": null,
+      "indGeraRemessaBancaria": null,
+      "indEmiteBoleto": null,
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
+    },
+    "indClean": false,
+    "indObrigaGarantia": null,
+    "indCoobrigado": true,
+    "indSensibilizaCarteira": false,
+    "ativo": true,
+    "indPermiteCnpjCedenteSacadoIgual": false,
+    "indObrigaXML": true,
+    "codigoLegado": null,
+    "especiePapel": "01",
+    "diasVencimentoEspecifico": "",
+    "siglaProduto": "L010101SB",
+    "dataCadastro": "2026-06-09T17:35:44.62",
+    "usuarioCadastro": "jessica.leite",
+    "dataUltimaAlteracao": "2026-06-09T17:37:22.267",
+    "usuarioUltimaAlteracao": "jessica.leite",
+    "garantiaCategoria": null,
+    "indOperacaoEstruturada": false,
+    "indDisponivelHomeBanking": true,
+    "indGarantiaPrimaria": false,
+    "indProdutoManterEmCobranca": false,
+    "idProdutoManterCobranca": null,
+    "idHml": 262,
+    "atualizar": false
+  },
+  {
+    "id": 421,
+    "descricao": "AQUISICAO LARCA - ANTECIPACAO DE DUPLICATA - DUPLICATA - PRODUTO- ESCROW SEM TRAVA",
+    "subProduto": {
+      "id": 8,
+      "descricao": "DUPLICATA",
+      "ativo": null,
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
+    },
+    "classificacaoProduto": {
+      "id": 1,
+      "descricao": "PRODUTO",
+      "ativo": null,
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
+    },
+    "grupoProduto": {
+      "id": 46,
+      "descricao": "PRODUTO LARCA",
+      "ativo": null,
+      "grupoProdutoRisco": {
+        "id": 11,
+        "descricao": "GRUPO LARCA",
+        "ativo": null,
+        "dataCadastro": null,
+        "usuarioCadastro": null,
+        "dataUltimaAlteracao": null,
+        "usuarioUltimaAlteracao": null,
+        "diasVencidoConsideraLiquidez": null
+      },
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null
+    },
+    "focoNegocio": {
+      "id": 18,
+      "descricao": "AQUISICAO LARCA",
+      "ativo": null,
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "segmentoTarifador": null,
+      "indFocoAncora": false,
+      "indFocoMultiComex": false,
+      "indFocoCobranca": false,
+      "indRiscoSacado": null,
+      "indIsencaoTarifa": null
+    },
+    "tipoProduto": {
+      "id": 2,
+      "descricao": "ANTECIPACAO DE DUPLICATA",
+      "ativo": null,
+      "indPermiteTranche": true,
+      "indEnviaTermoAssinaturaAutomatico": null,
+      "indRealizaChecagem": null,
+      "indConsideraRisco": null,
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "indCadastraGarantia": null,
+      "indNovoNumeroDocumento": null
+    },
+    "produtoIndexador": {
+      "id": 1,
+      "descricao": "PRE",
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 8,
@@ -14129,7 +14628,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -14138,7 +14638,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 46,
@@ -14237,7 +14738,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -14246,7 +14748,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 46,
@@ -14304,10 +14807,11 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
-      "id": 21,
+      "id": 11,
       "descricao": "COMISSARIA",
       "dataCadastro": null,
       "usuarioCadastro": null,
@@ -14347,7 +14851,7 @@
     "id": 417,
     "descricao": "AQUISICAO LARCA - ANTECIPACAO DE CONTRATO - CONTRATO - SERVIÇO - BOLETO",
     "subProduto": {
-      "id": 13,
+      "id": 43,
       "descricao": "CONTRATO ",
       "ativo": null,
       "dataCadastro": null,
@@ -14420,7 +14924,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -14433,7 +14938,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -14463,7 +14969,7 @@
     "id": 415,
     "descricao": "AQUISICAO LARCA - ANTECIPACAO DE CONTRATO - CONTRATO - PRODUTO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 13,
+      "id": 43,
       "descricao": "CONTRATO ",
       "ativo": null,
       "dataCadastro": null,
@@ -14478,7 +14984,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 46,
@@ -14536,7 +15043,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -14579,7 +15087,7 @@
     "id": 416,
     "descricao": "AQUISICAO LARCA - ANTECIPACAO DE CONTRATO - CONTRATO - SERVICO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 13,
+      "id": 43,
       "descricao": "CONTRATO ",
       "ativo": null,
       "dataCadastro": null,
@@ -14652,7 +15160,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -14695,7 +15204,7 @@
     "id": 425,
     "descricao": "AQUISICAO LARCA - ANTECIPACAO DE DUPLICATA - DUPLICATA INTERCOMPANY - PRODUTO - BOLETO",
     "subProduto": {
-      "id": 9,
+      "id": 52,
       "descricao": "DUPLICATA INTERCOMPANY",
       "ativo": null,
       "dataCadastro": null,
@@ -14710,7 +15219,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 46,
@@ -14768,7 +15278,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -14781,7 +15292,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -14796,8 +15308,8 @@
     "siglaProduto": "L010801",
     "dataCadastro": "2026-05-06T16:54:00",
     "usuarioCadastro": "thiago.santos",
-    "dataUltimaAlteracao": "2026-05-06T16:54:00",
-    "usuarioUltimaAlteracao": "thiago.santos",
+    "dataUltimaAlteracao": "2026-06-09T12:23:26.72",
+    "usuarioUltimaAlteracao": "jessica.leite",
     "garantiaCategoria": null,
     "indOperacaoEstruturada": null,
     "indDisponivelHomeBanking": true,
@@ -14811,7 +15323,7 @@
     "id": 426,
     "descricao": "AQUISICAO LARCA - ANTECIPACAO DE DUPLICATA - DUPLICATA INTERCOMPANY - PRODUTO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 9,
+      "id": 52,
       "descricao": "DUPLICATA INTERCOMPANY",
       "ativo": null,
       "dataCadastro": null,
@@ -14826,7 +15338,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 46,
@@ -14884,7 +15397,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -14942,7 +15456,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 46,
@@ -15035,7 +15550,7 @@
     "id": 427,
     "descricao": "AQUISICAO LARCA - ANTECIPACAO DE DUPLICATA - DUPLICATA INTERCOMPANY - SERVICO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 9,
+      "id": 52,
       "descricao": "DUPLICATA INTERCOMPANY",
       "ativo": null,
       "dataCadastro": null,
@@ -15108,7 +15623,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -15157,7 +15673,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -15224,7 +15741,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 8,
@@ -15273,7 +15791,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -15340,7 +15859,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 7,
@@ -15389,7 +15909,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -15456,10 +15977,11 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
-      "id": 21,
+      "id": 11,
       "descricao": "COMISSARIA",
       "dataCadastro": null,
       "usuarioCadastro": null,
@@ -15572,7 +16094,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -15616,7 +16139,7 @@
     "descricao": "AQUISICAO FINANCEIRA LARCA - CONFISSAO DIVIDA - NC/CCB - FINANCEIRA - DEPOSITO EM CONTA",
     "subProduto": {
       "id": 62,
-      "descricao": "CN/CCB",
+      "descricao": "NC/CCB",
       "ativo": null,
       "dataCadastro": null,
       "usuarioCadastro": null,
@@ -15845,7 +16368,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -15854,7 +16378,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 46,
@@ -15907,7 +16432,7 @@
     },
     "produtoIndexador": null,
     "produtoTPRecebimento": {
-      "id": 9,
+      "id": 29,
       "descricao": "PRE-IMPRESSO",
       "dataCadastro": null,
       "usuarioCadastro": null,
@@ -15953,7 +16478,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -15962,7 +16488,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 46,
@@ -16020,7 +16547,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 2,
@@ -16048,8 +16576,8 @@
     "siglaProduto": "L016201",
     "dataCadastro": "2026-05-06T16:54:00",
     "usuarioCadastro": "thiago.santos",
-    "dataUltimaAlteracao": "2026-05-06T16:54:00",
-    "usuarioUltimaAlteracao": "thiago.santos",
+    "dataUltimaAlteracao": "2026-06-09T16:29:14.797",
+    "usuarioUltimaAlteracao": "fernando.silva",
     "garantiaCategoria": null,
     "indOperacaoEstruturada": null,
     "indDisponivelHomeBanking": true,
@@ -16063,7 +16591,7 @@
     "id": 430,
     "descricao": "AQUISICAO FINANCEIRA LARCA - NOTA COMERCIAL - NOTA COMERCIAL - FINANCEIRA - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 17,
+      "id": 15,
       "descricao": "NOTA COMERCIAL",
       "ativo": null,
       "dataCadastro": null,
@@ -16115,7 +16643,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 13,
+      "id": 8,
       "descricao": "NOTA COMERCIAL",
       "ativo": null,
       "indPermiteTranche": false,
@@ -16136,7 +16664,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -16179,7 +16708,7 @@
     "id": 431,
     "descricao": "AQUISICAO FINANCEIRA LARCA - NOTA COMERCIAL - NOTA COMERCIAL - FINANCEIRA - DEPOSITO EM CONTA - PRE COM POS",
     "subProduto": {
-      "id": 17,
+      "id": 15,
       "descricao": "NOTA COMERCIAL",
       "ativo": null,
       "dataCadastro": null,
@@ -16231,7 +16760,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 13,
+      "id": 8,
       "descricao": "NOTA COMERCIAL",
       "ativo": null,
       "indPermiteTranche": false,
@@ -16292,118 +16821,10 @@
     "atualizar": false
   },
   {
-    "id": 422,
-    "descricao": "AQUISICAO LARCA - ANTECIPACAO DE DUPLICATA - DUPLICATA - SERVICO - BOLETO ESPECIAL",
-    "subProduto": {
-      "id": 8,
-      "descricao": "DUPLICATA",
-      "ativo": null,
-      "dataCadastro": null,
-      "usuarioCadastro": null,
-      "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
-    },
-    "classificacaoProduto": {
-      "id": 2,
-      "descricao": "SERVICO",
-      "ativo": null,
-      "dataCadastro": null,
-      "usuarioCadastro": null,
-      "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
-    },
-    "grupoProduto": {
-      "id": 46,
-      "descricao": "PRODUTO LARCA",
-      "ativo": null,
-      "grupoProdutoRisco": {
-        "id": 11,
-        "descricao": "GRUPO LARCA",
-        "ativo": null,
-        "dataCadastro": null,
-        "usuarioCadastro": null,
-        "dataUltimaAlteracao": null,
-        "usuarioUltimaAlteracao": null,
-        "diasVencidoConsideraLiquidez": null
-      },
-      "dataCadastro": null,
-      "usuarioCadastro": null,
-      "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
-    },
-    "focoNegocio": {
-      "id": 18,
-      "descricao": "AQUISICAO LARCA",
-      "ativo": null,
-      "dataCadastro": null,
-      "usuarioCadastro": null,
-      "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null,
-      "segmentoTarifador": null,
-      "indFocoAncora": false,
-      "indFocoMultiComex": false,
-      "indFocoCobranca": false,
-      "indRiscoSacado": null,
-      "indIsencaoTarifa": null
-    },
-    "tipoProduto": {
-      "id": 2,
-      "descricao": "ANTECIPACAO DE DUPLICATA",
-      "ativo": null,
-      "indPermiteTranche": true,
-      "indEnviaTermoAssinaturaAutomatico": null,
-      "indRealizaChecagem": null,
-      "indConsideraRisco": null,
-      "dataCadastro": null,
-      "usuarioCadastro": null,
-      "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null,
-      "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
-    },
-    "produtoIndexador": null,
-    "produtoTPRecebimento": {
-      "id": 2,
-      "descricao": "BOLETO ESPECIAL",
-      "dataCadastro": null,
-      "usuarioCadastro": null,
-      "indObrigaNN": false,
-      "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null,
-      "indGarantiaSecundaria": null,
-      "indGeraRemessaBancaria": null,
-      "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
-    },
-    "indClean": false,
-    "indObrigaGarantia": null,
-    "indCoobrigado": false,
-    "indSensibilizaCarteira": false,
-    "ativo": true,
-    "indPermiteCnpjCedenteSacadoIgual": false,
-    "indObrigaXML": false,
-    "codigoLegado": null,
-    "especiePapel": "14",
-    "diasVencimentoEspecifico": "",
-    "siglaProduto": "LAPBE",
-    "dataCadastro": "2026-05-06T16:54:00",
-    "usuarioCadastro": "thiago.santos",
-    "dataUltimaAlteracao": "2026-05-06T16:54:00",
-    "usuarioUltimaAlteracao": "thiago.santos",
-    "garantiaCategoria": null,
-    "indOperacaoEstruturada": false,
-    "indDisponivelHomeBanking": true,
-    "indGarantiaPrimaria": false,
-    "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null,
-    "idHml": 262,
-    "atualizar": false
-  },
-  {
     "id": 437,
     "descricao": "RECEBIVEIS DE CARTOES - AQUISICAO LARCA - ANTECIPACAO DE CARTOES - CARTOES - PRODUTO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 59,
+      "id": 34,
       "descricao": "CARTOES",
       "ativo": null,
       "dataCadastro": null,
@@ -16418,7 +16839,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
       "id": 46,
@@ -16455,7 +16877,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 41,
+      "id": 42,
       "descricao": "ANTECIPACAO DE CARTOES",
       "ativo": null,
       "indPermiteTranche": false,
@@ -16476,7 +16898,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -16519,7 +16942,7 @@
     "id": 436,
     "descricao": "CTE - AQUISICAO LARCA - ANTECIPACAO DE DUPLICATA - CTE - SERVICO - ESCROW SEM TRAVA",
     "subProduto": {
-      "id": 60,
+      "id": 47,
       "descricao": "CTE",
       "ativo": null,
       "dataCadastro": null,
@@ -16592,7 +17015,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 8,
@@ -16635,7 +17059,7 @@
     "id": 435,
     "descricao": "CTE - AQUISICAO LARCA - ANTECIPACAO DE DUPLICATA - CTE - SERVICO - ESCROW COM TRAVA",
     "subProduto": {
-      "id": 60,
+      "id": 47,
       "descricao": "CTE",
       "ativo": null,
       "dataCadastro": null,
@@ -16708,7 +17132,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 7,
@@ -16751,7 +17176,7 @@
     "id": 434,
     "descricao": "CTE - AQUISICAO LARCA - ANTECIPACAO DE DUPLICATA - CTE - SERVICO - COMISSARIA",
     "subProduto": {
-      "id": 60,
+      "id": 47,
       "descricao": "CTE",
       "ativo": null,
       "dataCadastro": null,
@@ -16824,10 +17249,11 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
-      "id": 21,
+      "id": 11,
       "descricao": "COMISSARIA",
       "dataCadastro": null,
       "usuarioCadastro": null,
@@ -16867,7 +17293,7 @@
     "id": 277,
     "descricao": "AQUISICAO COMEX - NDF - NDF - FINANCEIRA - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 44,
+      "id": 60,
       "descricao": "NDF",
       "ativo": null,
       "dataCadastro": null,
@@ -16885,7 +17311,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 13,
+      "id": 44,
       "descricao": "COMEX",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -16940,7 +17366,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -17001,7 +17428,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 17,
+      "id": 29,
       "descricao": "CCB/NC",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -17056,7 +17483,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -17117,7 +17545,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 17,
+      "id": 29,
       "descricao": "CCB/NC",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -17267,7 +17695,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 16,
+      "id": 32,
       "descricao": "NPL ",
       "ativo": null,
       "indPermiteTranche": false,
@@ -17331,7 +17759,7 @@
     "id": 248,
     "descricao": "AQUISICAO FINANCEIRA - CONTRATOS  - PROCESSO JUDICIAL PRECATORIO - SERVICO - DEPOSITO EM CONTA ",
     "subProduto": {
-      "id": 42,
+      "id": 26,
       "descricao": "PROCESSO JUDICIAL PRECATORIO",
       "ativo": null,
       "dataCadastro": null,
@@ -17383,7 +17811,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 23,
+      "id": 32,
       "descricao": "CONTRATOS",
       "ativo": null,
       "indPermiteTranche": false,
@@ -17404,7 +17832,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -17447,7 +17876,7 @@
     "id": 249,
     "descricao": "AQUISICAO FINANCEIRA - CONTRATOS  - PROCESSO JUDICIAL PRECATORIO - SERVICO - DEPOSITO EM CONTA  - PRE COM POS",
     "subProduto": {
-      "id": 42,
+      "id": 26,
       "descricao": "PROCESSO JUDICIAL PRECATORIO",
       "ativo": null,
       "dataCadastro": null,
@@ -17499,7 +17928,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 23,
+      "id": 32,
       "descricao": "CONTRATOS",
       "ativo": null,
       "indPermiteTranche": false,
@@ -17563,7 +17992,7 @@
     "id": 385,
     "descricao": "ESTRUTURADA - AQUISICAO FINANCEIRA - NOTA COMERCIAL PETROBRAS - SERVIÇO - DEPOSITO EM CONTA - PRE COM  POS",
     "subProduto": {
-      "id": 17,
+      "id": 15,
       "descricao": "NOTA COMERCIAL",
       "ativo": null,
       "dataCadastro": null,
@@ -17578,10 +18007,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 17,
+      "id": 29,
       "descricao": "CCB/NC",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -17679,7 +18109,7 @@
     "id": 386,
     "descricao": "ESTRUTURADA - AQUISICAO FINANCEIRA - NOTA COMERCIAL PETROBRAS - SERVIÇO - DEPOSITO EM CONTA - PRE COM  POS",
     "subProduto": {
-      "id": 17,
+      "id": 15,
       "descricao": "NOTA COMERCIAL",
       "ativo": null,
       "dataCadastro": null,
@@ -17697,7 +18127,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 17,
+      "id": 29,
       "descricao": "CCB/NC",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -17801,7 +18231,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -17813,7 +18244,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 25,
+      "id": 44,
       "descricao": "DUPLICATA ESCROW COM TRAVA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -17868,7 +18299,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 7,
@@ -17917,7 +18349,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -17926,10 +18359,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 25,
+      "id": 44,
       "descricao": "DUPLICATA ESCROW COM TRAVA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -17984,7 +18418,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 7,
@@ -18021,6 +18456,126 @@
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
     "idHml": 277,
+    "atualizar": false
+  },
+  {
+    "id": 445,
+    "descricao": "AQUISICAO FORNECEDOR RISCO SACADO LARCA - ANTECIPACAO DE DUPLICATA - DUPLICATA - PRODUTO - BOLETO",
+    "subProduto": {
+      "id": 8,
+      "descricao": "DUPLICATA",
+      "ativo": null,
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
+    },
+    "classificacaoProduto": {
+      "id": 1,
+      "descricao": "PRODUTO",
+      "ativo": null,
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
+    },
+    "grupoProduto": {
+      "id": 46,
+      "descricao": "PRODUTO LARCA",
+      "ativo": null,
+      "grupoProdutoRisco": {
+        "id": 11,
+        "descricao": "GRUPO LARCA",
+        "ativo": null,
+        "dataCadastro": null,
+        "usuarioCadastro": null,
+        "dataUltimaAlteracao": null,
+        "usuarioUltimaAlteracao": null,
+        "diasVencidoConsideraLiquidez": null
+      },
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null
+    },
+    "focoNegocio": {
+      "id": 11,
+      "descricao": "AQUISICAO FORNECEDOR RISCO SACADO",
+      "ativo": null,
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "segmentoTarifador": null,
+      "indFocoAncora": true,
+      "indFocoMultiComex": false,
+      "indFocoCobranca": false,
+      "indRiscoSacado": null,
+      "indIsencaoTarifa": null
+    },
+    "tipoProduto": {
+      "id": 2,
+      "descricao": "ANTECIPACAO DE DUPLICATA",
+      "ativo": null,
+      "indPermiteTranche": true,
+      "indEnviaTermoAssinaturaAutomatico": null,
+      "indRealizaChecagem": null,
+      "indConsideraRisco": null,
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "indCadastraGarantia": null,
+      "indNovoNumeroDocumento": null
+    },
+    "produtoIndexador": {
+      "id": 1,
+      "descricao": "PRE",
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "indObrigaTipoProduto": false,
+      "id.old": 1
+    },
+    "produtoTPRecebimento": {
+      "id": 1,
+      "descricao": "BOLETO",
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "indObrigaNN": false,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "indGarantiaSecundaria": null,
+      "indGeraRemessaBancaria": null,
+      "indEmiteBoleto": null,
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
+    },
+    "indClean": false,
+    "indObrigaGarantia": null,
+    "indCoobrigado": true,
+    "indSensibilizaCarteira": false,
+    "ativo": true,
+    "indPermiteCnpjCedenteSacadoIgual": false,
+    "indObrigaXML": true,
+    "codigoLegado": null,
+    "especiePapel": "01",
+    "diasVencimentoEspecifico": "",
+    "siglaProduto": "Rsc larc",
+    "dataCadastro": "2026-06-09T13:02:27.5",
+    "usuarioCadastro": "jessica.leite",
+    "dataUltimaAlteracao": "2026-06-09T15:56:28.273",
+    "usuarioUltimaAlteracao": "jessica.leite",
+    "garantiaCategoria": null,
+    "indOperacaoEstruturada": false,
+    "indDisponivelHomeBanking": true,
+    "indGarantiaPrimaria": false,
+    "indProdutoManterEmCobranca": false,
+    "idProdutoManterCobranca": null,
+    "idHml": 281,
     "atualizar": false
   },
   {
@@ -18100,7 +18655,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -18195,7 +18751,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 23,
+      "id": 32,
       "descricao": "CONTRATOS",
       "ativo": null,
       "indPermiteTranche": false,
@@ -18216,7 +18772,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,
@@ -18252,7 +18809,7 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 278,
+    "idHml": 68,
     "atualizar": false
   },
   {
@@ -18311,7 +18868,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 23,
+      "id": 32,
       "descricao": "CONTRATOS",
       "ativo": null,
       "indPermiteTranche": false,
@@ -18381,7 +18938,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -18390,10 +18948,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 22,
+      "id": 50,
       "descricao": "TRUSTEE",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -18409,10 +18968,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 34
     },
     "focoNegocio": {
-      "id": 8,
+      "id": 6,
       "descricao": "COBRANCA SIMPLES",
       "ativo": null,
       "dataCadastro": null,
@@ -18424,10 +18984,11 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": true,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 8
     },
     "tipoProduto": {
-      "id": 22,
+      "id": 50,
       "descricao": "MULTISOLUCOES TRUSTEE",
       "ativo": null,
       "indPermiteTranche": false,
@@ -18439,7 +19000,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 20
     },
     "produtoIndexador": {
       "id": 1,
@@ -18448,7 +19010,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 1,
@@ -18461,7 +19024,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 1
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -18484,8 +19048,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 35,
-    "atualizar": false
+    "idHml": 18,
+    "atualizar": true
   },
   {
     "id": 108,
@@ -18497,7 +19061,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 1,
@@ -18506,10 +19071,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 1
     },
     "grupoProduto": {
-      "id": 22,
+      "id": 50,
       "descricao": "TRUSTEE",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -18525,10 +19091,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 34
     },
     "focoNegocio": {
-      "id": 8,
+      "id": 6,
       "descricao": "COBRANCA SIMPLES",
       "ativo": null,
       "dataCadastro": null,
@@ -18540,10 +19107,11 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": true,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 8
     },
     "tipoProduto": {
-      "id": 22,
+      "id": 50,
       "descricao": "MULTISOLUCOES TRUSTEE",
       "ativo": null,
       "indPermiteTranche": false,
@@ -18555,7 +19123,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 20
     },
     "produtoIndexador": {
       "id": 1,
@@ -18564,10 +19133,11 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
-      "id": 24,
+      "id": 28,
       "descricao": "BOLETO PRE IMPRESSO",
       "dataCadastro": null,
       "usuarioCadastro": null,
@@ -18577,7 +19147,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 30
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -18601,7 +19172,7 @@
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
     "idHml": 18,
-    "atualizar": false
+    "atualizar": true
   },
   {
     "id": 66,
@@ -18613,7 +19184,8 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 8
     },
     "classificacaoProduto": {
       "id": 2,
@@ -18625,7 +19197,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 22,
+      "id": 50,
       "descricao": "TRUSTEE",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -18641,10 +19213,11 @@
       "dataCadastro": null,
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
+      "usuarioUltimaAlteracao": null,
+      "id.old": 34
     },
     "focoNegocio": {
-      "id": 8,
+      "id": 6,
       "descricao": "COBRANCA SIMPLES",
       "ativo": null,
       "dataCadastro": null,
@@ -18656,10 +19229,11 @@
       "indFocoMultiComex": false,
       "indFocoCobranca": true,
       "indRiscoSacado": null,
-      "indIsencaoTarifa": null
+      "indIsencaoTarifa": null,
+      "id.old": 8
     },
     "tipoProduto": {
-      "id": 22,
+      "id": 50,
       "descricao": "MULTISOLUCOES TRUSTEE",
       "ativo": null,
       "indPermiteTranche": false,
@@ -18671,7 +19245,8 @@
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
       "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
+      "indNovoNumeroDocumento": null,
+      "id.old": 20
     },
     "produtoIndexador": {
       "id": 1,
@@ -18680,10 +19255,11 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
-      "id": 24,
+      "id": 28,
       "descricao": "BOLETO PRE IMPRESSO",
       "dataCadastro": null,
       "usuarioCadastro": null,
@@ -18693,7 +19269,8 @@
       "indGarantiaSecundaria": null,
       "indGeraRemessaBancaria": null,
       "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
+      "indGeraOperacaoTitulosRejeitados": null,
+      "id.old": 30
     },
     "indClean": false,
     "indObrigaGarantia": false,
@@ -18775,7 +19352,7 @@
       "indIsencaoTarifa": null
     },
     "tipoProduto": {
-      "id": 26,
+      "id": 29,
       "descricao": "CDB",
       "ativo": null,
       "indPermiteTranche": false,
@@ -18849,7 +19426,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 17,
+      "id": 29,
       "descricao": "CCB/NC",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -18904,7 +19481,8 @@
       "usuarioCadastro": null,
       "dataUltimaAlteracao": null,
       "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
+      "indObrigaTipoProduto": false,
+      "id.old": 1
     },
     "produtoTPRecebimento": {
       "id": 4,

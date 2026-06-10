@@ -39,7 +39,6 @@ Cypress.Commands.add('verificarTokens', (ambiente) => {
  */
 Cypress.Commands.add('loginUi', (ambiente) => {
   cy.definirAmbiente(ambiente).then(({ loginUrl, baseUrl, loginUsername, loginPassword, urlTokenApiIntercept }) => {
-    cy.log(urlTokenApiIntercept);
     cy.intercept('POST', urlTokenApiIntercept).as('obterToken');
 
     const baseOrigin = new URL(baseUrl).origin;

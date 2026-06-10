@@ -12,5 +12,19 @@
     "indEmiteBoleto": true,
     "indGeraOperacaoTitulosRejeitados": null,
     "idHml": 1
+  },
+  {
+    "id": 30,
+    "descricao": "CARTAO",
+    "dataCadastro": "2024-07-22T11:19:33.573",
+    "usuarioCadastro": "jessica.leite",
+    "indObrigaNN": false,
+    "dataUltimaAlteracao": "2024-07-22T11:19:33.573",
+    "usuarioUltimaAlteracao": "jessica.leite",
+    "indGarantiaSecundaria": false,
+    "indGeraRemessaBancaria": false,
+    "indEmiteBoleto": false,
+    "indGeraOperacaoTitulosRejeitados": false,
+    "idHml": 28
   }
 ]

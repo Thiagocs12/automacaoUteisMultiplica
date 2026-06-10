@@ -19,7 +19,6 @@ Given("que possuo uma lista de ids de esteiras que preciso finalizar de esteira 
 
 When("realizo o avanco da etapa {string}", (etapa) => {
   ids.forEach((id) => {
-    cy.log(`Avançando esteira ${id} da etapa: ${etapa}`);
     cy.avancarEtapa(tipoEsteiraAtual, id, etapa, env, idComite, idAnalista, parecer);
   });
 });

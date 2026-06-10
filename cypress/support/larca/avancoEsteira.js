@@ -30,7 +30,6 @@ Cypress.Commands.add('criarPocEAvancar', (cnpj) => {
     false
   ).then((resposta) => {
     if (!resposta || resposta.status !== 200) {
-      cy.log(`Erro ao criar proposta para o CNPJ: ${cnpj}`)
       return
     }
 
