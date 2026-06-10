@@ -1,12 +1,10 @@
 const LIMITE_LOTE = 20;
 const ENTIDADES_IGNORADAS = ['PRODUTO', 'GRUPOS_KEYCLOAK', 'MULTIFLOW', 'SELECIONAR_CEDENTE'];
-import MAPEAMENTOS_APIS from '../utils/mapeamentoProdutos';
-import MAPEAMENTOS_ETAPAS from '../utils/mapeamentoEtapas';
 import { obterValor } from './utils';
 import tokens from '../temp/tokens.json';
+import MAPEAMENTOS_APIS from '../utils/mapeamentoProdutos';
 
 const multiflow = MAPEAMENTOS_APIS.MULTIFLOW;
-const etapas = MAPEAMENTOS_ETAPAS;
 
 /**
  * @description Define e retorna os dados base para um ambiente específico.
@@ -114,13 +112,13 @@ Cypress.Commands.add('pesquisarDependenciasLigacao', () => {
     });
 });
 
-Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel) => {
+Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel, mapeamentoEntidade) => {
   const caminhoLog = 'cypress/output/ultimosUpdates.json';
 
-  for (const chaveEntidade in MAPEAMENTOS_APIS) {
-    if (!Object.prototype.hasOwnProperty.call(MAPEAMENTOS_APIS, chaveEntidade)) continue;
+  for (const chaveEntidade in mapeamentoEntidade) {
+    if (!Object.prototype.hasOwnProperty.call(mapeamentoEntidade, chaveEntidade)) continue;
 
-    const entidade = MAPEAMENTOS_APIS[chaveEntidade];
+    const entidade = mapeamentoEntidade[chaveEntidade];
 
     if (chaveEntidade === 'GRUPOS_KEYCLOAK' || entidade.nivelDependencia !== nivel) continue;
 
@@ -177,13 +175,13 @@ Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel) => {
   }
 });
 
-Cypress.Commands.add('atualizarItensExistentesPorNivel', (nivel) => {
+Cypress.Commands.add('atualizarItensExistentesPorNivel', (nivel, mapeamentoEntidade) => {
   const caminhoLog = 'cypress/output/ultimosUpdates.json';
 
-  for (const chaveEntidade in MAPEAMENTOS_APIS) {
-    if (!Object.prototype.hasOwnProperty.call(MAPEAMENTOS_APIS, chaveEntidade)) continue;
+  for (const chaveEntidade in mapeamentoEntidade) {
+    if (!Object.prototype.hasOwnProperty.call(mapeamentoEntidade, chaveEntidade)) continue;
 
-    const entidade = MAPEAMENTOS_APIS[chaveEntidade];
+    const entidade = mapeamentoEntidade[chaveEntidade];
 
     if (chaveEntidade === 'GRUPOS_KEYCLOAK' || entidade.nivelDependencia !== nivel) continue;
 
@@ -239,11 +237,11 @@ Cypress.Commands.add('atualizarItensExistentesPorNivel', (nivel) => {
   }
 });
 
-Cypress.Commands.add('pesquisarItensPorNivel', (nivel) => {
-  for (const chaveEntidade in MAPEAMENTOS_APIS) {
-    if (!Object.prototype.hasOwnProperty.call(MAPEAMENTOS_APIS, chaveEntidade)) continue;
+Cypress.Commands.add('pesquisarItensPorNivel', (nivel, mapeamentoEntidade) => {
+  for (const chaveEntidade in mapeamentoEntidade) {
+    if (!Object.prototype.hasOwnProperty.call(mapeamentoEntidade, chaveEntidade)) continue;
 
-    const entidade = MAPEAMENTOS_APIS[chaveEntidade];
+    const entidade = mapeamentoEntidade[chaveEntidade];
     const nomeArquivo = entidade.nomeArquivo;
     const campoDescricao = entidade.campoDescricao || 'descricao';
     const contentBusca = entidade.contentBusca || 'falseId';
@@ -366,11 +364,11 @@ Cypress.Commands.add('setIdHmlPorDescricao', (id, descricao, nomeArquivo, campoD
  * @param {number} nivel - Nível de dependência das entidades a serem processadas.
  * @returns {Cypress.Chainable<void>}
  */
-Cypress.Commands.add('atualizarIdsDeDependencias', (nivel) => {
-  for (const chaveEntidade in MAPEAMENTOS_APIS) {
-    if (!Object.prototype.hasOwnProperty.call(MAPEAMENTOS_APIS, chaveEntidade)) continue;
+Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) => {
+  for (const chaveEntidade in mapeamentoEntidade) {
+    if (!Object.prototype.hasOwnProperty.call(mapeamentoEntidade, chaveEntidade)) continue;
 
-    const entidade = MAPEAMENTOS_APIS[chaveEntidade];
+    const entidade = mapeamentoEntidade[chaveEntidade];
 
     if (
       chaveEntidade === 'GRUPOS_KEYCLOAK' ||
@@ -430,13 +428,11 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel) => {
  * @param {number} nivel - Nível de dependência das entidades a serem processadas.
  * @returns {Cypress.Chainable<void>}
  */
-Cypress.Commands.add('processarEntidadesPorNivel', (nivel) => {
-  cy.atualizarIdsDeDependencias(nivel);
-  cy.pesquisarItensPorNivel(nivel);
-  cy.log('executando pesquisarItensPorNivel')
-  cy.atualizarItensExistentesPorNivel(nivel)
-  cy.log('executando atualizarItensExistentesPorNivel')
-  cy.criarItensInexistentesPorNivel(nivel)
+Cypress.Commands.add('processarEntidadesPorNivel', (nivel, mapeamentoEntidade) => {
+  cy.atualizarIdsDeDependencias(nivel, mapeamentoEntidade);
+  cy.pesquisarItensPorNivel(nivel, mapeamentoEntidade);
+  cy.atualizarItensExistentesPorNivel(nivel, mapeamentoEntidade)
+  cy.criarItensInexistentesPorNivel(nivel, mapeamentoEntidade)
 });
 
 /**
