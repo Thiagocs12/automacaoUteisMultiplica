@@ -1,17 +1,16 @@
 // cypress.config.js
 import { defineConfig } from 'cypress';
-import sql from 'mssql';
+import dotenv from 'dotenv'; // Importação do dotenv
 import fs from 'fs';
-import path from 'path';
-import dotenv from 'dotenv';
+const path = require('path');
+
+// Chame dotenv.config() para carregar as variáveis do .env
+dotenv.config();
 
 // Importações para @badeball/cypress-cucumber-preprocessor
 import createBundler from "@bahmutov/cypress-esbuild-preprocessor";
 import { addCucumberPreprocessorPlugin } from "@badeball/cypress-cucumber-preprocessor";
-// Importação CORRETA do createEsbuildPlugin
 import { createEsbuildPlugin } from "@badeball/cypress-cucumber-preprocessor/esbuild";
-
-dotenv.config();
 
 export default defineConfig({
   e2e: {
@@ -23,82 +22,14 @@ export default defineConfig({
       on(
         "file:preprocessor",
         createBundler({
-          plugins: [createEsbuildPlugin(config)],
+          plugins: [
+            createEsbuildPlugin(config, {
+              loader: { '.js': 'js' },
+            }),
+          ],
         })
       );
-
-      // Configurações do banco de dados para Homologação
-      const dbConfigHomolog = {
-        user: process.env.HOMOLOG_DB_USER,
-        password: process.env.HOMOLOG_DB_PASS,
-        server: process.env.HOMOLOG_DB_HOST,
-        database: process.env.HOMOLOG_DB_NAME,
-        options: {
-          encrypt: false,
-          trustServerCertificate: true
-        },
-        port: parseInt(process.env.HOMOLOG_DB_PORT || '1433', 10)
-      };
-
-      // Configurações do banco de dados para Produção
-      const dbConfigProd = {
-        user: process.env.PROD_DB_USER,
-        password: process.env.PROD_DB_PASS,
-        server: process.env.PROD_DB_HOST,
-        database: process.env.PROD_DB_NAME,
-        options: {
-          encrypt: false,
-          trustServerCertificate: true
-        },
-        port: parseInt(process.env.PROD_DB_PORT || '1433', 10)
-      };
-
-      async function runSql(query, env) {
-        let pool;
-        try {
-          const currentDbConfig = env === 'prod' ? dbConfigProd : dbConfigHomolog;
-
-          if (
-            !currentDbConfig.server ||
-            !currentDbConfig.user ||
-            !currentDbConfig.password ||
-            !currentDbConfig.database
-          ) {
-            // Mantido console.error pois é uma falha crítica na configuração do ambiente Node.js
-            console.error(
-              `Credenciais de banco de dados incompletas para o ambiente ${env}. Verifique seu arquivo .env.`
-            );
-            throw new Error(
-              `Credenciais de banco de dados incompletas para o ambiente ${env}. Verifique seu arquivo .env.`
-            );
-          }
-
-          pool = new sql.ConnectionPool(currentDbConfig);
-          await pool.connect();
-
-          const result = await pool.request().query(query);
-
-          return {
-            recordset: result.recordset || [],
-            rowsAffected: result.rowsAffected || [],
-          };
-        } finally {
-          if (pool) await pool.close();
-        }
-      }
-
       on('task', {
-        async consultarSql(args) {
-          const { query, ambiente } = args;
-          const result = await runSql(query, ambiente);
-          return result.recordset;
-        },
-
-        async executarSql(args) {
-          const { query, ambiente } = args;
-          return runSql(query, ambiente);
-        },
-
         lerJsonSeExistir(args) {
           const { caminhoArquivo } = args || {};
           if (!caminhoArquivo) return null;
@@ -111,46 +42,32 @@ export default defineConfig({
 
           const conteudoBruto = fs.readFileSync(caminhoCompleto, 'utf8');
           if (!conteudoBruto || !conteudoBruto.trim()) return [];
-
           return JSON.parse(conteudoBruto);
         },
-
-        escreverJson(args) {
-          const { caminhoArquivo, dados } = args || {};
-          if (!caminhoArquivo) {
-            // Mantido console.error pois é uma falha crítica na operação de arquivo no Node.js
-            console.error('Caminho do arquivo não fornecido para escreverJson.');
-            return false;
-          }
-          const caminhoCompleto = path.isAbsolute(caminhoArquivo)
-            ? caminhoArquivo
-            : path.join(process.cwd(), caminhoArquivo);
-
-          try {
-            const dir = path.dirname(caminhoCompleto);
-            if (!fs.existsSync(dir)) {
-              fs.mkdirSync(dir, { recursive: true });
-            }
-            fs.writeFileSync(caminhoCompleto, JSON.stringify(dados, null, 2), 'utf8');
-            return true;
-          } catch (error) {
-            // Mantido console.error pois é uma falha crítica na operação de arquivo no Node.js
-            console.error(`Erro ao escrever JSON no arquivo ${caminhoCompleto}:`, error);
-            return false;
-          }
+        escreverJson({ caminhoArquivo, conteudo }) {
+          const caminhoCompleto = path.join(process.cwd(), caminhoArquivo);
+          fs.writeFileSync(caminhoCompleto, JSON.stringify(conteudo, null, 2), 'utf8');
+          return null;
         },
+        listarArquivos(caminho) {
+          const diretorioCompleto = path.resolve(caminho);
 
-        removerPasta(args) {
-          const { path: dirPath } = args;
-          if (fs.existsSync(dirPath)) {
-            fs.rmSync(dirPath, { recursive: true, force: true });
-            return true;
+          if (!fs.existsSync(diretorioCompleto)) {
+            throw new Error(`Diretório não encontrado: ${diretorioCompleto}`);
           }
-          return false;
+
+          const arquivos = fs.readdirSync(diretorioCompleto);
+          return arquivos;
         },
       });
 
+      config.env = {
+        ...config.env,
+        ...process.env,
+      }
       return config;
     },
+  pageLoadTimeout: 20000,  
+  defaultCommandTimeout: 20000,  
   },
 });

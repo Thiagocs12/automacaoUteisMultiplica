@@ -1,7 +1,7 @@
 {
   "name": "novo-projeto-cypress",
   "version": "1.0.0",
-  "description": "Projeto Cypress com Cucumber para orquestração de dados de produtos.",
+  "description": "Projeto Cypress com Cucumber para orquestração de dados.",
   "main": "index.js",
   "scripts": {
     "cypress:open": "cypress open",
