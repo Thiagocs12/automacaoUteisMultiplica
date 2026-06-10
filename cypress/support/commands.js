@@ -197,7 +197,7 @@ Cypress.Commands.add('atualizarItensExistentesPorNivel', (nivel) => {
 
     cy.readFile(`cypress/output/${entidade.nomeArquivo}`).then((itens) => {
       const itensValidos = itens
-        .filter((item) => item.idHml !== null)
+        .filter((item) => item.idHml != null)
         .filter((item) => !isProduto || item.atualizar === true);
 
       const executar = (log) => {

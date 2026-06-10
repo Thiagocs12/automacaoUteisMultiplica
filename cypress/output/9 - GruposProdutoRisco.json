@@ -1,13 +1,1 @@
-[
-  {
-    "id": 1,
-    "descricao": "CLEAN",
-    "ativo": true,
-    "dataCadastro": "2023-03-09T04:00:07.313",
-    "usuarioCadastro": "tiago.roque",
-    "dataUltimaAlteracao": "2023-03-09T04:00:07.313",
-    "usuarioUltimaAlteracao": "tiago.roque",
-    "diasVencidoConsideraLiquidez": 2,
-    "idHml": 1
-  }
-]
+[]
