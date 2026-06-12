@@ -33,16 +33,24 @@ export default defineConfig({
         lerJsonSeExistir(args) {
           const { caminhoArquivo } = args || {};
           if (!caminhoArquivo) return null;
-
+        
           const caminhoCompleto = path.isAbsolute(caminhoArquivo)
             ? caminhoArquivo
             : path.join(process.cwd(), caminhoArquivo);
-
+        
           if (!fs.existsSync(caminhoCompleto)) return null;
-
+        
           const conteudoBruto = fs.readFileSync(caminhoCompleto, 'utf8');
           if (!conteudoBruto || !conteudoBruto.trim()) return [];
-          return JSON.parse(conteudoBruto);
+        
+          try {
+            return JSON.parse(conteudoBruto);
+          } catch (e) {
+            // ✅ Vai aparecer no terminal do Cypress com o erro real
+            console.error(`[lerJsonSeExistir] Falha ao fazer JSON.parse em: ${caminhoCompleto}`);
+            console.error(`[lerJsonSeExistir] Erro: ${e.message}`);
+            return null;
+          }
         },
         escreverJson({ caminhoArquivo, conteudo }) {
           const caminhoCompleto = path.join(process.cwd(), caminhoArquivo);

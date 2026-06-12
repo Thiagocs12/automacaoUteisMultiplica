@@ -1,6 +1,6 @@
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 import MAPEAMENTOS_APIS from '../../utils/mapeamentoProdutos';
-
+import MAPEAMENTO_ESTEIRAS from '../../utils/mapeamentoEsteiras';
 
 Given('que possuo acesso aos ambientes necessarios', () => {
   cy.verificarTokens('prod')
@@ -10,7 +10,7 @@ Given('que possuo acesso aos ambientes necessarios', () => {
 
 Given('uma consulta aos produtos de produção é realizada para obter os dados atuais', () => {
   cy.executarRequest('prod', `${MAPEAMENTOS_APIS.PRODUTO.urlListAll}`).then((resposta) => {
-    cy.salvarNovosRegistros(resposta.body, `cypress/output/${MAPEAMENTOS_APIS.PRODUTO.nomeArquivo}`, MAPEAMENTOS_APIS.PRODUTO);
+    cy.salvarNovosRegistros(resposta.body, `cypress/output/${MAPEAMENTOS_APIS.PRODUTO.nomeArquivo}`, MAPEAMENTOS_APIS);
   });
 });
 
@@ -21,9 +21,12 @@ Given('a pesquisa retornou dados de produtos para serem copiados de produção p
 });
 
 When('pesquiso as dependências da entidade {string}', (entidade) => {
-  cy.voltarIdsOriginais();
   if (entidade === 'produtos') {
+    cy.voltarIdsOriginais(MAPEAMENTOS_APIS);
     cy.pesquisarDependenciasLigacao(MAPEAMENTOS_APIS);
+  } else if (entidade === 'esteiras') {
+    cy.voltarIdsOriginais(MAPEAMENTO_ESTEIRAS);
+    cy.pesquisarDependenciasLigacao(MAPEAMENTO_ESTEIRAS);
   }
 });
 

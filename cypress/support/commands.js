@@ -73,27 +73,24 @@ Cypress.Commands.add('lerJsonDeOutput', (nomeArquivo) => {
 Cypress.Commands.add('pesquisarDependenciasLigacao', (entidade) => {
   Object.entries(entidade)
     .filter(([chave]) => !ENTIDADES_IGNORADAS.includes(chave))
-    .filter(([, entidade]) => entidade?.nomeArquivoReferencia && entidade?.campoBusca && entidade?.nomeArquivo && entidade?.urlBuscaId)
-    .forEach(([, entidade]) => {
-      const { nomeArquivoReferencia, campoBusca, nomeArquivo, urlBuscaId } = entidade;
+    .filter(([, config]) => config?.nomeArquivoReferencia && config?.campoBusca && config?.nomeArquivo && config?.urlBuscaId)
+    .forEach(([, config]) => {
+      const { nomeArquivoReferencia, campoBusca, nomeArquivo, urlBuscaId } = config;
       const caminhoArquivo = `cypress/output/${nomeArquivo}`;
-      const ehArquivoBase = nomeArquivoReferencia.includes('Produtos/1 - Produtos.json');
+      const ehArquivoBase = ['Produtos/1 - Produtos.json', 'Esteiras/1 - esteiras.json'].includes(nomeArquivoReferencia);
       const registrosAcumulados = [];
-
+      
       cy.task('escreverJson', { caminhoArquivo, conteudo: [] }).then(() => {
         cy.readFile(`cypress/output/${nomeArquivoReferencia}`).then((dadosDoArquivo) => {
+
           const dadosFiltrados = ehArquivoBase
             ? dadosDoArquivo.filter((item) => item.atualizar === true)
             : dadosDoArquivo;
 
+
           const idsUnicos = [
             ...new Set(
-              dadosFiltrados
-                .map((dado) => {
-                  const valor = Cypress._.get(dado, campoBusca);
-                  return typeof valor === 'object' && valor !== null ? valor.id : valor;
-                })
-                .filter((id) => id != null)
+              dadosFiltrados.flatMap((dado) => extrairValoresDoCaminho(dado, campoBusca))
             ),
           ];
 
@@ -468,11 +465,11 @@ Cypress.Commands.add('verificarDiretorioNaoVazio', (caminho) => {
  * });
  */
 
-const ENTIDADES_COM_VALIDACAO = ['PRODUTO', 'ESTEIRA']; 
+const ENTIDADES_COM_VALIDACAO = ['PRODUTO', 'ESTEIRAS']; 
 
 Cypress.Commands.add('salvarNovosRegistros', (novosDados, caminhoArquivo, entidade) => {
-  const chaveEntidade = Object.keys(MAPEAMENTOS_APIS).find(
-    (chave) => caminhoArquivo.endsWith(MAPEAMENTOS_APIS[chave].nomeArquivo)
+  const chaveEntidade = Object.keys(entidade).find(
+    (chave) => caminhoArquivo.endsWith(entidade[chave].nomeArquivo)
   );
 
   const comValidacao = ENTIDADES_COM_VALIDACAO.includes(chaveEntidade);
@@ -541,19 +538,19 @@ Cypress.Commands.add('salvarNovosRegistros', (novosDados, caminhoArquivo, entida
   });
 });
 
-Cypress.Commands.add('voltarIdsOriginais', () => {
-  for (const chaveEntidade in MAPEAMENTOS_APIS) {
-    if (!Object.prototype.hasOwnProperty.call(MAPEAMENTOS_APIS, chaveEntidade)) continue;
+Cypress.Commands.add('voltarIdsOriginais', (entidade) => {
+  for (const chaveEntidade in entidade) {
+    if (!Object.prototype.hasOwnProperty.call(entidade, chaveEntidade)) continue;
 
-    const entidade = MAPEAMENTOS_APIS[chaveEntidade];
+    const configEntidade = entidade[chaveEntidade];
 
     if (
       chaveEntidade === 'GRUPOS_KEYCLOAK' ||
-      !entidade.dependencia ||
-      entidade.dependencia.length === 0
+      !configEntidade.dependencia ||
+      configEntidade.dependencia.length === 0
     ) continue;
 
-    const caminhoArquivo = `cypress/output/${entidade.nomeArquivo}`;
+    const caminhoArquivo = `cypress/output/${configEntidade.nomeArquivo}`;
 
     cy.task('lerJsonSeExistir', { caminhoArquivo }).then((itens) => {
       if (!itens) {
@@ -603,4 +600,25 @@ function removerCamposOld(obj) {
       .filter(([chave]) => !chave.endsWith('.old'))
       .map(([chave, valor]) => [chave, removerCamposOld(valor)])
   );
+}
+
+/**
+ * Extrai valores de um caminho que pode conter arrays em qualquer nível.
+ * Funciona para: 'id', 'grupoProduto.id', 'modeloEtapas.modeloEtapa.id'
+ */
+function extrairValoresDoCaminho(obj, caminho) {
+  const partes = caminho.split('.');
+
+  const percorrer = (atual, partesRestantes) => {
+    if (!atual || partesRestantes.length === 0) return [atual];
+
+    const [parte, ...resto] = partesRestantes;
+    const proximo = Array.isArray(atual)
+      ? atual.flatMap((item) => percorrer(item?.[parte], resto))  // ✅ entra em cada item do array
+      : percorrer(atual[parte], resto);
+
+    return [proximo].flat();
+  };
+
+  return percorrer(obj, partes).filter((v) => v != null);
 }

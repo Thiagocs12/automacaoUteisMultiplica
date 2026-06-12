@@ -485,7 +485,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 26,
+      "id": 32,
       "descricao": "INTERCOMPANY/COMISSÁRIA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -1047,7 +1047,7 @@
     "id": 28,
     "descricao": "AQUISICAO - ANTECIPACAO DE DUPLICATA - DUPLICATA INTERCOMPANY - PRODUTO - BOLETO",
     "subProduto": {
-      "id": 9,
+      "id": 52,
       "descricao": "DUPLICATA INTERCOMPANY",
       "ativo": null,
       "dataCadastro": null,
@@ -1065,7 +1065,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 26,
+      "id": 32,
       "descricao": "INTERCOMPANY/COMISSÁRIA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -1163,7 +1163,7 @@
     "id": 290,
     "descricao": "AQUISICAO - ANTECIPACAO DE DUPLICATA - DUPLICATA INTERCOMPANY - PRODUTO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 9,
+      "id": 52,
       "descricao": "DUPLICATA INTERCOMPANY",
       "ativo": null,
       "dataCadastro": null,
@@ -1181,7 +1181,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 26,
+      "id": 32,
       "descricao": "INTERCOMPANY/COMISSÁRIA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -1279,7 +1279,7 @@
     "id": 287,
     "descricao": "AQUISICAO - ANTECIPACAO DE CONTRATO - INTERCOMPANY - PRODUTO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 43,
+      "id": 34,
       "descricao": "INTERCOMPANY",
       "ativo": null,
       "dataCadastro": null,
@@ -1297,7 +1297,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 26,
+      "id": 32,
       "descricao": "INTERCOMPANY/COMISSÁRIA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -1395,7 +1395,7 @@
     "id": 288,
     "descricao": "AQUISICAO - ANTECIPACAO DE CONTRATO - INTERCOMPANY - SERVICO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 43,
+      "id": 34,
       "descricao": "INTERCOMPANY",
       "ativo": null,
       "dataCadastro": null,
@@ -1413,7 +1413,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 26,
+      "id": 32,
       "descricao": "INTERCOMPANY/COMISSÁRIA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -1743,7 +1743,7 @@
     "id": 30,
     "descricao": "AQUISICAO - ANTECIPACAO DE DUPLICATA - DUPLICATA INTERCOMPANY - SERVICO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 9,
+      "id": 52,
       "descricao": "DUPLICATA INTERCOMPANY",
       "ativo": null,
       "dataCadastro": null,
@@ -1761,7 +1761,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 26,
+      "id": 32,
       "descricao": "INTERCOMPANY/COMISSÁRIA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -2109,7 +2109,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 26,
+      "id": 32,
       "descricao": "INTERCOMPANY/COMISSÁRIA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -2573,7 +2573,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 20,
+      "id": 32,
       "descricao": "FORNECEDOR ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -2689,7 +2689,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 20,
+      "id": 32,
       "descricao": "FORNECEDOR ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -2805,7 +2805,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 20,
+      "id": 32,
       "descricao": "FORNECEDOR ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -2921,7 +2921,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 20,
+      "id": 32,
       "descricao": "FORNECEDOR ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -3153,7 +3153,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 20,
+      "id": 32,
       "descricao": "FORNECEDOR ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -4661,7 +4661,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 20,
+      "id": 32,
       "descricao": "FORNECEDOR ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -4777,7 +4777,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 20,
+      "id": 32,
       "descricao": "FORNECEDOR ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -5009,7 +5009,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 20,
+      "id": 32,
       "descricao": "FORNECEDOR ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -5125,7 +5125,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 20,
+      "id": 32,
       "descricao": "FORNECEDOR ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -5241,7 +5241,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 20,
+      "id": 32,
       "descricao": "FORNECEDOR ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -5357,7 +5357,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 20,
+      "id": 32,
       "descricao": "FORNECEDOR ANCORA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -10195,7 +10195,7 @@
     "id": 286,
     "descricao": "AQUISICAO COMEX - ANTECIPACAO DE EXPORTACAO - INTERCOMPANY - PRODUTO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 43,
+      "id": 34,
       "descricao": "INTERCOMPANY",
       "ativo": null,
       "dataCadastro": null,
@@ -13445,7 +13445,7 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 26,
+      "id": 32,
       "descricao": "INTERCOMPANY/COMISSÁRIA",
       "ativo": null,
       "grupoProdutoRisco": {
@@ -14695,7 +14695,7 @@
     "id": 425,
     "descricao": "AQUISICAO LARCA - ANTECIPACAO DE DUPLICATA - DUPLICATA INTERCOMPANY - PRODUTO - BOLETO",
     "subProduto": {
-      "id": 9,
+      "id": 52,
       "descricao": "DUPLICATA INTERCOMPANY",
       "ativo": null,
       "dataCadastro": null,
@@ -14811,7 +14811,7 @@
     "id": 426,
     "descricao": "AQUISICAO LARCA - ANTECIPACAO DE DUPLICATA - DUPLICATA INTERCOMPANY - PRODUTO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 9,
+      "id": 52,
       "descricao": "DUPLICATA INTERCOMPANY",
       "ativo": null,
       "dataCadastro": null,
@@ -15035,7 +15035,7 @@
     "id": 427,
     "descricao": "AQUISICAO LARCA - ANTECIPACAO DE DUPLICATA - DUPLICATA INTERCOMPANY - SERVICO - DEPOSITO EM CONTA",
     "subProduto": {
-      "id": 9,
+      "id": 52,
       "descricao": "DUPLICATA INTERCOMPANY",
       "ativo": null,
       "dataCadastro": null,
