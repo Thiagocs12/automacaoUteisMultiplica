@@ -1,0 +1,562 @@
+[
+  {
+    "id": "62100d2d2eb7d56d6ac91793",
+    "nome": "Cadastrar Prospect",
+    "mfe": "/prospect",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2024-11-07T21:43:10.235",
+      "dataUltimaAlteracao": null,
+      "usuario": "Tiago Roque"
+    },
+    "excluido": false,
+    "idFiltro": null
+  },
+  {
+    "id": "62100ef02eb7d56d6ac917ad",
+    "nome": "Responder KYC",
+    "mfe": "/prospect",
+    "enviaCondicao": false,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-02-18T18:26:08.772",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rogerio Messias"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  },
+  {
+    "id": "62100db02eb7d56d6ac91795",
+    "nome": "Analisar Prospect",
+    "mfe": "/analisarProspect",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-12-14T20:29:51.931",
+      "dataUltimaAlteracao": null,
+      "usuario": "Tiago Roque"
+    },
+    "excluido": false,
+    "idFiltro": null
+  },
+  {
+    "id": "62100de92eb7d56d6ac91799",
+    "nome": "Priorizar",
+    "mfe": "/priorizar",
+    "enviaCondicao": false,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-02-18T18:21:45.766",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rogerio Messias"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  },
+  {
+    "id": "62100ece2eb7d56d6ac917ab",
+    "nome": "Distribuir",
+    "mfe": "/distribuir",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-05-19T14:45:48.861",
+      "dataUltimaAlteracao": null,
+      "usuario": "Bárbara Filadelfo"
+    },
+    "excluido": false,
+    "idFiltro": null
+  },
+  {
+    "id": "62100e2a2eb7d56d6ac9179f",
+    "nome": "Realizar POC",
+    "mfe": "/prospect",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-02-18T18:22:50.287",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rogerio Messias"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  },
+  {
+    "id": "62100e422eb7d56d6ac917a1",
+    "nome": "Validar",
+    "mfe": "/prospect",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-02-18T18:23:14.431",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rogerio Messias"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  },
+  {
+    "id": "62100dc62eb7d56d6ac91797",
+    "nome": "Votar",
+    "mfe": "/votar",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-02-18T18:21:10.885",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rogerio Messias"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  },
+  {
+    "id": "62100eae2eb7d56d6ac917a9",
+    "nome": "Cadastrar Cedente",
+    "mfe": "/prospect",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-02-18T18:25:02.691",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rogerio Messias"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  },
+  {
+    "id": "62100e8e2eb7d56d6ac917a7",
+    "nome": "Realizar Formalização",
+    "mfe": "/prospect",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-02-18T18:24:30.3",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rogerio Messias"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  },
+  {
+    "id": "626087bfc30e054efea971a3",
+    "nome": "Realizar Administração",
+    "mfe": "/prospect",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-04-20T19:22:55.48",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rogerio Messias"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  },
+  {
+    "id": "628793b97b95a1333b836602",
+    "nome": "Cadastrar OP",
+    "mfe": "/editar-ordem-de-pagamento",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-05-20T10:12:25.971",
+      "dataUltimaAlteracao": null,
+      "usuario": "Tiago Roque"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  },
+  {
+    "id": "628793cf7b95a1333b836604",
+    "nome": "Fechar Câmbio",
+    "mfe": "/exchange-closing",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-05-20T10:12:47.666",
+      "dataUltimaAlteracao": null,
+      "usuario": "Tiago Roque"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  },
+  {
+    "id": "628793e57b95a1333b836606",
+    "nome": "Fechar BackOffice",
+    "mfe": "/exchange-closing-invoices",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-05-20T10:13:09.448",
+      "dataUltimaAlteracao": null,
+      "usuario": "Tiago Roque"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  },
+  {
+    "id": "628794007b95a1333b836608",
+    "nome": "Recalcular Deságio",
+    "mfe": "/ordem-de-pagamento/treasury-discount",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-05-20T10:13:36.786",
+      "dataUltimaAlteracao": null,
+      "usuario": "Tiago Roque"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  },
+  {
+    "id": "628794207b95a1333b83660a",
+    "nome": "Liquidar OP",
+    "mfe": "/ordem-de-pagamento/settlement-low",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-05-20T10:14:08.048",
+      "dataUltimaAlteracao": null,
+      "usuario": "Tiago Roque"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  },
+  {
+    "id": "633c4249cdb5ac474a25e672",
+    "nome": "Inclusão OPE",
+    "mfe": "\\",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-10-13T14:59:13.104",
+      "dataUltimaAlteracao": null,
+      "usuario": "Elaine Tarallo"
+    },
+    "excluido": false,
+    "idFiltro": null
+  },
+  {
+    "id": "6348526249cd260334afc867",
+    "nome": "Analisar Operação",
+    "mfe": "\\",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-10-13T15:01:06.786",
+      "dataUltimaAlteracao": null,
+      "usuario": "Elaine Tarallo"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  },
+  {
+    "id": "633c42b6e1f9e94744c844a0",
+    "nome": "Analisar Alçada Comercial OPE",
+    "mfe": "\\",
+    "enviaCondicao": false,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-10-13T15:01:43.486",
+      "dataUltimaAlteracao": null,
+      "usuario": "Elaine Tarallo"
+    },
+    "excluido": false,
+    "idFiltro": null
+  },
+  {
+    "id": "633c42cbcdb5ac474a25e674",
+    "nome": "Analisar Crédito OPE",
+    "mfe": "\\",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-10-13T15:03:11.404",
+      "dataUltimaAlteracao": null,
+      "usuario": "Elaine Tarallo"
+    },
+    "excluido": false,
+    "idFiltro": null
+  },
+  {
+    "id": "6348531fa185346ce9bd5c6f",
+    "nome": "Fazer Checagem OPE",
+    "mfe": "\\",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-10-13T15:04:15.286",
+      "dataUltimaAlteracao": null,
+      "usuario": "Elaine Tarallo"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  },
+  {
+    "id": "634852f149cd260334afc86a",
+    "nome": "Analisar Crédito OPE",
+    "mfe": "\\",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-10-13T15:03:29.712",
+      "dataUltimaAlteracao": null,
+      "usuario": "Elaine Tarallo"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  },
+  {
+    "id": "633c4317e1f9e94744c844a2",
+    "nome": "Analisar Alçada MOP",
+    "mfe": "\\",
+    "enviaCondicao": false,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-10-13T15:05:25.076",
+      "dataUltimaAlteracao": null,
+      "usuario": "Elaine Tarallo"
+    },
+    "excluido": false,
+    "idFiltro": null
+  },
+  {
+    "id": "633c432acdb5ac474a25e678",
+    "nome": "Analisar Alçada Diretoria OPE",
+    "mfe": "\\",
+    "enviaCondicao": false,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-10-13T15:08:18.274",
+      "dataUltimaAlteracao": null,
+      "usuario": "Elaine Tarallo"
+    },
+    "excluido": false,
+    "idFiltro": null
+  },
+  {
+    "id": "6348542449cd260334afc871",
+    "nome": "Analisar Alçada Diretoria OPE",
+    "mfe": "/",
+    "enviaCondicao": false,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2023-05-30T13:28:24.453",
+      "dataUltimaAlteracao": null,
+      "usuario": "Eduardo Ribeiro"
+    },
+    "excluido": false,
+    "idFiltro": null
+  },
+  {
+    "id": "633c4350cdb5ac474a25e67a",
+    "nome": "Analisar Tesouraria OPE",
+    "mfe": "\\",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-10-13T15:12:48.927",
+      "dataUltimaAlteracao": null,
+      "usuario": "Elaine Tarallo"
+    },
+    "excluido": false,
+    "idFiltro": null
+  },
+  {
+    "id": "634854ec49cd260334afc876",
+    "nome": "Analisar Gestora OPE",
+    "mfe": "\\",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-10-13T15:11:56.905",
+      "dataUltimaAlteracao": null,
+      "usuario": "Elaine Tarallo"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  },
+  {
+    "id": "6348553949cd260334afc878",
+    "nome": "Analisar Tesouraria OPE",
+    "mfe": "\\",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-10-13T15:13:13.311",
+      "dataUltimaAlteracao": null,
+      "usuario": "Elaine Tarallo"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  },
+  {
+    "id": "633c435fe1f9e94744c844a6",
+    "nome": "Realizar Pagamento OPE",
+    "mfe": "\\",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-10-13T15:13:54.809",
+      "dataUltimaAlteracao": null,
+      "usuario": "Elaine Tarallo"
+    },
+    "excluido": false,
+    "idFiltro": null
+  },
+  {
+    "id": "63487be6a185346ce9bd5cbc",
+    "nome": "Solicitação Fornecedor - Ancorado",
+    "mfe": "/",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-10-25T13:09:15.733",
+      "dataUltimaAlteracao": null,
+      "usuario": "Eduardo Ribeiro"
+    },
+    "excluido": false,
+    "idFiltro": null
+  },
+  {
+    "id": "63487c1b49cd260334afc8a6",
+    "nome": "Aprovação Portal",
+    "mfe": "/",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-10-19T17:52:14.637",
+      "dataUltimaAlteracao": null,
+      "usuario": "Eduardo Ribeiro"
+    },
+    "excluido": false,
+    "idFiltro": null
+  },
+  {
+    "id": "6351a4a8bbd1f9567fb4d0f2",
+    "nome": "Analisar Jurídico OPE",
+    "mfe": "\\",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-10-20T16:42:32.632",
+      "dataUltimaAlteracao": null,
+      "usuario": "Elaine Tarallo"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  },
+  {
+    "id": "63c075d794c72a4250d3310e",
+    "nome": "Incluir Operação",
+    "mfe": "/",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2023-01-12T18:04:23.36",
+      "dataUltimaAlteracao": null,
+      "usuario": "Eduardo Ribeiro"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  },
+  {
+    "id": "63bebdef990ae9623de51ebb",
+    "nome": "Validar Documentos",
+    "mfe": "/",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2023-01-11T10:47:27.618",
+      "dataUltimaAlteracao": null,
+      "usuario": "Eduardo Ribeiro"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  },
+  {
+    "id": "63bebf8394c72a4250d32e9f",
+    "nome": "Editar OP Comercial",
+    "mfe": "/",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2023-01-11T10:54:11.439",
+      "dataUltimaAlteracao": null,
+      "usuario": "Eduardo Ribeiro"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  },
+  {
+    "id": "63bec0de94c72a4250d32eac",
+    "nome": "Editar OP Crédito",
+    "mfe": "/",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2023-01-11T10:59:58.276",
+      "dataUltimaAlteracao": null,
+      "usuario": "Eduardo Ribeiro"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  },
+  {
+    "id": "63bec257990ae9623de51ed5",
+    "nome": "Editar OP Câmbio",
+    "mfe": "/",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2023-01-11T11:06:15.417",
+      "dataUltimaAlteracao": null,
+      "usuario": "Eduardo Ribeiro"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  },
+  {
+    "id": "63bec3ae94c72a4250d32ebc",
+    "nome": "Aprovar",
+    "mfe": "\\",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2023-01-11T11:11:58.009",
+      "dataUltimaAlteracao": null,
+      "usuario": "Eduardo Ribeiro"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  },
+  {
+    "id": "63bec50b94c72a4250d32ec3",
+    "nome": "Efetivar Operação",
+    "mfe": "/",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2023-01-11T11:17:47.849",
+      "dataUltimaAlteracao": null,
+      "usuario": "Eduardo Ribeiro"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  },
+  {
+    "id": "63bec61994c72a4250d32ec8",
+    "nome": "Formalizar",
+    "mfe": "\\",
+    "enviaCondicao": true,
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2023-01-11T11:22:17.914",
+      "dataUltimaAlteracao": null,
+      "usuario": "Eduardo Ribeiro"
+    },
+    "excluido": false,
+    "idFiltro": "1"
+  }
+]
