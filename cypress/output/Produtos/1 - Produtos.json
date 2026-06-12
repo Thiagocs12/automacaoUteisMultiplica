@@ -1,120 +1,5 @@
 [
   {
-    "id": 41,
-    "descricao": "AQUISICAO - ANTECIPACAO DE DUPLICATA - DUPLICATA - PRODUTO - BOLETO",
-    "subProduto": {
-      "id": 8,
-      "descricao": "DUPLICATA",
-      "ativo": null,
-      "dataCadastro": null,
-      "usuarioCadastro": null,
-      "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
-    },
-    "classificacaoProduto": {
-      "id": 1,
-      "descricao": "PRODUTO",
-      "ativo": null,
-      "dataCadastro": null,
-      "usuarioCadastro": null,
-      "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
-    },
-    "grupoProduto": {
-      "id": 24,
-      "descricao": "DUPLICATA - BOLETO",
-      "ativo": null,
-      "grupoProdutoRisco": {
-        "id": 5,
-        "descricao": "BOLETO",
-        "ativo": null,
-        "dataCadastro": null,
-        "usuarioCadastro": null,
-        "dataUltimaAlteracao": null,
-        "usuarioUltimaAlteracao": null,
-        "diasVencidoConsideraLiquidez": null
-      },
-      "dataCadastro": null,
-      "usuarioCadastro": null,
-      "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
-    },
-    "focoNegocio": {
-      "id": 1,
-      "descricao": "AQUISICAO",
-      "ativo": null,
-      "dataCadastro": null,
-      "usuarioCadastro": null,
-      "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null,
-      "segmentoTarifador": null,
-      "indFocoAncora": false,
-      "indFocoMultiComex": false,
-      "indFocoCobranca": false,
-      "indRiscoSacado": null,
-      "indIsencaoTarifa": null
-    },
-    "tipoProduto": {
-      "id": 2,
-      "descricao": "ANTECIPACAO DE DUPLICATA",
-      "ativo": null,
-      "indPermiteTranche": true,
-      "indEnviaTermoAssinaturaAutomatico": null,
-      "indRealizaChecagem": null,
-      "indConsideraRisco": null,
-      "dataCadastro": null,
-      "usuarioCadastro": null,
-      "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null,
-      "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
-    },
-    "produtoIndexador": {
-      "id": 1,
-      "descricao": "PRE",
-      "dataCadastro": null,
-      "usuarioCadastro": null,
-      "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
-    },
-    "produtoTPRecebimento": {
-      "id": 1,
-      "descricao": "BOLETO",
-      "dataCadastro": null,
-      "usuarioCadastro": null,
-      "indObrigaNN": false,
-      "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null,
-      "indGarantiaSecundaria": null,
-      "indGeraRemessaBancaria": null,
-      "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
-    },
-    "indClean": false,
-    "indObrigaGarantia": false,
-    "indCoobrigado": true,
-    "indSensibilizaCarteira": false,
-    "ativo": true,
-    "indPermiteCnpjCedenteSacadoIgual": false,
-    "indObrigaXML": true,
-    "codigoLegado": "010101",
-    "especiePapel": "01",
-    "diasVencimentoEspecifico": "",
-    "siglaProduto": "010101",
-    "dataCadastro": "2022-02-17T16:23:47.693",
-    "usuarioCadastro": "regiane.felicio",
-    "dataUltimaAlteracao": "2026-04-27T13:28:17.86",
-    "usuarioUltimaAlteracao": "thiago.santos",
-    "garantiaCategoria": null,
-    "indOperacaoEstruturada": null,
-    "indDisponivelHomeBanking": true,
-    "indGarantiaPrimaria": false,
-    "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null,
-    "idHml": 41
-  },
-  {
     "id": 102,
     "descricao": "AQUISICAO - ANTECIPACAO DE CHEQUE - CHEQUE - PRODUTO - DEPOSITO EM CONTA",
     "subProduto": {
@@ -227,7 +112,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 17
+    "idHml": 17,
+    "atualizar": false
   },
   {
     "id": 202,
@@ -342,7 +228,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 25
+    "idHml": 25,
+    "atualizar": false
   },
   {
     "id": 52,
@@ -457,7 +344,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 282
+    "idHml": 282,
+    "atualizar": false
   },
   {
     "id": 56,
@@ -572,7 +460,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 56
+    "idHml": 56,
+    "atualizar": false
   },
   {
     "id": 60,
@@ -687,7 +576,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 60
+    "idHml": 60,
+    "atualizar": false
   },
   {
     "id": 297,
@@ -802,7 +692,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 125
+    "idHml": 125,
+    "atualizar": false
   },
   {
     "id": 285,
@@ -917,7 +808,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 121
+    "idHml": 121,
+    "atualizar": false
   },
   {
     "id": 83,
@@ -1032,7 +924,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 9
+    "idHml": 9,
+    "atualizar": false
   },
   {
     "id": 87,
@@ -1147,7 +1040,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 11
+    "idHml": 11,
+    "atualizar": false
   },
   {
     "id": 28,
@@ -1262,7 +1156,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 28
+    "idHml": 28,
+    "atualizar": false
   },
   {
     "id": 290,
@@ -1377,7 +1272,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 197
+    "idHml": 197,
+    "atualizar": false
   },
   {
     "id": 287,
@@ -1492,7 +1388,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 207
+    "idHml": 207,
+    "atualizar": false
   },
   {
     "id": 288,
@@ -1607,7 +1504,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 208
+    "idHml": 208,
+    "atualizar": false
   },
   {
     "id": 43,
@@ -1722,7 +1620,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 283
+    "idHml": 283,
+    "atualizar": false
   },
   {
     "id": 46,
@@ -1837,7 +1736,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 46
+    "idHml": 46,
+    "atualizar": false
   },
   {
     "id": 30,
@@ -1952,7 +1852,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 209
+    "idHml": 209,
+    "atualizar": false
   },
   {
     "id": 54,
@@ -2067,7 +1968,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 54
+    "idHml": 54,
+    "atualizar": false
   },
   {
     "id": 267,
@@ -2182,7 +2084,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 95
+    "idHml": 95,
+    "atualizar": false
   },
   {
     "id": 62,
@@ -2297,7 +2200,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 62
+    "idHml": 62,
+    "atualizar": false
   },
   {
     "id": 5,
@@ -2412,7 +2316,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 5
+    "idHml": 5,
+    "atualizar": false
   },
   {
     "id": 7,
@@ -2527,7 +2432,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 7
+    "idHml": 7,
+    "atualizar": false
   },
   {
     "id": 273,
@@ -2642,7 +2548,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 105
+    "idHml": 105,
+    "atualizar": false
   },
   {
     "id": 443,
@@ -2757,7 +2664,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 201
+    "idHml": 201,
+    "atualizar": false
   },
   {
     "id": 94,
@@ -2872,7 +2780,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 210
+    "idHml": 210,
+    "atualizar": false
   },
   {
     "id": 308,
@@ -2987,7 +2896,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 131
+    "idHml": 131,
+    "atualizar": false
   },
   {
     "id": 307,
@@ -3102,7 +3012,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 128
+    "idHml": 128,
+    "atualizar": false
   },
   {
     "id": 271,
@@ -3217,7 +3128,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 98
+    "idHml": 98,
+    "atualizar": false
   },
   {
     "id": 93,
@@ -3332,7 +3244,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 13
+    "idHml": 13,
+    "atualizar": false
   },
   {
     "id": 268,
@@ -3447,7 +3360,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 96
+    "idHml": 96,
+    "atualizar": false
   },
   {
     "id": 10,
@@ -3562,7 +3476,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 10
+    "idHml": 10,
+    "atualizar": false
   },
   {
     "id": 15,
@@ -3677,7 +3592,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 15
+    "idHml": 15,
+    "atualizar": false
   },
   {
     "id": 220,
@@ -3792,7 +3708,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 45
+    "idHml": 45,
+    "atualizar": false
   },
   {
     "id": 221,
@@ -3907,7 +3824,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 47
+    "idHml": 47,
+    "atualizar": false
   },
   {
     "id": 226,
@@ -4022,7 +3940,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 38
+    "idHml": 38,
+    "atualizar": false
   },
   {
     "id": 215,
@@ -4137,7 +4056,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 57
+    "idHml": 57,
+    "atualizar": false
   },
   {
     "id": 48,
@@ -4252,7 +4172,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": true,
     "idProdutoManterCobranca": null,
-    "idHml": 48
+    "idHml": 48,
+    "atualizar": false
   },
   {
     "id": 224,
@@ -4367,7 +4288,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 51
+    "idHml": 51,
+    "atualizar": false
   },
   {
     "id": 223,
@@ -4482,7 +4404,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 53
+    "idHml": 53,
+    "atualizar": false
   },
   {
     "id": 274,
@@ -4597,7 +4520,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 106
+    "idHml": 106,
+    "atualizar": false
   },
   {
     "id": 241,
@@ -4712,7 +4636,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 63
+    "idHml": 63,
+    "atualizar": false
   },
   {
     "id": 95,
@@ -4827,7 +4752,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 16
+    "idHml": 16,
+    "atualizar": false
   },
   {
     "id": 305,
@@ -4942,7 +4868,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 127
+    "idHml": 127,
+    "atualizar": false
   },
   {
     "id": 270,
@@ -5057,7 +4984,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 97
+    "idHml": 97,
+    "atualizar": false
   },
   {
     "id": 303,
@@ -5172,7 +5100,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 211
+    "idHml": 211,
+    "atualizar": false
   },
   {
     "id": 304,
@@ -5287,7 +5216,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 212
+    "idHml": 212,
+    "atualizar": false
   },
   {
     "id": 302,
@@ -5402,7 +5332,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 213
+    "idHml": 213,
+    "atualizar": false
   },
   {
     "id": 92,
@@ -5517,7 +5448,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 12
+    "idHml": 12,
+    "atualizar": false
   },
   {
     "id": 299,
@@ -5632,7 +5564,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 214
+    "idHml": 214,
+    "atualizar": false
   },
   {
     "id": 300,
@@ -5747,7 +5680,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 215
+    "idHml": 215,
+    "atualizar": false
   },
   {
     "id": 323,
@@ -5862,7 +5796,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 216
+    "idHml": 216,
+    "atualizar": false
   },
   {
     "id": 298,
@@ -5977,7 +5912,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 217
+    "idHml": 217,
+    "atualizar": false
   },
   {
     "id": 301,
@@ -6092,7 +6028,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 218
+    "idHml": 218,
+    "atualizar": false
   },
   {
     "id": 272,
@@ -6207,7 +6144,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 99
+    "idHml": 99,
+    "atualizar": false
   },
   {
     "id": 222,
@@ -6322,7 +6260,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 36
+    "idHml": 36,
+    "atualizar": false
   },
   {
     "id": 213,
@@ -6437,7 +6376,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 49
+    "idHml": 49,
+    "atualizar": false
   },
   {
     "id": 227,
@@ -6552,7 +6492,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 39
+    "idHml": 39,
+    "atualizar": false
   },
   {
     "id": 217,
@@ -6667,7 +6608,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 219
+    "idHml": 219,
+    "atualizar": false
   },
   {
     "id": 22,
@@ -6782,7 +6724,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 22
+    "idHml": 22,
+    "atualizar": false
   },
   {
     "id": 201,
@@ -6897,7 +6840,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 24
+    "idHml": 24,
+    "atualizar": false
   },
   {
     "id": 225,
@@ -7012,7 +6956,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 220
+    "idHml": 220,
+    "atualizar": false
   },
   {
     "id": 214,
@@ -7127,7 +7072,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 221
+    "idHml": 221,
+    "atualizar": false
   },
   {
     "id": 50,
@@ -7242,7 +7188,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 222
+    "idHml": 222,
+    "atualizar": false
   },
   {
     "id": 109,
@@ -7357,7 +7304,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 19
+    "idHml": 19,
+    "atualizar": false
   },
   {
     "id": 120,
@@ -7472,7 +7420,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 23
+    "idHml": 23,
+    "atualizar": false
   },
   {
     "id": 113,
@@ -7587,7 +7536,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 21
+    "idHml": 21,
+    "atualizar": false
   },
   {
     "id": 295,
@@ -7702,7 +7652,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 124
+    "idHml": 124,
+    "atualizar": false
   },
   {
     "id": 296,
@@ -7817,7 +7768,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 123
+    "idHml": 123,
+    "atualizar": false
   },
   {
     "id": 289,
@@ -7932,7 +7884,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 122
+    "idHml": 122,
+    "atualizar": false
   },
   {
     "id": 110,
@@ -8047,7 +8000,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 20
+    "idHml": 20,
+    "atualizar": false
   },
   {
     "id": 228,
@@ -8162,7 +8116,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 40
+    "idHml": 40,
+    "atualizar": false
   },
   {
     "id": 218,
@@ -8277,7 +8232,8 @@
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
     "idProdutoManterCobranca": null,
-    "idHml": 58
+    "idHml": 58,
+    "atualizar": false
   },
   {
     "id": 44,
@@ -8391,7 +8347,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 50,
+    "atualizar": false
   },
   {
     "id": 203,
@@ -8505,7 +8463,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 26,
+    "atualizar": false
   },
   {
     "id": 204,
@@ -8619,7 +8579,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 223,
+    "atualizar": false
   },
   {
     "id": 229,
@@ -8733,7 +8695,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 42,
+    "atualizar": false
   },
   {
     "id": 219,
@@ -8847,7 +8811,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 59,
+    "atualizar": false
   },
   {
     "id": 64,
@@ -8961,7 +8927,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": true,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 1,
+    "atualizar": false
   },
   {
     "id": 294,
@@ -9075,7 +9043,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 224,
+    "atualizar": false
   },
   {
     "id": 67,
@@ -9189,7 +9159,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": true,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 225,
+    "atualizar": false
   },
   {
     "id": 209,
@@ -9303,7 +9275,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": true,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 34,
+    "atualizar": false
   },
   {
     "id": 205,
@@ -9417,7 +9391,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": true,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 27,
+    "atualizar": false
   },
   {
     "id": 359,
@@ -9531,7 +9507,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": true,
     "indProdutoManterEmCobranca": true,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 226,
+    "atualizar": false
   },
   {
     "id": 363,
@@ -9645,7 +9623,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 227,
+    "atualizar": false
   },
   {
     "id": 207,
@@ -9759,7 +9739,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": true,
     "indProdutoManterEmCobranca": true,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 31,
+    "atualizar": false
   },
   {
     "id": 208,
@@ -9873,7 +9855,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": true,
     "indProdutoManterEmCobranca": true,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 33,
+    "atualizar": false
   },
   {
     "id": 206,
@@ -9987,7 +9971,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": true,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 29,
+    "atualizar": false
   },
   {
     "id": 375,
@@ -10093,7 +10079,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": true,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 228,
+    "atualizar": false
   },
   {
     "id": 376,
@@ -10199,7 +10187,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": true,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 229,
+    "atualizar": false
   },
   {
     "id": 286,
@@ -10313,7 +10303,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 230,
+    "atualizar": false
   },
   {
     "id": 390,
@@ -10427,7 +10419,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": true,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 231,
+    "atualizar": false
   },
   {
     "id": 32,
@@ -10541,7 +10535,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 32,
+    "atualizar": false
   },
   {
     "id": 279,
@@ -10655,7 +10651,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 109,
+    "atualizar": false
   },
   {
     "id": 280,
@@ -10769,7 +10767,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 110,
+    "atualizar": false
   },
   {
     "id": 353,
@@ -10883,7 +10883,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 142,
+    "atualizar": false
   },
   {
     "id": 354,
@@ -10997,7 +10999,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 144,
+    "atualizar": false
   },
   {
     "id": 352,
@@ -11111,7 +11115,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 143,
+    "atualizar": false
   },
   {
     "id": 367,
@@ -11225,7 +11231,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 232,
+    "atualizar": false
   },
   {
     "id": 444,
@@ -11339,7 +11347,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 280,
+    "atualizar": false
   },
   {
     "id": 369,
@@ -11453,7 +11463,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 233,
+    "atualizar": false
   },
   {
     "id": 370,
@@ -11567,7 +11579,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 234,
+    "atualizar": false
   },
   {
     "id": 291,
@@ -11681,7 +11695,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 126,
+    "atualizar": false
   },
   {
     "id": 384,
@@ -11787,7 +11803,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 235,
+    "atualizar": false
   },
   {
     "id": 246,
@@ -11901,7 +11919,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 77,
+    "atualizar": false
   },
   {
     "id": 247,
@@ -12015,7 +12035,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 78,
+    "atualizar": false
   },
   {
     "id": 282,
@@ -12129,7 +12151,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": true,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 113,
+    "atualizar": false
   },
   {
     "id": 281,
@@ -12243,7 +12267,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": true,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 111,
+    "atualizar": false
   },
   {
     "id": 366,
@@ -12357,7 +12383,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 236,
+    "atualizar": false
   },
   {
     "id": 361,
@@ -12471,7 +12499,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 237,
+    "atualizar": false
   },
   {
     "id": 372,
@@ -12577,7 +12607,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 238,
+    "atualizar": false
   },
   {
     "id": 389,
@@ -12691,7 +12723,9 @@
     "indDisponivelHomeBanking": false,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 239,
+    "atualizar": false
   },
   {
     "id": 377,
@@ -12805,7 +12839,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 173,
+    "atualizar": false
   },
   {
     "id": 379,
@@ -12919,7 +12955,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 194,
+    "atualizar": false
   },
   {
     "id": 382,
@@ -13033,7 +13071,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 191,
+    "atualizar": false
   },
   {
     "id": 380,
@@ -13147,7 +13187,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 193,
+    "atualizar": false
   },
   {
     "id": 378,
@@ -13261,7 +13303,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 195,
+    "atualizar": false
   },
   {
     "id": 391,
@@ -13375,7 +13419,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 240,
+    "atualizar": false
   },
   {
     "id": 381,
@@ -13489,7 +13535,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 192,
+    "atualizar": false
   },
   {
     "id": 365,
@@ -13603,7 +13651,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 175,
+    "atualizar": false
   },
   {
     "id": 81,
@@ -13717,7 +13767,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 6,
+    "atualizar": false
   },
   {
     "id": 418,
@@ -13831,7 +13883,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 241,
+    "atualizar": false
   },
   {
     "id": 446,
@@ -13945,7 +13999,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 262,
+    "atualizar": false
   },
   {
     "id": 421,
@@ -14059,7 +14115,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 242,
+    "atualizar": false
   },
   {
     "id": 441,
@@ -14165,7 +14223,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 243,
+    "atualizar": false
   },
   {
     "id": 419,
@@ -14279,7 +14339,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 244,
+    "atualizar": false
   },
   {
     "id": 417,
@@ -14393,7 +14455,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 245,
+    "atualizar": false
   },
   {
     "id": 415,
@@ -14507,7 +14571,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 246,
+    "atualizar": false
   },
   {
     "id": 416,
@@ -14621,7 +14687,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 247,
+    "atualizar": false
   },
   {
     "id": 425,
@@ -14735,7 +14803,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 248,
+    "atualizar": false
   },
   {
     "id": 426,
@@ -14849,7 +14919,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 249,
+    "atualizar": false
   },
   {
     "id": 440,
@@ -14955,7 +15027,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 250,
+    "atualizar": false
   },
   {
     "id": 427,
@@ -15069,7 +15143,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 251,
+    "atualizar": false
   },
   {
     "id": 424,
@@ -15183,7 +15259,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 252,
+    "atualizar": false
   },
   {
     "id": 442,
@@ -15297,7 +15375,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 253,
+    "atualizar": false
   },
   {
     "id": 423,
@@ -15411,7 +15491,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 254,
+    "atualizar": false
   },
   {
     "id": 428,
@@ -15525,7 +15607,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 255,
+    "atualizar": false
   },
   {
     "id": 438,
@@ -15631,7 +15715,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 256,
+    "atualizar": false
   },
   {
     "id": 429,
@@ -15745,7 +15831,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 257,
+    "atualizar": false
   },
   {
     "id": 439,
@@ -15851,7 +15939,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 258,
+    "atualizar": false
   },
   {
     "id": 420,
@@ -15965,7 +16055,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 259,
+    "atualizar": false
   },
   {
     "id": 430,
@@ -16079,7 +16171,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 260,
+    "atualizar": false
   },
   {
     "id": 431,
@@ -16193,7 +16287,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 261,
+    "atualizar": false
   },
   {
     "id": 422,
@@ -16299,7 +16395,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 262,
+    "atualizar": false
   },
   {
     "id": 437,
@@ -16413,7 +16511,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 263,
+    "atualizar": false
   },
   {
     "id": 436,
@@ -16527,7 +16627,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 264,
+    "atualizar": false
   },
   {
     "id": 435,
@@ -16641,7 +16743,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 265,
+    "atualizar": false
   },
   {
     "id": 434,
@@ -16755,7 +16859,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 269,
+    "atualizar": false
   },
   {
     "id": 277,
@@ -16869,7 +16975,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 108,
+    "atualizar": false
   },
   {
     "id": 373,
@@ -16983,7 +17091,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 176,
+    "atualizar": false
   },
   {
     "id": 374,
@@ -17097,7 +17207,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 177,
+    "atualizar": false
   },
   {
     "id": 360,
@@ -17211,7 +17323,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 270,
+    "atualizar": false
   },
   {
     "id": 248,
@@ -17325,7 +17439,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 79,
+    "atualizar": false
   },
   {
     "id": 249,
@@ -17439,7 +17555,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 80,
+    "atualizar": false
   },
   {
     "id": 385,
@@ -17553,7 +17671,9 @@
     "indDisponivelHomeBanking": false,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 271,
+    "atualizar": false
   },
   {
     "id": 386,
@@ -17667,7 +17787,9 @@
     "indDisponivelHomeBanking": false,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 275,
+    "atualizar": false
   },
   {
     "id": 388,
@@ -17781,7 +17903,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 276,
+    "atualizar": false
   },
   {
     "id": 387,
@@ -17895,7 +18019,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 277,
+    "atualizar": false
   },
   {
     "id": 445,
@@ -18009,7 +18135,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 281,
+    "atualizar": false
   },
   {
     "id": 362,
@@ -18123,7 +18251,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 150,
+    "atualizar": false
   },
   {
     "id": 245,
@@ -18237,7 +18367,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 68,
+    "atualizar": false
   },
   {
     "id": 244,
@@ -18351,7 +18483,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 69,
+    "atualizar": false
   },
   {
     "id": 211,
@@ -18465,7 +18599,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 18,
+    "atualizar": false
   },
   {
     "id": 108,
@@ -18579,7 +18715,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 18,
+    "atualizar": false
   },
   {
     "id": 66,
@@ -18693,7 +18831,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 2,
+    "atualizar": false
   },
   {
     "id": 371,
@@ -18799,7 +18939,9 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 279,
+    "atualizar": false
   },
   {
     "id": 364,
@@ -18913,6 +19055,124 @@
     "indDisponivelHomeBanking": true,
     "indGarantiaPrimaria": false,
     "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null
+    "idProdutoManterCobranca": null,
+    "idHml": 174,
+    "atualizar": false
+  },
+  {
+    "id": 41,
+    "descricao": "AQUISICAO - ANTECIPACAO DE DUPLICATA - DUPLICATA - PRODUTO - BOLETO",
+    "subProduto": {
+      "id": 8,
+      "descricao": "DUPLICATA",
+      "ativo": null,
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null
+    },
+    "classificacaoProduto": {
+      "id": 1,
+      "descricao": "PRODUTO",
+      "ativo": null,
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null
+    },
+    "grupoProduto": {
+      "id": 24,
+      "descricao": "DUPLICATA - BOLETO",
+      "ativo": null,
+      "grupoProdutoRisco": {
+        "id": 5,
+        "descricao": "BOLETO",
+        "ativo": null,
+        "dataCadastro": null,
+        "usuarioCadastro": null,
+        "dataUltimaAlteracao": null,
+        "usuarioUltimaAlteracao": null,
+        "diasVencidoConsideraLiquidez": null
+      },
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null
+    },
+    "focoNegocio": {
+      "id": 1,
+      "descricao": "AQUISICAO",
+      "ativo": null,
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "segmentoTarifador": null,
+      "indFocoAncora": false,
+      "indFocoMultiComex": false,
+      "indFocoCobranca": false,
+      "indRiscoSacado": null,
+      "indIsencaoTarifa": null
+    },
+    "tipoProduto": {
+      "id": 2,
+      "descricao": "ANTECIPACAO DE DUPLICATA",
+      "ativo": null,
+      "indPermiteTranche": true,
+      "indEnviaTermoAssinaturaAutomatico": null,
+      "indRealizaChecagem": null,
+      "indConsideraRisco": null,
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "indCadastraGarantia": null,
+      "indNovoNumeroDocumento": null
+    },
+    "produtoIndexador": {
+      "id": 1,
+      "descricao": "PRE",
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "indObrigaTipoProduto": false
+    },
+    "produtoTPRecebimento": {
+      "id": 1,
+      "descricao": "BOLETO",
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "indObrigaNN": false,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "indGarantiaSecundaria": null,
+      "indGeraRemessaBancaria": null,
+      "indEmiteBoleto": null,
+      "indGeraOperacaoTitulosRejeitados": null
+    },
+    "indClean": false,
+    "indObrigaGarantia": false,
+    "indCoobrigado": true,
+    "indSensibilizaCarteira": false,
+    "ativo": true,
+    "indPermiteCnpjCedenteSacadoIgual": false,
+    "indObrigaXML": true,
+    "codigoLegado": "010101",
+    "especiePapel": "01",
+    "diasVencimentoEspecifico": "",
+    "siglaProduto": "010101",
+    "dataCadastro": "2022-02-17T16:23:47.693",
+    "usuarioCadastro": "regiane.felicio",
+    "dataUltimaAlteracao": "2026-04-27T13:28:17.86",
+    "usuarioUltimaAlteracao": "thiago.santos",
+    "garantiaCategoria": null,
+    "indOperacaoEstruturada": null,
+    "indDisponivelHomeBanking": true,
+    "indGarantiaPrimaria": false,
+    "indProdutoManterEmCobranca": false,
+    "idProdutoManterCobranca": null,
+    "idHml": 41,
+    "atualizar": false
   }
 ]

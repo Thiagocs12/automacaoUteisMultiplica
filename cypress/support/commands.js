@@ -1,6 +1,6 @@
 const LIMITE_LOTE = 20;
 const ENTIDADES_IGNORADAS = ['PRODUTO', 'GRUPOS_KEYCLOAK', 'MULTIFLOW', 'SELECIONAR_CEDENTE'];
-const caminhoLog = 'cypress/output/Produtos/ultimosUpdates.json';
+const CAMINHO_LOG = 'cypress/output/Produtos/ultimosUpdates.json';
 import { obterValor } from './utils';
 import tokens from '../temp/tokens.json';
 import MAPEAMENTOS_APIS from '../utils/mapeamentoProdutos';
@@ -161,13 +161,13 @@ Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel, mapeamentoEntidad
               });
             }
 
-            cy.writeFile(caminhoLog, log);
+            cy.writeFile(CAMINHO_LOG, log);
           });
         });
       };
 
       if (isProduto) {
-        cy.task('lerJsonSeExistir', { caminhoArquivo: caminhoLog }).then((logAtual) => executar(logAtual ?? {}));
+        cy.task('lerJsonSeExistir', { caminhoArquivo: CAMINHO_LOG }).then((logAtual) => executar(logAtual ?? {}));
       } else {
         executar({});
       }
@@ -221,13 +221,13 @@ Cypress.Commands.add('atualizarItensExistentesPorNivel', (nivel, mapeamentoEntid
               });
             }
 
-            cy.writeFile(caminhoLog, log);
+            cy.writeFile(CAMINHO_LOG, log);
           });
         });
       };
 
       if (isProduto) {
-        cy.task('lerJsonSeExistir', { caminhoArquivo: caminhoLog }).then((logAtual) => executar(logAtual ?? {}));
+        cy.task('lerJsonSeExistir', { caminhoArquivo: CAMINHO_LOG }).then((logAtual) => executar(logAtual ?? {}));
       } else {
         executar({});
       }
@@ -448,11 +448,13 @@ Cypress.Commands.add('verificarDiretorioNaoVazio', (caminho) => {
 /**
  * @description Salva registros no arquivo de output com comportamento diferenciado por entidade.
  *
- * Para PRODUTO:
- *  - Limpa a flag 'atualizar' de todos os itens no início
- *  - Verifica se o id já existe na lista
+ * Para entidades incluídas em ENTIDADES_COM_VALIDACAO:
+ *  - Compara IDs dos novos dados com os existentes no arquivo
+ *  - Adiciona apenas IDs que ainda não existem no arquivo
  *  - Valida regra dos 7 dias com base no 'ultimosUpdates.json'
  *  - Seta 'atualizar: true' apenas nos itens que passam na regra
+ *  - Respeita o limite de lote configurado
+ *  - Não altera campos existentes além do 'atualizar'
  *
  * Para demais entidades:
  *  - Salva tudo que vier da API sem validações adicionais
@@ -465,68 +467,74 @@ Cypress.Commands.add('verificarDiretorioNaoVazio', (caminho) => {
  *   cy.salvarNovosRegistros(resposta.body, `cypress/output/${APIS.PRODUTO.nomeArquivo}`);
  * });
  */
-Cypress.Commands.add('salvarNovosRegistros', (novosDados, caminhoArquivo) => {
-  const caminhoLog = 'cypress/output/Produtos/ultimosUpdates.json';
 
+const ENTIDADES_COM_VALIDACAO = ['PRODUTO', 'ESTEIRA']; 
+
+Cypress.Commands.add('salvarNovosRegistros', (novosDados, caminhoArquivo, entidade) => {
   const chaveEntidade = Object.keys(MAPEAMENTOS_APIS).find(
-    (chave) => MAPEAMENTOS_APIS[chave].nomeArquivo === caminhoArquivo.split('/').pop()
+    (chave) => caminhoArquivo.endsWith(MAPEAMENTOS_APIS[chave].nomeArquivo)
   );
 
-  const isProduto = chaveEntidade === 'PRODUTO';
+  const comValidacao = ENTIDADES_COM_VALIDACAO.includes(chaveEntidade);
+
 
   cy.task('lerJsonSeExistir', { caminhoArquivo }).then((dadosExistentes) => {
-    if (!isProduto) {
+    if (!comValidacao) {
       cy.writeFile(caminhoArquivo, novosDados);
       return;
     }
 
-    cy.task('lerJsonSeExistir', { caminhoArquivo: caminhoLog }).then((logAtual) => {
+    cy.task('lerJsonSeExistir', { caminhoArquivo: CAMINHO_LOG }).then((logAtual) => {
       const agora = new Date();
       const seteDiasEmMs = 7 * 24 * 60 * 60 * 1000;
       const log = logAtual ?? {};
       const registrosLog = log[chaveEntidade] ?? [];
 
-      const listaAtual = (dadosExistentes ?? []).map((item) => ({ ...item, atualizar: false }));
+      const listaExistente = dadosExistentes ?? [];
+      const idsExistentes = new Set(listaExistente.map((item) => item.id));
 
-      const candidatos = listaAtual
+      const apenasNovos = novosDados.filter((novo) => !idsExistentes.has(novo.id));
+
+      const candidatos = listaExistente
         .map((existente) => {
-          const itemNovo = novosDados.find((novo) => novo.id === existente.id);
-          if (!itemNovo) return null;
+          const estaEmNovosDados = novosDados.some((novo) => novo.id === existente.id);
+          if (!estaEmNovosDados) return null;
 
           const registroLog = registrosLog.find((r) => r.id === existente.id);
-          const estaVencido = !registroLog || (agora - new Date(registroLog.dataAtualizacao)) > seteDiasEmMs;
+          const estaVencido =
+            !registroLog ||
+            agora - new Date(registroLog.dataAtualizacao) > seteDiasEmMs;
 
           if (!estaVencido) return null;
 
-          const dataOrdenacao = registroLog ? new Date(registroLog.dataAtualizacao) : new Date(0);
-
-          return { id: existente.id, dataOrdenacao };
+          return {
+            id: existente.id,
+            dataOrdenacao: registroLog ? new Date(registroLog.dataAtualizacao) : new Date(0),
+          };
         })
         .filter(Boolean);
 
-      const idsNovos = novosDados
-        .filter((novo) => !listaAtual.some((existente) => existente.id === novo.id))
-        .map((novo) => ({ id: novo.id, dataOrdenacao: new Date(0) }));
+      const novosParaLote = apenasNovos.map((novo) => ({
+        id: novo.id,
+        dataOrdenacao: new Date(0),
+      }));
 
-      const idsLoteParaAtualizar = [...candidatos, ...idsNovos]
+      const idsLoteParaAtualizar = [...candidatos, ...novosParaLote]
         .sort((a, b) => a.dataOrdenacao - b.dataOrdenacao)
         .slice(0, LIMITE_LOTE)
         .map((item) => item.id);
 
-      const dadosAtualizados = listaAtual
-        .map((existente) => ({
+      const dadosAtualizados = [
+        ...listaExistente.map((existente) => ({
           ...existente,
           atualizar: idsLoteParaAtualizar.includes(existente.id),
-        }))
-        .concat(
-          novosDados
-            .filter((novo) => !listaAtual.some((existente) => existente.id === novo.id))
-            .map((novo) => ({
-              ...novo,
-              idHml: null,
-              atualizar: idsLoteParaAtualizar.includes(novo.id),
-            }))
-        );
+        })),
+        ...apenasNovos.map((novo) => ({
+          ...novo,
+          idHml: null,
+          atualizar: idsLoteParaAtualizar.includes(novo.id),
+        })),
+      ];
 
       cy.writeFile(caminhoArquivo, dadosAtualizados);
     });

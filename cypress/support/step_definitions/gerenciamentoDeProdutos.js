@@ -10,8 +10,7 @@ Given('que possuo acesso aos ambientes necessarios', () => {
 
 Given('uma consulta aos produtos de produção é realizada para obter os dados atuais', () => {
   cy.executarRequest('prod', `${MAPEAMENTOS_APIS.PRODUTO.urlListAll}`).then((resposta) => {
-    cy.salvarNovosRegistros(resposta.body, `cypress/output/${MAPEAMENTOS_APIS.PRODUTO.nomeArquivo}`);
-    cy.pause();
+    cy.salvarNovosRegistros(resposta.body, `cypress/output/${MAPEAMENTOS_APIS.PRODUTO.nomeArquivo}`, MAPEAMENTOS_APIS.PRODUTO);
   });
 });
 
