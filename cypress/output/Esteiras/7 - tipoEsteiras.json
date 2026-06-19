@@ -1,0 +1,72 @@
+[
+  {
+    "id": "62100d082eb7d56d6ac91791",
+    "nome": "Prospect",
+    "descricao": "Prospect",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-02-18T18:18:00.455",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rogerio Messias"
+    }
+  },
+  {
+    "id": "6287a2677b95a1333b83663c",
+    "nome": "Liquidação Exportação",
+    "descricao": "MultiComex",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-05-20T11:15:03.625",
+      "dataUltimaAlteracao": null,
+      "usuario": "Tiago Roque"
+    }
+  },
+  {
+    "id": "63402ce32167630f279750a7",
+    "nome": "OPE",
+    "descricao": "Operações Brasil",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2022-10-07T10:42:59.976",
+      "dataUltimaAlteracao": null,
+      "usuario": "Elaine Tarallo"
+    }
+  },
+  {
+    "id": "63a9ec01367ebb43d7089987",
+    "nome": "APR ESTRUTURADA",
+    "descricao": "Esteira para aprovação estruturada",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": null
+  },
+  {
+    "id": "63a0a6d0c5be58290f7e21e2",
+    "nome": "OPE ESTRUTURADA",
+    "descricao": "OPE ESTRUTURADA",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": null
+  },
+  {
+    "id": "63bebb3e94c72a4250d32e94",
+    "nome": "MOP - MultiComex",
+    "descricao": "MOP - MultiComex",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2023-01-11T10:35:58.816",
+      "dataUltimaAlteracao": null,
+      "usuario": "Eduardo Ribeiro"
+    }
+  }
+]

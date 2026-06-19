@@ -78,31 +78,39 @@ Cypress.Commands.add('pesquisarDependenciasLigacao', (entidade) => {
       const { nomeArquivoReferencia, campoBusca, nomeArquivo, urlBuscaId } = config;
       const caminhoArquivo = `cypress/output/${nomeArquivo}`;
       const ehArquivoBase = ['Produtos/1 - Produtos.json', 'Esteiras/1 - esteiras.json'].includes(nomeArquivoReferencia);
-      const ehEntidadeAcoes = chave === 'ACOES';
+      const ehEntidadeSemBusca = ['ACOES', 'OPERADORES'].includes(chave);
       const registrosAcumulados = [];
 
+      
       cy.task('escreverJson', { caminhoArquivo, conteudo: [] }).then(() => {
         cy.readFile(`cypress/output/${nomeArquivoReferencia}`).then((dadosDoArquivo) => {
           const dadosFiltrados = ehArquivoBase
-            ? dadosDoArquivo.filter((item) => item.atualizar === true)
-            : dadosDoArquivo;
-
-            if (ehEntidadeAcoes) {
-              const objetosUnicos = dadosFiltrados
-                .flatMap((dado) => extrairValoresDoCaminho(dado, campoBusca)) // retorna [array1, array2]
-                .flatMap((item) => Array.isArray(item) ? item : [item])       // achata pra [obj1, obj2, obj3]
-                .filter((obj) => obj != null && typeof obj === 'object')
-                .filter((obj, index, self) => obj?.id && self.findIndex((o) => o.id === obj.id) === index);
+          ? dadosDoArquivo.filter((item) => item.atualizar === true)
+          : dadosDoArquivo;
+          
+          if (ehEntidadeSemBusca) {
+            const campoDeduplicacao = chave === 'OPERADORES' ? 'grupo' : 'id';
             
-              cy.task('escreverJson', { caminhoArquivo, conteudo: objetosUnicos });
-              return;
-            }
+            const objetosUnicos = dadosFiltrados
+              .flatMap((dado) => extrairValoresDoCaminho(dado, campoBusca))
+              .flatMap((item) => Array.isArray(item) ? item : [item])
+              .filter((obj) => obj != null && typeof obj === 'object')
+              .filter((obj, index, self) =>
+                obj?.[campoDeduplicacao] &&
+                self.findIndex((o) => o[campoDeduplicacao] === obj[campoDeduplicacao]) === index
+            );
 
+                        
+            cy.task('escreverJson', { caminhoArquivo, conteudo: objetosUnicos });
+            return;
+          }
+          
           const idsUnicos = [
             ...new Set(
               dadosFiltrados.flatMap((dado) => extrairValoresDoCaminho(dado, campoBusca))
             ),
           ];
+
 
           idsUnicos.forEach((id) => {
             cy.executarRequest('prod', `${urlBuscaId}${encodeURIComponent(id)}`).then((resposta) => {

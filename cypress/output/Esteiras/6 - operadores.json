@@ -1,0 +1,152 @@
+[
+  {
+    "grupo": "Analista TI",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "Agente Comercial",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "Assistente Comercial",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "Compliance",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "Gerente de Plataforma",
+    "tipoSeguranca": "6210410e2eb7d56d6ac9182e",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "Superintendente Comercial",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "Priorizador Comercial",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "Distribuidor de Crédito",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "Analista de Crédito",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "Superintendente Crédito",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "Secretario Comitê",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "Secretario Votação",
+    "tipoSeguranca": "6210410e2eb7d56d6ac9182e",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "Formalização",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "Analista Gestora",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "Backoffice Exportação",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "Fechamento Câmbio",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "Tesouraria",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "Cedente",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "BackOffice",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "Lastro",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "Diretoria",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "MOP",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "Checagem",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "Gerente MOP",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "Gerente de Middle",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "Fornecedor Ancora",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "Jurídico",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "Gestora",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "BackOffice Gestora",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  },
+  {
+    "grupo": "Mop",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true
+  }
+]

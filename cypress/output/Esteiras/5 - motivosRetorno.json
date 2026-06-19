@@ -235,8 +235,8 @@
   },
   {
     "id": "67fcffd0863e3e045e365322",
-    "nome": "Cancelamento Cleinte - Taxa",
-    "descricao": "Middle - Cancelamento Cleinte - Taxa",
+    "nome": "Cancelamento Cliente - Taxa",
+    "descricao": "Middle - Cancelamento Cliente - Taxa",
     "excluido": false,
     "idFiltro": "1",
     "status": "ATIVO",
