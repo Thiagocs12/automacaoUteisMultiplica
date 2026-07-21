@@ -1,5 +1,5 @@
 const LIMITE_LOTE = 20;
-const ENTIDADES_IGNORADAS = ['PRODUTO', 'GRUPOS_KEYCLOAK', 'MULTIFLOW', 'SELECIONAR_CEDENTE'];
+const ENTIDADES_IGNORADAS = ['PRODUTO', 'GRUPOS_KEYCLOAK', 'MULTIFLOW', 'SELECIONAR_CEDENTE', 'ESTEIRAS'];
 const CAMINHO_LOG = 'cypress/output/Produtos/ultimosUpdates.json';
 import { obterValor } from './utils';
 import tokens from '../temp/tokens.json';
@@ -75,42 +75,78 @@ Cypress.Commands.add('pesquisarDependenciasLigacao', (entidade) => {
     .filter(([chave]) => !ENTIDADES_IGNORADAS.includes(chave))
     .filter(([, config]) => config?.nomeArquivoReferencia && config?.campoBusca && config?.nomeArquivo && config?.urlBuscaId)
     .forEach(([chave, config]) => {
-      const { nomeArquivoReferencia, campoBusca, nomeArquivo, urlBuscaId } = config;
+      const { nomeArquivoReferencia, campoBusca, nomeArquivo, urlBuscaId, adiciona } = config;
       const caminhoArquivo = `cypress/output/${nomeArquivo}`;
       const ehArquivoBase = ['Produtos/1 - Produtos.json', 'Esteiras/1 - esteiras.json'].includes(nomeArquivoReferencia);
-      const ehEntidadeSemBusca = ['ACOES', 'OPERADORES'].includes(chave);
+      const ehEntidadeSemBusca = ['ACOES', 'OPERADORES', 'OBSERVADORES', 'GESTORES'].includes(chave);
+      const ehCondicoes = chave === 'CONDICOES';
       const registrosAcumulados = [];
 
-      
-      cy.task('escreverJson', { caminhoArquivo, conteudo: [] }).then(() => {
+      const inicializar = adiciona
+        ? cy.wrap(null)
+        : cy.task('escreverJson', { caminhoArquivo, conteudo: [] });
+
+      inicializar.then(() => {
         cy.readFile(`cypress/output/${nomeArquivoReferencia}`).then((dadosDoArquivo) => {
           const dadosFiltrados = ehArquivoBase
-          ? dadosDoArquivo.filter((item) => item.atualizar === true)
-          : dadosDoArquivo;
-          
-          if (ehEntidadeSemBusca) {
-            const campoDeduplicacao = chave === 'OPERADORES' ? 'grupo' : 'id';
-            
-            const objetosUnicos = dadosFiltrados
-              .flatMap((dado) => extrairValoresDoCaminho(dado, campoBusca))
-              .flatMap((item) => Array.isArray(item) ? item : [item])
-              .filter((obj) => obj != null && typeof obj === 'object')
-              .filter((obj, index, self) =>
-                obj?.[campoDeduplicacao] &&
-                self.findIndex((o) => o[campoDeduplicacao] === obj[campoDeduplicacao]) === index
-            );
+            ? dadosDoArquivo.filter((item) => item.atualizar === true)
+            : dadosDoArquivo;
 
-                        
-            cy.task('escreverJson', { caminhoArquivo, conteudo: objetosUnicos });
+            if (ehCondicoes) {
+              const registrosCondicoes = dadosFiltrados.flatMap((esteira) => {
+                const modeloEtapas = esteira.modeloEtapas ?? [];
+                return modeloEtapas
+                  .filter((etapa) => etapa?.modeloEtapa?.condicoes?.length > 0)
+                  .map((etapa) => ({
+                    idEsteira: esteira.id,
+                    idModeloEtapa: etapa.id,
+                    IdEtapa: etapa.modeloEtapa.id,
+                    condicoes: etapa.modeloEtapa.condicoes,
+                  }));
+              });
+
+            if (adiciona) {
+              cy.task('lerJsonSeExistir', { caminhoArquivo }).then((existentes) => {
+                const base = existentes ?? [];
+                const mesclado = mesclarSemDuplicatas(base, registrosCondicoes, 'idModeloEtapa');
+                cy.task('escreverJson', { caminhoArquivo, conteudo: mesclado });
+              });
+            } else {
+              cy.task('escreverJson', { caminhoArquivo, conteudo: registrosCondicoes });
+            }
             return;
           }
-          
+
+          if (ehEntidadeSemBusca) {
+            const campoDeduplicacao = chave === 'ACOES' ? 'id' : 'grupo';
+
+            const objetosUnicos = dadosFiltrados
+              .flatMap((dado) => extrairValoresDoCaminho(dado, campoBusca))
+              .flatMap((item) => (Array.isArray(item) ? item : [item]))
+              .filter((obj) => obj != null && typeof obj === 'object')
+              .filter(
+                (obj, index, self) =>
+                  obj?.[campoDeduplicacao] &&
+                  self.findIndex((o) => o[campoDeduplicacao] === obj[campoDeduplicacao]) === index
+              );
+
+            if (adiciona) {
+              cy.task('lerJsonSeExistir', { caminhoArquivo }).then((existentes) => {
+                const base = existentes ?? [];
+                const mesclado = mesclarSemDuplicatas(base, objetosUnicos, campoDeduplicacao);
+                cy.task('escreverJson', { caminhoArquivo, conteudo: mesclado });
+              });
+            } else {
+              cy.task('escreverJson', { caminhoArquivo, conteudo: objetosUnicos });
+            }
+            return;
+          }
+
           const idsUnicos = [
             ...new Set(
               dadosFiltrados.flatMap((dado) => extrairValoresDoCaminho(dado, campoBusca))
             ),
           ];
-
 
           idsUnicos.forEach((id) => {
             cy.executarRequest('prod', `${urlBuscaId}${encodeURIComponent(id)}`).then((resposta) => {
@@ -122,11 +158,34 @@ Cypress.Commands.add('pesquisarDependenciasLigacao', (entidade) => {
             });
           });
 
-          cy.then(() => cy.task('escreverJson', { caminhoArquivo, conteudo: registrosAcumulados }));
+          cy.then(() => {
+            if (adiciona) {
+              cy.task('lerJsonSeExistir', { caminhoArquivo }).then((existentes) => {
+                const base = existentes ?? [];
+                const mesclado = mesclarSemDuplicatas(base, registrosAcumulados, 'id');
+                cy.task('escreverJson', { caminhoArquivo, conteudo: mesclado });
+              });
+            } else {
+              cy.task('escreverJson', { caminhoArquivo, conteudo: registrosAcumulados });
+            }
+          });
         });
       });
     });
 });
+
+/**
+ * @description Mescla dois arrays evitando duplicatas com base em um campo chave.
+ * @param {Array<Object>} base - Dados já existentes no arquivo.
+ * @param {Array<Object>} novos - Dados novos a serem adicionados.
+ * @param {string} campoChave - Campo usado para identificar duplicatas.
+ * @returns {Array<Object>}
+ */
+function mesclarSemDuplicatas(base, novos, campoChave) {
+  const chavesDaBase = new Set(base.map((item) => item[campoChave]));
+  const apenasNovos = novos.filter((item) => !chavesDaBase.has(item[campoChave]));
+  return [...base, ...apenasNovos];
+}
 
 Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel, mapeamentoEntidade) => {
 
@@ -258,6 +317,7 @@ Cypress.Commands.add('pesquisarItensPorNivel', (nivel, mapeamentoEntidade) => {
     const nomeArquivo = entidade.nomeArquivo;
     const campoDescricao = entidade.campoDescricao || 'descricao';
     const contentBusca = entidade.contentBusca || 'falseId';
+    const env = entidade.env || 'hml';
 
     if (chaveEntidade === 'GRUPOS_KEYCLOAK' || entidade.nivelDependencia !== nivel) continue;
 
@@ -278,7 +338,7 @@ Cypress.Commands.add('pesquisarItensPorNivel', (nivel, mapeamentoEntidade) => {
           const valorChave1 = obterValor(dado, contentBusca[0]);
           const valorChave2 = obterValor(dado, contentBusca[1]);
 
-          cy.executarRequest('hml', `${entidade.urlBusca}${valorChave1}`).then((resposta) => {
+          cy.executarRequest(env, `${entidade.urlBusca}${valorChave1}`).then((resposta) => {
             const content = Array.isArray(resposta.body)
               ? resposta.body
               : resposta.body?.content || [];
@@ -310,7 +370,7 @@ Cypress.Commands.add('pesquisarItensPorNivel', (nivel, mapeamentoEntidade) => {
 
           const valorBusca = dado[campoDescricao];
 
-          cy.executarRequest('hml', `${entidade.urlBusca}${encodeURIComponent(valorBusca)}`).then((resposta) => {
+          cy.executarRequest(env, `${entidade.urlBusca}${encodeURIComponent(valorBusca)}`).then((resposta) => {
             const content = Array.isArray(resposta.body)
               ? resposta.body
               : resposta.body?.content || [];
@@ -444,8 +504,8 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) =
 Cypress.Commands.add('processarEntidadesPorNivel', (nivel, mapeamentoEntidade) => {
   cy.atualizarIdsDeDependencias(nivel, mapeamentoEntidade);
   cy.pesquisarItensPorNivel(nivel, mapeamentoEntidade);
-  cy.atualizarItensExistentesPorNivel(nivel, mapeamentoEntidade)
-  cy.criarItensInexistentesPorNivel(nivel, mapeamentoEntidade)
+  //cy.atualizarItensExistentesPorNivel(nivel, mapeamentoEntidade)
+  //cy.criarItensInexistentesPorNivel(nivel, mapeamentoEntidade)
 });
 
 /**
@@ -474,16 +534,22 @@ Cypress.Commands.add('verificarDiretorioNaoVazio', (caminho) => {
  * Para demais entidades:
  *  - Salva tudo que vier da API sem validações adicionais
  *
+ * Para a entidade ESTEIRAS (comportamento adicional):
+ *  - Após o processo padrão, varre os dados finais
+ *  - Identifica itens que possuem 'idModeloEsteiraVinculado' não nulo
+ *  - Marca com 'esteiraVinculada: true' os itens apontados por esse campo
+ *
  * @param {Array<Object>} novosDados - Lista de registros recebidos da API de produção.
  * @param {string} caminhoArquivo - Caminho do arquivo de output da entidade.
+ * @param {Object} entidade - Mapa de entidades com seus metadados.
  * @returns {Cypress.Chainable<void>}
  * @example
  * cy.executarRequest('prod', APIS.PRODUTO.urlListAll).then((resposta) => {
- *   cy.salvarNovosRegistros(resposta.body, `cypress/output/${APIS.PRODUTO.nomeArquivo}`);
+ *   cy.salvarNovosRegistros(resposta.body, `cypress/output/${APIS.PRODUTO.nomeArquivo}`, APIS);
  * });
  */
 
-const ENTIDADES_COM_VALIDACAO = ['PRODUTO', 'ESTEIRAS']; 
+const ENTIDADES_COM_VALIDACAO = ['PRODUTO', 'ESTEIRAS'];
 
 Cypress.Commands.add('salvarNovosRegistros', (novosDados, caminhoArquivo, entidade) => {
   const chaveEntidade = Object.keys(entidade).find(
@@ -491,7 +557,6 @@ Cypress.Commands.add('salvarNovosRegistros', (novosDados, caminhoArquivo, entida
   );
 
   const comValidacao = ENTIDADES_COM_VALIDACAO.includes(chaveEntidade);
-
 
   cy.task('lerJsonSeExistir', { caminhoArquivo }).then((dadosExistentes) => {
     if (!comValidacao) {
@@ -517,8 +582,7 @@ Cypress.Commands.add('salvarNovosRegistros', (novosDados, caminhoArquivo, entida
 
           const registroLog = registrosLog.find((r) => r.id === existente.id);
           const estaVencido =
-            !registroLog ||
-            agora - new Date(registroLog.dataAtualizacao) > seteDiasEmMs;
+            !registroLog || agora - new Date(registroLog.dataAtualizacao) > seteDiasEmMs;
 
           if (!estaVencido) return null;
 
@@ -539,7 +603,7 @@ Cypress.Commands.add('salvarNovosRegistros', (novosDados, caminhoArquivo, entida
         .slice(0, LIMITE_LOTE)
         .map((item) => item.id);
 
-      const dadosAtualizados = [
+      let dadosAtualizados = [
         ...listaExistente.map((existente) => ({
           ...existente,
           atualizar: idsLoteParaAtualizar.includes(existente.id),
@@ -551,10 +615,34 @@ Cypress.Commands.add('salvarNovosRegistros', (novosDados, caminhoArquivo, entida
         })),
       ];
 
+      if (chaveEntidade === 'ESTEIRAS') {
+        dadosAtualizados = aplicarMarcacaoEsteiraVinculada(dadosAtualizados);
+      }
+
       cy.writeFile(caminhoArquivo, dadosAtualizados);
     });
   });
 });
+
+/**
+ * @description Varre os dados de esteiras e marca com 'esteiraVinculada: true'
+ * todos os itens cujo 'id' é referenciado por algum 'idModeloEsteiraVinculado'.
+ *
+ * @param {Array<Object>} dados - Lista de esteiras já processadas.
+ * @returns {Array<Object>} Lista com a marcação aplicada.
+ */
+function aplicarMarcacaoEsteiraVinculada(dados) {
+  const idsVinculados = new Set(
+    dados
+      .filter((item) => item.idModeloEsteiraVinculado !== null)
+      .map((item) => item.idModeloEsteiraVinculado)
+  );
+
+  return dados.map((item) => ({
+    ...item,
+    ...(idsVinculados.has(item.id) && { esteiraVinculada: true }),
+  }));
+}
 
 Cypress.Commands.add('voltarIdsOriginais', (entidade) => {
   for (const chaveEntidade in entidade) {

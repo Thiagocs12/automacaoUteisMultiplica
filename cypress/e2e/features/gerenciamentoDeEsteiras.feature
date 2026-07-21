@@ -18,4 +18,7 @@ Funcionalidade: Sincronização de Dados das Esteiras
     E processo as dependências do nivel 2 da entidade "esteiras"
     E processo as dependências do nivel 3 da entidade "esteiras"
     E processo as dependências do nivel 4 da entidade "esteiras"
+    E processo as dependências do nivel 5 da entidade "esteiras"
+    E processo as dependências do nivel 6 da entidade "esteiras"
+    E processo as dependências do nivel 7 da entidade "esteiras"
     Então os dados das esteiras e suas dependências estão copiados de produção para homologação

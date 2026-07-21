@@ -1,0 +1,884 @@
+[
+  {
+    "id": "67fd071502b63d5baf1b84f1",
+    "nome": "Pendência de Documentação",
+    "descricao": "Comercial - Pendência de Documentação",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T10:01:09.2",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd0730863e3e045e365365",
+    "nome": "Proposta desalinhada ou fora em relação à Política",
+    "descricao": "Comercial - Proposta desalinhada ou fora em relação à Política",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T10:01:36.885",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd074c02b63d5baf1b84f3",
+    "nome": "Proposta desalinhada em relação ao mercado",
+    "descricao": "Comerial - Proposta desalinhada em relação ao mercado",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T10:02:04.181",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd0759863e3e045e365367",
+    "nome": "SERASA",
+    "descricao": "Comercial - SERASA",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T10:02:17.041",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd0768863e3e045e365369",
+    "nome": "Cliente em RJ",
+    "descricao": "Comercial - Cliente em RJ",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T10:02:32.818",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd0779863e3e045e36536b",
+    "nome": "Esclarecimentos sobre estrutura de Garantias",
+    "descricao": "Comercial - Esclarecimentos sobre estrutura de Garantias",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T10:02:49.876",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd0a7502b63d5baf1b84f7",
+    "nome": "Pendência de Documentação e Pareceres de Garantia",
+    "descricao": "Crédito - Pendência de Documentação e Pareceres de Garantia",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T10:15:33.797",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd0aa5863e3e045e365377",
+    "nome": "Indisponibilidade de agenda de call para a semana",
+    "descricao": "Crédito - Indisponibilidade de agenda de call para a semana",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T10:16:21.896",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd0ab4863e3e045e365379",
+    "nome": "Cadastro filiais ou ligadas",
+    "descricao": "Crédito - Cadastro filiais ou ligadas",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T10:16:36.566",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd0a9302b63d5baf1b84f9",
+    "nome": "Documentação Incompleta das Filiais",
+    "descricao": "Crédito - Documentação Incompleta das Filiais",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T10:16:03.687",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd0acb863e3e045e36537b",
+    "nome": "Fora do enquadramento da Política de Crédito",
+    "descricao": "Crédito - Fora do enquadramento da Política de Crédito",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T10:16:59.541",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd0ae4863e3e045e36537d",
+    "nome": "Necessidade de maiores informações de Pleito",
+    "descricao": "Crédito - Necessidade de maiores informações de Pleito",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T10:17:24.165",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd0b00863e3e045e36537f",
+    "nome": "Recebíveis - Falta de informação",
+    "descricao": "Crédito - Recebíveis - Falta de informação",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T10:17:52.073",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "6a1ef4e36331e36238af1a64",
+    "nome": "Operação não aprovada pelo comitê",
+    "descricao": "Rejeitada",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2026-06-02T12:22:08.447",
+      "dataUltimaAlteracao": null,
+      "usuario": "Beyond"
+    },
+    "idHml": null
+  },
+  {
+    "id": "6a46f1ad1c9d1b67502106ca",
+    "nome": "Ausência de e-mail cadastrado. Dados bancários ausentes ou divergentes.",
+    "descricao": "Ausência de e-mail cadastrado. Dados bancários ausentes ou divergentes.",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2026-07-02T20:18:05.711",
+      "dataUltimaAlteracao": null,
+      "usuario": "Thiago Santos"
+    },
+    "idHml": null
+  },
+  {
+    "id": "6a46f1ea1c9d1b67502106cc",
+    "nome": "Não atendimento à regra de 70% para Devedor Solidário.",
+    "descricao": "Não atendimento à regra de 70% para Devedor Solidário.",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2026-07-02T20:19:06.428",
+      "dataUltimaAlteracao": null,
+      "usuario": "Thiago Santos"
+    },
+    "idHml": null
+  },
+  {
+    "id": "6a46f1fe1c9d1b67502106ce",
+    "nome": "Comprovante de endereço vencido.",
+    "descricao": "Comprovante de endereço vencido.",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2026-07-02T20:19:26.509",
+      "dataUltimaAlteracao": null,
+      "usuario": "Thiago Santos"
+    },
+    "idHml": null
+  },
+  {
+    "id": "6a46f212924bf5254201895b",
+    "nome": "Ausência de comprovante de endereço.",
+    "descricao": "Ausência de comprovante de endereço.",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2026-07-02T20:19:46.883",
+      "dataUltimaAlteracao": null,
+      "usuario": "Thiago Santos"
+    },
+    "idHml": null
+  },
+  {
+    "id": "6a46f22437f586121f471aa2",
+    "nome": "Documento de identificação com emissão superior a 10 anos.",
+    "descricao": "Documento de identificação com emissão superior a 10 anos.",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2026-07-02T20:20:04.539",
+      "dataUltimaAlteracao": null,
+      "usuario": "Thiago Santos"
+    },
+    "idHml": null
+  },
+  {
+    "id": "6a46f23a924bf5254201895d",
+    "nome": "Ausência de documento de identificação.",
+    "descricao": "Ausência de documento de identificação.",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2026-07-02T20:20:26.647",
+      "dataUltimaAlteracao": null,
+      "usuario": "Thiago Santos"
+    },
+    "idHml": null
+  },
+  {
+    "id": "6a46f24937f586121f471aa4",
+    "nome": "Documentação societária incompleta ou divergente.",
+    "descricao": "Documentação societária incompleta ou divergente.",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2026-07-02T20:20:41.992",
+      "dataUltimaAlteracao": null,
+      "usuario": "Thiago Santos"
+    },
+    "idHml": null
+  },
+  {
+    "id": "6a46f260632abc19743d6d01",
+    "nome": "Existência de novos documentos registrados na Junta Comercial não apresentados.",
+    "descricao": "Existência de novos documentos registrados na Junta Comercial não apresentados.",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2026-07-02T20:21:04.766",
+      "dataUltimaAlteracao": null,
+      "usuario": "Thiago Santos"
+    },
+    "idHml": null
+  },
+  {
+    "id": "6a46f26d632abc19743d6d03",
+    "nome": "Ausência de documento societário de Sócio Pessoa Jurídica (PJ).",
+    "descricao": "Ausência de documento societário de Sócio Pessoa Jurídica (PJ).",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2026-07-02T20:21:17.957",
+      "dataUltimaAlteracao": null,
+      "usuario": "Thiago Santos"
+    },
+    "idHml": null
+  },
+  {
+    "id": "6a46f280632abc19743d6d05",
+    "nome": "Ausência de documento societário de Devedor Solidário Pessoa Jurídica (PJ).",
+    "descricao": "Ausência de documento societário de Devedor Solidário Pessoa Jurídica (PJ).",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2026-07-02T20:21:36.555",
+      "dataUltimaAlteracao": null,
+      "usuario": "Thiago Santos"
+    },
+    "idHml": null
+  },
+  {
+    "id": "6a46f28e1c9d1b67502106d0",
+    "nome": "Ausência de informações/documentação de Pessoas Ligadas.",
+    "descricao": "Ausência de informações/documentação de Pessoas Ligadas.",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2026-07-02T20:21:50.291",
+      "dataUltimaAlteracao": null,
+      "usuario": "Thiago Santos"
+    },
+    "idHml": null
+  },
+  {
+    "id": "6a4e7fb40dc7f143f0be4e8f",
+    "nome": "Reprovação na análise de Compliance.",
+    "descricao": "Reprovação na análise de Compliance.",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2026-07-08T13:49:56.697",
+      "dataUltimaAlteracao": null,
+      "usuario": "Thiago Santos"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fcffc102b63d5baf1b84a8",
+    "nome": "Cancelamento cliente - Recusa de sacado",
+    "descricao": "Middle - Cancelamento cliente - Recusa de sacado",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:29:53.628",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fcffd0863e3e045e365322",
+    "nome": "Cancelamento Cliente - Taxa",
+    "descricao": "Middle - Cancelamento Cliente - Taxa",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:30:08.921",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fcff7002b63d5baf1b849f",
+    "nome": "Operação fora do aprovado em ATA",
+    "descricao": "MOP - Operação fora do aprovado em ATA",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:28:32.816",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd003802b63d5baf1b84ab",
+    "nome": "Informacoes incorretas",
+    "descricao": "Middle - Informacoes incorretas",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:31:52.406",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd1a9878df6f119336ca3b",
+    "nome": "Problema Sistêmico",
+    "descricao": "Geral - Problema Sistêmico",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T11:24:24.181",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "682b4b715e8b2f6caccc8319",
+    "nome": "Operação recusada pela MOP",
+    "descricao": "Middle - Operação recusada pela MOP",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-05-19T12:17:05.793",
+      "dataUltimaAlteracao": null,
+      "usuario": "Taina Ribeiro"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fcff4002b63d5baf1b8499",
+    "nome": "Solicitação Comercial",
+    "descricao": "MOP - Solicitação Comercial",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:27:44.55",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fcff5902b63d5baf1b849d",
+    "nome": "Falta de Lastro",
+    "descricao": "MOP - Falta de Lastro",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:28:09.006",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fcff7f02b63d5baf1b84a1",
+    "nome": "Produto incorreto",
+    "descricao": "MOP - Produto incorreto",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:28:47.67",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fcff9202b63d5baf1b84a3",
+    "nome": "Limite/Tranche excedido",
+    "descricao": "MOP - Limite/Tranche excedido",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:29:06.753",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fcffa002b63d5baf1b84a6",
+    "nome": "Garantia Pendente",
+    "descricao": "MOP - Garantia Pendente",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:29:20.95",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fcffad863e3e045e36531f",
+    "nome": "Recusa MOP",
+    "descricao": "MOP - Recusa MOP",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:29:33.716",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "6943fbd14a2dbe528b503902",
+    "nome": "Ata vencida",
+    "descricao": "Ata vencida",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-12-18T10:04:17.772",
+      "dataUltimaAlteracao": null,
+      "usuario": "Lucas Carnovalli"
+    },
+    "idHml": null
+  },
+  {
+    "id": "6943fbe34a2dbe528b503904",
+    "nome": "Pendência/Ajuste Formalização",
+    "descricao": "Pendência/Ajuste Formalização",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-12-18T10:04:35.263",
+      "dataUltimaAlteracao": null,
+      "usuario": "Lucas Carnovalli"
+    },
+    "idHml": null
+  },
+  {
+    "id": "6943fc91fd2f6145c27fb8dc",
+    "nome": "Solicitação de justificativa comercial",
+    "descricao": "Solicitação de justificativa comercial",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-12-18T10:07:29.381",
+      "dataUltimaAlteracao": null,
+      "usuario": "Lucas Carnovalli"
+    },
+    "idHml": null
+  },
+  {
+    "id": "6943fca84a2dbe528b50390a",
+    "nome": "Solicitação de parecer Sup. Comercial",
+    "descricao": "Solicitação de parecer Sup. Comercial",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-12-18T10:07:52.22",
+      "dataUltimaAlteracao": null,
+      "usuario": "Lucas Carnovalli"
+    },
+    "idHml": null
+  },
+  {
+    "id": "6943fcbffd2f6145c27fb8e1",
+    "nome": "Recusa Sacado",
+    "descricao": "Recusa Sacado",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-12-18T10:08:15.378",
+      "dataUltimaAlteracao": null,
+      "usuario": "Lucas Carnovalli"
+    },
+    "idHml": null
+  },
+  {
+    "id": "6943fccffd2f6145c27fb8e4",
+    "nome": "Vencidos em carteira",
+    "descricao": "Vencidos em carteira",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-12-18T10:08:31.176",
+      "dataUltimaAlteracao": null,
+      "usuario": "Lucas Carnovalli"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd0106863e3e045e365335",
+    "nome": "Data - Operação",
+    "descricao": "Lastro - Data - Operação",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:35:18.905",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd011502b63d5baf1b84b8",
+    "nome": "Valor - Operação",
+    "descricao": "Lastro - Valor - Operação",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:35:33.879",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd0129863e3e045e36533a",
+    "nome": "Impedimento de cessão",
+    "descricao": "Lastro - Impedimento de cessão",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:35:53.175",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd01d202b63d5baf1b84c1",
+    "nome": "Cancelada conforme e-mail da Administradora",
+    "descricao": "Tesouraria - Cancelada conforme e-mail da Administradora",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:38:42.928",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd01f5863e3e045e36533d",
+    "nome": "Cancelada por falta de assinatura",
+    "descricao": "Tesouraria - Cancelada por falta de assinatura",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:39:17.05",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd020c02b63d5baf1b84c3",
+    "nome": "Sem tempo hábil para seguir no Portal",
+    "descricao": "Tesouraria - Sem tempo hábil para seguir no Portal",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:39:40.12",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd005602b63d5baf1b84ad",
+    "nome": "Necessidade de revisão do parecer",
+    "descricao": "MOP Gestora - Necessidade de revisão do parecer",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:32:22.659",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd007202b63d5baf1b84af",
+    "nome": "Minuta Divergente",
+    "descricao": "MOP Gestora - Minuta Divergente",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:32:50.094",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd00a4863e3e045e36532d",
+    "nome": "CCB/NC - Valores Divergentes",
+    "descricao": "MOP Gestora - CCB/NC - Valores Divergentes",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:33:40.09",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd00bc02b63d5baf1b84b3",
+    "nome": "Ausência de Lastro",
+    "descricao": "MOP Gestora - Ausência de Lastro",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:34:04.554",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd00cf863e3e045e36532f",
+    "nome": "Pendência dos Administradores",
+    "descricao": "MOP Gestora - Pendência dos Administradores",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:34:23.563",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd00e502b63d5baf1b84b6",
+    "nome": "Pré-Trade - Desenquadramento do Fundo",
+    "descricao": "MOP Gestora - Pré-Trade - Desenquadramento do Fundo",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:34:55.116",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "680bd57916ad49188a21377d",
+    "nome": "Cliente Não Assinou a Operação",
+    "descricao": "Cliente Não Assinou a Operação",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-25T15:33:29.675",
+      "dataUltimaAlteracao": null,
+      "usuario": "Taina Ribeiro"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd022d863e3e045e365342",
+    "nome": "TBD",
+    "descricao": "Jurídico - TBD",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:40:13.931",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd016c02b63d5baf1b84bd",
+    "nome": "Inclusão/Alteração em cláusula de Garantia",
+    "descricao": "Formalização - Inclusão/Alteração em cláusula de Garantia",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:37:00.869",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd023f863e3e045e365348",
+    "nome": "Taxa errada",
+    "descricao": "Câmbio - Taxa errada",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:40:31.018",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd0269863e3e045e36534a",
+    "nome": "Fundo Incorreto",
+    "descricao": "Câmbio - Fundo incorreto",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:41:13.37",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd027b863e3e045e36534c",
+    "nome": "Prazo incorreto",
+    "descricao": "Câmbio - Prazo incorreto",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:41:31.746",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  },
+  {
+    "id": "67fd028e02b63d5baf1b84c7",
+    "nome": "Conta incorreta",
+    "descricao": "Câmbio - Conta incorreta",
+    "excluido": false,
+    "idFiltro": "1",
+    "status": "ATIVO",
+    "usuario": {
+      "dataCriacao": "2025-04-14T09:41:50.925",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": null
+  }
+]
