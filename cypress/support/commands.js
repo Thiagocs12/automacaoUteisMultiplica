@@ -194,7 +194,7 @@ Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel, mapeamentoEntidad
 
     const entidade = mapeamentoEntidade[chaveEntidade];
 
-    if (chaveEntidade === 'GRUPOS_KEYCLOAK' || entidade.nivelDependencia !== nivel) continue;
+    if (['GRUPOS_KEYCLOAK', 'CONDICOES'].includes(chaveEntidade) || entidade.nivelDependencia !== nivel) continue;
 
     const isProduto = chaveEntidade === 'PRODUTO';
     const method = entidade.method || 'POST';
@@ -249,19 +249,41 @@ Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel, mapeamentoEntidad
   }
 });
 
+/**
+ * @description Remove recursivamente os campos de chavesIgnoradas em qualquer nível do objeto.
+ * @param {Object} obj - Objeto a ser limpo.
+ * @param {string[]} chavesIgnoradas - Campos a serem removidos.
+ * @returns {Object}
+ */
+function removerChavesIgnoradas(obj, chavesIgnoradas) {
+  if (Array.isArray(obj)) {
+    return obj.map((item) => removerChavesIgnoradas(item, chavesIgnoradas));
+  }
+
+  if (obj !== null && typeof obj === 'object') {
+    return Object.fromEntries(
+      Object.entries(obj)
+        .filter(([chave]) => !chavesIgnoradas.includes(chave))
+        .map(([chave, valor]) => [chave, removerChavesIgnoradas(valor, chavesIgnoradas)])
+    );
+  }
+
+  return obj;
+}
+
 Cypress.Commands.add('atualizarItensExistentesPorNivel', (nivel, mapeamentoEntidade) => {
   for (const chaveEntidade in mapeamentoEntidade) {
     if (!Object.prototype.hasOwnProperty.call(mapeamentoEntidade, chaveEntidade)) continue;
 
     const entidade = mapeamentoEntidade[chaveEntidade];
 
-    if (chaveEntidade === 'GRUPOS_KEYCLOAK' || entidade.nivelDependencia !== nivel) continue;
+    if (['GRUPOS_KEYCLOAK', 'CONDICOES', 'MOTIVOS_RETORNO', 'GESTORES', 'OBSERVADORES', 'OPERADORES'].includes(chaveEntidade) || entidade.nivelDependencia !== nivel) continue;
 
     const isProduto = chaveEntidade === 'PRODUTO';
     const method = entidade.method || 'POST';
     const chavesIgnoradas = [
       'idHml', 'id', 'dataCadastro', 'dataUltimaAlteracao',
-      'usuarioCadastro', 'usuarioUltimaAlteracao',
+      'usuarioCadastro', 'usuarioUltimaAlteracao', 'usuario',
       ...(entidade.chavesIgnoradas || []),
     ];
 
@@ -272,15 +294,13 @@ Cypress.Commands.add('atualizarItensExistentesPorNivel', (nivel, mapeamentoEntid
 
       const executar = (log) => {
         itensValidos.forEach((item) => {
-          const camposDoItem = Object.fromEntries(
-            Object.entries(item).filter(([chave]) => !chavesIgnoradas.includes(chave))
-          );
+          const camposDoItem = removerChavesIgnoradas(item, chavesIgnoradas);
           const body = {
             ...removerCamposOld(camposDoItem),
             id: String(item.idHml),
           };
 
-          cy.executarRequest('hml', entidade.url, body, method).then(() => {
+          cy.executarRequest2('hml', entidade.url, body, method).then(() => {
             if (!isProduto) return;
 
             if (!log[chaveEntidade]) log[chaveEntidade] = [];
@@ -312,14 +332,16 @@ Cypress.Commands.add('atualizarItensExistentesPorNivel', (nivel, mapeamentoEntid
 Cypress.Commands.add('pesquisarItensPorNivel', (nivel, mapeamentoEntidade) => {
   for (const chaveEntidade in mapeamentoEntidade) {
     if (!Object.prototype.hasOwnProperty.call(mapeamentoEntidade, chaveEntidade)) continue;
-
+    
+    
     const entidade = mapeamentoEntidade[chaveEntidade];
     const nomeArquivo = entidade.nomeArquivo;
     const campoDescricao = entidade.campoDescricao || 'descricao';
     const contentBusca = entidade.contentBusca || 'falseId';
     const env = entidade.env || 'hml';
-
-    if (chaveEntidade === 'GRUPOS_KEYCLOAK' || entidade.nivelDependencia !== nivel) continue;
+    const entidadesKeycloak = ['OPERADORES', 'OBSERVADORES', 'GESTORES'].includes(chaveEntidade);
+    
+    if (['GRUPOS_KEYCLOAK', 'CONDICOES'].includes(chaveEntidade) || entidade.nivelDependencia !== nivel) continue;
 
     const salvarId = (id, dado) => {
       cy.setIdHmlPorDescricao(
@@ -369,19 +391,41 @@ Cypress.Commands.add('pesquisarItensPorNivel', (nivel, mapeamentoEntidade) => {
           if (dado.idHml !== null && dado.idHml !== undefined) continue;
 
           const valorBusca = dado[campoDescricao];
+          
+          if (entidadesKeycloak) {
+            const campoDescricao2 = 'name'
+            cy.executarRequest2(env, entidade.urlBusca).then((resposta) => {
+              const content = Array.isArray(resposta.body)
+                ? resposta.body
+                : resposta.body?.tiposEsteira || resposta.body?.content || [];
 
-          cy.executarRequest(env, `${entidade.urlBusca}${encodeURIComponent(valorBusca)}`).then((resposta) => {
-            const content = Array.isArray(resposta.body)
-              ? resposta.body
-              : resposta.body?.content || [];
+              const id = content.find((item) =>
+                String(item?.[campoDescricao2])?.trim()?.toLowerCase() ===
+                String(valorBusca)?.trim()?.toLowerCase()
+              )?.id ?? null;
+              salvarId(id, valorBusca);
+            });
+          } else {
+            cy.executarRequest2(env, `${entidade.urlBusca}${encodeURIComponent(valorBusca)}`).then((resposta) => {
+              const content = Array.isArray(resposta.body)
+                ? resposta.body
+                : resposta.body?.tiposEsteira          || 
+                  resposta.body?.modelosAcao           || 
+                  resposta.body?.motivosRetornoEsteira ||
+                  resposta.body?.modelosSubEtapa       ||
+                  resposta.body?.modelosEtapa          ||
+                  resposta.body?.modelosEsteira        ||
+                  resposta.body?.content               || 
+                  [];
 
-            const id = content.find((item) =>
-              String(item?.[campoDescricao])?.trim()?.toLowerCase() ===
-              String(valorBusca)?.trim()?.toLowerCase()
-            )?.id ?? null;
+              const id = content.find((item) =>
+                String(item?.[campoDescricao])?.trim()?.toLowerCase() ===
+                String(valorBusca)?.trim()?.toLowerCase()
+              )?.id ?? null;
 
-            salvarId(id, valorBusca);
-          });
+              salvarId(id, valorBusca);
+            });
+          }
         }
       });
     }
@@ -502,9 +546,9 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) =
  * @returns {Cypress.Chainable<void>}
  */
 Cypress.Commands.add('processarEntidadesPorNivel', (nivel, mapeamentoEntidade) => {
-  cy.atualizarIdsDeDependencias(nivel, mapeamentoEntidade);
-  cy.pesquisarItensPorNivel(nivel, mapeamentoEntidade);
-  //cy.atualizarItensExistentesPorNivel(nivel, mapeamentoEntidade)
+  //cy.atualizarIdsDeDependencias(nivel, mapeamentoEntidade);
+  //cy.pesquisarItensPorNivel(nivel, mapeamentoEntidade);
+  cy.atualizarItensExistentesPorNivel(nivel, mapeamentoEntidade)
   //cy.criarItensInexistentesPorNivel(nivel, mapeamentoEntidade)
 });
 

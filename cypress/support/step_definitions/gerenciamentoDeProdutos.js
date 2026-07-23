@@ -5,7 +5,7 @@ import MAPEAMENTO_ESTEIRAS from '../../utils/mapeamentoEsteiras';
 Given('que possuo acesso aos ambientes necessarios', () => {
   cy.verificarTokens('prod')
   cy.verificarTokens('hml')
-  cy.verificarTokens('keycloak')
+  //cy.verificarTokens('keycloak')
 });
 
 Given('uma consulta aos produtos de produção é realizada para obter os dados atuais', () => {
@@ -34,7 +34,6 @@ When('processo as dependências do nivel {int} da entidade {string}', (nivel, en
   if (entidade === 'produtos') {
     cy.processarEntidadesPorNivel(nivel, MAPEAMENTOS_APIS);
   } else if (entidade === 'esteiras') {
-    cy.pause()
     cy.processarEntidadesPorNivel(nivel, MAPEAMENTO_ESTEIRAS);
   }
 });

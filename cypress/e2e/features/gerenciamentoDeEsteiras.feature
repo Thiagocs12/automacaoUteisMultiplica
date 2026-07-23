@@ -11,14 +11,13 @@ Funcionalidade: Sincronização de Dados das Esteiras
 
   @esteira
   Cenário: Copiar e Sincronizar uma Esteira e suas Dependências
-    Dado uma consulta às esteiras de produção é realizada para obter os dados atuais
-    E a pesquisa retornou dados de esteiras para serem copiados de produção para homologação
-    Quando pesquiso as dependências da entidade "esteiras"
+    #Dado uma consulta às esteiras de produção é realizada para obter os dados atuais
+    #E a pesquisa retornou dados de esteiras para serem copiados de produção para homologação
+    #Quando pesquiso as dependências da entidade "esteiras"
     E processo as dependências do nivel 1 da entidade "esteiras"
     E processo as dependências do nivel 2 da entidade "esteiras"
     E processo as dependências do nivel 3 da entidade "esteiras"
     E processo as dependências do nivel 4 da entidade "esteiras"
     E processo as dependências do nivel 5 da entidade "esteiras"
     E processo as dependências do nivel 6 da entidade "esteiras"
-    E processo as dependências do nivel 7 da entidade "esteiras"
     Então os dados das esteiras e suas dependências estão copiados de produção para homologação
