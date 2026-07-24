@@ -1,1 +1,32 @@
-[]
+[
+  {
+    "id": 1,
+    "descricao": "PRODUTO",
+    "ativo": true,
+    "dataCadastro": "2022-02-17T11:39:05.563",
+    "usuarioCadastro": "regiane.felicio",
+    "dataUltimaAlteracao": "2022-02-17T11:39:05.563",
+    "usuarioUltimaAlteracao": "regiane.felicio",
+    "idHml": 1
+  },
+  {
+    "id": 2,
+    "descricao": "SERVICO",
+    "ativo": true,
+    "dataCadastro": "2022-02-17T11:39:22.14",
+    "usuarioCadastro": "regiane.felicio",
+    "dataUltimaAlteracao": "2022-02-17T11:39:22.14",
+    "usuarioUltimaAlteracao": "regiane.felicio",
+    "idHml": 2
+  },
+  {
+    "id": 3,
+    "descricao": "FINANCEIRA",
+    "ativo": true,
+    "dataCadastro": "2022-02-17T11:39:32.34",
+    "usuarioCadastro": "regiane.felicio",
+    "dataUltimaAlteracao": "2022-02-17T11:39:32.34",
+    "usuarioUltimaAlteracao": "regiane.felicio",
+    "idHml": 3
+  }
+]

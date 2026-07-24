@@ -140,7 +140,8 @@
           ],
           "avancoAutomatico": true,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "6210102d2eb7d56d6ac917b1"
         }
       }
     ],
@@ -281,7 +282,8 @@
           ],
           "avancoAutomatico": true,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "6210102d2eb7d56d6ac917b1"
         }
       }
     ],
@@ -377,7 +379,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "621011e42eb7d56d6ac917c1"
         }
       }
     ],
@@ -518,7 +521,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "6210113b2eb7d56d6ac917ba"
         }
       },
       {
@@ -642,7 +646,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "621010852eb7d56d6ac917b4"
         }
       }
     ],
@@ -728,7 +733,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "6210123a2eb7d56d6ac917c3"
         }
       }
     ],
@@ -814,7 +820,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "621012692eb7d56d6ac917c5"
         }
       }
     ],
@@ -984,7 +991,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "621012b02eb7d56d6ac917c8"
         }
       }
     ],
@@ -1148,7 +1156,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "621015172eb7d56d6ac917d8"
         }
       }
     ],
@@ -1254,7 +1263,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "6210118a2eb7d56d6ac917bd"
         }
       }
     ],
@@ -1334,7 +1344,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "6220e2b9e0541b34f638b872"
         }
       }
     ],
@@ -1535,7 +1546,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "621015e12eb7d56d6ac917dd"
         }
       }
     ],
@@ -1558,7 +1570,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "62608813c30e054efea971a5",
+          "id": "625ed96e9bfea33c42199f89",
           "nome": "Administradora",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
@@ -1621,7 +1633,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "62608813c30e054efea971a5"
         }
       }
     ],
@@ -1707,7 +1720,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "621016222eb7d56d6ac917e0"
         }
       }
     ],
@@ -1819,7 +1833,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "6210118a2eb7d56d6ac917bd"
         }
       }
     ],
@@ -1842,7 +1857,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "628794ba7b95a1333b83660e",
+          "id": "624c912c9bfea33c42199b35",
           "nome": "Cadastrar Ordem de Pagamento",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": false,
@@ -1905,7 +1920,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "628794ba7b95a1333b83660e"
         }
       }
     ],
@@ -1928,7 +1944,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "628795027b95a1333b836610",
+          "id": "624c91699bfea33c42199b37",
           "nome": "Fechamento de Câmbio",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
@@ -1991,7 +2007,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "628795027b95a1333b836610"
         }
       }
     ],
@@ -2014,7 +2031,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "628795387b95a1333b836612",
+          "id": "624c91939bfea33c42199b39",
           "nome": "Fechamento BackOffice",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
@@ -2077,7 +2094,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "628795387b95a1333b836612"
         }
       }
     ],
@@ -2100,7 +2118,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "6287957c7b95a1333b836614",
+          "id": "624c91c19bfea33c42199b3d",
           "nome": "Recalcular Deságio",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
@@ -2163,7 +2181,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "6287957c7b95a1333b836614"
         }
       }
     ],
@@ -2186,7 +2205,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "628795f17b95a1333b836616",
+          "id": "624c91f19bfea33c42199b3f",
           "nome": "Liquidar Operação",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
@@ -2254,7 +2273,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "628795f17b95a1333b836616"
         }
       }
     ],
@@ -2277,7 +2297,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "633c463ccdb5ac474a25e67f",
+          "id": "6239ef4b9bfea33c421995cf",
           "nome": "Inclusão OPE",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": false,
@@ -2355,7 +2375,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "633c463ccdb5ac474a25e67f"
         }
       }
     ],
@@ -2378,7 +2399,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "633c4759e1f9e94744c844b3",
+          "id": "62eac421863afc34edb20442",
           "nome": "Middle OPE",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": false,
@@ -2526,7 +2547,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "633c4759e1f9e94744c844b3"
         }
       }
     ],
@@ -2549,7 +2571,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "633c4833e1f9e94744c844b8",
+          "id": "6239efd99bfea33c421995d3",
           "nome": "Comercial OPE",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
@@ -2663,7 +2685,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "633c4833e1f9e94744c844b8"
         }
       }
     ],
@@ -2686,7 +2709,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "633c4a62e1f9e94744c844be",
+          "id": "62e35cc6f9568d60c147007d",
           "nome": "Alçada Comercial OPE",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
@@ -2754,7 +2777,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "633c4a62e1f9e94744c844be"
         }
       }
     ],
@@ -2777,7 +2801,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "633dcb10e1f9e94744c8453a",
+          "id": "62e35d87f9568d60c1470082",
           "nome": "Análise MOP",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
@@ -2967,7 +2991,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "633dcb10e1f9e94744c8453a"
         }
       }
     ],
@@ -2990,7 +3015,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "633dcc0be1f9e94744c8453c",
+          "id": "62e35f50f9568d60c147008d",
           "nome": "Checagem OPE",
           "podeFinalizarEsteira": false,
           "podeVoltarEtapa": true,
@@ -3058,7 +3083,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "633dcc0be1f9e94744c8453c"
         }
       }
     ],
@@ -3081,7 +3107,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "636b9164bbd1f9567fb4dd46",
+          "id": "646787722f41fb56c15d1eea",
           "nome": "MOP Pós Checagem OPE",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
@@ -3144,7 +3170,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "636b9164bbd1f9567fb4dd46"
         }
       }
     ],
@@ -3167,7 +3194,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "633dd006cdb5ac474a25e704",
+          "id": "62e35e6df9568d60c1470089",
           "nome": "Alçada MOP",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
@@ -3240,7 +3267,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "633dd006cdb5ac474a25e704"
         }
       }
     ],
@@ -3263,7 +3291,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "663eab4b7376192e82495b73",
+          "id": "662fffbed63ede0eb949e0d7",
           "nome": "Analisar Lastro",
           "podeFinalizarEsteira": false,
           "podeVoltarEtapa": true,
@@ -3377,7 +3405,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "663eab4b7376192e82495b73"
         }
       }
     ],
@@ -3400,7 +3429,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "633dd0c0cdb5ac474a25e706",
+          "id": "62e361def9568d60c14700a1",
           "nome": "Alçada Diretoria OPE",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
@@ -3468,7 +3497,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": "UNICA",
-          "numeroMinimoAprovacoes": 0
+          "numeroMinimoAprovacoes": 0,
+          "id.old": "633dd0c0cdb5ac474a25e706"
         }
       }
     ],
@@ -3491,7 +3521,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "66734af6a1fcf43cdd85b550",
+          "id": "667326450c567f19bc95d308",
           "nome": "Alçada Acionista OPE",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
@@ -3559,7 +3589,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "66734af6a1fcf43cdd85b550"
         }
       }
     ],
@@ -3576,7 +3607,7 @@
       {
         "condicao": "102",
         "descricao": "Voltar",
-        "irIdEtapa": "633eea25e1f9e94744c8456c"
+        "irIdEtapa": "633eeb17cdb5ac474a25e73d"
       }
     ],
     "usuario": {
@@ -3588,7 +3619,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "633dd34ce1f9e94744c84542",
+          "id": "62e36131f9568d60c147009b",
           "nome": "Tesouraria OPE",
           "podeFinalizarEsteira": false,
           "podeVoltarEtapa": true,
@@ -3697,7 +3728,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "633dd34ce1f9e94744c84542"
         }
       }
     ],
@@ -3710,18 +3742,7 @@
     "status": "ATIVO",
     "idFiltro": "1",
     "etapaPadraoDevolucao": false,
-    "condicoes": [
-      {
-        "condicao": "105",
-        "descricao": "Voltar",
-        "irIdEtapa": "63c7fbcbbcf79c7813bc616d"
-      },
-      {
-        "condicao": "107",
-        "descricao": "Voltar",
-        "irIdEtapa": "63c7fbcbbcf79c7813bc616d"
-      }
-    ],
+    "condicoes": [],
     "usuario": {
       "dataCriacao": "2022-10-06T11:57:07.082",
       "dataUltimaAlteracao": null,
@@ -3731,7 +3752,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "633dd24fe1f9e94744c84540",
+          "id": "62e360d9f9568d60c1470099",
           "nome": "Gestora OPE",
           "podeFinalizarEsteira": false,
           "podeVoltarEtapa": true,
@@ -3877,7 +3898,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "633dd24fe1f9e94744c84540"
         }
       }
     ],
@@ -3911,7 +3933,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "66b6b3db08067845babcf957",
+          "id": "66d8916538877178f115464e",
           "nome": "Tesouraria OPE 2",
           "podeFinalizarEsteira": false,
           "podeVoltarEtapa": true,
@@ -4025,7 +4047,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "66b6b3db08067845babcf957"
         }
       }
     ],
@@ -4048,7 +4071,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "690e02bcdec98219cf3b6364",
+          "id": "69a205135095b0100e693afb",
           "nome": "Aguardando Assinatura",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
@@ -4116,7 +4139,8 @@
           ],
           "avancoAutomatico": true,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "690e02bcdec98219cf3b6364"
         }
       }
     ],
@@ -4139,7 +4163,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "633dd412cdb5ac474a25e70a",
+          "id": "62e3617df9568d60c147009d",
           "nome": "Pagamento OPE",
           "podeFinalizarEsteira": false,
           "podeVoltarEtapa": true,
@@ -4248,7 +4272,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "633dd412cdb5ac474a25e70a"
         }
       }
     ],
@@ -4271,7 +4296,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "63487d3449cd260334afc8ad",
+          "id": "630e01c7f18094524a48cd9e",
           "nome": "Solicitação Portal",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": false,
@@ -4349,7 +4374,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "63487d3449cd260334afc8ad"
         }
       }
     ],
@@ -4372,7 +4398,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "63487e0149cd260334afc8b1",
+          "id": "630e0303f18094524a48cda3",
           "nome": "Aprovação Portal",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
@@ -4435,7 +4461,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "63487e0149cd260334afc8b1"
         }
       }
     ],
@@ -4458,7 +4485,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "6351a5b0707e763b84dba841",
+          "id": "62e35facf9568d60c1470091",
           "nome": "Jurídico OPE",
           "podeFinalizarEsteira": false,
           "podeVoltarEtapa": true,
@@ -4545,7 +4572,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "6351a5b0707e763b84dba841"
         }
       }
     ],
@@ -4568,7 +4596,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "63a2f7ae0f003658e68928a7",
+          "id": "639a2c4a9003e65ddf61360d",
           "nome": "Estruturada OPE",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": false,
@@ -4641,7 +4669,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "63a2f7ae0f003658e68928a7"
         }
       }
     ],
@@ -4664,7 +4693,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "633c4759e1f9e94744c844b3",
+          "id": "62eac421863afc34edb20442",
           "nome": "Middle OPE",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": false,
@@ -4812,7 +4841,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "633c4759e1f9e94744c844b3"
         }
       }
     ],
@@ -4835,7 +4865,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "63502c7e707e763b84dba711",
+          "id": "63375f9c5288482339a3cfed",
           "nome": "Formalização Ativo OPE",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
@@ -4950,7 +4980,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "63502c7e707e763b84dba711"
         }
       }
     ],
@@ -4973,7 +5004,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "6568fc3efc59213910941b83",
+          "id": "6564d599295e4f66aa250f9e",
           "nome": "Lastro",
           "podeFinalizarEsteira": false,
           "podeVoltarEtapa": true,
@@ -5087,7 +5118,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "6568fc3efc59213910941b83"
         }
       }
     ],
@@ -5110,7 +5142,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "63502c7e707e763b84dba711",
+          "id": "63375f9c5288482339a3cfed",
           "nome": "Formalização Ativo OPE",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
@@ -5225,7 +5257,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "63502c7e707e763b84dba711"
         }
       }
     ],
@@ -5248,7 +5281,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "63502c7e707e763b84dba711",
+          "id": "63375f9c5288482339a3cfed",
           "nome": "Formalização Ativo OPE",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
@@ -5363,7 +5396,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "63502c7e707e763b84dba711"
         }
       }
     ],
@@ -5386,7 +5420,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "63502c7e707e763b84dba711",
+          "id": "63375f9c5288482339a3cfed",
           "nome": "Formalização Ativo OPE",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
@@ -5501,7 +5535,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "63502c7e707e763b84dba711"
         }
       }
     ],
@@ -5524,7 +5559,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "63c0403b94c72a4250d330b4",
+          "id": "630d5659f18094524a48cd8e",
           "nome": "Incluir Operação",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
@@ -5592,7 +5627,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "63c0403b94c72a4250d330b4"
         }
       }
     ],
@@ -5615,7 +5651,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "63bebe93990ae9623de51ebe",
+          "id": "630d4b18f18094524a48cd68",
           "nome": "Validar Documentos",
           "podeFinalizarEsteira": false,
           "podeVoltarEtapa": true,
@@ -5678,7 +5714,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "63bebe93990ae9623de51ebe"
         }
       }
     ],
@@ -5701,7 +5738,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "63bec00894c72a4250d32ea3",
+          "id": "630d4fabf18094524a48cd76",
           "nome": "Comercial Câmbio",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
@@ -5769,7 +5806,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "63bec00894c72a4250d32ea3"
         }
       }
     ],
@@ -5792,7 +5830,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "63bec15494c72a4250d32eaf",
+          "id": "630d4cb6f18094524a48cd6c",
           "nome": "Crédito",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
@@ -5855,7 +5893,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "63bec15494c72a4250d32eaf"
         }
       }
     ],
@@ -5878,7 +5917,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "63bec2fc94c72a4250d32eba",
+          "id": "630d502ef18094524a48cd78",
           "nome": "Analise Câmbio OPE",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
@@ -5978,7 +6017,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "63bec2fc94c72a4250d32eba"
         }
       }
     ],
@@ -6001,7 +6041,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "667c8f41a1fcf43cdd85bf82",
+          "id": "66719ace0c567f19bc95d25a",
           "nome": "Alçada Comercial COMEX",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
@@ -6074,7 +6114,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "667c8f41a1fcf43cdd85bf82"
         }
       }
     ],
@@ -6103,7 +6144,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "63bec483990ae9623de51ee4",
+          "id": "630d50bef18094524a48cd7a",
           "nome": "Gestora Multicomex",
           "podeFinalizarEsteira": false,
           "podeVoltarEtapa": true,
@@ -6212,7 +6253,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "63bec483990ae9623de51ee4"
         }
       }
     ],
@@ -6246,7 +6288,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "63bec57b990ae9623de51eec",
+          "id": "630d514bf18094524a48cd7c",
           "nome": "Tesouraria",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
@@ -6309,7 +6351,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "63bec57b990ae9623de51eec"
         }
       }
     ],
@@ -6332,7 +6375,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "63bec483990ae9623de51ee4",
+          "id": "630d50bef18094524a48cd7a",
           "nome": "Gestora Multicomex",
           "podeFinalizarEsteira": false,
           "podeVoltarEtapa": true,
@@ -6441,7 +6484,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "63bec483990ae9623de51ee4"
         }
       }
     ],
@@ -6464,7 +6508,7 @@
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "63bec6fb990ae9623de51ef6",
+          "id": "630d51dcf18094524a48cd7e",
           "nome": "Formalização",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
@@ -6532,7 +6576,8 @@
           ],
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null
+          "numeroMinimoAprovacoes": null,
+          "id.old": "63bec6fb990ae9623de51ef6"
         }
       }
     ],

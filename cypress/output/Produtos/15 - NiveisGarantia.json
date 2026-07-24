@@ -1,1 +1,25 @@
-[]
+[
+  {
+    "id": 1,
+    "dataCadastro": "2023-07-31T10:49:17.473",
+    "dataUltimaAlteracao": "2023-07-31T10:49:17.473",
+    "usuarioCadastro": "laura.contart",
+    "consultoriaEspecializada": {
+      "id": 1,
+      "dataCadastro": "2021-01-01T00:00:00",
+      "dataUltimaAlteracao": "2022-02-17T18:58:57.403",
+      "usuarioCadastro": "tiago.roque",
+      "cnpj": "29695351000146",
+      "keyCloakClient": null,
+      "keyCloakSecret": null,
+      "descricao": "PERPETUO CONSULTORIA ESPECIALIZADA LTDA",
+      "ativo": true,
+      "usuarioUltimaAlteracao": "tiago.roque",
+      "hibernateLazyInitializer": {}
+    },
+    "usuarioUltimaAlteracao": "laura.contart",
+    "descricao": "NÍVEL 1",
+    "ativo": true,
+    "idHml": 1
+  }
+]

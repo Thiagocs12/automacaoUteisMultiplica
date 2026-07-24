@@ -1,21 +1,18 @@
-import './commands'
-import './apiCommands'
-import './utils'
-import './larca'
+// arquivo: e2e.js
+
+import './commands';
+import './apiCommands';
+import './utils';
+import './larca';
+
+const ERROS_IGNORADOS = [
+  /Cannot read properties of undefined |reading 'content'|/,
+  /Request failed with status code 50[02]/,
+  /Request failed with status code 40[46]/,
+  /Network Error/,
+  /ResizeObserver loop (completed with undelivered notifications|limit exceeded)/,
+];
 
 Cypress.on('uncaught:exception', (err) => {
-
-  if (
-    /Cannot read properties of undefined \(reading 'content'\)/.test(err.message) ||
-    /Request failed with status code 502/.test(err.message) ||
-    /Request failed with status code 406/.test(err.message) ||
-    /Request failed with status code 404/.test(err.message) ||
-    /Request failed with status code 500/.test(err.message) ||
-    /Network Error/.test(err.message) ||
-    err.message.includes('ResizeObserver loop completed with undelivered notifications') ||
-    err.message.includes('ResizeObserver loop limit exceeded')
-  ) {
-    return false
-  }
-
-})
+  if (ERROS_IGNORADOS.some((pattern) => pattern.test(err.message))) return false;
+});

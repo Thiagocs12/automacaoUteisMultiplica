@@ -1,3 +1,5 @@
+// arquivo: utils.js
+
 import MAPEAMENTOS_APIS from '../utils/mapeamentoProdutos';
 
 const CLASSIFICACAO_PRODUTO = MAPEAMENTOS_APIS.CLASSIFICACAO_PRODUTO;
@@ -12,17 +14,21 @@ const SELECIONAR_CEDENTE = MAPEAMENTOS_APIS.SELECIONAR_CEDENTE;
  * @returns {Cypress.Chainable<void>}
  */
 Cypress.Commands.add('verificarTokens', (ambiente) => {
-  if(['prod', 'hml'].includes(ambiente)) {
+  if (['prod', 'hml'].includes(ambiente)) {
     return cy.executarRequest(ambiente, `${CLASSIFICACAO_PRODUTO.urlBusca}PRODUTO`, '', 'GET', false).then((response) => {
       if (response.status === 200) return;
       cy.loginUi(ambiente);
     });
-  } else if (ambiente === 'bhml') {
+  }
+
+  if (ambiente === 'bhml') {
     return cy.executarRequest(ambiente, `${SELECIONAR_CEDENTE.url}Agrofoods`, '', 'GET', false).then((response) => {
       if (response.status === 200) return;
       cy.loginUi(ambiente);
     });
-  } else if (ambiente === 'keycloak') {
+  }
+
+  if (ambiente === 'keycloak') {
     return cy.executarRequest(ambiente, `${GRUPOS_KEYCLOAK.urlBusca}APC`, '', 'GET', false).then((response) => {
       if (response.status === 200) return;
       cy.loginUi(ambiente);
@@ -43,14 +49,11 @@ Cypress.Commands.add('loginUi', (ambiente) => {
 
     const baseOrigin = new URL(baseUrl).origin;
     const keycloakOrigin = new URL(loginUrl).origin;
-
-    // Comparação feita ANTES do visit — sem depender de runtime redirect
     const precisaDeCrossOrigin = baseOrigin !== keycloakOrigin;
 
     cy.visit(baseUrl);
 
     if (precisaDeCrossOrigin) {
-      // prod / hml — app redireciona para Keycloak (cross-origin)
       cy.origin(
         keycloakOrigin,
         { args: { loginUsername, loginPassword, keycloakOrigin } },
@@ -62,7 +65,6 @@ Cypress.Commands.add('loginUi', (ambiente) => {
         }
       );
     } else {
-      // keycloak — baseUrl já é o próprio Keycloak, sem redirect
       cy.url({ timeout: 20000 }).should('include', keycloakOrigin);
       cy.get('#username').should('be.visible').type(loginUsername, { log: false });
       cy.get('#password').should('be.visible').type(loginPassword, { log: false });
@@ -73,9 +75,7 @@ Cypress.Commands.add('loginUi', (ambiente) => {
       const accessToken = interception?.response?.body?.access_token;
 
       if (!accessToken) {
-        throw new Error(
-          `[loginUi] Token não encontrado na resposta para o ambiente "${ambiente}".`
-        );
+        throw new Error(`[loginUi] Token não encontrado na resposta para o ambiente "${ambiente}".`);
       }
 
       const filePath = 'cypress/temp/tokens.json';
@@ -104,10 +104,7 @@ Cypress.Commands.add('loginUi', (ambiente) => {
  * Retorna undefined caso qualquer nível do caminho não exista.
  * @param {object} obj - Objeto de origem da busca.
  * @param {string} caminho - Caminho da propriedade em notação de ponto (ex: 'a.b.c').
- * @returns {any} Valor encontrado no caminho informado ou undefined.
+ * @returns {any}
  */
-export const obterValor = (obj, caminho) => {
-  return caminho
-    .split('.')
-    .reduce((acc, chave) => acc?.[chave], obj);
-};
+export const obterValor = (obj, caminho) =>
+  caminho.split('.').reduce((acc, chave) => acc?.[chave], obj);

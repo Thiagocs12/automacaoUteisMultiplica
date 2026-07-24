@@ -44,7 +44,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "62100d2d2eb7d56d6ac91793",
+        "id": "651484ce902e8200134ee2df",
         "nome": "Cadastrar Prospect",
         "mfe": "/prospect",
         "enviaCondicao": true,
@@ -55,65 +55,72 @@
           "usuario": "Tiago Roque"
         },
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "62100d2d2eb7d56d6ac91793"
       }
     ],
     "tipoAlcada": null,
     "chamadaApi": [],
     "motivosRetornoEsteira": [
       {
-        "id": "67fd071502b63d5baf1b84f1",
+        "id": "6a60e0260295084f8e2d54da",
         "nome": "Pendência de Documentação",
         "descricao": "Comercial - Pendência de Documentação",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd071502b63d5baf1b84f1"
       },
       {
-        "id": "67fd0730863e3e045e365365",
+        "id": "6a637de087cca57c12ced7dc",
         "nome": "Proposta desalinhada ou fora em relação à Política",
         "descricao": "Comercial - Proposta desalinhada ou fora em relação à Política",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0730863e3e045e365365"
       },
       {
-        "id": "67fd074c02b63d5baf1b84f3",
+        "id": "6a637de187cca57c12ced7de",
         "nome": "Proposta desalinhada em relação ao mercado",
         "descricao": "Comerial - Proposta desalinhada em relação ao mercado",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd074c02b63d5baf1b84f3"
       },
       {
-        "id": "67fd0759863e3e045e365367",
+        "id": "6a637de187cca57c12ced7e0",
         "nome": "SERASA",
         "descricao": "Comercial - SERASA",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0759863e3e045e365367"
       },
       {
-        "id": "67fd0768863e3e045e365369",
+        "id": "6a637de187cca57c12ced7e2",
         "nome": "Cliente em RJ",
         "descricao": "Comercial - Cliente em RJ",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0768863e3e045e365369"
       },
       {
-        "id": "67fd0779863e3e045e36536b",
+        "id": "6a637de187cca57c12ced7e4",
         "nome": "Esclarecimentos sobre estrutura de Garantias",
         "descricao": "Comercial - Esclarecimentos sobre estrutura de Garantias",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0779863e3e045e36536b"
       }
     ],
     "notificacaoArea": [],
@@ -187,7 +194,8 @@
           "usuario": "Rogerio Messias"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "62100ef02eb7d56d6ac917ad"
       }
     ],
     "tipoAlcada": null,
@@ -243,7 +251,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "62100db02eb7d56d6ac91795",
+        "id": "65148502902e8200134ee2e2",
         "nome": "Analisar Prospect",
         "mfe": "/analisarProspect",
         "enviaCondicao": true,
@@ -254,65 +262,72 @@
           "usuario": "Tiago Roque"
         },
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "62100db02eb7d56d6ac91795"
       }
     ],
     "tipoAlcada": null,
     "chamadaApi": [],
     "motivosRetornoEsteira": [
       {
-        "id": "67fd071502b63d5baf1b84f1",
+        "id": "6a60e0260295084f8e2d54da",
         "nome": "Pendência de Documentação",
         "descricao": "Comercial - Pendência de Documentação",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd071502b63d5baf1b84f1"
       },
       {
-        "id": "67fd0730863e3e045e365365",
+        "id": "6a637de087cca57c12ced7dc",
         "nome": "Proposta desalinhada ou fora em relação à Política",
         "descricao": "Comercial - Proposta desalinhada ou fora em relação à Política",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0730863e3e045e365365"
       },
       {
-        "id": "67fd074c02b63d5baf1b84f3",
+        "id": "6a637de187cca57c12ced7de",
         "nome": "Proposta desalinhada em relação ao mercado",
         "descricao": "Comerial - Proposta desalinhada em relação ao mercado",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd074c02b63d5baf1b84f3"
       },
       {
-        "id": "67fd0759863e3e045e365367",
+        "id": "6a637de187cca57c12ced7e0",
         "nome": "SERASA",
         "descricao": "Comercial - SERASA",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0759863e3e045e365367"
       },
       {
-        "id": "67fd0768863e3e045e365369",
+        "id": "6a637de187cca57c12ced7e2",
         "nome": "Cliente em RJ",
         "descricao": "Comercial - Cliente em RJ",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0768863e3e045e365369"
       },
       {
-        "id": "67fd0779863e3e045e36536b",
+        "id": "6a637de187cca57c12ced7e4",
         "nome": "Esclarecimentos sobre estrutura de Garantias",
         "descricao": "Comercial - Esclarecimentos sobre estrutura de Garantias",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0779863e3e045e36536b"
       }
     ],
     "notificacaoArea": [],
@@ -365,7 +380,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "62100db02eb7d56d6ac91795",
+        "id": "65148502902e8200134ee2e2",
         "nome": "Analisar Prospect",
         "mfe": "/analisarProspect",
         "enviaCondicao": true,
@@ -376,65 +391,72 @@
           "usuario": "Tiago Roque"
         },
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "62100db02eb7d56d6ac91795"
       }
     ],
     "tipoAlcada": null,
     "chamadaApi": [],
     "motivosRetornoEsteira": [
       {
-        "id": "67fd071502b63d5baf1b84f1",
+        "id": "6a60e0260295084f8e2d54da",
         "nome": "Pendência de Documentação",
         "descricao": "Comercial - Pendência de Documentação",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd071502b63d5baf1b84f1"
       },
       {
-        "id": "67fd0730863e3e045e365365",
+        "id": "6a637de087cca57c12ced7dc",
         "nome": "Proposta desalinhada ou fora em relação à Política",
         "descricao": "Comercial - Proposta desalinhada ou fora em relação à Política",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0730863e3e045e365365"
       },
       {
-        "id": "67fd074c02b63d5baf1b84f3",
+        "id": "6a637de187cca57c12ced7de",
         "nome": "Proposta desalinhada em relação ao mercado",
         "descricao": "Comerial - Proposta desalinhada em relação ao mercado",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd074c02b63d5baf1b84f3"
       },
       {
-        "id": "67fd0759863e3e045e365367",
+        "id": "6a637de187cca57c12ced7e0",
         "nome": "SERASA",
         "descricao": "Comercial - SERASA",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0759863e3e045e365367"
       },
       {
-        "id": "67fd0768863e3e045e365369",
+        "id": "6a637de187cca57c12ced7e2",
         "nome": "Cliente em RJ",
         "descricao": "Comercial - Cliente em RJ",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0768863e3e045e365369"
       },
       {
-        "id": "67fd0779863e3e045e36536b",
+        "id": "6a637de187cca57c12ced7e4",
         "nome": "Esclarecimentos sobre estrutura de Garantias",
         "descricao": "Comercial - Esclarecimentos sobre estrutura de Garantias",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0779863e3e045e36536b"
       }
     ],
     "notificacaoArea": [],
@@ -498,7 +520,8 @@
           "usuario": "Rogerio Messias"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "62100de92eb7d56d6ac91799"
       }
     ],
     "tipoAlcada": null,
@@ -554,7 +577,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "62100ece2eb7d56d6ac917ab",
+        "id": "6a637dde87cca57c12ced7ca",
         "nome": "Distribuir",
         "mfe": "/distribuir",
         "enviaCondicao": true,
@@ -565,7 +588,8 @@
           "usuario": "Bárbara Filadelfo"
         },
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "62100ece2eb7d56d6ac917ab"
       }
     ],
     "tipoAlcada": null,
@@ -637,83 +661,92 @@
           "usuario": "Rogerio Messias"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "62100e2a2eb7d56d6ac9179f"
       }
     ],
     "tipoAlcada": null,
     "chamadaApi": [],
     "motivosRetornoEsteira": [
       {
-        "id": "67fd0a7502b63d5baf1b84f7",
+        "id": "6a637de187cca57c12ced7e6",
         "nome": "Pendência de Documentação e Pareceres de Garantia",
         "descricao": "Crédito - Pendência de Documentação e Pareceres de Garantia",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0a7502b63d5baf1b84f7"
       },
       {
-        "id": "67fd071502b63d5baf1b84f1",
+        "id": "6a60e0260295084f8e2d54da",
         "nome": "Pendência de Documentação",
         "descricao": "Comercial - Pendência de Documentação",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd071502b63d5baf1b84f1"
       },
       {
-        "id": "67fd0aa5863e3e045e365377",
+        "id": "6a637de287cca57c12ced7e8",
         "nome": "Indisponibilidade de agenda de call para a semana",
         "descricao": "Crédito - Indisponibilidade de agenda de call para a semana",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0aa5863e3e045e365377"
       },
       {
-        "id": "67fd0ab4863e3e045e365379",
+        "id": "6a637de287cca57c12ced7ea",
         "nome": "Cadastro filiais ou ligadas",
         "descricao": "Crédito - Cadastro filiais ou ligadas",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0ab4863e3e045e365379"
       },
       {
-        "id": "67fd0a9302b63d5baf1b84f9",
+        "id": "6a637de287cca57c12ced7ec",
         "nome": "Documentação Incompleta das Filiais",
         "descricao": "Crédito - Documentação Incompleta das Filiais",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0a9302b63d5baf1b84f9"
       },
       {
-        "id": "67fd0acb863e3e045e36537b",
+        "id": "6a637de287cca57c12ced7ee",
         "nome": "Fora do enquadramento da Política de Crédito",
         "descricao": "Crédito - Fora do enquadramento da Política de Crédito",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0acb863e3e045e36537b"
       },
       {
-        "id": "67fd0ae4863e3e045e36537d",
+        "id": "6a637de387cca57c12ced7f0",
         "nome": "Necessidade de maiores informações de Pleito",
         "descricao": "Crédito - Necessidade de maiores informações de Pleito",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0ae4863e3e045e36537d"
       },
       {
-        "id": "67fd0b00863e3e045e36537f",
+        "id": "6a637de387cca57c12ced7f2",
         "nome": "Recebíveis - Falta de informação",
         "descricao": "Crédito - Recebíveis - Falta de informação",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0b00863e3e045e36537f"
       }
     ],
     "notificacaoArea": [],
@@ -782,83 +815,92 @@
           "usuario": "Rogerio Messias"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "62100e422eb7d56d6ac917a1"
       }
     ],
     "tipoAlcada": null,
     "chamadaApi": [],
     "motivosRetornoEsteira": [
       {
-        "id": "67fd0a7502b63d5baf1b84f7",
+        "id": "6a637de187cca57c12ced7e6",
         "nome": "Pendência de Documentação e Pareceres de Garantia",
         "descricao": "Crédito - Pendência de Documentação e Pareceres de Garantia",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0a7502b63d5baf1b84f7"
       },
       {
-        "id": "67fd071502b63d5baf1b84f1",
+        "id": "6a60e0260295084f8e2d54da",
         "nome": "Pendência de Documentação",
         "descricao": "Comercial - Pendência de Documentação",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd071502b63d5baf1b84f1"
       },
       {
-        "id": "67fd0a9302b63d5baf1b84f9",
+        "id": "6a637de287cca57c12ced7ec",
         "nome": "Documentação Incompleta das Filiais",
         "descricao": "Crédito - Documentação Incompleta das Filiais",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0a9302b63d5baf1b84f9"
       },
       {
-        "id": "67fd0aa5863e3e045e365377",
+        "id": "6a637de287cca57c12ced7e8",
         "nome": "Indisponibilidade de agenda de call para a semana",
         "descricao": "Crédito - Indisponibilidade de agenda de call para a semana",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0aa5863e3e045e365377"
       },
       {
-        "id": "67fd0ab4863e3e045e365379",
+        "id": "6a637de287cca57c12ced7ea",
         "nome": "Cadastro filiais ou ligadas",
         "descricao": "Crédito - Cadastro filiais ou ligadas",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0ab4863e3e045e365379"
       },
       {
-        "id": "67fd0acb863e3e045e36537b",
+        "id": "6a637de287cca57c12ced7ee",
         "nome": "Fora do enquadramento da Política de Crédito",
         "descricao": "Crédito - Fora do enquadramento da Política de Crédito",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0acb863e3e045e36537b"
       },
       {
-        "id": "67fd0ae4863e3e045e36537d",
+        "id": "6a637de387cca57c12ced7f0",
         "nome": "Necessidade de maiores informações de Pleito",
         "descricao": "Crédito - Necessidade de maiores informações de Pleito",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0ae4863e3e045e36537d"
       },
       {
-        "id": "67fd0b00863e3e045e36537f",
+        "id": "6a637de387cca57c12ced7f2",
         "nome": "Recebíveis - Falta de informação",
         "descricao": "Crédito - Recebíveis - Falta de informação",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0b00863e3e045e36537f"
       }
     ],
     "notificacaoArea": [],
@@ -927,7 +969,8 @@
           "usuario": "Rogerio Messias"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "62100dc62eb7d56d6ac91797"
       }
     ],
     "tipoAlcada": null,
@@ -939,13 +982,14 @@
     ],
     "motivosRetornoEsteira": [
       {
-        "id": "6a1ef4e36331e36238af1a64",
+        "id": "6a637de387cca57c12ced7f4",
         "nome": "Operação não aprovada pelo comitê",
         "descricao": "Rejeitada",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "6a1ef4e36331e36238af1a64"
       }
     ],
     "notificacaoArea": [],
@@ -1003,7 +1047,8 @@
           "usuario": "Rogerio Messias"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "62100eae2eb7d56d6ac917a9"
       }
     ],
     "tipoAlcada": null,
@@ -1070,119 +1115,132 @@
           "usuario": "Rogerio Messias"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "62100e8e2eb7d56d6ac917a7"
       }
     ],
     "tipoAlcada": null,
     "chamadaApi": [],
     "motivosRetornoEsteira": [
       {
-        "id": "6a46f1ad1c9d1b67502106ca",
+        "id": "6a637de387cca57c12ced7f6",
         "nome": "Ausência de e-mail cadastrado. Dados bancários ausentes ou divergentes.",
         "descricao": "Ausência de e-mail cadastrado. Dados bancários ausentes ou divergentes.",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "6a46f1ad1c9d1b67502106ca"
       },
       {
-        "id": "6a46f1ea1c9d1b67502106cc",
+        "id": "6a637de487cca57c12ced7f8",
         "nome": "Não atendimento à regra de 70% para Devedor Solidário.",
         "descricao": "Não atendimento à regra de 70% para Devedor Solidário.",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "6a46f1ea1c9d1b67502106cc"
       },
       {
-        "id": "6a46f1fe1c9d1b67502106ce",
+        "id": "6a637de487cca57c12ced7fa",
         "nome": "Comprovante de endereço vencido.",
         "descricao": "Comprovante de endereço vencido.",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "6a46f1fe1c9d1b67502106ce"
       },
       {
-        "id": "6a46f212924bf5254201895b",
+        "id": "6a637de487cca57c12ced7fc",
         "nome": "Ausência de comprovante de endereço.",
         "descricao": "Ausência de comprovante de endereço.",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "6a46f212924bf5254201895b"
       },
       {
-        "id": "6a46f22437f586121f471aa2",
+        "id": "6a637de487cca57c12ced7fe",
         "nome": "Documento de identificação com emissão superior a 10 anos.",
         "descricao": "Documento de identificação com emissão superior a 10 anos.",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "6a46f22437f586121f471aa2"
       },
       {
-        "id": "6a46f23a924bf5254201895d",
+        "id": "6a637de587cca57c12ced800",
         "nome": "Ausência de documento de identificação.",
         "descricao": "Ausência de documento de identificação.",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "6a46f23a924bf5254201895d"
       },
       {
-        "id": "6a46f24937f586121f471aa4",
+        "id": "6a637de587cca57c12ced802",
         "nome": "Documentação societária incompleta ou divergente.",
         "descricao": "Documentação societária incompleta ou divergente.",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "6a46f24937f586121f471aa4"
       },
       {
-        "id": "6a46f260632abc19743d6d01",
+        "id": "6a637de587cca57c12ced804",
         "nome": "Existência de novos documentos registrados na Junta Comercial não apresentados.",
         "descricao": "Existência de novos documentos registrados na Junta Comercial não apresentados.",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "6a46f260632abc19743d6d01"
       },
       {
-        "id": "6a46f26d632abc19743d6d03",
+        "id": "6a637de587cca57c12ced806",
         "nome": "Ausência de documento societário de Sócio Pessoa Jurídica (PJ).",
         "descricao": "Ausência de documento societário de Sócio Pessoa Jurídica (PJ).",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "6a46f26d632abc19743d6d03"
       },
       {
-        "id": "6a46f280632abc19743d6d05",
+        "id": "6a637de687cca57c12ced808",
         "nome": "Ausência de documento societário de Devedor Solidário Pessoa Jurídica (PJ).",
         "descricao": "Ausência de documento societário de Devedor Solidário Pessoa Jurídica (PJ).",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "6a46f280632abc19743d6d05"
       },
       {
-        "id": "6a46f28e1c9d1b67502106d0",
+        "id": "6a637de687cca57c12ced80a",
         "nome": "Ausência de informações/documentação de Pessoas Ligadas.",
         "descricao": "Ausência de informações/documentação de Pessoas Ligadas.",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "6a46f28e1c9d1b67502106d0"
       },
       {
-        "id": "6a4e7fb40dc7f143f0be4e8f",
+        "id": "6a637de687cca57c12ced80c",
         "nome": "Reprovação na análise de Compliance.",
         "descricao": "Reprovação na análise de Compliance.",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "6a4e7fb40dc7f143f0be4e8f"
       }
     ],
     "notificacaoArea": [],
@@ -1235,7 +1293,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "626087bfc30e054efea971a3",
+        "id": "625ed9589bfea33c42199f87",
         "nome": "Realizar Administração",
         "mfe": "/prospect",
         "enviaCondicao": true,
@@ -1246,7 +1304,8 @@
           "usuario": "Rogerio Messias"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "626087bfc30e054efea971a3"
       }
     ],
     "tipoAlcada": null,
@@ -1302,7 +1361,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "62100db02eb7d56d6ac91795",
+        "id": "65148502902e8200134ee2e2",
         "nome": "Analisar Prospect",
         "mfe": "/analisarProspect",
         "enviaCondicao": true,
@@ -1313,7 +1372,8 @@
           "usuario": "Tiago Roque"
         },
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "62100db02eb7d56d6ac91795"
       }
     ],
     "tipoAlcada": null,
@@ -1369,7 +1429,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "628793b97b95a1333b836602",
+        "id": "6a637dde87cca57c12ced7cc",
         "nome": "Cadastrar OP",
         "mfe": "/editar-ordem-de-pagamento",
         "enviaCondicao": true,
@@ -1380,7 +1440,8 @@
           "usuario": "Tiago Roque"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "628793b97b95a1333b836602"
       }
     ],
     "tipoAlcada": null,
@@ -1436,7 +1497,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "628793cf7b95a1333b836604",
+        "id": "6a637ddf87cca57c12ced7ce",
         "nome": "Fechar Câmbio",
         "mfe": "/exchange-closing",
         "enviaCondicao": true,
@@ -1447,7 +1508,8 @@
           "usuario": "Tiago Roque"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "628793cf7b95a1333b836604"
       }
     ],
     "tipoAlcada": null,
@@ -1503,7 +1565,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "628793e57b95a1333b836606",
+        "id": "6a637ddf87cca57c12ced7d0",
         "nome": "Fechar BackOffice",
         "mfe": "/exchange-closing-invoices",
         "enviaCondicao": true,
@@ -1514,7 +1576,8 @@
           "usuario": "Tiago Roque"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "628793e57b95a1333b836606"
       }
     ],
     "tipoAlcada": null,
@@ -1570,7 +1633,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "628794007b95a1333b836608",
+        "id": "624c82a49bfea33c42199b17",
         "nome": "Recalcular Deságio",
         "mfe": "/ordem-de-pagamento/treasury-discount",
         "enviaCondicao": true,
@@ -1581,7 +1644,8 @@
           "usuario": "Tiago Roque"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "628794007b95a1333b836608"
       }
     ],
     "tipoAlcada": null,
@@ -1637,7 +1701,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "628794207b95a1333b83660a",
+        "id": "6a636ccb58a472535c7c169d",
         "nome": "Liquidar OP",
         "mfe": "/ordem-de-pagamento/settlement-low",
         "enviaCondicao": true,
@@ -1648,7 +1712,8 @@
           "usuario": "Tiago Roque"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "628794207b95a1333b83660a"
       }
     ],
     "tipoAlcada": null,
@@ -1724,7 +1789,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "633c4249cdb5ac474a25e672",
+        "id": "639a2a269003e65ddf613607",
         "nome": "Inclusão OPE",
         "mfe": "\\",
         "enviaCondicao": true,
@@ -1735,7 +1800,8 @@
           "usuario": "Elaine Tarallo"
         },
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "633c4249cdb5ac474a25e672"
       }
     ],
     "tipoAlcada": null,
@@ -1821,7 +1887,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "6348526249cd260334afc867",
+        "id": "6a637ddf87cca57c12ced7d2",
         "nome": "Analisar Operação",
         "mfe": "\\",
         "enviaCondicao": true,
@@ -1832,65 +1898,72 @@
           "usuario": "Elaine Tarallo"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "6348526249cd260334afc867"
       }
     ],
     "tipoAlcada": null,
     "chamadaApi": [],
     "motivosRetornoEsteira": [
       {
-        "id": "67fcffc102b63d5baf1b84a8",
+        "id": "6a637de687cca57c12ced80e",
         "nome": "Cancelamento cliente - Recusa de sacado",
         "descricao": "Middle - Cancelamento cliente - Recusa de sacado",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fcffc102b63d5baf1b84a8"
       },
       {
-        "id": "67fcffd0863e3e045e365322",
+        "id": "6a637de687cca57c12ced810",
         "nome": "Cancelamento Cleinte - Taxa",
         "descricao": "Middle - Cancelamento Cleinte - Taxa",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fcffd0863e3e045e365322"
       },
       {
-        "id": "67fcff7002b63d5baf1b849f",
+        "id": "67fd0342bb65d023417b5085",
         "nome": "Operação fora do aprovado em ATA",
         "descricao": "MOP - Operação fora do aprovado em ATA",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fcff7002b63d5baf1b849f"
       },
       {
-        "id": "67fd003802b63d5baf1b84ab",
+        "id": "6a637de787cca57c12ced812",
         "nome": "Informacoes incorretas",
         "descricao": "Middle - Informacoes incorretas",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd003802b63d5baf1b84ab"
       },
       {
-        "id": "67fd1a9878df6f119336ca3b",
+        "id": "6a637de787cca57c12ced814",
         "nome": "Problema Sistêmico",
         "descricao": "Geral - Problema Sistêmico",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd1a9878df6f119336ca3b"
       },
       {
-        "id": "682b4b715e8b2f6caccc8319",
+        "id": "6a637de787cca57c12ced816",
         "nome": "Operação recusada pela MOP",
         "descricao": "Middle - Operação recusada pela MOP",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "682b4b715e8b2f6caccc8319"
       }
     ],
     "notificacaoArea": [],
@@ -1948,7 +2021,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "6348526249cd260334afc867",
+        "id": "6a637ddf87cca57c12ced7d2",
         "nome": "Analisar Operação",
         "mfe": "\\",
         "enviaCondicao": true,
@@ -1959,56 +2032,62 @@
           "usuario": "Elaine Tarallo"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "6348526249cd260334afc867"
       }
     ],
     "tipoAlcada": null,
     "chamadaApi": [],
     "motivosRetornoEsteira": [
       {
-        "id": "67fcffc102b63d5baf1b84a8",
+        "id": "6a637de687cca57c12ced80e",
         "nome": "Cancelamento cliente - Recusa de sacado",
         "descricao": "Middle - Cancelamento cliente - Recusa de sacado",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fcffc102b63d5baf1b84a8"
       },
       {
-        "id": "67fcffd0863e3e045e365322",
+        "id": "6a637de687cca57c12ced810",
         "nome": "Cancelamento Cleinte - Taxa",
         "descricao": "Middle - Cancelamento Cleinte - Taxa",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fcffd0863e3e045e365322"
       },
       {
-        "id": "67fcff7002b63d5baf1b849f",
+        "id": "67fd0342bb65d023417b5085",
         "nome": "Operação fora do aprovado em ATA",
         "descricao": "MOP - Operação fora do aprovado em ATA",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fcff7002b63d5baf1b849f"
       },
       {
-        "id": "67fd003802b63d5baf1b84ab",
+        "id": "6a637de787cca57c12ced812",
         "nome": "Informacoes incorretas",
         "descricao": "Middle - Informacoes incorretas",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd003802b63d5baf1b84ab"
       },
       {
-        "id": "67fd1a9878df6f119336ca3b",
+        "id": "6a637de787cca57c12ced814",
         "nome": "Problema Sistêmico",
         "descricao": "Geral - Problema Sistêmico",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd1a9878df6f119336ca3b"
       }
     ],
     "notificacaoArea": [],
@@ -2066,7 +2145,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "633c42b6e1f9e94744c844a0",
+        "id": "6a637ddf87cca57c12ced7d4",
         "nome": "Analisar Alçada Comercial OPE",
         "mfe": "\\",
         "enviaCondicao": false,
@@ -2077,7 +2156,8 @@
           "usuario": "Elaine Tarallo"
         },
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "633c42b6e1f9e94744c844a0"
       }
     ],
     "tipoAlcada": "COMERCIAL",
@@ -2133,7 +2213,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "633c42cbcdb5ac474a25e674",
+        "id": "646785cd2f41fb56c15d1ee3",
         "nome": "Analisar Crédito OPE",
         "mfe": "\\",
         "enviaCondicao": true,
@@ -2144,137 +2224,152 @@
           "usuario": "Elaine Tarallo"
         },
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "633c42cbcdb5ac474a25e674"
       }
     ],
     "tipoAlcada": null,
     "chamadaApi": [],
     "motivosRetornoEsteira": [
       {
-        "id": "67fcff4002b63d5baf1b8499",
+        "id": "6a637de787cca57c12ced818",
         "nome": "Solicitação Comercial",
         "descricao": "MOP - Solicitação Comercial",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fcff4002b63d5baf1b8499"
       },
       {
-        "id": "67fcff5902b63d5baf1b849d",
+        "id": "6a637de887cca57c12ced81a",
         "nome": "Falta de Lastro",
         "descricao": "MOP - Falta de Lastro",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fcff5902b63d5baf1b849d"
       },
       {
-        "id": "67fcff7002b63d5baf1b849f",
+        "id": "67fd0342bb65d023417b5085",
         "nome": "Operação fora do aprovado em ATA",
         "descricao": "MOP - Operação fora do aprovado em ATA",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fcff7002b63d5baf1b849f"
       },
       {
-        "id": "67fcff7f02b63d5baf1b84a1",
+        "id": "6a637de887cca57c12ced81c",
         "nome": "Produto incorreto",
         "descricao": "MOP - Produto incorreto",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fcff7f02b63d5baf1b84a1"
       },
       {
-        "id": "67fcff9202b63d5baf1b84a3",
+        "id": "6a637de887cca57c12ced81e",
         "nome": "Limite/Tranche excedido",
         "descricao": "MOP - Limite/Tranche excedido",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fcff9202b63d5baf1b84a3"
       },
       {
-        "id": "67fcffa002b63d5baf1b84a6",
+        "id": "6a637de887cca57c12ced820",
         "nome": "Garantia Pendente",
         "descricao": "MOP - Garantia Pendente",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fcffa002b63d5baf1b84a6"
       },
       {
-        "id": "67fcffad863e3e045e36531f",
+        "id": "6a637de987cca57c12ced822",
         "nome": "Recusa MOP",
         "descricao": "MOP - Recusa MOP",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fcffad863e3e045e36531f"
       },
       {
-        "id": "67fd1a9878df6f119336ca3b",
+        "id": "6a637de787cca57c12ced814",
         "nome": "Problema Sistêmico",
         "descricao": "Geral - Problema Sistêmico",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd1a9878df6f119336ca3b"
       },
       {
-        "id": "6943fbd14a2dbe528b503902",
+        "id": "6a637de987cca57c12ced824",
         "nome": "Ata vencida",
         "descricao": "Ata vencida",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "6943fbd14a2dbe528b503902"
       },
       {
-        "id": "6943fbe34a2dbe528b503904",
+        "id": "6a637de987cca57c12ced826",
         "nome": "Pendência/Ajuste Formalização",
         "descricao": "Pendência/Ajuste Formalização",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "6943fbe34a2dbe528b503904"
       },
       {
-        "id": "6943fc91fd2f6145c27fb8dc",
+        "id": "6a637de987cca57c12ced828",
         "nome": "Solicitação de justificativa comercial",
         "descricao": "Solicitação de justificativa comercial",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "6943fc91fd2f6145c27fb8dc"
       },
       {
-        "id": "6943fca84a2dbe528b50390a",
+        "id": "6a637dea87cca57c12ced82a",
         "nome": "Solicitação de parecer Sup. Comercial",
         "descricao": "Solicitação de parecer Sup. Comercial",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "6943fca84a2dbe528b50390a"
       },
       {
-        "id": "6943fcbffd2f6145c27fb8e1",
+        "id": "6a637dea87cca57c12ced82c",
         "nome": "Recusa Sacado",
         "descricao": "Recusa Sacado",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "6943fcbffd2f6145c27fb8e1"
       },
       {
-        "id": "6943fccffd2f6145c27fb8e4",
+        "id": "6a637dea87cca57c12ced82e",
         "nome": "Vencidos em carteira",
         "descricao": "Vencidos em carteira",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "6943fccffd2f6145c27fb8e4"
       }
     ],
     "notificacaoArea": [],
@@ -2332,7 +2427,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "6348531fa185346ce9bd5c6f",
+        "id": "6a637ddf87cca57c12ced7d6",
         "nome": "Fazer Checagem OPE",
         "mfe": "\\",
         "enviaCondicao": true,
@@ -2343,7 +2438,8 @@
           "usuario": "Elaine Tarallo"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "6348531fa185346ce9bd5c6f"
       }
     ],
     "tipoAlcada": null,
@@ -2399,7 +2495,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "634852f149cd260334afc86a",
+        "id": "646785cd2f41fb56c15d1ee3",
         "nome": "Analisar Crédito OPE",
         "mfe": "\\",
         "enviaCondicao": true,
@@ -2410,7 +2506,8 @@
           "usuario": "Elaine Tarallo"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "634852f149cd260334afc86a"
       }
     ],
     "tipoAlcada": null,
@@ -2476,7 +2573,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "633c4317e1f9e94744c844a2",
+        "id": "6a637de087cca57c12ced7d8",
         "nome": "Analisar Alçada MOP",
         "mfe": "\\",
         "enviaCondicao": false,
@@ -2487,7 +2584,8 @@
           "usuario": "Elaine Tarallo"
         },
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "633c4317e1f9e94744c844a2"
       }
     ],
     "tipoAlcada": "CREDITO",
@@ -2548,7 +2646,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "6348526249cd260334afc867",
+        "id": "6a637ddf87cca57c12ced7d2",
         "nome": "Analisar Operação",
         "mfe": "\\",
         "enviaCondicao": true,
@@ -2559,56 +2657,62 @@
           "usuario": "Elaine Tarallo"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "6348526249cd260334afc867"
       }
     ],
     "tipoAlcada": null,
     "chamadaApi": [],
     "motivosRetornoEsteira": [
       {
-        "id": "67fd0106863e3e045e365335",
+        "id": "6a637dea87cca57c12ced830",
         "nome": "Data - Operação",
         "descricao": "Lastro - Data - Operação",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0106863e3e045e365335"
       },
       {
-        "id": "67fd011502b63d5baf1b84b8",
+        "id": "6a637deb87cca57c12ced832",
         "nome": "Valor - Operação",
         "descricao": "Lastro - Valor - Operação",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd011502b63d5baf1b84b8"
       },
       {
-        "id": "67fd0129863e3e045e36533a",
+        "id": "6a637deb87cca57c12ced834",
         "nome": "Impedimento de cessão",
         "descricao": "Lastro - Impedimento de cessão",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0129863e3e045e36533a"
       },
       {
-        "id": "67fcff5902b63d5baf1b849d",
+        "id": "6a637de887cca57c12ced81a",
         "nome": "Falta de Lastro",
         "descricao": "MOP - Falta de Lastro",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fcff5902b63d5baf1b849d"
       },
       {
-        "id": "67fd1a9878df6f119336ca3b",
+        "id": "6a637de787cca57c12ced814",
         "nome": "Problema Sistêmico",
         "descricao": "Geral - Problema Sistêmico",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd1a9878df6f119336ca3b"
       }
     ],
     "notificacaoArea": [],
@@ -2666,7 +2770,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "633c432acdb5ac474a25e678",
+        "id": "6a637de087cca57c12ced7da",
         "nome": "Analisar Alçada Diretoria OPE",
         "mfe": "\\",
         "enviaCondicao": false,
@@ -2677,7 +2781,8 @@
           "usuario": "Elaine Tarallo"
         },
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "633c432acdb5ac474a25e678"
       }
     ],
     "tipoAlcada": "DIRETORIA",
@@ -2738,7 +2843,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "6348542449cd260334afc871",
+        "id": "6a637de087cca57c12ced7da",
         "nome": "Analisar Alçada Diretoria OPE",
         "mfe": "/",
         "enviaCondicao": false,
@@ -2749,7 +2854,8 @@
           "usuario": "Eduardo Ribeiro"
         },
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "6348542449cd260334afc871"
       }
     ],
     "tipoAlcada": "ACIONISTA",
@@ -2805,7 +2911,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "633c4350cdb5ac474a25e67a",
+        "id": "634db142dffba31cb6124db4",
         "nome": "Analisar Tesouraria OPE",
         "mfe": "\\",
         "enviaCondicao": true,
@@ -2816,56 +2922,62 @@
           "usuario": "Elaine Tarallo"
         },
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "633c4350cdb5ac474a25e67a"
       }
     ],
     "tipoAlcada": null,
     "chamadaApi": [],
     "motivosRetornoEsteira": [
       {
-        "id": "67fcff4002b63d5baf1b8499",
+        "id": "6a637de787cca57c12ced818",
         "nome": "Solicitação Comercial",
         "descricao": "MOP - Solicitação Comercial",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fcff4002b63d5baf1b8499"
       },
       {
-        "id": "67fd01d202b63d5baf1b84c1",
+        "id": "6a637deb87cca57c12ced836",
         "nome": "Cancelada conforme e-mail da Administradora",
         "descricao": "Tesouraria - Cancelada conforme e-mail da Administradora",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd01d202b63d5baf1b84c1"
       },
       {
-        "id": "67fd01f5863e3e045e36533d",
+        "id": "6a637deb87cca57c12ced838",
         "nome": "Cancelada por falta de assinatura",
         "descricao": "Tesouraria - Cancelada por falta de assinatura",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd01f5863e3e045e36533d"
       },
       {
-        "id": "67fd020c02b63d5baf1b84c3",
+        "id": "6a637dec87cca57c12ced83a",
         "nome": "Sem tempo hábil para seguir no Portal",
         "descricao": "Tesouraria - Sem tempo hábil para seguir no Portal",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd020c02b63d5baf1b84c3"
       },
       {
-        "id": "67fd1a9878df6f119336ca3b",
+        "id": "6a637de787cca57c12ced814",
         "nome": "Problema Sistêmico",
         "descricao": "Geral - Problema Sistêmico",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd1a9878df6f119336ca3b"
       }
     ],
     "notificacaoArea": [],
@@ -2923,7 +3035,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "634854ec49cd260334afc876",
+        "id": "634db12cdffba31cb6124db2",
         "nome": "Analisar Gestora OPE",
         "mfe": "\\",
         "enviaCondicao": true,
@@ -2934,7 +3046,8 @@
           "usuario": "Elaine Tarallo"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "634854ec49cd260334afc876"
       }
     ],
     "tipoAlcada": null,
@@ -2946,76 +3059,84 @@
     ],
     "motivosRetornoEsteira": [
       {
-        "id": "67fd005602b63d5baf1b84ad",
+        "id": "6a637dec87cca57c12ced83c",
         "nome": "Necessidade de revisão do parecer",
         "descricao": "MOP Gestora - Necessidade de revisão do parecer",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd005602b63d5baf1b84ad"
       },
       {
-        "id": "67fd007202b63d5baf1b84af",
+        "id": "6a637dec87cca57c12ced83e",
         "nome": "Minuta Divergente",
         "descricao": "MOP Gestora - Minuta Divergente",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd007202b63d5baf1b84af"
       },
       {
-        "id": "67fd00a4863e3e045e36532d",
+        "id": "6a637ded87cca57c12ced840",
         "nome": "CCB/NC - Valores Divergentes",
         "descricao": "MOP Gestora - CCB/NC - Valores Divergentes",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd00a4863e3e045e36532d"
       },
       {
-        "id": "67fd00bc02b63d5baf1b84b3",
+        "id": "6a637ded87cca57c12ced842",
         "nome": "Ausência de Lastro",
         "descricao": "MOP Gestora - Ausência de Lastro",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd00bc02b63d5baf1b84b3"
       },
       {
-        "id": "67fd00cf863e3e045e36532f",
+        "id": "6a637ded87cca57c12ced844",
         "nome": "Pendência dos Administradores",
         "descricao": "MOP Gestora - Pendência dos Administradores",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd00cf863e3e045e36532f"
       },
       {
-        "id": "67fd00e502b63d5baf1b84b6",
+        "id": "6a637ded87cca57c12ced846",
         "nome": "Pré-Trade - Desenquadramento do Fundo",
         "descricao": "MOP Gestora - Pré-Trade - Desenquadramento do Fundo",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd00e502b63d5baf1b84b6"
       },
       {
-        "id": "67fd1a9878df6f119336ca3b",
+        "id": "6a637de787cca57c12ced814",
         "nome": "Problema Sistêmico",
         "descricao": "Geral - Problema Sistêmico",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd1a9878df6f119336ca3b"
       },
       {
-        "id": "680bd57916ad49188a21377d",
+        "id": "6a637dee87cca57c12ced848",
         "nome": "Cliente Não Assinou a Operação",
         "descricao": "Cliente Não Assinou a Operação",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "680bd57916ad49188a21377d"
       }
     ],
     "notificacaoArea": [],
@@ -3068,7 +3189,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "6348553949cd260334afc878",
+        "id": "634db142dffba31cb6124db4",
         "nome": "Analisar Tesouraria OPE",
         "mfe": "\\",
         "enviaCondicao": true,
@@ -3079,7 +3200,8 @@
           "usuario": "Elaine Tarallo"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "6348553949cd260334afc878"
       }
     ],
     "tipoAlcada": null,
@@ -3091,49 +3213,54 @@
     ],
     "motivosRetornoEsteira": [
       {
-        "id": "67fcff4002b63d5baf1b8499",
+        "id": "6a637de787cca57c12ced818",
         "nome": "Solicitação Comercial",
         "descricao": "MOP - Solicitação Comercial",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fcff4002b63d5baf1b8499"
       },
       {
-        "id": "67fd01d202b63d5baf1b84c1",
+        "id": "6a637deb87cca57c12ced836",
         "nome": "Cancelada conforme e-mail da Administradora",
         "descricao": "Tesouraria - Cancelada conforme e-mail da Administradora",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd01d202b63d5baf1b84c1"
       },
       {
-        "id": "67fd01f5863e3e045e36533d",
+        "id": "6a637deb87cca57c12ced838",
         "nome": "Cancelada por falta de assinatura",
         "descricao": "Tesouraria - Cancelada por falta de assinatura",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd01f5863e3e045e36533d"
       },
       {
-        "id": "67fd020c02b63d5baf1b84c3",
+        "id": "6a637dec87cca57c12ced83a",
         "nome": "Sem tempo hábil para seguir no Portal",
         "descricao": "Tesouraria - Sem tempo hábil para seguir no Portal",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd020c02b63d5baf1b84c3"
       },
       {
-        "id": "67fd1a9878df6f119336ca3b",
+        "id": "6a637de787cca57c12ced814",
         "nome": "Problema Sistêmico",
         "descricao": "Geral - Problema Sistêmico",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd1a9878df6f119336ca3b"
       }
     ],
     "notificacaoArea": [],
@@ -3191,7 +3318,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "6348526249cd260334afc867",
+        "id": "6a637ddf87cca57c12ced7d2",
         "nome": "Analisar Operação",
         "mfe": "\\",
         "enviaCondicao": true,
@@ -3202,7 +3329,8 @@
           "usuario": "Elaine Tarallo"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "6348526249cd260334afc867"
       }
     ],
     "tipoAlcada": null,
@@ -3258,7 +3386,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "633c435fe1f9e94744c844a6",
+        "id": "634db184dffba31cb6124dba",
         "nome": "Realizar Pagamento OPE",
         "mfe": "\\",
         "enviaCondicao": true,
@@ -3269,56 +3397,62 @@
           "usuario": "Elaine Tarallo"
         },
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "633c435fe1f9e94744c844a6"
       }
     ],
     "tipoAlcada": null,
     "chamadaApi": [],
     "motivosRetornoEsteira": [
       {
-        "id": "67fcff4002b63d5baf1b8499",
+        "id": "6a637de787cca57c12ced818",
         "nome": "Solicitação Comercial",
         "descricao": "MOP - Solicitação Comercial",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fcff4002b63d5baf1b8499"
       },
       {
-        "id": "67fd01d202b63d5baf1b84c1",
+        "id": "6a637deb87cca57c12ced836",
         "nome": "Cancelada conforme e-mail da Administradora",
         "descricao": "Tesouraria - Cancelada conforme e-mail da Administradora",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd01d202b63d5baf1b84c1"
       },
       {
-        "id": "67fd01f5863e3e045e36533d",
+        "id": "6a637deb87cca57c12ced838",
         "nome": "Cancelada por falta de assinatura",
         "descricao": "Tesouraria - Cancelada por falta de assinatura",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd01f5863e3e045e36533d"
       },
       {
-        "id": "67fd020c02b63d5baf1b84c3",
+        "id": "6a637dec87cca57c12ced83a",
         "nome": "Sem tempo hábil para seguir no Portal",
         "descricao": "Tesouraria - Sem tempo hábil para seguir no Portal",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd020c02b63d5baf1b84c3"
       },
       {
-        "id": "67fd1a9878df6f119336ca3b",
+        "id": "6a637de787cca57c12ced814",
         "nome": "Problema Sistêmico",
         "descricao": "Geral - Problema Sistêmico",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd1a9878df6f119336ca3b"
       }
     ],
     "notificacaoArea": [],
@@ -3386,7 +3520,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "63487be6a185346ce9bd5cbc",
+        "id": "630e0120f18094524a48cd9c",
         "nome": "Solicitação Fornecedor - Ancorado",
         "mfe": "/",
         "enviaCondicao": true,
@@ -3397,7 +3531,8 @@
           "usuario": "Eduardo Ribeiro"
         },
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "63487be6a185346ce9bd5cbc"
       }
     ],
     "tipoAlcada": null,
@@ -3453,7 +3588,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "63487c1b49cd260334afc8a6",
+        "id": "630e02a2f18094524a48cda1",
         "nome": "Aprovação Portal",
         "mfe": "/",
         "enviaCondicao": true,
@@ -3464,7 +3599,8 @@
           "usuario": "Eduardo Ribeiro"
         },
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "63487c1b49cd260334afc8a6"
       }
     ],
     "tipoAlcada": null,
@@ -3525,7 +3661,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "6351a4a8bbd1f9567fb4d0f2",
+        "id": "63519c57dffba31cb6125169",
         "nome": "Analisar Jurídico OPE",
         "mfe": "\\",
         "enviaCondicao": true,
@@ -3536,29 +3672,32 @@
           "usuario": "Elaine Tarallo"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "6351a4a8bbd1f9567fb4d0f2"
       }
     ],
     "tipoAlcada": null,
     "chamadaApi": [],
     "motivosRetornoEsteira": [
       {
-        "id": "67fd022d863e3e045e365342",
+        "id": "6a637dee87cca57c12ced84a",
         "nome": "TBD",
         "descricao": "Jurídico - TBD",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd022d863e3e045e365342"
       },
       {
-        "id": "67fd1a9878df6f119336ca3b",
+        "id": "6a637de787cca57c12ced814",
         "nome": "Problema Sistêmico",
         "descricao": "Geral - Problema Sistêmico",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd1a9878df6f119336ca3b"
       }
     ],
     "notificacaoArea": [],
@@ -3621,7 +3760,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "6348526249cd260334afc867",
+        "id": "6a637ddf87cca57c12ced7d2",
         "nome": "Analisar Operação",
         "mfe": "\\",
         "enviaCondicao": true,
@@ -3632,7 +3771,8 @@
           "usuario": "Elaine Tarallo"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "6348526249cd260334afc867"
       }
     ],
     "tipoAlcada": null,
@@ -3703,7 +3843,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "6348526249cd260334afc867",
+        "id": "6a637ddf87cca57c12ced7d2",
         "nome": "Analisar Operação",
         "mfe": "\\",
         "enviaCondicao": true,
@@ -3714,47 +3854,52 @@
           "usuario": "Elaine Tarallo"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "6348526249cd260334afc867"
       }
     ],
     "tipoAlcada": null,
     "chamadaApi": [],
     "motivosRetornoEsteira": [
       {
-        "id": "67fd00a4863e3e045e36532d",
+        "id": "6a637ded87cca57c12ced840",
         "nome": "CCB/NC - Valores Divergentes",
         "descricao": "MOP Gestora - CCB/NC - Valores Divergentes",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd00a4863e3e045e36532d"
       },
       {
-        "id": "67fd016c02b63d5baf1b84bd",
+        "id": "6a637dee87cca57c12ced84c",
         "nome": "Inclusão/Alteração em cláusula de Garantia",
         "descricao": "Formalização - Inclusão/Alteração em cláusula de Garantia",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd016c02b63d5baf1b84bd"
       },
       {
-        "id": "67fd1a9878df6f119336ca3b",
+        "id": "6a637de787cca57c12ced814",
         "nome": "Problema Sistêmico",
         "descricao": "Geral - Problema Sistêmico",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd1a9878df6f119336ca3b"
       },
       {
-        "id": "680bd57916ad49188a21377d",
+        "id": "6a637dee87cca57c12ced848",
         "nome": "Cliente Não Assinou a Operação",
         "descricao": "Cliente Não Assinou a Operação",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "680bd57916ad49188a21377d"
       }
     ],
     "notificacaoArea": [],
@@ -3812,7 +3957,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "6348526249cd260334afc867",
+        "id": "6a637ddf87cca57c12ced7d2",
         "nome": "Analisar Operação",
         "mfe": "\\",
         "enviaCondicao": true,
@@ -3823,56 +3968,62 @@
           "usuario": "Elaine Tarallo"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "6348526249cd260334afc867"
       }
     ],
     "tipoAlcada": null,
     "chamadaApi": [],
     "motivosRetornoEsteira": [
       {
-        "id": "67fd0106863e3e045e365335",
+        "id": "6a637dea87cca57c12ced830",
         "nome": "Data - Operação",
         "descricao": "Lastro - Data - Operação",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0106863e3e045e365335"
       },
       {
-        "id": "67fd011502b63d5baf1b84b8",
+        "id": "6a637deb87cca57c12ced832",
         "nome": "Valor - Operação",
         "descricao": "Lastro - Valor - Operação",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd011502b63d5baf1b84b8"
       },
       {
-        "id": "67fd0129863e3e045e36533a",
+        "id": "6a637deb87cca57c12ced834",
         "nome": "Impedimento de cessão",
         "descricao": "Lastro - Impedimento de cessão",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0129863e3e045e36533a"
       },
       {
-        "id": "67fcff5902b63d5baf1b849d",
+        "id": "6a637de887cca57c12ced81a",
         "nome": "Falta de Lastro",
         "descricao": "MOP - Falta de Lastro",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fcff5902b63d5baf1b849d"
       },
       {
-        "id": "67fd1a9878df6f119336ca3b",
+        "id": "6a637de787cca57c12ced814",
         "nome": "Problema Sistêmico",
         "descricao": "Geral - Problema Sistêmico",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd1a9878df6f119336ca3b"
       }
     ],
     "notificacaoArea": [],
@@ -3930,7 +4081,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "63c075d794c72a4250d3310e",
+        "id": "630d555df18094524a48cd8c",
         "nome": "Incluir Operação",
         "mfe": "/",
         "enviaCondicao": true,
@@ -3941,7 +4092,8 @@
           "usuario": "Eduardo Ribeiro"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "63c075d794c72a4250d3310e"
       }
     ],
     "tipoAlcada": null,
@@ -3997,7 +4149,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "63bebdef990ae9623de51ebb",
+        "id": "630d4a72f18094524a48cd66",
         "nome": "Validar Documentos",
         "mfe": "/",
         "enviaCondicao": true,
@@ -4008,7 +4160,8 @@
           "usuario": "Eduardo Ribeiro"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "63bebdef990ae9623de51ebb"
       }
     ],
     "tipoAlcada": null,
@@ -4069,7 +4222,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "63bebf8394c72a4250d32e9f",
+        "id": "630d4d30f18094524a48cd6e",
         "nome": "Editar OP Comercial",
         "mfe": "/",
         "enviaCondicao": true,
@@ -4080,7 +4233,8 @@
           "usuario": "Eduardo Ribeiro"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "63bebf8394c72a4250d32e9f"
       }
     ],
     "tipoAlcada": null,
@@ -4136,7 +4290,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "63bec0de94c72a4250d32eac",
+        "id": "630d4bd7f18094524a48cd6a",
         "nome": "Editar OP Crédito",
         "mfe": "/",
         "enviaCondicao": true,
@@ -4147,7 +4301,8 @@
           "usuario": "Eduardo Ribeiro"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "63bec0de94c72a4250d32eac"
       }
     ],
     "tipoAlcada": null,
@@ -4203,7 +4358,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "63bec257990ae9623de51ed5",
+        "id": "630d4dd7f18094524a48cd70",
         "nome": "Editar OP Câmbio",
         "mfe": "/",
         "enviaCondicao": true,
@@ -4214,47 +4369,52 @@
           "usuario": "Eduardo Ribeiro"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "63bec257990ae9623de51ed5"
       }
     ],
     "tipoAlcada": null,
     "chamadaApi": [],
     "motivosRetornoEsteira": [
       {
-        "id": "67fd023f863e3e045e365348",
+        "id": "6a637dee87cca57c12ced84e",
         "nome": "Taxa errada",
         "descricao": "Câmbio - Taxa errada",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd023f863e3e045e365348"
       },
       {
-        "id": "67fd0269863e3e045e36534a",
+        "id": "6a637def87cca57c12ced850",
         "nome": "Fundo Incorreto",
         "descricao": "Câmbio - Fundo incorreto",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd0269863e3e045e36534a"
       },
       {
-        "id": "67fd027b863e3e045e36534c",
+        "id": "6a637def87cca57c12ced852",
         "nome": "Prazo incorreto",
         "descricao": "Câmbio - Prazo incorreto",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd027b863e3e045e36534c"
       },
       {
-        "id": "67fd028e02b63d5baf1b84c7",
+        "id": "6a637def87cca57c12ced854",
         "nome": "Conta incorreta",
         "descricao": "Câmbio - Conta incorreta",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd028e02b63d5baf1b84c7"
       }
     ],
     "notificacaoArea": null,
@@ -4317,7 +4477,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "633c42b6e1f9e94744c844a0",
+        "id": "6a637ddf87cca57c12ced7d4",
         "nome": "Analisar Alçada Comercial OPE",
         "mfe": "\\",
         "enviaCondicao": false,
@@ -4328,7 +4488,8 @@
           "usuario": "Elaine Tarallo"
         },
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "633c42b6e1f9e94744c844a0"
       }
     ],
     "tipoAlcada": "DIRETORIA",
@@ -4384,7 +4545,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "63bec3ae94c72a4250d32ebc",
+        "id": "630d4e39f18094524a48cd72",
         "nome": "Aprovar",
         "mfe": "\\",
         "enviaCondicao": true,
@@ -4395,56 +4556,62 @@
           "usuario": "Eduardo Ribeiro"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "63bec3ae94c72a4250d32ebc"
       }
     ],
     "tipoAlcada": null,
     "chamadaApi": [],
     "motivosRetornoEsteira": [
       {
-        "id": "67fd005602b63d5baf1b84ad",
+        "id": "6a637dec87cca57c12ced83c",
         "nome": "Necessidade de revisão do parecer",
         "descricao": "MOP Gestora - Necessidade de revisão do parecer",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd005602b63d5baf1b84ad"
       },
       {
-        "id": "67fd007202b63d5baf1b84af",
+        "id": "6a637dec87cca57c12ced83e",
         "nome": "Minuta Divergente",
         "descricao": "MOP Gestora - Minuta Divergente",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd007202b63d5baf1b84af"
       },
       {
-        "id": "67fd00bc02b63d5baf1b84b3",
+        "id": "6a637ded87cca57c12ced842",
         "nome": "Ausência de Lastro",
         "descricao": "MOP Gestora - Ausência de Lastro",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd00bc02b63d5baf1b84b3"
       },
       {
-        "id": "67fd00e502b63d5baf1b84b6",
+        "id": "6a637ded87cca57c12ced846",
         "nome": "Pré-Trade - Desenquadramento do Fundo",
         "descricao": "MOP Gestora - Pré-Trade - Desenquadramento do Fundo",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd00e502b63d5baf1b84b6"
       },
       {
-        "id": "67fd00cf863e3e045e36532f",
+        "id": "6a637ded87cca57c12ced844",
         "nome": "Pendência dos Administradores",
         "descricao": "MOP Gestora - Pendência dos Administradores",
         "usuario": null,
         "status": null,
         "excluido": false,
-        "idFiltro": null
+        "idFiltro": null,
+        "id.old": "67fd00cf863e3e045e36532f"
       }
     ],
     "notificacaoArea": null,
@@ -4497,7 +4664,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "63bec50b94c72a4250d32ec3",
+        "id": "630d4e82f18094524a48cd74",
         "nome": "Efetivar Operação",
         "mfe": "/",
         "enviaCondicao": true,
@@ -4508,7 +4675,8 @@
           "usuario": "Eduardo Ribeiro"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "63bec50b94c72a4250d32ec3"
       }
     ],
     "tipoAlcada": null,
@@ -4569,7 +4737,7 @@
     "excluido": false,
     "modeloAcao": [
       {
-        "id": "63bec61994c72a4250d32ec8",
+        "id": "630d48a8f18094524a48cd64",
         "nome": "Formalizar",
         "mfe": "\\",
         "enviaCondicao": true,
@@ -4580,7 +4748,8 @@
           "usuario": "Eduardo Ribeiro"
         },
         "excluido": false,
-        "idFiltro": "1"
+        "idFiltro": "1",
+        "id.old": "63bec61994c72a4250d32ec8"
       }
     ],
     "tipoAlcada": null,

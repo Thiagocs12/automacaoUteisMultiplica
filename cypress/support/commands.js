@@ -1,75 +1,192 @@
-const LIMITE_LOTE = 20;
-const ENTIDADES_IGNORADAS = ['PRODUTO', 'GRUPOS_KEYCLOAK', 'MULTIFLOW', 'SELECIONAR_CEDENTE', 'ESTEIRAS'];
-const CAMINHO_LOG = 'cypress/output/Produtos/ultimosUpdates.json';
+// arquivo: commands.js
+
 import { obterValor } from './utils';
 import tokens from '../temp/tokens.json';
 import MAPEAMENTOS_APIS from '../utils/mapeamentoProdutos';
 
-const multiflow = MAPEAMENTOS_APIS.MULTIFLOW;
+const LIMITE_LOTE = 20;
+const CAMINHO_LOG = 'cypress/output/Produtos/ultimosUpdates.json';
+const ENTIDADES_IGNORADAS = ['PRODUTO', 'GRUPOS_KEYCLOAK', 'MULTIFLOW', 'SELECIONAR_CEDENTE', 'ESTEIRAS'];
+const ENTIDADES_COM_VALIDACAO = ['PRODUTO', 'ESTEIRAS'];
+
+// ─── Helpers ────────────────────────────────────────────────────────────────
 
 /**
- * @description Define e retorna os dados base para um ambiente específico.
- * @param {string} ambiente - O nome do ambiente ('prod', 'hml', 'keycloak', 'bhml').
- * @returns {Cypress.Chainable<object>} Um objeto contendo baseUrl, loginUrl, loginUsername e loginPassword.
+ * @description Remove campos apenas no primeiro nível do objeto.
+ * @param {Object} obj - Objeto a ser limpo.
+ * @param {string[]} chavesIgnoradas - Campos a serem removidos.
+ * @returns {Object}
  */
-Cypress.Commands.add('definirAmbiente', (ambiente) => {
-  const prod = {
-    baseUrl: Cypress.env('PROD_API_BASE_URL'),
-    loginUrl: Cypress.env('PROD_API_LOGIN_URL'),
-    loginUsername: Cypress.env('PROD_API_USERNAME'),
-    loginPassword: Cypress.env('PROD_API_PASSWORD'),
-    urlTokenApiIntercept: `${Cypress.env('PROD_API_LOGIN_URL')}/auth/realms/multiplicacapital/protocol/openid-connect/token`,
-    token: tokens?.prod?.token ?? ''
-  };
-  const hml = {
-    baseUrl: Cypress.env('HML_API_BASE_URL'),
-    loginUrl: Cypress.env('HML_API_LOGIN_URL'),
-    loginUsername: Cypress.env('HML_API_USERNAME'),
-    loginPassword: Cypress.env('HML_API_PASSWORD'),
-    urlTokenApiIntercept: `${Cypress.env('HML_API_LOGIN_URL')}/auth/realms/multiplicacapital/protocol/openid-connect/token`,
-    token: tokens?.hml?.token ?? ''
-  };
-  const keycloak = {
-    baseUrl: Cypress.env('HML_KEYCLOAK_BASE_URL'),
-    loginUrl: Cypress.env('HML_KEYCLOAK_LOGIN_URL'),
-    loginUsername: Cypress.env('HML_KEYCLOAK_USERNAME'),
-    loginPassword: Cypress.env('HML_KEYCLOAK_PASSWORD'),
-    urlTokenApiIntercept: `${Cypress.env('HML_KEYCLOAK_LOGIN_URL')}/auth/realms/master/protocol/openid-connect/token`,
-    token: tokens?.keycloak?.token ?? ''
-  };
-  const bhml = {
-    baseUrl: Cypress.env('BHML_API_BASE_URL'),
-    loginUrl: Cypress.env('BHML_API_LOGIN_URL'),
-    loginUsername: Cypress.env('BHML_API_USERNAME'),
-    loginPassword: Cypress.env('BHML_API_PASSWORD'),
-    urlTokenApiIntercept: `${Cypress.env('BHML_API_LOGIN_URL')}/auth/realms/beyondbanking-hml/protocol/openid-connect/token`,
-    token: tokens?.bhml?.token ?? ''
+function removerChavesIgnoradas(obj, chavesIgnoradas) {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([chave]) => !chavesIgnoradas.includes(chave))
+  );
+}
+
+/**
+ * @description Remove recursivamente todas as chaves que terminam com '.old' de um objeto.
+ * @param {object} obj - Objeto a ser limpo.
+ * @returns {object}
+ */
+function removerCamposOld(obj) {
+  if (Array.isArray(obj)) {
+    return obj.map((item) => removerCamposOld(item));
+  }
+
+  if (typeof obj !== 'object' || obj === null) return obj;
+
+  return Object.fromEntries(
+    Object.entries(obj)
+      .filter(([chave]) => !chave.endsWith('.old'))
+      .map(([chave, valor]) => [chave, removerCamposOld(valor)])
+  );
+}
+
+/**
+ * @description Restaura recursivamente todos os campos `.old` para seus campos originais,
+ * removendo a chave `.old` após a restauração.
+ * @param {object} obj - Objeto com campos `.old` a serem restaurados.
+ * @returns {object}
+ */
+function restaurarCamposOld(obj) {
+  if (typeof obj !== 'object' || obj === null) return obj;
+
+  const resultado = {};
+
+  for (const [chave, valor] of Object.entries(obj)) {
+    if (chave.endsWith('.old')) continue;
+
+    const chaveOld = `${chave}.old`;
+    resultado[chave] = Object.prototype.hasOwnProperty.call(obj, chaveOld)
+      ? obj[chaveOld]
+      : restaurarCamposOld(valor);
+  }
+
+  return resultado;
+}
+
+/**
+ * @description Mescla dois arrays evitando duplicatas com base em um campo chave.
+ * @param {Array<Object>} base - Dados já existentes no arquivo.
+ * @param {Array<Object>} novos - Dados novos a serem adicionados.
+ * @param {string} campoChave - Campo usado para identificar duplicatas.
+ * @returns {Array<Object>}
+ */
+function mesclarSemDuplicatas(base, novos, campoChave) {
+  const chavesDaBase = new Set(base.map((item) => item[campoChave]));
+  return [...base, ...novos.filter((item) => !chavesDaBase.has(item[campoChave]))];
+}
+
+/**
+ * @description Extrai valores de um caminho que pode conter arrays em qualquer nível.
+ * Funciona para: 'id', 'grupoProduto.id', 'modeloEtapas.modeloEtapa.id'
+ * @param {object} obj - Objeto de origem.
+ * @param {string} caminho - Caminho em notação de ponto.
+ * @returns {Array<any>}
+ */
+function extrairValoresDoCaminho(obj, caminho) {
+  const percorrer = (atual, partes) => {
+    if (!atual || partes.length === 0) return [atual];
+
+    const [parte, ...resto] = partes;
+    const proximo = Array.isArray(atual)
+      ? atual.flatMap((item) => percorrer(item?.[parte], resto))
+      : percorrer(atual[parte], resto);
+
+    return [proximo].flat();
   };
 
-  if (ambiente === 'prod') {
-    return cy.wrap(prod);
-  } else if (ambiente === 'hml') {
-    return cy.wrap(hml);
-  } else if (ambiente === 'keycloak') {
-    return cy.wrap(keycloak);
-  } else if (ambiente === 'bhml') {
-    return cy.wrap(bhml);
-  } else {
-    throw new Error(`Ambiente desconhecido: ${ambiente}`);
-  }
+  return percorrer(obj, caminho.split('.')).filter((v) => v != null);
+}
+
+/**
+ * @description Varre os dados de esteiras e marca com 'esteiraVinculada: true'
+ * todos os itens cujo 'id' é referenciado por algum 'idModeloEsteiraVinculado'.
+ * @param {Array<Object>} dados - Lista de esteiras já processadas.
+ * @returns {Array<Object>}
+ */
+function aplicarMarcacaoEsteiraVinculada(dados) {
+  const idsVinculados = new Set(
+    dados
+      .filter((item) => item.idModeloEsteiraVinculado !== null)
+      .map((item) => item.idModeloEsteiraVinculado)
+  );
+
+  return dados.map((item) => ({
+    ...item,
+    ...(idsVinculados.has(item.id) && { esteiraVinculada: true }),
+  }));
+}
+
+// ─── Commands ────────────────────────────────────────────────────────────────
+
+/**
+ * @description Define e retorna os dados base para um ambiente específico,
+ * incluindo URLs, credenciais e token de acesso.
+ * @param {'prod'|'hml'|'keycloak'|'bhml'} ambiente - Nome do ambiente desejado.
+ * @returns {Cypress.Chainable<{baseUrl: string, loginUrl: string, loginUsername: string, loginPassword: string, urlTokenApiIntercept: string, token: string}>}
+ */
+Cypress.Commands.add('definirAmbiente', (ambiente) => {
+  const ambientes = {
+    prod: {
+      baseUrl: Cypress.env('PROD_API_BASE_URL'),
+      loginUrl: Cypress.env('PROD_API_LOGIN_URL'),
+      loginUsername: Cypress.env('PROD_API_USERNAME'),
+      loginPassword: Cypress.env('PROD_API_PASSWORD'),
+      urlTokenApiIntercept: `${Cypress.env('PROD_API_LOGIN_URL')}/auth/realms/multiplicacapital/protocol/openid-connect/token`,
+      token: tokens?.prod?.token ?? '',
+    },
+    hml: {
+      baseUrl: Cypress.env('HML_API_BASE_URL'),
+      loginUrl: Cypress.env('HML_API_LOGIN_URL'),
+      loginUsername: Cypress.env('HML_API_USERNAME'),
+      loginPassword: Cypress.env('HML_API_PASSWORD'),
+      urlTokenApiIntercept: `${Cypress.env('HML_API_LOGIN_URL')}/auth/realms/multiplicacapital/protocol/openid-connect/token`,
+      token: tokens?.hml?.token ?? '',
+    },
+    keycloak: {
+      baseUrl: Cypress.env('HML_KEYCLOAK_BASE_URL'),
+      loginUrl: Cypress.env('HML_KEYCLOAK_LOGIN_URL'),
+      loginUsername: Cypress.env('HML_KEYCLOAK_USERNAME'),
+      loginPassword: Cypress.env('HML_KEYCLOAK_PASSWORD'),
+      urlTokenApiIntercept: `${Cypress.env('HML_KEYCLOAK_LOGIN_URL')}/auth/realms/master/protocol/openid-connect/token`,
+      token: tokens?.keycloak?.token ?? '',
+    },
+    bhml: {
+      baseUrl: Cypress.env('BHML_API_BASE_URL'),
+      loginUrl: Cypress.env('BHML_API_LOGIN_URL'),
+      loginUsername: Cypress.env('BHML_API_USERNAME'),
+      loginPassword: Cypress.env('BHML_API_PASSWORD'),
+      urlTokenApiIntercept: `${Cypress.env('BHML_API_LOGIN_URL')}/auth/realms/beyondbanking-hml/protocol/openid-connect/token`,
+      token: tokens?.bhml?.token ?? '',
+    },
+  };
+
+  const config = ambientes[ambiente];
+
+  if (!config) throw new Error(`[definirAmbiente] Ambiente desconhecido: "${ambiente}"`);
+
+  return cy.wrap(config);
 });
 
 /**
  * @description Lê um arquivo JSON do diretório 'cypress/output'.
  * Retorna null se o arquivo não existir ou estiver vazio.
  * @param {string} nomeArquivo - Nome do arquivo JSON (ex: 'meuArquivo.json').
- * @returns {Cypress.Chainable<Array<object>|null>} Conteúdo do JSON ou null.
+ * @returns {Cypress.Chainable<Array<object>|null>}
  */
 Cypress.Commands.add('lerJsonDeOutput', (nomeArquivo) => {
-  const caminhoArquivo = `cypress/output/${nomeArquivo}`;
-  return cy.task('lerJsonSeExistir', { caminhoArquivo }, { log: false });
+  return cy.task('lerJsonSeExistir', { caminhoArquivo: `cypress/output/${nomeArquivo}` }, { log: false });
 });
 
+/**
+ * @description Pesquisa e vincula dependências de ligação entre entidades,
+ * buscando dados de produção e salvando no diretório de output.
+ * Suporta entidades especiais (CONDICOES, ACOES, OPERADORES, OBSERVADORES, GESTORES)
+ * com comportamentos de busca e deduplicação diferenciados.
+ * @param {Object} entidade - Mapeamento de entidades com suas configurações.
+ * @returns {Cypress.Chainable<void>}
+ */
 Cypress.Commands.add('pesquisarDependenciasLigacao', (entidade) => {
   Object.entries(entidade)
     .filter(([chave]) => !ENTIDADES_IGNORADAS.includes(chave))
@@ -92,23 +209,22 @@ Cypress.Commands.add('pesquisarDependenciasLigacao', (entidade) => {
             ? dadosDoArquivo.filter((item) => item.atualizar === true)
             : dadosDoArquivo;
 
-            if (ehCondicoes) {
-              const registrosCondicoes = dadosFiltrados.flatMap((esteira) => {
-                const modeloEtapas = esteira.modeloEtapas ?? [];
-                return modeloEtapas
-                  .filter((etapa) => etapa?.modeloEtapa?.condicoes?.length > 0)
-                  .map((etapa) => ({
-                    idEsteira: esteira.id,
-                    idModeloEtapa: etapa.id,
-                    IdEtapa: etapa.modeloEtapa.id,
-                    condicoes: etapa.modeloEtapa.condicoes,
-                  }));
-              });
+          if (ehCondicoes) {
+            const registrosCondicoes = dadosFiltrados.flatMap((esteira) => {
+              const modeloEtapas = esteira.modeloEtapas ?? [];
+              return modeloEtapas
+                .filter((etapa) => etapa?.modeloEtapa?.condicoes?.length > 0)
+                .map((etapa) => ({
+                  idEsteira: esteira.id,
+                  idModeloEtapa: etapa.id,
+                  IdEtapa: etapa.modeloEtapa.id,
+                  condicoes: etapa.modeloEtapa.condicoes,
+                }));
+            });
 
             if (adiciona) {
               cy.task('lerJsonSeExistir', { caminhoArquivo }).then((existentes) => {
-                const base = existentes ?? [];
-                const mesclado = mesclarSemDuplicatas(base, registrosCondicoes, 'idModeloEtapa');
+                const mesclado = mesclarSemDuplicatas(existentes ?? [], registrosCondicoes, 'idModeloEtapa');
                 cy.task('escreverJson', { caminhoArquivo, conteudo: mesclado });
               });
             } else {
@@ -132,8 +248,7 @@ Cypress.Commands.add('pesquisarDependenciasLigacao', (entidade) => {
 
             if (adiciona) {
               cy.task('lerJsonSeExistir', { caminhoArquivo }).then((existentes) => {
-                const base = existentes ?? [];
-                const mesclado = mesclarSemDuplicatas(base, objetosUnicos, campoDeduplicacao);
+                const mesclado = mesclarSemDuplicatas(existentes ?? [], objetosUnicos, campoDeduplicacao);
                 cy.task('escreverJson', { caminhoArquivo, conteudo: mesclado });
               });
             } else {
@@ -142,18 +257,17 @@ Cypress.Commands.add('pesquisarDependenciasLigacao', (entidade) => {
             return;
           }
 
-          const idsUnicos = [
-            ...new Set(
-              dadosFiltrados.flatMap((dado) => extrairValoresDoCaminho(dado, campoBusca))
-            ),
-          ];
+          const idsUnicos = [...new Set(
+            dadosFiltrados.flatMap((dado) => extrairValoresDoCaminho(dado, campoBusca))
+          )];
 
           idsUnicos.forEach((id) => {
             cy.executarRequest('prod', `${urlBuscaId}${encodeURIComponent(id)}`).then((resposta) => {
               const itens = Array.isArray(resposta.body) ? resposta.body : [resposta.body];
               itens.forEach((item) => {
-                const jaExiste = registrosAcumulados.some((r) => r.id === item.id);
-                if (!jaExiste) registrosAcumulados.push(item);
+                if (!registrosAcumulados.some((r) => r.id === item.id)) {
+                  registrosAcumulados.push(item);
+                }
               });
             });
           });
@@ -161,8 +275,7 @@ Cypress.Commands.add('pesquisarDependenciasLigacao', (entidade) => {
           cy.then(() => {
             if (adiciona) {
               cy.task('lerJsonSeExistir', { caminhoArquivo }).then((existentes) => {
-                const base = existentes ?? [];
-                const mesclado = mesclarSemDuplicatas(base, registrosAcumulados, 'id');
+                const mesclado = mesclarSemDuplicatas(existentes ?? [], registrosAcumulados, 'id');
                 cy.task('escreverJson', { caminhoArquivo, conteudo: mesclado });
               });
             } else {
@@ -175,34 +288,34 @@ Cypress.Commands.add('pesquisarDependenciasLigacao', (entidade) => {
 });
 
 /**
- * @description Mescla dois arrays evitando duplicatas com base em um campo chave.
- * @param {Array<Object>} base - Dados já existentes no arquivo.
- * @param {Array<Object>} novos - Dados novos a serem adicionados.
- * @param {string} campoChave - Campo usado para identificar duplicatas.
- * @returns {Array<Object>}
+ * @description Cria no ambiente HML os itens que ainda não possuem 'idHml' (idHml === null),
+ * para todas as entidades do nível de dependência informado.
+ * Entidades Keycloak (OPERADORES) possuem tratamento especial:
+ * o campo 'grupo' é renomeado para 'name' no body e o 'idHml' não é salvo após criação.
+ * @param {number} nivel - Nível de dependência das entidades a serem processadas.
+ * @param {Object} mapeamentoEntidade - Mapeamento de entidades com suas configurações.
+ * @returns {Cypress.Chainable<void>}
  */
-function mesclarSemDuplicatas(base, novos, campoChave) {
-  const chavesDaBase = new Set(base.map((item) => item[campoChave]));
-  const apenasNovos = novos.filter((item) => !chavesDaBase.has(item[campoChave]));
-  return [...base, ...apenasNovos];
-}
-
 Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel, mapeamentoEntidade) => {
-
   for (const chaveEntidade in mapeamentoEntidade) {
     if (!Object.prototype.hasOwnProperty.call(mapeamentoEntidade, chaveEntidade)) continue;
 
     const entidade = mapeamentoEntidade[chaveEntidade];
 
-    if (['GRUPOS_KEYCLOAK', 'CONDICOES'].includes(chaveEntidade) || entidade.nivelDependencia !== nivel) continue;
+    if (
+      ['GRUPOS_KEYCLOAK', 'CONDICOES', 'OBSERVADORES', 'GESTORES'].includes(chaveEntidade) ||
+      entidade.nivelDependencia !== nivel
+    ) continue;
 
     const isProduto = chaveEntidade === 'PRODUTO';
+    const entidadeKeycloak = ['OPERADORES'].includes(chaveEntidade);
     const method = entidade.method || 'POST';
+    const env = entidade.env || 'hml';
     const caminhoArquivo = `cypress/output/${entidade.nomeArquivo}`;
     const campoDescricao = entidade.campoDescricao || 'descricao';
     const chavesIgnoradas = [
       'idHml', 'id', 'dataCadastro', 'dataUltimaAlteracao',
-      'usuarioCadastro', 'usuarioUltimaAlteracao',
+      'usuarioCadastro', 'usuarioUltimaAlteracao', 'tipoSeguranca', 'podeAlterarFormulario',
       ...(entidade.chavesIgnoradas || []),
     ];
 
@@ -213,13 +326,17 @@ Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel, mapeamentoEntidad
 
       const executar = (log) => {
         itensValidos.forEach((item) => {
-          const camposDoItem = Object.fromEntries(
-            Object.entries(item).filter(([chave]) => !chavesIgnoradas.includes(chave))
-          );
-          const body = removerCamposOld(camposDoItem);
+          let body = removerCamposOld(removerChavesIgnoradas(item, chavesIgnoradas));
 
-          cy.executarRequest('hml', entidade.url, body, method).then((resultado) => {
-            cy.setIdHmlPorDescricao(resultado.body['id'], item[campoDescricao], entidade.nomeArquivo, campoDescricao);
+          if (entidadeKeycloak && 'grupo' in body) {
+            const { grupo, ...restante } = body;
+            body = { ...restante, name: grupo };
+          }
+
+          cy.executarRequest2(env, entidade.url, body, method).then((resultado) => {
+            if (!entidadeKeycloak) {
+              cy.setIdHmlPorDescricao(resultado.body['id'], item[campoDescricao], entidade.nomeArquivo, campoDescricao);
+            }
 
             if (!isProduto) return;
 
@@ -250,37 +367,28 @@ Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel, mapeamentoEntidad
 });
 
 /**
- * @description Remove recursivamente os campos de chavesIgnoradas em qualquer nível do objeto.
- * @param {Object} obj - Objeto a ser limpo.
- * @param {string[]} chavesIgnoradas - Campos a serem removidos.
- * @returns {Object}
+ * @description Atualiza no ambiente HML os itens que já possuem 'idHml',
+ * para todas as entidades do nível de dependência informado.
+ * Entidades Keycloak, grupos e entidades de retorno são ignoradas neste fluxo.
+ * @param {number} nivel - Nível de dependência das entidades a serem processadas.
+ * @param {Object} mapeamentoEntidade - Mapeamento de entidades com suas configurações.
+ * @returns {Cypress.Chainable<void>}
  */
-function removerChavesIgnoradas(obj, chavesIgnoradas) {
-  if (Array.isArray(obj)) {
-    return obj.map((item) => removerChavesIgnoradas(item, chavesIgnoradas));
-  }
-
-  if (obj !== null && typeof obj === 'object') {
-    return Object.fromEntries(
-      Object.entries(obj)
-        .filter(([chave]) => !chavesIgnoradas.includes(chave))
-        .map(([chave, valor]) => [chave, removerChavesIgnoradas(valor, chavesIgnoradas)])
-    );
-  }
-
-  return obj;
-}
-
 Cypress.Commands.add('atualizarItensExistentesPorNivel', (nivel, mapeamentoEntidade) => {
   for (const chaveEntidade in mapeamentoEntidade) {
     if (!Object.prototype.hasOwnProperty.call(mapeamentoEntidade, chaveEntidade)) continue;
 
     const entidade = mapeamentoEntidade[chaveEntidade];
 
-    if (['GRUPOS_KEYCLOAK', 'CONDICOES', 'MOTIVOS_RETORNO', 'GESTORES', 'OBSERVADORES', 'OPERADORES'].includes(chaveEntidade) || entidade.nivelDependencia !== nivel) continue;
+    if (
+      ['GRUPOS_KEYCLOAK', 'CONDICOES', 'MOTIVOS_RETORNO',
+       'GESTORES', 'OBSERVADORES', 'OPERADORES', 'TIPOESTEIRAS',
+      ].includes(chaveEntidade) ||
+      entidade.nivelDependencia !== nivel
+    ) continue;
 
     const isProduto = chaveEntidade === 'PRODUTO';
-    const method = entidade.method || 'POST';
+    const method = entidade.methodAtualizacao || 'POST';
     const chavesIgnoradas = [
       'idHml', 'id', 'dataCadastro', 'dataUltimaAlteracao',
       'usuarioCadastro', 'usuarioUltimaAlteracao', 'usuario',
@@ -294,9 +402,8 @@ Cypress.Commands.add('atualizarItensExistentesPorNivel', (nivel, mapeamentoEntid
 
       const executar = (log) => {
         itensValidos.forEach((item) => {
-          const camposDoItem = removerChavesIgnoradas(item, chavesIgnoradas);
           const body = {
-            ...removerCamposOld(camposDoItem),
+            ...removerCamposOld(removerChavesIgnoradas(item, chavesIgnoradas)),
             id: String(item.idHml),
           };
 
@@ -329,19 +436,31 @@ Cypress.Commands.add('atualizarItensExistentesPorNivel', (nivel, mapeamentoEntid
   }
 });
 
+/**
+ * @description Pesquisa no ambiente HML o ID equivalente para cada item do arquivo de output,
+ * salvando o resultado em 'idHml'. Suporta busca simples, busca composta (array de campos)
+ * e busca especial para entidades Keycloak (sem parâmetro na URL).
+ * Ignora itens que já possuem 'idHml' preenchido.
+ * @param {number} nivel - Nível de dependência das entidades a serem processadas.
+ * @param {Object} mapeamentoEntidade - Mapeamento de entidades com suas configurações.
+ * @returns {Cypress.Chainable<void>}
+ */
 Cypress.Commands.add('pesquisarItensPorNivel', (nivel, mapeamentoEntidade) => {
   for (const chaveEntidade in mapeamentoEntidade) {
     if (!Object.prototype.hasOwnProperty.call(mapeamentoEntidade, chaveEntidade)) continue;
-    
-    
+
     const entidade = mapeamentoEntidade[chaveEntidade];
+
+    if (
+      ['GRUPOS_KEYCLOAK', 'CONDICOES'].includes(chaveEntidade) ||
+      entidade.nivelDependencia !== nivel
+    ) continue;
+
     const nomeArquivo = entidade.nomeArquivo;
     const campoDescricao = entidade.campoDescricao || 'descricao';
     const contentBusca = entidade.contentBusca || 'falseId';
-    const env = entidade.env || 'hml';
-    const entidadesKeycloak = ['OPERADORES', 'OBSERVADORES', 'GESTORES'].includes(chaveEntidade);
-    
-    if (['GRUPOS_KEYCLOAK', 'CONDICOES'].includes(chaveEntidade) || entidade.nivelDependencia !== nivel) continue;
+    const entidadeKeycloak = ['OPERADORES', 'OBSERVADORES', 'GESTORES'].includes(chaveEntidade);
+    const CAMPO_DESCRICAO_KEYCLOAK = 'name';
 
     const salvarId = (id, dado) => {
       cy.setIdHmlPorDescricao(
@@ -360,16 +479,13 @@ Cypress.Commands.add('pesquisarItensPorNivel', (nivel, mapeamentoEntidade) => {
           const valorChave1 = obterValor(dado, contentBusca[0]);
           const valorChave2 = obterValor(dado, contentBusca[1]);
 
-          cy.executarRequest(env, `${entidade.urlBusca}${valorChave1}`).then((resposta) => {
+          cy.executarRequest('hml', `${entidade.urlBusca}${valorChave1}`).then((resposta) => {
             const content = Array.isArray(resposta.body)
               ? resposta.body
               : resposta.body?.content || [];
 
             if (!content.length) {
-              salvarId(null, {
-                [contentBusca[0]]: valorChave1,
-                [contentBusca[1]]: valorChave2,
-              });
+              salvarId(null, { [contentBusca[0]]: valorChave1, [contentBusca[1]]: valorChave2 });
               return;
             }
 
@@ -385,60 +501,60 @@ Cypress.Commands.add('pesquisarItensPorNivel', (nivel, mapeamentoEntidade) => {
           });
         }
       });
-    } else {
-      cy.lerJsonDeOutput(nomeArquivo).then((dadosDoArquivo) => {
-        for (const dado of dadosDoArquivo) {
-          if (dado.idHml !== null && dado.idHml !== undefined) continue;
-
-          const valorBusca = dado[campoDescricao];
-          
-          if (entidadesKeycloak) {
-            const campoDescricao2 = 'name'
-            cy.executarRequest2(env, entidade.urlBusca).then((resposta) => {
-              const content = Array.isArray(resposta.body)
-                ? resposta.body
-                : resposta.body?.tiposEsteira || resposta.body?.content || [];
-
-              const id = content.find((item) =>
-                String(item?.[campoDescricao2])?.trim()?.toLowerCase() ===
-                String(valorBusca)?.trim()?.toLowerCase()
-              )?.id ?? null;
-              salvarId(id, valorBusca);
-            });
-          } else {
-            cy.executarRequest2(env, `${entidade.urlBusca}${encodeURIComponent(valorBusca)}`).then((resposta) => {
-              const content = Array.isArray(resposta.body)
-                ? resposta.body
-                : resposta.body?.tiposEsteira          || 
-                  resposta.body?.modelosAcao           || 
-                  resposta.body?.motivosRetornoEsteira ||
-                  resposta.body?.modelosSubEtapa       ||
-                  resposta.body?.modelosEtapa          ||
-                  resposta.body?.modelosEsteira        ||
-                  resposta.body?.content               || 
-                  [];
-
-              const id = content.find((item) =>
-                String(item?.[campoDescricao])?.trim()?.toLowerCase() ===
-                String(valorBusca)?.trim()?.toLowerCase()
-              )?.id ?? null;
-
-              salvarId(id, valorBusca);
-            });
-          }
-        }
-      });
+      continue;
     }
+
+    cy.lerJsonDeOutput(nomeArquivo).then((dadosDoArquivo) => {
+      for (const dado of dadosDoArquivo) {
+        if (dado.idHml !== null && dado.idHml !== undefined) continue;
+
+        const valorBusca = dado[campoDescricao];
+
+        if (entidadeKeycloak) {
+          cy.executarRequest('hml', entidade.urlBusca).then((resposta) => {
+            const content = Array.isArray(resposta.body)
+              ? resposta.body
+              : resposta.body?.tiposEsteira || resposta.body?.content || [];
+
+            const id = content.find((item) =>
+              String(item?.[CAMPO_DESCRICAO_KEYCLOAK])?.trim()?.toLowerCase() ===
+              String(valorBusca)?.trim()?.toLowerCase()
+            )?.id ?? null;
+
+            salvarId(id, valorBusca);
+          });
+        } else {
+          cy.executarRequest('hml', `${entidade.urlBusca}${encodeURIComponent(valorBusca)}`).then((resposta) => {
+            const content = Array.isArray(resposta.body)
+              ? resposta.body
+              : resposta.body?.tiposEsteira          ||
+                resposta.body?.modelosAcao           ||
+                resposta.body?.motivosRetornoEsteira ||
+                resposta.body?.modelosSubEtapa       ||
+                resposta.body?.modelosEtapa          ||
+                resposta.body?.modelosEsteira        ||
+                resposta.body?.content               ||
+                [];
+
+            const id = content.find((item) =>
+              String(item?.[campoDescricao])?.trim()?.toLowerCase() ===
+              String(valorBusca)?.trim()?.toLowerCase()
+            )?.id ?? null;
+
+            salvarId(id, valorBusca);
+          });
+        }
+      }
+    });
   }
 });
 
 /**
  * @description Localiza um item no arquivo JSON pelo valor do campo descrição
  * e atualiza sua propriedade 'idHml' com o ID fornecido.
- * Suporta busca simples (string) e busca composta (objeto).
- * 
+ * Suporta busca simples (string) e busca composta (objeto com múltiplos campos).
  * @param {string|number|null} id - ID do ambiente HML a ser salvo no item.
- * @param {string|object} descricao - Valor usado para localizar o item.
+ * @param {string|object} descricao - Valor usado para localizar o item no arquivo.
  * @param {string} nomeArquivo - Nome do arquivo JSON localizado em 'cypress/output/'.
  * @param {string|string[]} campoDescricao - Campo(s) usados para localizar o item.
  * @returns {Cypress.Chainable<void>}
@@ -447,27 +563,20 @@ Cypress.Commands.add('setIdHmlPorDescricao', (id, descricao, nomeArquivo, campoD
   const filePath = `cypress/output/${nomeArquivo}`;
 
   cy.readFile(filePath, { log: false }).then((conteudo) => {
-
-    const item = conteudo.find((entry) => {
-
-      // Busca composta
+    const itens = conteudo.filter((entry) => {
       if (Array.isArray(campoDescricao)) {
-        return campoDescricao.every((campo) => {
-          return obterValor(entry, campo) === descricao[campo];
-        });
+        return campoDescricao.every((campo) => obterValor(entry, campo) === descricao[campo]);
       }
-
-      // Busca simples
       return entry[campoDescricao] === descricao;
     });
 
-    if (!item) {
-      throw new Error(
-        `[setIdHmlPorDescricao] Nenhum item encontrado em "${nomeArquivo}".`
-      );
+    if (!itens.length) {
+      throw new Error(`[setIdHmlPorDescricao] Nenhum item encontrado em "${nomeArquivo}".`);
     }
 
-    item.idHml = id;
+    itens.forEach((item) => {
+      item.idHml = id;
+    });
 
     cy.writeFile(filePath, conteudo, { log: false });
   });
@@ -477,8 +586,9 @@ Cypress.Commands.add('setIdHmlPorDescricao', (id, descricao, nomeArquivo, campoD
  * @description Itera sobre todas as entidades de um determinado nível de dependência
  * e substitui os IDs de produção pelos IDs equivalentes no ambiente HML,
  * com base nas configurações de dependência de cada entidade.
- * Ignora a entidade 'GRUPOS_KEYCLOAK' e entidades sem dependências definidas.
+ * Ignora 'GRUPOS_KEYCLOAK' e entidades sem dependências definidas.
  * @param {number} nivel - Nível de dependência das entidades a serem processadas.
+ * @param {Object} mapeamentoEntidade - Mapeamento de entidades com suas configurações.
  * @returns {Cypress.Chainable<void>}
  */
 Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) => {
@@ -490,8 +600,7 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) =
     if (
       chaveEntidade === 'GRUPOS_KEYCLOAK' ||
       entidade.nivelDependencia !== nivel ||
-      !entidade.dependencia ||
-      entidade.dependencia.length === 0
+      !entidade.dependencia?.length
     ) continue;
 
     cy.readFile(`cypress/output/${entidade.nomeArquivo}`).then((itens) => {
@@ -504,32 +613,65 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) =
             ? dependencias.flat()
             : dependencias;
 
-          // Separa o caminho pai do nome da chave final
-          // ex: 'produto.id' → pai: 'produto', chave: 'id'
-          // ex: 'id'         → pai: null,      chave: 'id'
           const partes = idSubstituido.split('.');
           const chaveId = partes[partes.length - 1];
-          const caminhoParent = partes.slice(0, -1).join('.');
+          const chaveOld = `${chaveId}.old`;
+          const partesParent = partes.slice(0, -1);
 
-          itens.forEach((item) => {
-            const idOriginal = Cypress._.get(item, idSubstituido);
+          /**
+           * Navega recursivamente pelo caminho informado.
+           * Quando encontra um array em qualquer nível, itera cada elemento.
+           * Ao chegar no objeto pai da chave final, aplica a substituição.
+           */
+          const substituir = (atual, partesRestantes) => {
+            if (!atual || partesRestantes.length === 0) return;
 
-            if (!idOriginal) return;
+            if (Array.isArray(atual)) {
+              atual.forEach((elemento) => substituir(elemento, partesRestantes));
+              return;
+            }
 
-            const equivalente = listaDependencias.find(
-              (depItem) => depItem[idDependecia] === idOriginal
-            );
+            const [proxima, ...resto] = partesRestantes;
 
-            if (!equivalente) return;
+            // Chegou ao pai da chave final — aplica substituição
+            if (resto.length === 0) {
+              const elemento = atual[proxima];
 
-            // Obtém o objeto pai onde a chave será salva
-            const objetoPai = caminhoParent
-              ? Cypress._.get(item, caminhoParent)
-              : item;
+              if (Array.isArray(elemento)) {
+                elemento.forEach((el) => {
+                  if (Object.prototype.hasOwnProperty.call(el, chaveOld)) return;
+                  const idOriginal = el[chaveId];
+                  if (!idOriginal) return;
 
-            objetoPai[`${chaveId}.old`] = idOriginal;          // salva original como "id.old"
-            Cypress._.set(item, idSubstituido, equivalente.idHml); // substitui pelo HML
-          });
+                  const equivalente = listaDependencias.find(
+                    (dep) => dep[idDependecia] === idOriginal
+                  );
+                  if (!equivalente) return;
+
+                  el[chaveOld] = idOriginal;
+                  el[chaveId] = equivalente.idHml;
+                });
+              } else if (elemento && typeof elemento === 'object') {
+                if (Object.prototype.hasOwnProperty.call(elemento, chaveOld)) return;
+                const idOriginal = elemento[chaveId];
+                if (!idOriginal) return;
+
+                const equivalente = listaDependencias.find(
+                  (dep) => dep[idDependecia] === idOriginal
+                );
+                if (!equivalente) return;
+
+                elemento[chaveOld] = idOriginal;
+                elemento[chaveId] = equivalente.idHml;
+              }
+              return;
+            }
+
+            // Ainda há partes do caminho — desce recursivamente
+            substituir(atual[proxima], resto);
+          };
+
+          itens.forEach((item) => substituir(item, partesParent));
         });
       }).then(() => {
         cy.writeFile(`cypress/output/${entidade.nomeArquivo}`, itens);
@@ -540,16 +682,17 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) =
 
 /**
  * @description Orquestra o processamento completo de entidades para um determinado nível de dependência,
- * executando em sequência: atualização de IDs de dependências e pesquisa de itens no ambiente HML.
- * Os steps de atualização e criação estão comentados e podem ser habilitados conforme necessidade.
+ * executando em sequência: atualização de IDs de dependências, pesquisa de itens,
+ * atualização de existentes e criação de inexistentes no ambiente HML.
  * @param {number} nivel - Nível de dependência das entidades a serem processadas.
+ * @param {Object} mapeamentoEntidade - Mapeamento de entidades com suas configurações.
  * @returns {Cypress.Chainable<void>}
  */
 Cypress.Commands.add('processarEntidadesPorNivel', (nivel, mapeamentoEntidade) => {
-  //cy.atualizarIdsDeDependencias(nivel, mapeamentoEntidade);
-  //cy.pesquisarItensPorNivel(nivel, mapeamentoEntidade);
-  cy.atualizarItensExistentesPorNivel(nivel, mapeamentoEntidade)
-  //cy.criarItensInexistentesPorNivel(nivel, mapeamentoEntidade)
+  cy.atualizarIdsDeDependencias(nivel, mapeamentoEntidade);
+  cy.pesquisarItensPorNivel(nivel, mapeamentoEntidade);
+  cy.atualizarItensExistentesPorNivel(nivel, mapeamentoEntidade);
+  cy.criarItensInexistentesPorNivel(nivel, mapeamentoEntidade);
 });
 
 /**
@@ -567,34 +710,22 @@ Cypress.Commands.add('verificarDiretorioNaoVazio', (caminho) => {
 /**
  * @description Salva registros no arquivo de output com comportamento diferenciado por entidade.
  *
- * Para entidades incluídas em ENTIDADES_COM_VALIDACAO:
- *  - Compara IDs dos novos dados com os existentes no arquivo
- *  - Adiciona apenas IDs que ainda não existem no arquivo
- *  - Valida regra dos 7 dias com base no 'ultimosUpdates.json'
- *  - Seta 'atualizar: true' apenas nos itens que passam na regra
- *  - Respeita o limite de lote configurado
- *  - Não altera campos existentes além do 'atualizar'
+ * Para entidades em ENTIDADES_COM_VALIDACAO (PRODUTO, ESTEIRAS):
+ * - Adiciona apenas IDs novos que ainda não existem no arquivo
+ * - Valida regra dos 7 dias com base no 'ultimosUpdates.json'
+ * - Marca 'atualizar: true' apenas nos itens elegíveis dentro do limite de lote
  *
  * Para demais entidades:
- *  - Salva tudo que vier da API sem validações adicionais
+ * - Salva todos os dados recebidos da API sem validações adicionais
  *
- * Para a entidade ESTEIRAS (comportamento adicional):
- *  - Após o processo padrão, varre os dados finais
- *  - Identifica itens que possuem 'idModeloEsteiraVinculado' não nulo
- *  - Marca com 'esteiraVinculada: true' os itens apontados por esse campo
+ * Para ESTEIRAS (comportamento adicional):
+ * - Marca com 'esteiraVinculada: true' os itens referenciados por 'idModeloEsteiraVinculado'
  *
  * @param {Array<Object>} novosDados - Lista de registros recebidos da API de produção.
  * @param {string} caminhoArquivo - Caminho do arquivo de output da entidade.
  * @param {Object} entidade - Mapa de entidades com seus metadados.
  * @returns {Cypress.Chainable<void>}
- * @example
- * cy.executarRequest('prod', APIS.PRODUTO.urlListAll).then((resposta) => {
- *   cy.salvarNovosRegistros(resposta.body, `cypress/output/${APIS.PRODUTO.nomeArquivo}`, APIS);
- * });
  */
-
-const ENTIDADES_COM_VALIDACAO = ['PRODUTO', 'ESTEIRAS'];
-
 Cypress.Commands.add('salvarNovosRegistros', (novosDados, caminhoArquivo, entidade) => {
   const chaveEntidade = Object.keys(entidade).find(
     (chave) => caminhoArquivo.endsWith(entidade[chave].nomeArquivo)
@@ -611,9 +742,7 @@ Cypress.Commands.add('salvarNovosRegistros', (novosDados, caminhoArquivo, entida
     cy.task('lerJsonSeExistir', { caminhoArquivo: CAMINHO_LOG }).then((logAtual) => {
       const agora = new Date();
       const seteDiasEmMs = 7 * 24 * 60 * 60 * 1000;
-      const log = logAtual ?? {};
-      const registrosLog = log[chaveEntidade] ?? [];
-
+      const registrosLog = (logAtual ?? {})[chaveEntidade] ?? [];
       const listaExistente = dadosExistentes ?? [];
       const idsExistentes = new Set(listaExistente.map((item) => item.id));
 
@@ -621,12 +750,10 @@ Cypress.Commands.add('salvarNovosRegistros', (novosDados, caminhoArquivo, entida
 
       const candidatos = listaExistente
         .map((existente) => {
-          const estaEmNovosDados = novosDados.some((novo) => novo.id === existente.id);
-          if (!estaEmNovosDados) return null;
+          if (!novosDados.some((novo) => novo.id === existente.id)) return null;
 
           const registroLog = registrosLog.find((r) => r.id === existente.id);
-          const estaVencido =
-            !registroLog || agora - new Date(registroLog.dataAtualizacao) > seteDiasEmMs;
+          const estaVencido = !registroLog || agora - new Date(registroLog.dataAtualizacao) > seteDiasEmMs;
 
           if (!estaVencido) return null;
 
@@ -637,12 +764,10 @@ Cypress.Commands.add('salvarNovosRegistros', (novosDados, caminhoArquivo, entida
         })
         .filter(Boolean);
 
-      const novosParaLote = apenasNovos.map((novo) => ({
-        id: novo.id,
-        dataOrdenacao: new Date(0),
-      }));
-
-      const idsLoteParaAtualizar = [...candidatos, ...novosParaLote]
+      const idsLoteParaAtualizar = [
+        ...candidatos,
+        ...apenasNovos.map((novo) => ({ id: novo.id, dataOrdenacao: new Date(0) })),
+      ]
         .sort((a, b) => a.dataOrdenacao - b.dataOrdenacao)
         .slice(0, LIMITE_LOTE)
         .map((item) => item.id);
@@ -669,25 +794,12 @@ Cypress.Commands.add('salvarNovosRegistros', (novosDados, caminhoArquivo, entida
 });
 
 /**
- * @description Varre os dados de esteiras e marca com 'esteiraVinculada: true'
- * todos os itens cujo 'id' é referenciado por algum 'idModeloEsteiraVinculado'.
- *
- * @param {Array<Object>} dados - Lista de esteiras já processadas.
- * @returns {Array<Object>} Lista com a marcação aplicada.
+ * @description Restaura os IDs originais de produção nos arquivos de output,
+ * revertendo as substituições feitas pelo comando 'atualizarIdsDeDependencias'.
+ * Ignora 'GRUPOS_KEYCLOAK' e entidades sem dependências definidas.
+ * @param {Object} entidade - Mapeamento de entidades com suas configurações.
+ * @returns {Cypress.Chainable<void>}
  */
-function aplicarMarcacaoEsteiraVinculada(dados) {
-  const idsVinculados = new Set(
-    dados
-      .filter((item) => item.idModeloEsteiraVinculado !== null)
-      .map((item) => item.idModeloEsteiraVinculado)
-  );
-
-  return dados.map((item) => ({
-    ...item,
-    ...(idsVinculados.has(item.id) && { esteiraVinculada: true }),
-  }));
-}
-
 Cypress.Commands.add('voltarIdsOriginais', (entidade) => {
   for (const chaveEntidade in entidade) {
     if (!Object.prototype.hasOwnProperty.call(entidade, chaveEntidade)) continue;
@@ -696,79 +808,14 @@ Cypress.Commands.add('voltarIdsOriginais', (entidade) => {
 
     if (
       chaveEntidade === 'GRUPOS_KEYCLOAK' ||
-      !configEntidade.dependencia ||
-      configEntidade.dependencia.length === 0
+      !configEntidade.dependencia?.length
     ) continue;
 
     const caminhoArquivo = `cypress/output/${configEntidade.nomeArquivo}`;
 
     cy.task('lerJsonSeExistir', { caminhoArquivo }).then((itens) => {
-      if (!itens) {
-        return;
-      }
-
-      const itensRestaurados = itens.map((item) => restaurarCamposOld(item));
-      cy.writeFile(caminhoArquivo, itensRestaurados);
+      if (!itens) return;
+      cy.writeFile(caminhoArquivo, itens.map((item) => restaurarCamposOld(item)));
     });
   }
 });
-
-/**
- * Restaura recursivamente todos os campos `.old` para seus campos originais,
- * removendo a chave `.old` após a restauração.
- * @param {object} obj
- * @returns {object}
- */
-function restaurarCamposOld(obj) {
-  if (typeof obj !== 'object' || obj === null) return obj;
-
-  const resultado = {};
-
-  for (const [chave, valor] of Object.entries(obj)) {
-    if (chave.endsWith('.old')) continue; // será tratado pelo campo original
-
-    const chaveOld = `${chave}.old`;
-
-    resultado[chave] = Object.prototype.hasOwnProperty.call(obj, chaveOld)
-      ? obj[chaveOld]                  // restaura o valor original
-      : restaurarCamposOld(valor);     // desce recursivamente
-  }
-
-  return resultado;
-}
-
-/**
- * Remove recursivamente todas as chaves que terminam com '.old' de um objeto.
- * @param {object} obj
- * @returns {object}
- */
-function removerCamposOld(obj) {
-  if (typeof obj !== 'object' || obj === null) return obj;
-
-  return Object.fromEntries(
-    Object.entries(obj)
-      .filter(([chave]) => !chave.endsWith('.old'))
-      .map(([chave, valor]) => [chave, removerCamposOld(valor)])
-  );
-}
-
-/**
- * Extrai valores de um caminho que pode conter arrays em qualquer nível.
- * Funciona para: 'id', 'grupoProduto.id', 'modeloEtapas.modeloEtapa.id'
- */
-function extrairValoresDoCaminho(obj, caminho) {
-  const partes = caminho.split('.');
-
-  const percorrer = (atual, partesRestantes) => {
-    if (!atual || partesRestantes.length === 0) return [atual];
-
-    const [parte, ...resto] = partesRestantes;
-    const proximo = Array.isArray(atual)
-      ? atual.flatMap((item) => percorrer(item?.[parte], resto))  // ✅ entra em cada item do array
-      : percorrer(atual[parte], resto);
-
-    return [proximo].flat();
-  };
-
-  return percorrer(obj, partes).filter((v) => v != null);
-}

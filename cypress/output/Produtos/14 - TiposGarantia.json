@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "id": 1,
+    "descricao": "CESSÃO FIDUCIÁRIA",
+    "dataCadastro": "2023-07-31T10:43:04.41",
+    "usuarioCadastro": "laura.contart",
+    "dataUltimaAlteracao": "2023-07-31T10:43:04.41",
+    "usuarioUltimaAlteracao": "laura.contart",
+    "ativo": true,
+    "idHml": 26
+  },
+  {
+    "id": 2,
+    "descricao": "ALIENAÇÃO FIDUCIÁRIA",
+    "dataCadastro": "2023-07-31T10:43:25.81",
+    "usuarioCadastro": "laura.contart",
+    "dataUltimaAlteracao": "2023-07-31T10:43:25.81",
+    "usuarioUltimaAlteracao": "laura.contart",
+    "ativo": true,
+    "idHml": 5
+  }
+]

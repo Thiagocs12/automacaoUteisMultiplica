@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "id": 2,
+    "descricao": "TARIFADOR",
+    "dataCadastro": "2022-01-01T00:00:00",
+    "usuarioCadastro": "tiago.roque",
+    "dataUltimaAlteracao": "2022-01-01T00:00:00",
+    "usuarioUltimaAlteracao": "tiago.roque",
+    "idHml": 2
+  }
+]

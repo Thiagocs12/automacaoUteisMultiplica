@@ -1,1 +1,127 @@
-[]
+[
+  {
+    "id": 1,
+    "dataCadastro": "2022-05-20T10:55:36.543",
+    "dataUltimaAlteracao": "2026-04-28T15:52:20.81",
+    "usuarioCadastro": "tiago.roque",
+    "consultoriaEspecializada": {
+      "id": 1,
+      "dataCadastro": "2021-01-01T00:00:00",
+      "dataUltimaAlteracao": "2022-02-17T18:58:57.403",
+      "usuarioCadastro": "tiago.roque",
+      "cnpj": "29695351000146",
+      "keyCloakClient": null,
+      "keyCloakSecret": null,
+      "descricao": "PERPETUO CONSULTORIA ESPECIALIZADA LTDA",
+      "ativo": true,
+      "usuarioUltimaAlteracao": "tiago.roque",
+      "hibernateLazyInitializer": {}
+    },
+    "sistema": {
+      "id": 2,
+      "dataCadastro": "2021-01-01T00:00:00",
+      "dataUltimaAlteracao": "2021-01-01T00:00:00",
+      "usuarioCadastro": "tiago.roque",
+      "consultoriaEspecializada": {
+        "id": 1,
+        "dataCadastro": "2021-01-01T00:00:00",
+        "dataUltimaAlteracao": "2022-02-17T18:58:57.403",
+        "usuarioCadastro": "tiago.roque",
+        "cnpj": "29695351000146",
+        "keyCloakClient": null,
+        "keyCloakSecret": null,
+        "descricao": "PERPETUO CONSULTORIA ESPECIALIZADA LTDA",
+        "ativo": true,
+        "usuarioUltimaAlteracao": "tiago.roque",
+        "hibernateLazyInitializer": {}
+      },
+      "descricao": "MultiComex",
+      "ativo": true,
+      "usuarioUltimaAlteracao": "tiago.roque",
+      "hibernateLazyInitializer": {}
+    },
+    "tipoEvento": {
+      "id": 2,
+      "dataCadastro": "2022-01-01T00:00:00",
+      "dataUltimaAlteracao": "2022-01-01T00:00:00",
+      "usuarioCadastro": "tiago.roque",
+      "consultoriaEspecializada": {
+        "id": 1,
+        "dataCadastro": "2021-01-01T00:00:00",
+        "dataUltimaAlteracao": "2022-02-17T18:58:57.403",
+        "usuarioCadastro": "tiago.roque",
+        "cnpj": "29695351000146",
+        "keyCloakClient": null,
+        "keyCloakSecret": null,
+        "descricao": "PERPETUO CONSULTORIA ESPECIALIZADA LTDA",
+        "ativo": true,
+        "usuarioUltimaAlteracao": "tiago.roque",
+        "hibernateLazyInitializer": {}
+      },
+      "descricao": "TARIFADOR",
+      "usuarioUltimaAlteracao": "tiago.roque",
+      "hibernateLazyInitializer": {},
+      "id.old": 2
+    },
+    "situacao": {
+      "id": 1,
+      "dataCadastro": "2022-01-01T00:00:00",
+      "dataUltimaAlteracao": "2022-01-01T00:00:00",
+      "usuarioCadastro": "sistema",
+      "consultoriaEspecializada": {
+        "id": 1,
+        "dataCadastro": "2021-01-01T00:00:00",
+        "dataUltimaAlteracao": "2022-02-17T18:58:57.403",
+        "usuarioCadastro": "tiago.roque",
+        "cnpj": "29695351000146",
+        "keyCloakClient": null,
+        "keyCloakSecret": null,
+        "descricao": "PERPETUO CONSULTORIA ESPECIALIZADA LTDA",
+        "ativo": true,
+        "usuarioUltimaAlteracao": "tiago.roque",
+        "hibernateLazyInitializer": {}
+      },
+      "tipoSituacao": {
+        "id": 1,
+        "dataCadastro": "2022-01-01T00:00:00",
+        "dataUltimaAlteracao": "2022-01-01T00:00:00",
+        "usuarioCadastro": "sistema",
+        "consultoriaEspecializada": {
+          "id": 1,
+          "dataCadastro": "2021-01-01T00:00:00",
+          "dataUltimaAlteracao": "2022-02-17T18:58:57.403",
+          "usuarioCadastro": "tiago.roque",
+          "cnpj": "29695351000146",
+          "keyCloakClient": null,
+          "keyCloakSecret": null,
+          "descricao": "PERPETUO CONSULTORIA ESPECIALIZADA LTDA",
+          "ativo": true,
+          "usuarioUltimaAlteracao": "tiago.roque",
+          "hibernateLazyInitializer": {}
+        },
+        "descricao": "PESSOA",
+        "ativo": true,
+        "usuarioUltimaAlteracao": "sistema",
+        "codigoLegado": null,
+        "hibernateLazyInitializer": {}
+      },
+      "descricao": "ATIVA",
+      "ativo": true,
+      "usuarioUltimaAlteracao": "sistema",
+      "codigoLegado": null,
+      "hibernateLazyInitializer": {},
+      "id.old": 1
+    },
+    "descricao": "AJUSTE ROLAGEM",
+    "codigoEventoExterno": null,
+    "ativo": true,
+    "usuarioUltimaAlteracao": "thiago.santos",
+    "tipoInstrucao": null,
+    "valorTarifa": 0,
+    "nomeFilaInstrucao": null,
+    "indNatureza": "N",
+    "indPermiteLancamentoManual": false,
+    "indGeraPendenciaRetornoBancario": false,
+    "idHml": 248
+  }
+]

@@ -1,1 +1,51 @@
-[]
+[
+  {
+    "id": 1,
+    "dataCadastro": "2022-01-01T00:00:00",
+    "dataUltimaAlteracao": "2022-01-01T00:00:00",
+    "usuarioCadastro": "sistema",
+    "consultoriaEspecializada": {
+      "id": 1,
+      "dataCadastro": "2021-01-01T00:00:00",
+      "dataUltimaAlteracao": "2022-02-17T18:58:57.403",
+      "usuarioCadastro": "tiago.roque",
+      "cnpj": "29695351000146",
+      "keyCloakClient": null,
+      "keyCloakSecret": null,
+      "descricao": "PERPETUO CONSULTORIA ESPECIALIZADA LTDA",
+      "ativo": true,
+      "usuarioUltimaAlteracao": "tiago.roque",
+      "hibernateLazyInitializer": {}
+    },
+    "tipoSituacao": {
+      "id": 1,
+      "dataCadastro": "2022-01-01T00:00:00",
+      "dataUltimaAlteracao": "2022-01-01T00:00:00",
+      "usuarioCadastro": "sistema",
+      "consultoriaEspecializada": {
+        "id": 1,
+        "dataCadastro": "2021-01-01T00:00:00",
+        "dataUltimaAlteracao": "2022-02-17T18:58:57.403",
+        "usuarioCadastro": "tiago.roque",
+        "cnpj": "29695351000146",
+        "keyCloakClient": null,
+        "keyCloakSecret": null,
+        "descricao": "PERPETUO CONSULTORIA ESPECIALIZADA LTDA",
+        "ativo": true,
+        "usuarioUltimaAlteracao": "tiago.roque",
+        "hibernateLazyInitializer": {}
+      },
+      "descricao": "PESSOA",
+      "ativo": true,
+      "usuarioUltimaAlteracao": "sistema",
+      "codigoLegado": null,
+      "hibernateLazyInitializer": {},
+      "id.old": 1
+    },
+    "descricao": "ATIVA",
+    "ativo": true,
+    "usuarioUltimaAlteracao": "sistema",
+    "codigoLegado": null,
+    "idHml": 1
+  }
+]

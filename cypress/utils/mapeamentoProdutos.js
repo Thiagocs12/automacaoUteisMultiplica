@@ -269,7 +269,6 @@ const MAPEAMENTOS_APIS = {
     parecer: 'mc-multiflow-ms/api/v1/ocorrencia/parecer?',
     avancar: 'mc-multiflow-ms/api/v1/esteira/finalizarEtapa',
     iniciarEsteira: 'mc-multiflow-ms/api/v1/esteira/iniciarEtapa?',
-    method: 'POST'
   },
   GRUPOS_KEYCLOAK: {
     url: 'auth/admin/realms/multiplicacapital/groups?',

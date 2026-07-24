@@ -1,1 +1,140 @@
-[]
+[
+  {
+    "id": 52,
+    "dataCadastro": "2024-09-06T19:00:33.287",
+    "dataUltimaAlteracao": "2024-09-06T19:00:33.287",
+    "usuarioCadastro": "taina.ribeiro",
+    "consultoriaEspecializada": {
+      "id": 1,
+      "dataCadastro": "2021-01-01T00:00:00",
+      "dataUltimaAlteracao": "2022-02-17T18:58:57.403",
+      "usuarioCadastro": "tiago.roque",
+      "cnpj": "29695351000146",
+      "keyCloakClient": null,
+      "keyCloakSecret": null,
+      "descricao": "PERPETUO CONSULTORIA ESPECIALIZADA LTDA",
+      "ativo": true,
+      "usuarioUltimaAlteracao": "tiago.roque",
+      "hibernateLazyInitializer": {}
+    },
+    "descricao": "SALES LEASEBACK COM RETROVENDA",
+    "ativo": true,
+    "usuarioUltimaAlteracao": "taina.ribeiro",
+    "idHml": 67
+  },
+  {
+    "id": 34,
+    "dataCadastro": "2022-10-13T11:22:19.82",
+    "dataUltimaAlteracao": "2022-10-13T11:22:19.82",
+    "usuarioCadastro": "regiane.felicio",
+    "consultoriaEspecializada": {
+      "id": 1,
+      "dataCadastro": "2021-01-01T00:00:00",
+      "dataUltimaAlteracao": "2022-02-17T18:58:57.403",
+      "usuarioCadastro": "tiago.roque",
+      "cnpj": "29695351000146",
+      "keyCloakClient": null,
+      "keyCloakSecret": null,
+      "descricao": "PERPETUO CONSULTORIA ESPECIALIZADA LTDA",
+      "ativo": true,
+      "usuarioUltimaAlteracao": "tiago.roque",
+      "hibernateLazyInitializer": {}
+    },
+    "descricao": "LCA",
+    "ativo": true,
+    "usuarioUltimaAlteracao": "regiane.felicio",
+    "idHml": 28
+  },
+  {
+    "id": 8,
+    "dataCadastro": "2022-02-17T11:35:34.113",
+    "dataUltimaAlteracao": "2022-02-17T11:46:37.947",
+    "usuarioCadastro": "regiane.felicio",
+    "consultoriaEspecializada": {
+      "id": 1,
+      "dataCadastro": "2021-01-01T00:00:00",
+      "dataUltimaAlteracao": "2022-02-17T18:58:57.403",
+      "usuarioCadastro": "tiago.roque",
+      "cnpj": "29695351000146",
+      "keyCloakClient": null,
+      "keyCloakSecret": null,
+      "descricao": "PERPETUO CONSULTORIA ESPECIALIZADA LTDA",
+      "ativo": true,
+      "usuarioUltimaAlteracao": "tiago.roque",
+      "hibernateLazyInitializer": {}
+    },
+    "descricao": "DUPLICATA",
+    "ativo": true,
+    "usuarioUltimaAlteracao": "regiane.felicio",
+    "idHml": 8
+  },
+  {
+    "id": 2,
+    "dataCadastro": "2022-02-17T11:33:17.813",
+    "dataUltimaAlteracao": "2022-02-17T11:44:00.71",
+    "usuarioCadastro": "regiane.felicio",
+    "consultoriaEspecializada": {
+      "id": 1,
+      "dataCadastro": "2021-01-01T00:00:00",
+      "dataUltimaAlteracao": "2022-02-17T18:58:57.403",
+      "usuarioCadastro": "tiago.roque",
+      "cnpj": "29695351000146",
+      "keyCloakClient": null,
+      "keyCloakSecret": null,
+      "descricao": "PERPETUO CONSULTORIA ESPECIALIZADA LTDA",
+      "ativo": true,
+      "usuarioUltimaAlteracao": "tiago.roque",
+      "hibernateLazyInitializer": {}
+    },
+    "descricao": "CCB",
+    "ativo": true,
+    "usuarioUltimaAlteracao": "regiane.felicio",
+    "idHml": 2
+  },
+  {
+    "id": 13,
+    "dataCadastro": "2022-04-06T14:37:21.077",
+    "dataUltimaAlteracao": "2022-04-06T14:37:21.077",
+    "usuarioCadastro": "regiane.felicio",
+    "consultoriaEspecializada": {
+      "id": 1,
+      "dataCadastro": "2021-01-01T00:00:00",
+      "dataUltimaAlteracao": "2022-02-17T18:58:57.403",
+      "usuarioCadastro": "tiago.roque",
+      "cnpj": "29695351000146",
+      "keyCloakClient": null,
+      "keyCloakSecret": null,
+      "descricao": "PERPETUO CONSULTORIA ESPECIALIZADA LTDA",
+      "ativo": true,
+      "usuarioUltimaAlteracao": "tiago.roque",
+      "hibernateLazyInitializer": {}
+    },
+    "descricao": "CONTRATO ",
+    "ativo": true,
+    "usuarioUltimaAlteracao": "regiane.felicio",
+    "idHml": 55
+  },
+  {
+    "id": 3,
+    "dataCadastro": "2022-02-17T11:33:47.86",
+    "dataUltimaAlteracao": "2022-02-17T11:44:07.637",
+    "usuarioCadastro": "regiane.felicio",
+    "consultoriaEspecializada": {
+      "id": 1,
+      "dataCadastro": "2021-01-01T00:00:00",
+      "dataUltimaAlteracao": "2022-02-17T18:58:57.403",
+      "usuarioCadastro": "tiago.roque",
+      "cnpj": "29695351000146",
+      "keyCloakClient": null,
+      "keyCloakSecret": null,
+      "descricao": "PERPETUO CONSULTORIA ESPECIALIZADA LTDA",
+      "ativo": true,
+      "usuarioUltimaAlteracao": "tiago.roque",
+      "hibernateLazyInitializer": {}
+    },
+    "descricao": "CCB CONSIGNADO",
+    "ativo": true,
+    "usuarioUltimaAlteracao": "regiane.felicio",
+    "idHml": 3
+  }
+]
