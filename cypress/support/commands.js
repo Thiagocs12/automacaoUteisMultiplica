@@ -4,7 +4,7 @@ import { obterValor } from './utils';
 import tokens from '../temp/tokens.json';
 import MAPEAMENTOS_APIS from '../utils/mapeamentoProdutos';
 
-const LIMITE_LOTE = 20;
+const LIMITE_LOTE = 200;
 const CAMINHO_LOG = 'cypress/output/Produtos/ultimosUpdates.json';
 const ENTIDADES_IGNORADAS = ['PRODUTO', 'GRUPOS_KEYCLOAK', 'MULTIFLOW', 'SELECIONAR_CEDENTE', 'ESTEIRAS'];
 const ENTIDADES_COM_VALIDACAO = ['PRODUTO', 'ESTEIRAS'];
@@ -618,11 +618,6 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) =
           const chaveOld = `${chaveId}.old`;
           const partesParent = partes.slice(0, -1);
 
-          /**
-           * Navega recursivamente pelo caminho informado.
-           * Quando encontra um array em qualquer nível, itera cada elemento.
-           * Ao chegar no objeto pai da chave final, aplica a substituição.
-           */
           const substituir = (atual, partesRestantes) => {
             if (!atual || partesRestantes.length === 0) return;
 
@@ -633,7 +628,6 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) =
 
             const [proxima, ...resto] = partesRestantes;
 
-            // Chegou ao pai da chave final — aplica substituição
             if (resto.length === 0) {
               const elemento = atual[proxima];
 
@@ -667,11 +661,27 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) =
               return;
             }
 
-            // Ainda há partes do caminho — desce recursivamente
             substituir(atual[proxima], resto);
           };
 
-          itens.forEach((item) => substituir(item, partesParent));
+          itens.forEach((item) => {
+            if (partesParent.length === 0) {
+              // ← campo direto no item, sem navegação
+              if (Object.prototype.hasOwnProperty.call(item, chaveOld)) return;
+              const idOriginal = item[chaveId];
+              if (!idOriginal) return;
+
+              const equivalente = listaDependencias.find(
+                (dep) => dep[idDependecia] === idOriginal
+              );
+              if (!equivalente) return;
+
+              item[chaveOld] = idOriginal;
+              item[chaveId] = equivalente.idHml;
+            } else {
+              substituir(item, partesParent);
+            }
+          });
         });
       }).then(() => {
         cy.writeFile(`cypress/output/${entidade.nomeArquivo}`, itens);
@@ -689,6 +699,7 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) =
  * @returns {Cypress.Chainable<void>}
  */
 Cypress.Commands.add('processarEntidadesPorNivel', (nivel, mapeamentoEntidade) => {
+  cy.log('Iniciando processamento de entidades para o nível de dependência:', nivel);
   cy.atualizarIdsDeDependencias(nivel, mapeamentoEntidade);
   cy.pesquisarItensPorNivel(nivel, mapeamentoEntidade);
   cy.atualizarItensExistentesPorNivel(nivel, mapeamentoEntidade);
@@ -773,10 +784,18 @@ Cypress.Commands.add('salvarNovosRegistros', (novosDados, caminhoArquivo, entida
         .map((item) => item.id);
 
       let dadosAtualizados = [
-        ...listaExistente.map((existente) => ({
-          ...existente,
-          atualizar: idsLoteParaAtualizar.includes(existente.id),
-        })),
+        ...listaExistente.map((existente) => {
+          const deveAtualizar = idsLoteParaAtualizar.includes(existente.id);
+          const dadoNovo = deveAtualizar
+            ? novosDados.find((novo) => novo.id === existente.id)
+            : null;
+
+          return {
+            ...(dadoNovo ?? existente), // ← substitui pelo novo quando atualizar === true
+            idHml: existente.idHml,     // ← preserva idHml sempre
+            atualizar: deveAtualizar,
+          };
+        }),
         ...apenasNovos.map((novo) => ({
           ...novo,
           idHml: null,
