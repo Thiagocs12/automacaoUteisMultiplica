@@ -4,8 +4,8 @@ import { obterValor } from './utils';
 import tokens from '../temp/tokens.json';
 import MAPEAMENTOS_APIS from '../utils/mapeamentoProdutos';
 
-const LIMITE_LOTE = 200;
-const CAMINHO_LOG = 'cypress/output/Produtos/ultimosUpdates.json';
+const LIMITE_LOTE = 10;
+const CAMINHO_LOG = 'cypress/output/ultimosUpdates.json';
 const ENTIDADES_IGNORADAS = ['PRODUTO', 'GRUPOS_KEYCLOAK', 'MULTIFLOW', 'SELECIONAR_CEDENTE', 'ESTEIRAS'];
 const ENTIDADES_COM_VALIDACAO = ['PRODUTO', 'ESTEIRAS'];
 
@@ -99,25 +99,6 @@ function extrairValoresDoCaminho(obj, caminho) {
   return percorrer(obj, caminho.split('.')).filter((v) => v != null);
 }
 
-/**
- * @description Varre os dados de esteiras e marca com 'esteiraVinculada: true'
- * todos os itens cujo 'id' é referenciado por algum 'idModeloEsteiraVinculado'.
- * @param {Array<Object>} dados - Lista de esteiras já processadas.
- * @returns {Array<Object>}
- */
-function aplicarMarcacaoEsteiraVinculada(dados) {
-  const idsVinculados = new Set(
-    dados
-      .filter((item) => item.idModeloEsteiraVinculado !== null)
-      .map((item) => item.idModeloEsteiraVinculado)
-  );
-
-  return dados.map((item) => ({
-    ...item,
-    ...(idsVinculados.has(item.id) && { esteiraVinculada: true }),
-  }));
-}
-
 // ─── Commands ────────────────────────────────────────────────────────────────
 
 /**
@@ -196,8 +177,8 @@ Cypress.Commands.add('pesquisarDependenciasLigacao', (entidade) => {
       const caminhoArquivo = `cypress/output/${nomeArquivo}`;
       const ehArquivoBase = ['Produtos/1 - Produtos.json', 'Esteiras/1 - esteiras.json'].includes(nomeArquivoReferencia);
       const ehEntidadeSemBusca = ['ACOES', 'OPERADORES', 'OBSERVADORES', 'GESTORES'].includes(chave);
-      const ehCondicoes = chave === 'CONDICOES';
       const registrosAcumulados = [];
+      cy.log(chave)
 
       const inicializar = adiciona
         ? cy.wrap(null)
@@ -205,9 +186,10 @@ Cypress.Commands.add('pesquisarDependenciasLigacao', (entidade) => {
 
       inicializar.then(() => {
         cy.readFile(`cypress/output/${nomeArquivoReferencia}`).then((dadosDoArquivo) => {
-          const dadosFiltrados = ehArquivoBase
+          const dadosFiltrados = (ehArquivoBase
             ? dadosDoArquivo.filter((item) => item.atualizar === true)
-            : dadosDoArquivo;
+            : dadosDoArquivo
+          ).map(normalizarObjetosNumericos);
 
           if (ehEntidadeSemBusca) {
             const campoDeduplicacao = chave === 'ACOES' ? 'id' : 'grupo';
@@ -283,7 +265,7 @@ Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel, mapeamentoEntidad
       entidade.nivelDependencia !== nivel
     ) continue;
 
-    const isProduto = chaveEntidade === 'PRODUTO';
+    const geraLog = ['PRODUTO', 'ESTEIRAS'].includes(chaveEntidade);
     const entidadeKeycloak = ['OPERADORES'].includes(chaveEntidade);
     const method = entidade.method || 'POST';
     const env = entidade.env || 'hml';
@@ -298,23 +280,27 @@ Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel, mapeamentoEntidad
     cy.readFile(caminhoArquivo).then((itens) => {
       const itensValidos = itens
         .filter((item) => item.idHml === null)
-        .filter((item) => !isProduto || item.atualizar === true);
+        .filter((item) => !geraLog || item.atualizar === true);
 
       const executar = (log) => {
         itensValidos.forEach((item) => {
-          let body = removerCamposOld(removerChavesIgnoradas(item, chavesIgnoradas));
+          let camposLimpos = removerCamposOld(removerChavesIgnoradas(item, chavesIgnoradas));
 
-          if (entidadeKeycloak && 'grupo' in body) {
-            const { grupo, ...restante } = body;
-            body = { ...restante, name: grupo };
+          if (entidadeKeycloak && 'grupo' in camposLimpos) {
+            const { grupo, ...restante } = camposLimpos;
+            camposLimpos = { ...restante, name: grupo };
           }
 
-          cy.executarRequest2(env, entidade.url, body, method).then((resultado) => {
+          const body = entidade.novoArray
+            ? { [entidade.novoArray]: camposLimpos }
+            : camposLimpos;
+
+          cy.executarRequest(env, entidade.url, body, method).then((resultado) => {
             if (!entidadeKeycloak) {
               cy.setIdHmlPorDescricao(resultado.body['id'], item[campoDescricao], entidade.nomeArquivo, campoDescricao);
             }
 
-            if (!isProduto) return;
+            if (!geraLog) return;
 
             if (!log[chaveEntidade]) log[chaveEntidade] = [];
 
@@ -333,7 +319,7 @@ Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel, mapeamentoEntidad
         });
       };
 
-      if (isProduto) {
+      if (geraLog) {
         cy.task('lerJsonSeExistir', { caminhoArquivo: CAMINHO_LOG }).then((logAtual) => executar(logAtual ?? {}));
       } else {
         executar({});
@@ -363,7 +349,7 @@ Cypress.Commands.add('atualizarItensExistentesPorNivel', (nivel, mapeamentoEntid
       entidade.nivelDependencia !== nivel
     ) continue;
 
-    const isProduto = chaveEntidade === 'PRODUTO';
+    const geraLog = ['PRODUTO', 'ESTEIRAS'].includes(chaveEntidade);
     const method = entidade.methodAtualizacao || 'POST';
     const chavesIgnoradas = [
       'idHml', 'id', 'dataCadastro', 'dataUltimaAlteracao',
@@ -374,17 +360,21 @@ Cypress.Commands.add('atualizarItensExistentesPorNivel', (nivel, mapeamentoEntid
     cy.readFile(`cypress/output/${entidade.nomeArquivo}`).then((itens) => {
       const itensValidos = itens
         .filter((item) => item.idHml != null)
-        .filter((item) => !isProduto || item.atualizar === true);
+        .filter((item) => !geraLog || item.atualizar === true);
 
       const executar = (log) => {
         itensValidos.forEach((item) => {
-          const body = {
+          const camposLimpos = {
             ...removerCamposOld(removerChavesIgnoradas(item, chavesIgnoradas)),
             id: String(item.idHml),
           };
 
-          cy.executarRequest2('hml', entidade.url, body, method).then(() => {
-            if (!isProduto) return;
+          const body = entidade.novoArray
+            ? { [entidade.novoArray]: camposLimpos }
+            : camposLimpos;
+
+          cy.executarRequest('hml', entidade.url, body, method).then(() => {
+            if (!geraLog) return;
 
             if (!log[chaveEntidade]) log[chaveEntidade] = [];
 
@@ -403,7 +393,7 @@ Cypress.Commands.add('atualizarItensExistentesPorNivel', (nivel, mapeamentoEntid
         });
       };
 
-      if (isProduto) {
+      if (geraLog) {
         cy.task('lerJsonSeExistir', { caminhoArquivo: CAMINHO_LOG }).then((logAtual) => executar(logAtual ?? {}));
       } else {
         executar({});
@@ -676,9 +666,13 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) =
  */
 Cypress.Commands.add('processarEntidadesPorNivel', (nivel, mapeamentoEntidade) => {
   cy.log('Iniciando processamento de entidades para o nível de dependência:', nivel);
+  cy.log('atualizar id iniciando')
   cy.atualizarIdsDeDependencias(nivel, mapeamentoEntidade);
+  cy.log('pesquisar iniciando')
   cy.pesquisarItensPorNivel(nivel, mapeamentoEntidade);
+  cy.log('atualizar iniciando')
   cy.atualizarItensExistentesPorNivel(nivel, mapeamentoEntidade);
+  cy.log('criar iniciando')
   cy.criarItensInexistentesPorNivel(nivel, mapeamentoEntidade);
 });
 
@@ -779,10 +773,6 @@ Cypress.Commands.add('salvarNovosRegistros', (novosDados, caminhoArquivo, entida
         })),
       ];
 
-      if (chaveEntidade === 'ESTEIRAS') {
-        dadosAtualizados = aplicarMarcacaoEsteiraVinculada(dadosAtualizados);
-      }
-
       cy.writeFile(caminhoArquivo, dadosAtualizados);
     });
   });
@@ -814,3 +804,24 @@ Cypress.Commands.add('voltarIdsOriginais', (entidade) => {
     });
   }
 });
+
+function normalizarObjetosNumericos(obj) {
+  if (Array.isArray(obj)) return obj.map(normalizarObjetosNumericos);
+
+  if (obj !== null && typeof obj === 'object') {
+    const chaves = Object.keys(obj);
+    const todasNumericas = chaves.length > 0 && chaves.every((c) => /^\d+$/.test(c));
+
+    if (todasNumericas) {
+      return chaves
+        .sort((a, b) => Number(a) - Number(b))
+        .map((c) => normalizarObjetosNumericos(obj[c]));
+    }
+
+    return Object.fromEntries(
+      Object.entries(obj).map(([k, v]) => [k, normalizarObjetosNumericos(v)])
+    );
+  }
+
+  return obj;
+}

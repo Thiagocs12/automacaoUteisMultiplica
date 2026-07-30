@@ -6,9 +6,18 @@ const MAPEAMENTO_ESTEIRAS = {
     nomeArquivo: 'Esteiras/1 - esteiras.json',
     nivelDependencia: 5,
     campoDescricao: 'nome',
-    method: 'patch',
+    methodAtualizacao: 'patch',
+    dependencia: [
+      { idSubstituido: 'tipoEsteira.id', arquivoDependencia: 'Esteiras/3 - tipoEsteiras.json' },
+      { idSubstituido: 'modeloEtapas.modeloEtapa.id', arquivoDependencia: 'Esteiras/4 - etapas.json' },
+      { idSubstituido: 'idModeloEtapaCentral', arquivoDependencia: 'Esteiras/4 - etapas.json' },
+      { idSubstituido: 'idModeloEtapaPendencia', arquivoDependencia: 'Esteiras/4 - etapas.json' },
+      { idSubstituido: 'modeloEtapas.modeloEtapa.condicoes.irIdEtapa', arquivoDependencia: 'Esteiras/4 - etapas.json' },
+      { idSubstituido: 'idModeloEsteiraVinculado', arquivoDependencia: 'Esteiras/2 - esteirasVinculadas.json' },
+      { idSubstituido: 'modeloEsteiraVinculado.id', arquivoDependencia: 'Esteiras/2 - esteirasVinculadas.json' },
+    ],
   },
-  ESTEIRA_VINCULADA: {
+  /*ESTEIRA_VINCULADA: {
     urlBuscaId: 'mc-multiflow-ms/api/v1/modeloesteira/pesquisarporid/',
     urlBusca: 'mc-multiflow-ms/api/v1/modeloesteira/pesquisar?status=TODOS&nome=',
     url: 'mc-multiflow-ms/api/v1/modeloesteira',
@@ -17,7 +26,14 @@ const MAPEAMENTO_ESTEIRAS = {
     campoDescricao: 'nome',
     nomeArquivoReferencia: 'Esteiras/1 - esteiras.json',
     campoBusca: 'idModeloEsteiraVinculado',
-    method: 'patch',
+    methodAtualizacao: 'patch',
+    dependencia: [
+      { idSubstituido: 'tipoEsteira.id', arquivoDependencia: 'Esteiras/3 - tipoEsteiras.json' },
+      { idSubstituido: 'modeloEtapas.modeloEtapa.id', arquivoDependencia: 'Esteiras/4 - etapas.json' },
+      { idSubstituido: 'idModeloEtapaCentral', arquivoDependencia: 'Esteiras/4 - etapas.json' },
+      { idSubstituido: 'idModeloEtapaPendencia', arquivoDependencia: 'Esteiras/4 - etapas.json' },
+      { idSubstituido: 'modeloEtapas.modeloEtapa.condicoes.irIdEtapa', arquivoDependencia: 'Esteiras/4 - etapas.json' }
+    ],
   },
   TIPOESTEIRAS: {
     urlBuscaId: 'mc-multiflow-ms/api/v1/tipoesteira/pesquisarporid/',
@@ -28,7 +44,7 @@ const MAPEAMENTO_ESTEIRAS = {
     campoDescricao: 'nome',
     nomeArquivoReferencia: 'Esteiras/1 - esteiras.json',
     campoBusca: 'tipoEsteira.id',
-  },
+  },*/
   ETAPAS: {
     urlBuscaId: 'mc-multiflow-ms/api/v1/modeloetapa/pesquisarporid/',
     urlBusca: 'mc-multiflow-ms/api/v1/modeloetapa/pesquisar?status=TODOS&nome=',
@@ -40,7 +56,9 @@ const MAPEAMENTO_ESTEIRAS = {
     campoBusca: 'modeloEtapas.modeloEtapa.id',
     dependencia: [
       { idSubstituido: 'modeloSubEtapaModel.modeloSubEtapa.id', arquivoDependencia: 'Esteiras/5 - subetapas.json' },
-    ]
+    ],
+    methodAtualizacao: 'patch',
+    novoArray: 'modeloEtapa'
   },
   SUB_ETAPAS: {
     urlBuscaId: 'mc-multiflow-ms/api/v1/modelosubetapa/pesquisarporid/',

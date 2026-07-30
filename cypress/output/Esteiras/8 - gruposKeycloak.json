@@ -84,99 +84,9 @@
     "idHml": "60466b71-70ad-444d-ae98-bdf531c7644d"
   },
   {
-    "grupo": "Backoffice Exportação",
-    "tipoSeguranca": "",
-    "podeAlterarFormulario": true,
-    "idHml": "cdff4e85-837f-40f9-bb6d-6b256a981535"
-  },
-  {
-    "grupo": "Fechamento Câmbio",
-    "tipoSeguranca": "",
-    "podeAlterarFormulario": true,
-    "idHml": "c91bd659-cc2e-4fd7-a513-804cdc42639c"
-  },
-  {
-    "grupo": "Tesouraria",
-    "tipoSeguranca": "",
-    "podeAlterarFormulario": true,
-    "idHml": "fcaaff5b-05fa-47aa-8082-15170d4b07ae"
-  },
-  {
-    "grupo": "Cedente",
-    "tipoSeguranca": "",
-    "podeAlterarFormulario": true,
-    "idHml": "332c6554-008b-4784-a9bb-eb5d09439f17"
-  },
-  {
-    "grupo": "BackOffice",
-    "tipoSeguranca": "",
-    "podeAlterarFormulario": true,
-    "idHml": "0c016cf1-3e21-4a0f-af16-7eb16cfacee5"
-  },
-  {
-    "grupo": "Lastro",
-    "tipoSeguranca": "",
-    "podeAlterarFormulario": true,
-    "idHml": "3e2cdfa5-e628-4efb-83e5-9927c3b485eb"
-  },
-  {
     "grupo": "Diretoria",
     "tipoSeguranca": "",
     "podeAlterarFormulario": true,
     "idHml": "064d5232-520a-4791-b06b-75ac0d2ff379"
-  },
-  {
-    "grupo": "MOP",
-    "tipoSeguranca": "",
-    "podeAlterarFormulario": true,
-    "idHml": "994e7182-39cc-4364-89dd-89dd4f3ca91a"
-  },
-  {
-    "grupo": "Checagem",
-    "tipoSeguranca": "",
-    "podeAlterarFormulario": true,
-    "idHml": "243d135a-7a14-4795-bcee-4ee77d049f48"
-  },
-  {
-    "grupo": "Gerente MOP",
-    "tipoSeguranca": "",
-    "podeAlterarFormulario": true,
-    "idHml": "5c2f6f0b-5fc8-4d07-9f46-248c74d083e3"
-  },
-  {
-    "grupo": "Gerente de Middle",
-    "tipoSeguranca": "",
-    "podeAlterarFormulario": true,
-    "idHml": "fc019752-9aee-4e3f-8bee-c0f3990163a4"
-  },
-  {
-    "grupo": "Fornecedor Ancora",
-    "tipoSeguranca": "",
-    "podeAlterarFormulario": true,
-    "idHml": "b3655585-5245-4dec-902e-03d227f926a0"
-  },
-  {
-    "grupo": "Jurídico",
-    "tipoSeguranca": "",
-    "podeAlterarFormulario": true,
-    "idHml": "10ba45df-4715-495d-9c41-4cde018184d2"
-  },
-  {
-    "grupo": "Gestora",
-    "tipoSeguranca": "",
-    "podeAlterarFormulario": true,
-    "idHml": "25d86c8b-a315-4a0c-8ecb-1ff98356199c"
-  },
-  {
-    "grupo": "BackOffice Gestora",
-    "tipoSeguranca": "",
-    "podeAlterarFormulario": true,
-    "idHml": "d5908171-64ef-46cb-a8cd-da3c44fc7d8a"
-  },
-  {
-    "grupo": "Mop",
-    "tipoSeguranca": "",
-    "podeAlterarFormulario": true,
-    "idHml": "994e7182-39cc-4364-89dd-89dd4f3ca91a"
   }
 ]

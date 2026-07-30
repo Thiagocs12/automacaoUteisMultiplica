@@ -10,36 +10,20 @@
       "dataCriacao": "2022-02-18T18:18:00.455",
       "dataUltimaAlteracao": null,
       "usuario": "Rogerio Messias"
-    },
-    "idHml": "62100d082eb7d56d6ac91791"
+    }
   },
   {
-    "id": "6287a2677b95a1333b83663c",
-    "nome": "Liquidação Exportação",
-    "descricao": "MultiComex",
+    "id": "6957e25994a04f5e3d4527e5",
+    "nome": "PROSPECT PRE-HOMOLOGACAO",
+    "descricao": "PROSPECT PRE-HOMOLOGACAO",
     "excluido": false,
     "idFiltro": "1",
     "status": "ATIVO",
     "usuario": {
-      "dataCriacao": "2022-05-20T11:15:03.625",
+      "dataCriacao": "2026-01-02T12:20:57.931",
       "dataUltimaAlteracao": null,
-      "usuario": "Tiago Roque"
-    },
-    "idHml": "624c7f2e9bfea33c42199aff"
-  },
-  {
-    "id": "63402ce32167630f279750a7",
-    "nome": "OPE",
-    "descricao": "Operações Brasil",
-    "excluido": false,
-    "idFiltro": "1",
-    "status": "ATIVO",
-    "usuario": {
-      "dataCriacao": "2022-10-07T10:42:59.976",
-      "dataUltimaAlteracao": null,
-      "usuario": "Elaine Tarallo"
-    },
-    "idHml": "6a637dde87cca57c12ced7c8"
+      "usuario": "Beyond"
+    }
   },
   {
     "id": "63a9ec01367ebb43d7089987",
@@ -48,8 +32,7 @@
     "excluido": false,
     "idFiltro": "1",
     "status": "ATIVO",
-    "usuario": null,
-    "idHml": "63c05121c9cbc478d3ec5c97"
+    "usuario": null
   },
   {
     "id": "63a0a6d0c5be58290f7e21e2",
@@ -58,21 +41,19 @@
     "excluido": false,
     "idFiltro": "1",
     "status": "ATIVO",
-    "usuario": null,
-    "idHml": "63c0512ac9cbc478d3ec5c9a"
+    "usuario": null
   },
   {
-    "id": "63bebb3e94c72a4250d32e94",
-    "nome": "MOP - MultiComex",
-    "descricao": "MOP - MultiComex",
+    "id": "64c19d9b3cef8547613c0b74",
+    "nome": "Garantia",
+    "descricao": "Garantia",
     "excluido": false,
     "idFiltro": "1",
     "status": "ATIVO",
     "usuario": {
-      "dataCriacao": "2023-01-11T10:35:58.816",
+      "dataCriacao": "2023-07-26T19:26:35.787",
       "dataUltimaAlteracao": null,
-      "usuario": "Eduardo Ribeiro"
-    },
-    "idHml": "630d2a3ff18094524a48cd62"
+      "usuario": "Elaine Tarallo"
+    }
   }
 ]
