@@ -209,30 +209,6 @@ Cypress.Commands.add('pesquisarDependenciasLigacao', (entidade) => {
             ? dadosDoArquivo.filter((item) => item.atualizar === true)
             : dadosDoArquivo;
 
-          if (ehCondicoes) {
-            const registrosCondicoes = dadosFiltrados.flatMap((esteira) => {
-              const modeloEtapas = esteira.modeloEtapas ?? [];
-              return modeloEtapas
-                .filter((etapa) => etapa?.modeloEtapa?.condicoes?.length > 0)
-                .map((etapa) => ({
-                  idEsteira: esteira.id,
-                  idModeloEtapa: etapa.id,
-                  IdEtapa: etapa.modeloEtapa.id,
-                  condicoes: etapa.modeloEtapa.condicoes,
-                }));
-            });
-
-            if (adiciona) {
-              cy.task('lerJsonSeExistir', { caminhoArquivo }).then((existentes) => {
-                const mesclado = mesclarSemDuplicatas(existentes ?? [], registrosCondicoes, 'idModeloEtapa');
-                cy.task('escreverJson', { caminhoArquivo, conteudo: mesclado });
-              });
-            } else {
-              cy.task('escreverJson', { caminhoArquivo, conteudo: registrosCondicoes });
-            }
-            return;
-          }
-
           if (ehEntidadeSemBusca) {
             const campoDeduplicacao = chave === 'ACOES' ? 'id' : 'grupo';
 
