@@ -1,335 +1,193 @@
 [
   {
-    "id": "621026fa2eb7d56d6ac91810",
-    "nome": "Comercial PIPE",
-    "podeFinalizarEsteira": true,
-    "status": "ATIVO",
-    "idFiltro": "1",
-    "etapaPadraoDevolucao": false,
-    "condicoes": [
-      {
-        "condicao": "609",
-        "descricao": "Vai para",
-        "irIdEtapa": "66918a872c5d153c5d1cc4f8"
-      }
-    ],
-    "usuario": {
-      "dataCriacao": "2022-02-18T20:08:42.083",
-      "dataUltimaAlteracao": "2025-12-21T11:42:52.424",
-      "usuario": "Beyond"
-    },
-    "modeloSubEtapaModel": [
-      {
-        "ordem": 1,
-        "modeloSubEtapa": {
-          "id": "6210102d2eb7d56d6ac917b1",
-          "nome": "Cadastro",
-          "podeFinalizarEsteira": true,
-          "podeVoltarEtapa": false,
-          "requerParecer": true,
-          "requerVotacao": false,
-          "requerMotivo": true,
-          "preAtributos": [
-            "idProposta"
-          ],
-          "execAtributos": [
-            "idProposta"
-          ],
-          "posAtributos": [
-            "idProposta"
-          ],
-          "tempoMaxExecucao": 3600,
-          "tempoNotificacaoOperador": 0,
-          "tempoNotificacaoObservador": 0,
-          "temPrazoExpiracao": null,
-          "diasExpiracao": null,
-          "operadores": [
-            {
-              "grupo": "Analista TI",
-              "tipoSeguranca": "",
-              "podeAlterarFormulario": true
-            }
-          ],
-          "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-poc-ms/api/v1/validadorEsteira/validaEtapaEsteira",
-          "urlWhatsapp": null,
-          "status": "ATIVO",
-          "usuario": {
-            "dataCriacao": "2026-02-20T10:44:18.139",
-            "dataUltimaAlteracao": null,
-            "usuario": "Beyond"
-          },
-          "excluido": false,
-          "idFiltro": "1",
-          "area": "Comercial",
-          "requerAlcada": false,
-          "requerCondicao": false,
-          "tipoAlcada": null,
-          "chamadaApi": [],
-          "motivosRetornoEsteira": [
-            {
-              "id": "67fd071502b63d5baf1b84f1",
-              "nome": "Pendência de Documentação",
-              "descricao": "Comercial - Pendência de Documentação",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0730863e3e045e365365",
-              "nome": "Proposta desalinhada ou fora em relação à Política",
-              "descricao": "Comercial - Proposta desalinhada ou fora em relação à Política",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd074c02b63d5baf1b84f3",
-              "nome": "Proposta desalinhada em relação ao mercado",
-              "descricao": "Comerial - Proposta desalinhada em relação ao mercado",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0759863e3e045e365367",
-              "nome": "SERASA",
-              "descricao": "Comercial - SERASA",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0768863e3e045e365369",
-              "nome": "Cliente em RJ",
-              "descricao": "Comercial - Cliente em RJ",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0779863e3e045e36536b",
-              "nome": "Esclarecimentos sobre estrutura de Garantias",
-              "descricao": "Comercial - Esclarecimentos sobre estrutura de Garantias",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            }
-          ],
-          "notificacaoArea": [],
-          "modeloAcao": [
-            {
-              "id": "62100d2d2eb7d56d6ac91793",
-              "nome": "Cadastrar Prospect",
-              "mfe": "/prospect",
-              "enviaCondicao": true,
-              "status": "ATIVO",
-              "usuario": {
-                "dataCriacao": "2024-11-07T21:43:10.235",
-                "dataUltimaAlteracao": null,
-                "usuario": "Tiago Roque"
-              },
-              "excluido": false,
-              "idFiltro": null
-            }
-          ],
-          "avancoAutomatico": true,
-          "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null,
-          "id.old": "6210102d2eb7d56d6ac917b1"
-        }
-      }
-    ],
-    "idHml": "621026fa2eb7d56d6ac91810"
-  },
-  {
-    "id": "6210259b2eb7d56d6ac917fb",
-    "nome": "Dados Complementares",
+    "id": "664d09b025233a73fc573175",
+    "nome": "Tesouraria Inclusão Cessão",
     "podeFinalizarEsteira": true,
     "status": "ATIVO",
     "idFiltro": "1",
     "etapaPadraoDevolucao": false,
     "condicoes": [],
     "usuario": {
-      "dataCriacao": "2022-02-18T20:02:51.616",
+      "dataCriacao": "2024-05-21T17:53:04.886",
       "dataUltimaAlteracao": null,
-      "usuario": "Rogerio Messias"
+      "usuario": "Eduardo Ribeiro"
     },
     "modeloSubEtapaModel": [
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "6210102d2eb7d56d6ac917b1",
-          "nome": "Cadastro",
-          "podeFinalizarEsteira": true,
-          "podeVoltarEtapa": false,
-          "requerParecer": true,
-          "requerVotacao": false,
-          "requerMotivo": true,
-          "preAtributos": [
-            "idProposta"
-          ],
-          "execAtributos": [
-            "idProposta"
-          ],
-          "posAtributos": [
-            "idProposta"
-          ],
-          "tempoMaxExecucao": 3600,
-          "tempoNotificacaoOperador": 0,
-          "tempoNotificacaoObservador": 0,
-          "temPrazoExpiracao": null,
-          "diasExpiracao": null,
-          "operadores": [
-            {
-              "grupo": "Analista TI",
-              "tipoSeguranca": "",
-              "podeAlterarFormulario": true
-            }
-          ],
-          "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-poc-ms/api/v1/validadorEsteira/validaEtapaEsteira",
-          "urlWhatsapp": null,
-          "status": "ATIVO",
-          "usuario": {
-            "dataCriacao": "2026-02-20T10:44:18.139",
-            "dataUltimaAlteracao": null,
-            "usuario": "Beyond"
-          },
-          "excluido": false,
-          "idFiltro": "1",
-          "area": "Comercial",
-          "requerAlcada": false,
-          "requerCondicao": false,
-          "tipoAlcada": null,
-          "chamadaApi": [],
-          "motivosRetornoEsteira": [
-            {
-              "id": "67fd071502b63d5baf1b84f1",
-              "nome": "Pendência de Documentação",
-              "descricao": "Comercial - Pendência de Documentação",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0730863e3e045e365365",
-              "nome": "Proposta desalinhada ou fora em relação à Política",
-              "descricao": "Comercial - Proposta desalinhada ou fora em relação à Política",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd074c02b63d5baf1b84f3",
-              "nome": "Proposta desalinhada em relação ao mercado",
-              "descricao": "Comerial - Proposta desalinhada em relação ao mercado",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0759863e3e045e365367",
-              "nome": "SERASA",
-              "descricao": "Comercial - SERASA",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0768863e3e045e365369",
-              "nome": "Cliente em RJ",
-              "descricao": "Comercial - Cliente em RJ",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0779863e3e045e36536b",
-              "nome": "Esclarecimentos sobre estrutura de Garantias",
-              "descricao": "Comercial - Esclarecimentos sobre estrutura de Garantias",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            }
-          ],
-          "notificacaoArea": [],
-          "modeloAcao": [
-            {
-              "id": "62100d2d2eb7d56d6ac91793",
-              "nome": "Cadastrar Prospect",
-              "mfe": "/prospect",
-              "enviaCondicao": true,
-              "status": "ATIVO",
-              "usuario": {
-                "dataCriacao": "2024-11-07T21:43:10.235",
-                "dataUltimaAlteracao": null,
-                "usuario": "Tiago Roque"
-              },
-              "excluido": false,
-              "idFiltro": null
-            }
-          ],
-          "avancoAutomatico": true,
-          "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null,
-          "id.old": "6210102d2eb7d56d6ac917b1"
-        }
-      }
-    ],
-    "idHml": "6210259b2eb7d56d6ac917fb"
-  },
-  {
-    "id": "621024272eb7d56d6ac917ee",
-    "nome": "KYC",
-    "podeFinalizarEsteira": true,
-    "status": "ATIVO",
-    "idFiltro": "1",
-    "etapaPadraoDevolucao": false,
-    "condicoes": [],
-    "usuario": {
-      "dataCriacao": "2022-02-18T19:56:39.876",
-      "dataUltimaAlteracao": "2022-02-18T19:57:07.367",
-      "usuario": "Rogerio Messias"
-    },
-    "modeloSubEtapaModel": [
-      {
-        "ordem": 1,
-        "modeloSubEtapa": {
-          "id": "621011e42eb7d56d6ac917c1",
-          "nome": "KYC",
+          "id": "667c26eea0378256b2c11384",
+          "nome": "Tesouraria Inclusão Cessão",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
           "requerParecer": true,
           "requerVotacao": false,
           "requerMotivo": false,
           "preAtributos": [
-            "idProposta"
+            "idOperacaoCessao"
           ],
           "execAtributos": [
-            "idProposta"
+            "idOperacaoCessao"
           ],
           "posAtributos": [
-            "idProposta"
+            "idOperacaoCessao"
           ],
           "tempoMaxExecucao": 3600,
-          "tempoNotificacaoOperador": 0,
-          "tempoNotificacaoObservador": 0,
+          "tempoNotificacaoOperador": 3600,
+          "tempoNotificacaoObservador": 3599,
           "temPrazoExpiracao": null,
           "diasExpiracao": null,
           "operadores": [
             {
-              "grupo": "Agente Comercial",
+              "grupo": "Analista TI",
+              "tipoSeguranca": "",
+              "podeAlterarFormulario": true
+            },
+            {
+              "grupo": "Tesouraria",
+              "tipoSeguranca": "",
+              "podeAlterarFormulario": true
+            },
+            {
+              "grupo": "BackOffice Gestora",
+              "tipoSeguranca": "",
+              "podeAlterarFormulario": true
+            }
+          ],
+          "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-operacao-backoffice-ms/api/v1/validadorEsteira/validaEtapaEsteira",
+          "urlWhatsapp": "",
+          "status": "ATIVO",
+          "usuario": {
+            "dataCriacao": "2025-11-07T15:51:44.944",
+            "dataUltimaAlteracao": null,
+            "usuario": "Thiago Santos"
+          },
+          "excluido": false,
+          "idFiltro": "1",
+          "area": "Tesouraria",
+          "requerAlcada": false,
+          "requerCondicao": false,
+          "tipoAlcada": null,
+          "chamadaApi": [],
+          "motivosRetornoEsteira": [
+            {
+              "id": "67fcff4002b63d5baf1b8499",
+              "nome": "Solicitação Comercial",
+              "descricao": "MOP - Solicitação Comercial",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd01d202b63d5baf1b84c1",
+              "nome": "Cancelada conforme e-mail da Administradora",
+              "descricao": "Tesouraria - Cancelada conforme e-mail da Administradora",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd01f5863e3e045e36533d",
+              "nome": "Cancelada por falta de assinatura",
+              "descricao": "Tesouraria - Cancelada por falta de assinatura",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd020c02b63d5baf1b84c3",
+              "nome": "Sem tempo hábil para seguir no Portal",
+              "descricao": "Tesouraria - Sem tempo hábil para seguir no Portal",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd1a9878df6f119336ca3b",
+              "nome": "Problema Sistêmico",
+              "descricao": "Geral - Problema Sistêmico",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            }
+          ],
+          "notificacaoArea": [],
+          "modeloAcao": [
+            {
+              "id": "6348526249cd260334afc867",
+              "nome": "Analisar Operação",
+              "mfe": "\\",
+              "enviaCondicao": true,
+              "status": "ATIVO",
+              "usuario": {
+                "dataCriacao": "2022-10-13T15:01:06.786",
+                "dataUltimaAlteracao": null,
+                "usuario": "Elaine Tarallo"
+              },
+              "excluido": false,
+              "idFiltro": "1"
+            }
+          ],
+          "avancoAutomatico": null,
+          "formaAprovacaoAlcada": null,
+          "numeroMinimoAprovacoes": null,
+          "id.old": "664d048737006b5d5bedd67b"
+        }
+      }
+    ],
+    "idHml": "667c2a73a0378256b2c113a9"
+  },
+  {
+    "id": "663ed6e437006b5d5bedc999",
+    "nome": "Middle Cessão",
+    "podeFinalizarEsteira": true,
+    "status": "ATIVO",
+    "idFiltro": "1",
+    "etapaPadraoDevolucao": false,
+    "condicoes": [],
+    "usuario": {
+      "dataCriacao": "2024-05-10T23:24:36.622",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "modeloSubEtapaModel": [
+      {
+        "ordem": 1,
+        "modeloSubEtapa": {
+          "id": "66294ab4b759f13a39758ac5",
+          "nome": "Middle Cessão",
+          "podeFinalizarEsteira": true,
+          "podeVoltarEtapa": true,
+          "requerParecer": true,
+          "requerVotacao": false,
+          "requerMotivo": false,
+          "preAtributos": [
+            "idOperacaoCessao"
+          ],
+          "execAtributos": [
+            "idOperacaoCessao"
+          ],
+          "posAtributos": [
+            "idOperacaoCessao"
+          ],
+          "tempoMaxExecucao": 3599,
+          "tempoNotificacaoOperador": 3600,
+          "tempoNotificacaoObservador": 3600,
+          "temPrazoExpiracao": null,
+          "diasExpiracao": null,
+          "operadores": [
+            {
+              "grupo": "Analista TI",
+              "tipoSeguranca": "",
+              "podeAlterarFormulario": true
+            },
+            {
+              "grupo": "Middle",
               "tipoSeguranca": "",
               "podeAlterarFormulario": true
             },
@@ -337,1076 +195,303 @@
               "grupo": "Assistente Comercial",
               "tipoSeguranca": "",
               "podeAlterarFormulario": true
+            }
+          ],
+          "urlValidador": "",
+          "urlWhatsapp": "",
+          "status": "ATIVO",
+          "usuario": {
+            "dataCriacao": "2025-11-07T15:51:32.76",
+            "dataUltimaAlteracao": null,
+            "usuario": "Thiago Santos"
+          },
+          "excluido": false,
+          "idFiltro": "1",
+          "area": "COMERCIAL",
+          "requerAlcada": false,
+          "requerCondicao": false,
+          "tipoAlcada": null,
+          "chamadaApi": [],
+          "motivosRetornoEsteira": [
+            {
+              "id": "67fcffc102b63d5baf1b84a8",
+              "nome": "Cancelamento cliente - Recusa de sacado",
+              "descricao": "Middle - Cancelamento cliente - Recusa de sacado",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
             },
+            {
+              "id": "67fcffd0863e3e045e365322",
+              "nome": "Cancelamento Cleinte - Taxa",
+              "descricao": "Middle - Cancelamento Cleinte - Taxa",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fcff7002b63d5baf1b849f",
+              "nome": "Operação fora do aprovado em ATA",
+              "descricao": "MOP - Operação fora do aprovado em ATA",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd003802b63d5baf1b84ab",
+              "nome": "Informacoes incorretas",
+              "descricao": "Middle - Informacoes incorretas",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd1a9878df6f119336ca3b",
+              "nome": "Problema Sistêmico",
+              "descricao": "Geral - Problema Sistêmico",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "682b4b715e8b2f6caccc8319",
+              "nome": "Operação recusada pela MOP",
+              "descricao": "Middle - Operação recusada pela MOP",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            }
+          ],
+          "notificacaoArea": [],
+          "modeloAcao": [
+            {
+              "id": "6348526249cd260334afc867",
+              "nome": "Analisar Operação",
+              "mfe": "\\",
+              "enviaCondicao": true,
+              "status": "ATIVO",
+              "usuario": {
+                "dataCriacao": "2022-10-13T15:01:06.786",
+                "dataUltimaAlteracao": null,
+                "usuario": "Elaine Tarallo"
+              },
+              "excluido": false,
+              "idFiltro": "1"
+            }
+          ],
+          "avancoAutomatico": null,
+          "formaAprovacaoAlcada": null,
+          "numeroMinimoAprovacoes": null,
+          "id.old": "663ed6d925233a73fc5724f6"
+        }
+      }
+    ],
+    "idHml": "66294b4db759f13a39758acd"
+  },
+  {
+    "id": "6a43dcfb1c9d1b675021004c",
+    "nome": "Compliance Cessão",
+    "podeFinalizarEsteira": true,
+    "status": "ATIVO",
+    "idFiltro": "1",
+    "etapaPadraoDevolucao": false,
+    "condicoes": [],
+    "usuario": {
+      "dataCriacao": "2026-06-30T12:12:59.491",
+      "dataUltimaAlteracao": null,
+      "usuario": "Italo Morais"
+    },
+    "modeloSubEtapaModel": [
+      {
+        "ordem": 1,
+        "modeloSubEtapa": {
+          "id": "6a6c02cc87cca57c12cee230",
+          "nome": "Compliance Cessão",
+          "podeFinalizarEsteira": false,
+          "podeVoltarEtapa": true,
+          "requerParecer": true,
+          "requerVotacao": false,
+          "requerMotivo": true,
+          "preAtributos": [
+            "idOperacaoCessao"
+          ],
+          "execAtributos": [
+            "idOperacaoCessao"
+          ],
+          "posAtributos": [
+            "idOperacaoCessao"
+          ],
+          "tempoMaxExecucao": 3599,
+          "tempoNotificacaoOperador": 3600,
+          "tempoNotificacaoObservador": 3600,
+          "temPrazoExpiracao": false,
+          "diasExpiracao": null,
+          "operadores": [
             {
               "grupo": "Compliance",
               "tipoSeguranca": "",
               "podeAlterarFormulario": true
-            }
-          ],
-          "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-poc-ms/api/v1/validadorEsteira/validaEtapaEsteira",
-          "urlWhatsapp": null,
-          "status": "ATIVO",
-          "usuario": {
-            "dataCriacao": "2022-02-20T19:44:59.726",
-            "dataUltimaAlteracao": null,
-            "usuario": "Tiago Roque"
-          },
-          "excluido": false,
-          "idFiltro": "1",
-          "area": "Comercial",
-          "requerAlcada": false,
-          "requerCondicao": false,
-          "tipoAlcada": null,
-          "chamadaApi": null,
-          "motivosRetornoEsteira": null,
-          "notificacaoArea": null,
-          "modeloAcao": [
-            {
-              "id": "62100ef02eb7d56d6ac917ad",
-              "nome": "Responder KYC",
-              "mfe": "/prospect",
-              "enviaCondicao": false,
-              "status": "ATIVO",
-              "usuario": {
-                "dataCriacao": "2022-02-18T18:26:08.772",
-                "dataUltimaAlteracao": null,
-                "usuario": "Rogerio Messias"
-              },
-              "excluido": false,
-              "idFiltro": "1"
-            }
-          ],
-          "avancoAutomatico": null,
-          "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null,
-          "id.old": "621011e42eb7d56d6ac917c1"
-        }
-      }
-    ],
-    "idHml": "621024272eb7d56d6ac917ee"
-  },
-  {
-    "id": "621027202eb7d56d6ac91812",
-    "nome": "Aprovação Prospect",
-    "podeFinalizarEsteira": true,
-    "status": "ATIVO",
-    "idFiltro": "1",
-    "etapaPadraoDevolucao": false,
-    "condicoes": [],
-    "usuario": {
-      "dataCriacao": "2022-02-18T20:09:20.082",
-      "dataUltimaAlteracao": "2025-05-16T14:16:24.056",
-      "usuario": "Tiago Roque"
-    },
-    "modeloSubEtapaModel": [
-      {
-        "ordem": 1,
-        "modeloSubEtapa": {
-          "id": "6210113b2eb7d56d6ac917ba",
-          "nome": "Plataforma",
-          "podeFinalizarEsteira": true,
-          "podeVoltarEtapa": true,
-          "requerParecer": true,
-          "requerVotacao": false,
-          "requerMotivo": true,
-          "preAtributos": [
-            "idProposta"
-          ],
-          "execAtributos": [
-            "idProposta"
-          ],
-          "posAtributos": [
-            "idProposta"
-          ],
-          "tempoMaxExecucao": 3600,
-          "tempoNotificacaoOperador": 0,
-          "tempoNotificacaoObservador": 0,
-          "temPrazoExpiracao": null,
-          "diasExpiracao": null,
-          "operadores": [
-            {
-              "grupo": "Gerente de Plataforma",
-              "tipoSeguranca": "6210410e2eb7d56d6ac9182e",
-              "podeAlterarFormulario": true
-            }
-          ],
-          "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-poc-ms/api/v1/validadorEsteira/validaEtapaEsteira",
-          "urlWhatsapp": null,
-          "status": "ATIVO",
-          "usuario": {
-            "dataCriacao": "2025-11-07T12:59:49.01",
-            "dataUltimaAlteracao": null,
-            "usuario": "Thiago Santos"
-          },
-          "excluido": false,
-          "idFiltro": "1",
-          "area": "Superintendente Regional",
-          "requerAlcada": false,
-          "requerCondicao": false,
-          "tipoAlcada": null,
-          "chamadaApi": [],
-          "motivosRetornoEsteira": [
-            {
-              "id": "67fd071502b63d5baf1b84f1",
-              "nome": "Pendência de Documentação",
-              "descricao": "Comercial - Pendência de Documentação",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
             },
             {
-              "id": "67fd0730863e3e045e365365",
-              "nome": "Proposta desalinhada ou fora em relação à Política",
-              "descricao": "Comercial - Proposta desalinhada ou fora em relação à Política",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd074c02b63d5baf1b84f3",
-              "nome": "Proposta desalinhada em relação ao mercado",
-              "descricao": "Comerial - Proposta desalinhada em relação ao mercado",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0759863e3e045e365367",
-              "nome": "SERASA",
-              "descricao": "Comercial - SERASA",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0768863e3e045e365369",
-              "nome": "Cliente em RJ",
-              "descricao": "Comercial - Cliente em RJ",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0779863e3e045e36536b",
-              "nome": "Esclarecimentos sobre estrutura de Garantias",
-              "descricao": "Comercial - Esclarecimentos sobre estrutura de Garantias",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            }
-          ],
-          "notificacaoArea": [],
-          "modeloAcao": [
-            {
-              "id": "62100db02eb7d56d6ac91795",
-              "nome": "Analisar Prospect",
-              "mfe": "/analisarProspect",
-              "enviaCondicao": true,
-              "status": "ATIVO",
-              "usuario": {
-                "dataCriacao": "2025-12-14T20:29:51.931",
-                "dataUltimaAlteracao": null,
-                "usuario": "Tiago Roque"
-              },
-              "excluido": false,
-              "idFiltro": null
-            }
-          ],
-          "avancoAutomatico": null,
-          "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null,
-          "id.old": "6210113b2eb7d56d6ac917ba"
-        }
-      },
-      {
-        "ordem": 2,
-        "modeloSubEtapa": {
-          "id": "621010852eb7d56d6ac917b4",
-          "nome": "Superintendente",
-          "podeFinalizarEsteira": false,
-          "podeVoltarEtapa": true,
-          "requerParecer": true,
-          "requerVotacao": false,
-          "requerMotivo": true,
-          "preAtributos": [
-            "idProposta"
-          ],
-          "execAtributos": [
-            "idProposta"
-          ],
-          "posAtributos": [
-            "idProposta"
-          ],
-          "tempoMaxExecucao": 3600,
-          "tempoNotificacaoOperador": 0,
-          "tempoNotificacaoObservador": 0,
-          "temPrazoExpiracao": null,
-          "diasExpiracao": null,
-          "operadores": [
-            {
-              "grupo": "Superintendente Comercial",
-              "tipoSeguranca": "",
-              "podeAlterarFormulario": true
-            }
-          ],
-          "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-poc-ms/api/v1/validadorEsteira/validaEtapaEsteira",
-          "urlWhatsapp": null,
-          "status": "ATIVO",
-          "usuario": {
-            "dataCriacao": "2025-11-07T12:59:28.597",
-            "dataUltimaAlteracao": null,
-            "usuario": "Thiago Santos"
-          },
-          "excluido": false,
-          "idFiltro": "1",
-          "area": "Superintendente Executivo",
-          "requerAlcada": false,
-          "requerCondicao": false,
-          "tipoAlcada": null,
-          "chamadaApi": [],
-          "motivosRetornoEsteira": [
-            {
-              "id": "67fd071502b63d5baf1b84f1",
-              "nome": "Pendência de Documentação",
-              "descricao": "Comercial - Pendência de Documentação",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0730863e3e045e365365",
-              "nome": "Proposta desalinhada ou fora em relação à Política",
-              "descricao": "Comercial - Proposta desalinhada ou fora em relação à Política",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd074c02b63d5baf1b84f3",
-              "nome": "Proposta desalinhada em relação ao mercado",
-              "descricao": "Comerial - Proposta desalinhada em relação ao mercado",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0759863e3e045e365367",
-              "nome": "SERASA",
-              "descricao": "Comercial - SERASA",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0768863e3e045e365369",
-              "nome": "Cliente em RJ",
-              "descricao": "Comercial - Cliente em RJ",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0779863e3e045e36536b",
-              "nome": "Esclarecimentos sobre estrutura de Garantias",
-              "descricao": "Comercial - Esclarecimentos sobre estrutura de Garantias",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            }
-          ],
-          "notificacaoArea": [],
-          "modeloAcao": [
-            {
-              "id": "62100db02eb7d56d6ac91795",
-              "nome": "Analisar Prospect",
-              "mfe": "/analisarProspect",
-              "enviaCondicao": true,
-              "status": "ATIVO",
-              "usuario": {
-                "dataCriacao": "2025-12-14T20:29:51.931",
-                "dataUltimaAlteracao": null,
-                "usuario": "Tiago Roque"
-              },
-              "excluido": false,
-              "idFiltro": null
-            }
-          ],
-          "avancoAutomatico": null,
-          "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null,
-          "id.old": "621010852eb7d56d6ac917b4"
-        }
-      }
-    ],
-    "idHml": "621027202eb7d56d6ac91812"
-  },
-  {
-    "id": "6210245c2eb7d56d6ac917f1",
-    "nome": "Priorização",
-    "podeFinalizarEsteira": true,
-    "status": "ATIVO",
-    "idFiltro": "1",
-    "etapaPadraoDevolucao": false,
-    "condicoes": [],
-    "usuario": {
-      "dataCriacao": "2022-02-18T19:57:32.309",
-      "dataUltimaAlteracao": null,
-      "usuario": "Rogerio Messias"
-    },
-    "modeloSubEtapaModel": [
-      {
-        "ordem": 1,
-        "modeloSubEtapa": {
-          "id": "6210123a2eb7d56d6ac917c3",
-          "nome": "Priorizar Prospect",
-          "podeFinalizarEsteira": true,
-          "podeVoltarEtapa": true,
-          "requerParecer": false,
-          "requerVotacao": false,
-          "requerMotivo": false,
-          "preAtributos": [
-            "idProposta"
-          ],
-          "execAtributos": [
-            "idProposta"
-          ],
-          "posAtributos": [
-            "idProposta"
-          ],
-          "tempoMaxExecucao": 3600,
-          "tempoNotificacaoOperador": 0,
-          "tempoNotificacaoObservador": 0,
-          "temPrazoExpiracao": null,
-          "diasExpiracao": null,
-          "operadores": [
-            {
-              "grupo": "Priorizador Comercial",
-              "tipoSeguranca": "",
-              "podeAlterarFormulario": true
-            }
-          ],
-          "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-poc-ms/api/v1/validadorEsteira/condicao",
-          "urlWhatsapp": null,
-          "status": "ATIVO",
-          "usuario": {
-            "dataCriacao": "2024-08-09T21:30:54.706",
-            "dataUltimaAlteracao": null,
-            "usuario": "Tiago Roque"
-          },
-          "excluido": false,
-          "idFiltro": "1",
-          "area": "Superintendente",
-          "requerAlcada": false,
-          "requerCondicao": true,
-          "tipoAlcada": null,
-          "chamadaApi": [],
-          "motivosRetornoEsteira": null,
-          "notificacaoArea": null,
-          "modeloAcao": [
-            {
-              "id": "62100de92eb7d56d6ac91799",
-              "nome": "Priorizar",
-              "mfe": "/priorizar",
-              "enviaCondicao": false,
-              "status": "ATIVO",
-              "usuario": {
-                "dataCriacao": "2022-02-18T18:21:45.766",
-                "dataUltimaAlteracao": null,
-                "usuario": "Rogerio Messias"
-              },
-              "excluido": false,
-              "idFiltro": "1"
-            }
-          ],
-          "avancoAutomatico": null,
-          "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null,
-          "id.old": "6210123a2eb7d56d6ac917c3"
-        }
-      }
-    ],
-    "idHml": "6210245c2eb7d56d6ac917f1"
-  },
-  {
-    "id": "621024c82eb7d56d6ac917f3",
-    "nome": "Distribuição",
-    "podeFinalizarEsteira": true,
-    "status": "ATIVO",
-    "idFiltro": "1",
-    "etapaPadraoDevolucao": false,
-    "condicoes": [],
-    "usuario": {
-      "dataCriacao": "2022-02-18T19:59:20.856",
-      "dataUltimaAlteracao": null,
-      "usuario": "Rogerio Messias"
-    },
-    "modeloSubEtapaModel": [
-      {
-        "ordem": 1,
-        "modeloSubEtapa": {
-          "id": "621012692eb7d56d6ac917c5",
-          "nome": "Distribuição de Propostas",
-          "podeFinalizarEsteira": false,
-          "podeVoltarEtapa": false,
-          "requerParecer": false,
-          "requerVotacao": false,
-          "requerMotivo": false,
-          "preAtributos": [
-            "idProposta"
-          ],
-          "execAtributos": [
-            "idProposta"
-          ],
-          "posAtributos": [
-            "idProposta"
-          ],
-          "tempoMaxExecucao": 3600,
-          "tempoNotificacaoOperador": 0,
-          "tempoNotificacaoObservador": 0,
-          "temPrazoExpiracao": null,
-          "diasExpiracao": null,
-          "operadores": [
-            {
-              "grupo": "Distribuidor de Crédito",
+              "grupo": "Analista TI",
               "tipoSeguranca": "",
               "podeAlterarFormulario": true
             }
           ],
           "urlValidador": "",
-          "urlWhatsapp": null,
+          "urlWhatsapp": "",
           "status": "ATIVO",
           "usuario": {
-            "dataCriacao": "2025-12-23T19:21:57.987",
+            "dataCriacao": "2026-06-30T12:11:57.723",
             "dataUltimaAlteracao": null,
-            "usuario": "Beyond"
+            "usuario": "Italo Morais"
           },
           "excluido": false,
           "idFiltro": "1",
-          "area": "Fila Crédito",
+          "area": "COMPLIANCE",
           "requerAlcada": false,
           "requerCondicao": false,
           "tipoAlcada": null,
           "chamadaApi": [],
-          "motivosRetornoEsteira": [],
-          "notificacaoArea": [],
-          "modeloAcao": [
+          "motivosRetornoEsteira": [
             {
-              "id": "62100ece2eb7d56d6ac917ab",
-              "nome": "Distribuir",
-              "mfe": "/distribuir",
-              "enviaCondicao": true,
-              "status": "ATIVO",
-              "usuario": {
-                "dataCriacao": "2022-05-19T14:45:48.861",
-                "dataUltimaAlteracao": null,
-                "usuario": "Bárbara Filadelfo"
-              },
+              "id": "67fd05d3863e3e045e365360",
+              "nome": "Pendência de Documentação Complementar",
+              "descricao": "Compliance - Pendência de Documentação Complementar",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd05ee02b63d5baf1b84eb",
+              "nome": "Exposição à Mídia Negativa",
+              "descricao": "Compliance - Exposição à Mídia Negativa",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd0640863e3e045e365363",
+              "nome": "Processos Criminais / LD",
+              "descricao": "Compliance - Processos Criminais / LD",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd065e02b63d5baf1b84ed",
+              "nome": "Processos Cíveis / Tribuários / Ambientais",
+              "descricao": "Compliance - Processos Cíveis / Tribuários / Ambientais",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd067002b63d5baf1b84ef",
+              "nome": "Abertura CAC",
+              "descricao": "Compliance - Abertura CAC",
+              "usuario": null,
+              "status": null,
               "excluido": false,
               "idFiltro": null
             }
           ],
-          "avancoAutomatico": null,
+          "notificacaoArea": [],
+          "modeloAcao": [
+            {
+              "id": "6348526249cd260334afc867",
+              "nome": "Analisar Operação",
+              "mfe": "\\",
+              "enviaCondicao": true,
+              "status": "ATIVO",
+              "usuario": {
+                "dataCriacao": "2022-10-13T15:01:06.786",
+                "dataUltimaAlteracao": null,
+                "usuario": "Elaine Tarallo"
+              },
+              "excluido": false,
+              "idFiltro": "1"
+            }
+          ],
+          "avancoAutomatico": false,
           "formaAprovacaoAlcada": null,
           "numeroMinimoAprovacoes": null,
-          "id.old": "621012692eb7d56d6ac917c5"
+          "id.old": "6a43dcbd1c9d1b6750210046"
         }
       }
     ],
-    "idHml": "621024c82eb7d56d6ac917f3"
+    "idHml": "6a6c02ee87cca57c12cee26b"
   },
   {
-    "id": "621025c12eb7d56d6ac917fd",
-    "nome": "Analise Crédito",
+    "id": "664d09f137006b5d5bedd686",
+    "nome": "Lastro Cessão",
     "podeFinalizarEsteira": true,
     "status": "ATIVO",
     "idFiltro": "1",
     "etapaPadraoDevolucao": false,
-    "condicoes": [
-      {
-        "condicao": "400",
-        "descricao": "Voltar",
-        "irIdEtapa": "621024c82eb7d56d6ac917f3"
-      }
-    ],
+    "condicoes": [],
     "usuario": {
-      "dataCriacao": "2022-02-18T20:03:29.956",
-      "dataUltimaAlteracao": "2022-02-18T20:03:39.315",
-      "usuario": "Rogerio Messias"
+      "dataCriacao": "2024-05-21T17:54:09.146",
+      "dataUltimaAlteracao": null,
+      "usuario": "Eduardo Ribeiro"
     },
     "modeloSubEtapaModel": [
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "621012b02eb7d56d6ac917c8",
-          "nome": "Analisar Crédito",
-          "podeFinalizarEsteira": false,
-          "podeVoltarEtapa": false,
+          "id": "667c282ca0378256b2c1138a",
+          "nome": "Lastro Cessão",
+          "podeFinalizarEsteira": true,
+          "podeVoltarEtapa": true,
           "requerParecer": true,
           "requerVotacao": false,
-          "requerMotivo": true,
-          "preAtributos": [
-            "idProposta"
-          ],
-          "execAtributos": [
-            "idProposta"
-          ],
-          "posAtributos": [
-            "idProposta"
-          ],
-          "tempoMaxExecucao": 3600,
-          "tempoNotificacaoOperador": 0,
-          "tempoNotificacaoObservador": 0,
-          "temPrazoExpiracao": null,
-          "diasExpiracao": null,
-          "operadores": [
-            {
-              "grupo": "Analista de Crédito",
-              "tipoSeguranca": "",
-              "podeAlterarFormulario": true
-            },
-            {
-              "grupo": "Compliance",
-              "tipoSeguranca": "",
-              "podeAlterarFormulario": true
-            }
-          ],
-          "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-poc-ms/api/v1/validadorEsteira/validaEtapaEsteira",
-          "urlWhatsapp": null,
-          "status": "ATIVO",
-          "usuario": {
-            "dataCriacao": "2025-12-22T14:49:08.59",
-            "dataUltimaAlteracao": null,
-            "usuario": "Beyond"
-          },
-          "excluido": false,
-          "idFiltro": "1",
-          "area": "Crédito",
-          "requerAlcada": false,
-          "requerCondicao": false,
-          "tipoAlcada": null,
-          "chamadaApi": [],
-          "motivosRetornoEsteira": [
-            {
-              "id": "67fd0a7502b63d5baf1b84f7",
-              "nome": "Pendência de Documentação e Pareceres de Garantia",
-              "descricao": "Crédito - Pendência de Documentação e Pareceres de Garantia",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd071502b63d5baf1b84f1",
-              "nome": "Pendência de Documentação",
-              "descricao": "Comercial - Pendência de Documentação",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0aa5863e3e045e365377",
-              "nome": "Indisponibilidade de agenda de call para a semana",
-              "descricao": "Crédito - Indisponibilidade de agenda de call para a semana",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0ab4863e3e045e365379",
-              "nome": "Cadastro filiais ou ligadas",
-              "descricao": "Crédito - Cadastro filiais ou ligadas",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0a9302b63d5baf1b84f9",
-              "nome": "Documentação Incompleta das Filiais",
-              "descricao": "Crédito - Documentação Incompleta das Filiais",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0acb863e3e045e36537b",
-              "nome": "Fora do enquadramento da Política de Crédito",
-              "descricao": "Crédito - Fora do enquadramento da Política de Crédito",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0ae4863e3e045e36537d",
-              "nome": "Necessidade de maiores informações de Pleito",
-              "descricao": "Crédito - Necessidade de maiores informações de Pleito",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0b00863e3e045e36537f",
-              "nome": "Recebíveis - Falta de informação",
-              "descricao": "Crédito - Recebíveis - Falta de informação",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            }
-          ],
-          "notificacaoArea": [],
-          "modeloAcao": [
-            {
-              "id": "62100e2a2eb7d56d6ac9179f",
-              "nome": "Realizar POC",
-              "mfe": "/prospect",
-              "enviaCondicao": true,
-              "status": "ATIVO",
-              "usuario": {
-                "dataCriacao": "2022-02-18T18:22:50.287",
-                "dataUltimaAlteracao": null,
-                "usuario": "Rogerio Messias"
-              },
-              "excluido": false,
-              "idFiltro": "1"
-            }
-          ],
-          "avancoAutomatico": null,
-          "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null,
-          "id.old": "621012b02eb7d56d6ac917c8"
-        }
-      }
-    ],
-    "idHml": "621025c12eb7d56d6ac917fd"
-  },
-  {
-    "id": "621025e92eb7d56d6ac91800",
-    "nome": "Pré Comitê",
-    "podeFinalizarEsteira": true,
-    "status": "ATIVO",
-    "idFiltro": "1",
-    "etapaPadraoDevolucao": false,
-    "condicoes": [],
-    "usuario": {
-      "dataCriacao": "2022-02-18T20:04:09.289",
-      "dataUltimaAlteracao": null,
-      "usuario": "Rogerio Messias"
-    },
-    "modeloSubEtapaModel": [
-      {
-        "ordem": 1,
-        "modeloSubEtapa": {
-          "id": "621015172eb7d56d6ac917d8",
-          "nome": "Pré Comitê",
-          "podeFinalizarEsteira": false,
-          "podeVoltarEtapa": true,
-          "requerParecer": false,
-          "requerVotacao": false,
-          "requerMotivo": true,
-          "preAtributos": [
-            "idProposta"
-          ],
-          "execAtributos": [
-            "idProposta"
-          ],
-          "posAtributos": [
-            "idProposta"
-          ],
-          "tempoMaxExecucao": 3600,
-          "tempoNotificacaoOperador": 0,
-          "tempoNotificacaoObservador": 0,
-          "temPrazoExpiracao": null,
-          "diasExpiracao": null,
-          "operadores": [
-            {
-              "grupo": "Superintendente Crédito",
-              "tipoSeguranca": "",
-              "podeAlterarFormulario": true
-            },
-            {
-              "grupo": "Secretario Comitê",
-              "tipoSeguranca": "",
-              "podeAlterarFormulario": true
-            }
-          ],
-          "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-poc-ms/api/v1/validadorEsteira/validaEtapaEsteira",
-          "urlWhatsapp": null,
-          "status": "ATIVO",
-          "usuario": {
-            "dataCriacao": "2025-11-07T13:01:42.435",
-            "dataUltimaAlteracao": null,
-            "usuario": "Thiago Santos"
-          },
-          "excluido": false,
-          "idFiltro": "1",
-          "area": "Crédito",
-          "requerAlcada": false,
-          "requerCondicao": false,
-          "tipoAlcada": null,
-          "chamadaApi": [],
-          "motivosRetornoEsteira": [
-            {
-              "id": "67fd0a7502b63d5baf1b84f7",
-              "nome": "Pendência de Documentação e Pareceres de Garantia",
-              "descricao": "Crédito - Pendência de Documentação e Pareceres de Garantia",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd071502b63d5baf1b84f1",
-              "nome": "Pendência de Documentação",
-              "descricao": "Comercial - Pendência de Documentação",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0a9302b63d5baf1b84f9",
-              "nome": "Documentação Incompleta das Filiais",
-              "descricao": "Crédito - Documentação Incompleta das Filiais",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0aa5863e3e045e365377",
-              "nome": "Indisponibilidade de agenda de call para a semana",
-              "descricao": "Crédito - Indisponibilidade de agenda de call para a semana",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0ab4863e3e045e365379",
-              "nome": "Cadastro filiais ou ligadas",
-              "descricao": "Crédito - Cadastro filiais ou ligadas",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0acb863e3e045e36537b",
-              "nome": "Fora do enquadramento da Política de Crédito",
-              "descricao": "Crédito - Fora do enquadramento da Política de Crédito",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0ae4863e3e045e36537d",
-              "nome": "Necessidade de maiores informações de Pleito",
-              "descricao": "Crédito - Necessidade de maiores informações de Pleito",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "67fd0b00863e3e045e36537f",
-              "nome": "Recebíveis - Falta de informação",
-              "descricao": "Crédito - Recebíveis - Falta de informação",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            }
-          ],
-          "notificacaoArea": [],
-          "modeloAcao": [
-            {
-              "id": "62100e422eb7d56d6ac917a1",
-              "nome": "Validar",
-              "mfe": "/prospect",
-              "enviaCondicao": true,
-              "status": "ATIVO",
-              "usuario": {
-                "dataCriacao": "2022-02-18T18:23:14.431",
-                "dataUltimaAlteracao": null,
-                "usuario": "Rogerio Messias"
-              },
-              "excluido": false,
-              "idFiltro": "1"
-            }
-          ],
-          "avancoAutomatico": null,
-          "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null,
-          "id.old": "621015172eb7d56d6ac917d8"
-        }
-      }
-    ],
-    "idHml": "621025e92eb7d56d6ac91800"
-  },
-  {
-    "id": "621024e72eb7d56d6ac917f5",
-    "nome": "Comitê de Crédito",
-    "podeFinalizarEsteira": true,
-    "status": "ATIVO",
-    "idFiltro": "1",
-    "etapaPadraoDevolucao": false,
-    "condicoes": [],
-    "usuario": {
-      "dataCriacao": "2022-02-18T19:59:51.807",
-      "dataUltimaAlteracao": null,
-      "usuario": "Rogerio Messias"
-    },
-    "modeloSubEtapaModel": [
-      {
-        "ordem": 1,
-        "modeloSubEtapa": {
-          "id": "6210118a2eb7d56d6ac917bd",
-          "nome": "Votação",
-          "podeFinalizarEsteira": false,
-          "podeVoltarEtapa": true,
-          "requerParecer": false,
-          "requerVotacao": true,
           "requerMotivo": false,
           "preAtributos": [
-            "idProposta"
+            "idOperacaoCessao"
           ],
           "execAtributos": [
-            "idProposta"
+            "idOperacaoCessao"
           ],
           "posAtributos": [
-            "idProposta"
-          ],
-          "tempoMaxExecucao": 3600,
-          "tempoNotificacaoOperador": 180,
-          "tempoNotificacaoObservador": 180,
-          "temPrazoExpiracao": null,
-          "diasExpiracao": null,
-          "operadores": [
-            {
-              "grupo": "Secretario Votação",
-              "tipoSeguranca": "6210410e2eb7d56d6ac9182e",
-              "podeAlterarFormulario": true
-            },
-            {
-              "grupo": "Compliance",
-              "tipoSeguranca": "",
-              "podeAlterarFormulario": true
-            }
-          ],
-          "urlValidador": "https://beyond.grupomultiplica.com.br/mc-poc-ms/api/v1/validadorEsteira/validaEtapaEsteira",
-          "urlWhatsapp": null,
-          "status": "ATIVO",
-          "usuario": {
-            "dataCriacao": "2026-06-02T12:22:57.59",
-            "dataUltimaAlteracao": null,
-            "usuario": "Beyond"
-          },
-          "excluido": false,
-          "idFiltro": "1",
-          "area": "Superintendente",
-          "requerAlcada": false,
-          "requerCondicao": false,
-          "tipoAlcada": null,
-          "chamadaApi": [
-            {
-              "url": "https://beyond.grupomultiplica.com.br/mc-cedente-ms/api/v1/cedSetup/geraSetup",
-              "gatilho": "NA_FINALIZACAO"
-            }
-          ],
-          "motivosRetornoEsteira": [
-            {
-              "id": "6a1ef4e36331e36238af1a64",
-              "nome": "Operação não aprovada pelo comitê",
-              "descricao": "Rejeitada",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            }
-          ],
-          "notificacaoArea": [],
-          "modeloAcao": [
-            {
-              "id": "62100dc62eb7d56d6ac91797",
-              "nome": "Votar",
-              "mfe": "/votar",
-              "enviaCondicao": true,
-              "status": "ATIVO",
-              "usuario": {
-                "dataCriacao": "2022-02-18T18:21:10.885",
-                "dataUltimaAlteracao": null,
-                "usuario": "Rogerio Messias"
-              },
-              "excluido": false,
-              "idFiltro": "1"
-            }
-          ],
-          "avancoAutomatico": null,
-          "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null,
-          "id.old": "6210118a2eb7d56d6ac917bd"
-        }
-      }
-    ],
-    "idHml": "621024e72eb7d56d6ac917f5"
-  },
-  {
-    "id": "6220e31d0b50f13a84b1c0b9",
-    "nome": "Docs Comercial",
-    "podeFinalizarEsteira": false,
-    "status": "ATIVO",
-    "idFiltro": "1",
-    "etapaPadraoDevolucao": false,
-    "condicoes": [],
-    "usuario": {
-      "dataCriacao": "2022-03-03T12:47:41.249",
-      "dataUltimaAlteracao": "2023-03-08T18:44:26.525",
-      "usuario": "Elaine Tarallo"
-    },
-    "modeloSubEtapaModel": [
-      {
-        "ordem": 1,
-        "modeloSubEtapa": {
-          "id": "6220e2b9e0541b34f638b872",
-          "nome": "Docs Comercial",
-          "podeFinalizarEsteira": false,
-          "podeVoltarEtapa": false,
-          "requerParecer": false,
-          "requerVotacao": false,
-          "requerMotivo": false,
-          "preAtributos": [
-            "idCedente"
-          ],
-          "execAtributos": [
-            "idCedente"
-          ],
-          "posAtributos": [
-            "idCedente"
+            "idOperacaoCessao"
           ],
           "tempoMaxExecucao": 3600,
           "tempoNotificacaoOperador": 3600,
           "tempoNotificacaoObservador": 3600,
-          "temPrazoExpiracao": true,
-          "diasExpiracao": 30,
-          "operadores": [],
-          "urlValidador": "https://beyond.grupomultiplica.com.br/mc-poc-ms/api/v1/validadorEsteira/validaEtapaEsteira",
-          "urlWhatsapp": null,
-          "status": "ATIVO",
-          "usuario": {
-            "dataCriacao": "2026-05-22T20:29:40.505",
-            "dataUltimaAlteracao": null,
-            "usuario": "Rodrigo Meneses"
-          },
-          "excluido": false,
-          "idFiltro": "1",
-          "area": "Comercial",
-          "requerAlcada": false,
-          "requerCondicao": false,
-          "tipoAlcada": null,
-          "chamadaApi": [],
-          "motivosRetornoEsteira": [],
-          "notificacaoArea": [],
-          "modeloAcao": [
-            {
-              "id": "62100eae2eb7d56d6ac917a9",
-              "nome": "Cadastrar Cedente",
-              "mfe": "/prospect",
-              "enviaCondicao": true,
-              "status": "ATIVO",
-              "usuario": {
-                "dataCriacao": "2022-02-18T18:25:02.691",
-                "dataUltimaAlteracao": null,
-                "usuario": "Rogerio Messias"
-              },
-              "excluido": false,
-              "idFiltro": "1"
-            }
-          ],
-          "avancoAutomatico": null,
-          "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null,
-          "id.old": "6220e2b9e0541b34f638b872"
-        }
-      }
-    ],
-    "idHml": "6220e31d0b50f13a84b1c0b9"
-  },
-  {
-    "id": "621026482eb7d56d6ac91804",
-    "nome": "Formalização",
-    "podeFinalizarEsteira": true,
-    "status": "ATIVO",
-    "idFiltro": "1",
-    "etapaPadraoDevolucao": false,
-    "condicoes": [
-      {
-        "condicao": "777",
-        "descricao": "Vai para",
-        "irIdEtapa": "69a1f26646e1472d07d0d6f0"
-      }
-    ],
-    "usuario": {
-      "dataCriacao": "2022-02-18T20:05:44.318",
-      "dataUltimaAlteracao": null,
-      "usuario": "Rogerio Messias"
-    },
-    "modeloSubEtapaModel": [
-      {
-        "ordem": 1,
-        "modeloSubEtapa": {
-          "id": "621015e12eb7d56d6ac917dd",
-          "nome": "Checklist Formalização",
-          "podeFinalizarEsteira": true,
-          "podeVoltarEtapa": true,
-          "requerParecer": false,
-          "requerVotacao": false,
-          "requerMotivo": true,
-          "preAtributos": [
-            "idCedente"
-          ],
-          "execAtributos": [
-            "idCedente"
-          ],
-          "posAtributos": [
-            "idCedente"
-          ],
-          "tempoMaxExecucao": 380,
-          "tempoNotificacaoOperador": 178,
-          "tempoNotificacaoObservador": 180,
           "temPrazoExpiracao": null,
           "diasExpiracao": null,
           "operadores": [
+            {
+              "grupo": "Analista TI",
+              "tipoSeguranca": "",
+              "podeAlterarFormulario": true
+            },
+            {
+              "grupo": "Lastro",
+              "tipoSeguranca": "",
+              "podeAlterarFormulario": true
+            },
             {
               "grupo": "Formalização",
               "tipoSeguranca": "",
               "podeAlterarFormulario": true
             }
           ],
-          "urlValidador": "https://beyond.grupomultiplica.com.br/mc-poc-ms/api/v1/validadorEsteira/validaEtapaEsteira",
-          "urlWhatsapp": null,
+          "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-operacao-backoffice-ms/api/v1/validadorEsteira/validaEtapaEsteira",
+          "urlWhatsapp": "",
           "status": "ATIVO",
           "usuario": {
-            "dataCriacao": "2026-07-08T13:50:31.365",
+            "dataCriacao": "2025-11-07T15:53:25.414",
             "dataUltimaAlteracao": null,
             "usuario": "Thiago Santos"
           },
@@ -1419,108 +504,45 @@
           "chamadaApi": [],
           "motivosRetornoEsteira": [
             {
-              "id": "6a46f1ad1c9d1b67502106ca",
-              "nome": "Ausência de e-mail cadastrado. Dados bancários ausentes ou divergentes.",
-              "descricao": "Ausência de e-mail cadastrado. Dados bancários ausentes ou divergentes.",
+              "id": "67fd0106863e3e045e365335",
+              "nome": "Data - Operação",
+              "descricao": "Lastro - Data - Operação",
               "usuario": null,
               "status": null,
               "excluido": false,
               "idFiltro": null
             },
             {
-              "id": "6a46f1ea1c9d1b67502106cc",
-              "nome": "Não atendimento à regra de 70% para Devedor Solidário.",
-              "descricao": "Não atendimento à regra de 70% para Devedor Solidário.",
+              "id": "67fd011502b63d5baf1b84b8",
+              "nome": "Valor - Operação",
+              "descricao": "Lastro - Valor - Operação",
               "usuario": null,
               "status": null,
               "excluido": false,
               "idFiltro": null
             },
             {
-              "id": "6a46f1fe1c9d1b67502106ce",
-              "nome": "Comprovante de endereço vencido.",
-              "descricao": "Comprovante de endereço vencido.",
+              "id": "67fd0129863e3e045e36533a",
+              "nome": "Impedimento de cessão",
+              "descricao": "Lastro - Impedimento de cessão",
               "usuario": null,
               "status": null,
               "excluido": false,
               "idFiltro": null
             },
             {
-              "id": "6a46f212924bf5254201895b",
-              "nome": "Ausência de comprovante de endereço.",
-              "descricao": "Ausência de comprovante de endereço.",
+              "id": "67fcff5902b63d5baf1b849d",
+              "nome": "Falta de Lastro",
+              "descricao": "MOP - Falta de Lastro",
               "usuario": null,
               "status": null,
               "excluido": false,
               "idFiltro": null
             },
             {
-              "id": "6a46f22437f586121f471aa2",
-              "nome": "Documento de identificação com emissão superior a 10 anos.",
-              "descricao": "Documento de identificação com emissão superior a 10 anos.",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "6a46f23a924bf5254201895d",
-              "nome": "Ausência de documento de identificação.",
-              "descricao": "Ausência de documento de identificação.",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "6a46f24937f586121f471aa4",
-              "nome": "Documentação societária incompleta ou divergente.",
-              "descricao": "Documentação societária incompleta ou divergente.",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "6a46f260632abc19743d6d01",
-              "nome": "Existência de novos documentos registrados na Junta Comercial não apresentados.",
-              "descricao": "Existência de novos documentos registrados na Junta Comercial não apresentados.",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "6a46f26d632abc19743d6d03",
-              "nome": "Ausência de documento societário de Sócio Pessoa Jurídica (PJ).",
-              "descricao": "Ausência de documento societário de Sócio Pessoa Jurídica (PJ).",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "6a46f280632abc19743d6d05",
-              "nome": "Ausência de documento societário de Devedor Solidário Pessoa Jurídica (PJ).",
-              "descricao": "Ausência de documento societário de Devedor Solidário Pessoa Jurídica (PJ).",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "6a46f28e1c9d1b67502106d0",
-              "nome": "Ausência de informações/documentação de Pessoas Ligadas.",
-              "descricao": "Ausência de informações/documentação de Pessoas Ligadas.",
-              "usuario": null,
-              "status": null,
-              "excluido": false,
-              "idFiltro": null
-            },
-            {
-              "id": "6a4e7fb40dc7f143f0be4e8f",
-              "nome": "Reprovação na análise de Compliance.",
-              "descricao": "Reprovação na análise de Compliance.",
+              "id": "67fd1a9878df6f119336ca3b",
+              "nome": "Problema Sistêmico",
+              "descricao": "Geral - Problema Sistêmico",
               "usuario": null,
               "status": null,
               "excluido": false,
@@ -1530,15 +552,15 @@
           "notificacaoArea": [],
           "modeloAcao": [
             {
-              "id": "62100e8e2eb7d56d6ac917a7",
-              "nome": "Realizar Formalização",
-              "mfe": "/prospect",
+              "id": "6348526249cd260334afc867",
+              "nome": "Analisar Operação",
+              "mfe": "\\",
               "enviaCondicao": true,
               "status": "ATIVO",
               "usuario": {
-                "dataCriacao": "2022-02-18T18:24:30.3",
+                "dataCriacao": "2022-10-13T15:01:06.786",
                 "dataUltimaAlteracao": null,
-                "usuario": "Rogerio Messias"
+                "usuario": "Elaine Tarallo"
               },
               "excluido": false,
               "idFiltro": "1"
@@ -1547,64 +569,328 @@
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
           "numeroMinimoAprovacoes": null,
-          "id.old": "621015e12eb7d56d6ac917dd"
+          "id.old": "664d050e37006b5d5bedd67d"
         }
       }
     ],
-    "idHml": "621026482eb7d56d6ac91804"
+    "idHml": "667c2a82a0378256b2c113ab"
   },
   {
-    "id": "6260886ec30e054efea971a7",
-    "nome": "Administradora",
+    "id": "664d0a0725233a73fc573177",
+    "nome": "Gestão de Risco Cessão ",
     "podeFinalizarEsteira": true,
     "status": "ATIVO",
     "idFiltro": "1",
     "etapaPadraoDevolucao": false,
     "condicoes": [],
     "usuario": {
-      "dataCriacao": "2022-04-20T19:25:50.476",
+      "dataCriacao": "2024-05-21T17:54:31.59",
       "dataUltimaAlteracao": null,
-      "usuario": "Rogerio Messias"
+      "usuario": "Eduardo Ribeiro"
     },
     "modeloSubEtapaModel": [
       {
         "ordem": 1,
         "modeloSubEtapa": {
-          "id": "625ed96e9bfea33c42199f89",
-          "nome": "Administradora",
+          "id": "667c28aea0378256b2c11393",
+          "nome": "Gestão de Risco Cessão ",
           "podeFinalizarEsteira": true,
           "podeVoltarEtapa": true,
           "requerParecer": true,
           "requerVotacao": false,
           "requerMotivo": false,
           "preAtributos": [
-            "idCedente"
+            "idOperacaoCessao"
           ],
           "execAtributos": [
-            "idCedente"
+            "idOperacaoCessao"
           ],
           "posAtributos": [
-            "idCedente"
+            "idOperacaoCessao"
           ],
-          "tempoMaxExecucao": 360,
-          "tempoNotificacaoOperador": 180,
-          "tempoNotificacaoObservador": 180,
+          "tempoMaxExecucao": 3600,
+          "tempoNotificacaoOperador": 3600,
+          "tempoNotificacaoObservador": 3600,
           "temPrazoExpiracao": null,
           "diasExpiracao": null,
           "operadores": [
+            {
+              "grupo": "Analista TI",
+              "tipoSeguranca": "",
+              "podeAlterarFormulario": true
+            },
+            {
+              "grupo": "Mop",
+              "tipoSeguranca": "",
+              "podeAlterarFormulario": true
+            },
+            {
+              "grupo": "Analista de Riscos",
+              "tipoSeguranca": "",
+              "podeAlterarFormulario": true
+            }
+          ],
+          "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-operacao-backoffice-ms/api/v1/validadorEsteira/validaEtapaEsteira",
+          "urlWhatsapp": "",
+          "status": "ATIVO",
+          "usuario": {
+            "dataCriacao": "2025-11-07T15:53:38.159",
+            "dataUltimaAlteracao": null,
+            "usuario": "Thiago Santos"
+          },
+          "excluido": false,
+          "idFiltro": "1",
+          "area": "MOP",
+          "requerAlcada": false,
+          "requerCondicao": false,
+          "tipoAlcada": null,
+          "chamadaApi": [],
+          "motivosRetornoEsteira": [
+            {
+              "id": "67fd145b78df6f119336ca00",
+              "nome": "Informações - Incorretas / Incompletas",
+              "descricao": "Jurídico - Informações - Incorretas / Incompletas",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd150678df6f119336ca0f",
+              "nome": "Parecer Comercial - Incorreto / Incompleto",
+              "descricao": "Risco - Parecer Comercial - Incorreto / Incompleto",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd071502b63d5baf1b84f1",
+              "nome": "Pendência de Documentação",
+              "descricao": "Comercial - Pendência de Documentação",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd151f78df6f119336ca11",
+              "nome": "Jurídico - Solicitação de Parecer",
+              "descricao": "Risco- Jurídico - Solicitação de Parecer",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd1a9878df6f119336ca3b",
+              "nome": "Problema Sistêmico",
+              "descricao": "Geral - Problema Sistêmico",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            }
+          ],
+          "notificacaoArea": [],
+          "modeloAcao": [
+            {
+              "id": "6348526249cd260334afc867",
+              "nome": "Analisar Operação",
+              "mfe": "\\",
+              "enviaCondicao": true,
+              "status": "ATIVO",
+              "usuario": {
+                "dataCriacao": "2022-10-13T15:01:06.786",
+                "dataUltimaAlteracao": null,
+                "usuario": "Elaine Tarallo"
+              },
+              "excluido": false,
+              "idFiltro": "1"
+            }
+          ],
+          "avancoAutomatico": null,
+          "formaAprovacaoAlcada": null,
+          "numeroMinimoAprovacoes": null,
+          "id.old": "664d058a3b3a340af4f416b4"
+        }
+      }
+    ],
+    "idHml": "6a6c02ee87cca57c12cee26d"
+  },
+  {
+    "id": "664d0a1c37006b5d5bedd688",
+    "nome": "Jurídico Cessão ",
+    "podeFinalizarEsteira": true,
+    "status": "ATIVO",
+    "idFiltro": "1",
+    "etapaPadraoDevolucao": false,
+    "condicoes": [],
+    "usuario": {
+      "dataCriacao": "2024-05-21T17:54:52.133",
+      "dataUltimaAlteracao": null,
+      "usuario": "Eduardo Ribeiro"
+    },
+    "modeloSubEtapaModel": [
+      {
+        "ordem": 1,
+        "modeloSubEtapa": {
+          "id": "667c291ba0378256b2c11399",
+          "nome": "Jurídico Cessão ",
+          "podeFinalizarEsteira": true,
+          "podeVoltarEtapa": true,
+          "requerParecer": true,
+          "requerVotacao": false,
+          "requerMotivo": false,
+          "preAtributos": [
+            "idOperacaoCessao"
+          ],
+          "execAtributos": [
+            "idOperacaoCessao"
+          ],
+          "posAtributos": [
+            "idOperacaoCessao"
+          ],
+          "tempoMaxExecucao": 3600,
+          "tempoNotificacaoOperador": 3600,
+          "tempoNotificacaoObservador": 3600,
+          "temPrazoExpiracao": null,
+          "diasExpiracao": null,
+          "operadores": [
+            {
+              "grupo": "Jurídico",
+              "tipoSeguranca": "",
+              "podeAlterarFormulario": true
+            },
+            {
+              "grupo": "Analista TI",
+              "tipoSeguranca": "",
+              "podeAlterarFormulario": true
+            },
             {
               "grupo": "Formalização",
               "tipoSeguranca": "",
               "podeAlterarFormulario": true
             }
           ],
-          "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-poc-ms/api/v1/validadorEsteira/validaEtapaEsteira",
-          "urlWhatsapp": null,
+          "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-operacao-backoffice-ms/api/v1/validadorEsteira/validaEtapaEsteira",
+          "urlWhatsapp": "",
           "status": "ATIVO",
           "usuario": {
-            "dataCriacao": "2023-03-09T05:14:14.845",
+            "dataCriacao": "2025-11-07T15:54:01.188",
             "dataUltimaAlteracao": null,
-            "usuario": "Elaine Tarallo"
+            "usuario": "Thiago Santos"
+          },
+          "excluido": false,
+          "idFiltro": "1",
+          "area": "Jurídico",
+          "requerAlcada": false,
+          "requerCondicao": false,
+          "tipoAlcada": null,
+          "chamadaApi": [],
+          "motivosRetornoEsteira": [
+            {
+              "id": "67fd022d863e3e045e365342",
+              "nome": "TBD",
+              "descricao": "Jurídico - TBD",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd1a9878df6f119336ca3b",
+              "nome": "Problema Sistêmico",
+              "descricao": "Geral - Problema Sistêmico",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            }
+          ],
+          "notificacaoArea": [],
+          "modeloAcao": [
+            {
+              "id": "6348526249cd260334afc867",
+              "nome": "Analisar Operação",
+              "mfe": "\\",
+              "enviaCondicao": true,
+              "status": "ATIVO",
+              "usuario": {
+                "dataCriacao": "2022-10-13T15:01:06.786",
+                "dataUltimaAlteracao": null,
+                "usuario": "Elaine Tarallo"
+              },
+              "excluido": false,
+              "idFiltro": "1"
+            }
+          ],
+          "avancoAutomatico": null,
+          "formaAprovacaoAlcada": null,
+          "numeroMinimoAprovacoes": null,
+          "id.old": "664d05e83b3a340af4f416b6"
+        }
+      }
+    ],
+    "idHml": "6a6c02ef87cca57c12cee26f"
+  },
+  {
+    "id": "664d0a303b3a340af4f416c4",
+    "nome": "Lastro Valida Cessão",
+    "podeFinalizarEsteira": true,
+    "status": "ATIVO",
+    "idFiltro": "1",
+    "etapaPadraoDevolucao": false,
+    "condicoes": [],
+    "usuario": {
+      "dataCriacao": "2024-05-21T17:55:12.896",
+      "dataUltimaAlteracao": null,
+      "usuario": "Eduardo Ribeiro"
+    },
+    "modeloSubEtapaModel": [
+      {
+        "ordem": 1,
+        "modeloSubEtapa": {
+          "id": "667c297ea0378256b2c1139c",
+          "nome": "Lastro Valida Cessão",
+          "podeFinalizarEsteira": true,
+          "podeVoltarEtapa": true,
+          "requerParecer": true,
+          "requerVotacao": false,
+          "requerMotivo": false,
+          "preAtributos": [
+            "idOperacaoCessao"
+          ],
+          "execAtributos": [
+            "idOperacaoCessao"
+          ],
+          "posAtributos": [
+            "idOperacaoCessao"
+          ],
+          "tempoMaxExecucao": 3600,
+          "tempoNotificacaoOperador": 3600,
+          "tempoNotificacaoObservador": 3600,
+          "temPrazoExpiracao": null,
+          "diasExpiracao": null,
+          "operadores": [
+            {
+              "grupo": "Lastro",
+              "tipoSeguranca": "",
+              "podeAlterarFormulario": true
+            },
+            {
+              "grupo": "Analista TI",
+              "tipoSeguranca": "",
+              "podeAlterarFormulario": true
+            }
+          ],
+          "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-operacao-backoffice-ms/api/v1/validadorEsteira/validaEtapaEsteira",
+          "urlWhatsapp": "",
+          "status": "ATIVO",
+          "usuario": {
+            "dataCriacao": "2025-11-07T15:54:20.062",
+            "dataUltimaAlteracao": null,
+            "usuario": "Thiago Santos"
           },
           "excluido": false,
           "idFiltro": "1",
@@ -1612,202 +898,48 @@
           "requerAlcada": false,
           "requerCondicao": false,
           "tipoAlcada": null,
-          "chamadaApi": null,
-          "motivosRetornoEsteira": null,
-          "notificacaoArea": null,
-          "modeloAcao": [
-            {
-              "id": "626087bfc30e054efea971a3",
-              "nome": "Realizar Administração",
-              "mfe": "/prospect",
-              "enviaCondicao": true,
-              "status": "ATIVO",
-              "usuario": {
-                "dataCriacao": "2022-04-20T19:22:55.48",
-                "dataUltimaAlteracao": null,
-                "usuario": "Rogerio Messias"
-              },
-              "excluido": false,
-              "idFiltro": "1"
-            }
-          ],
-          "avancoAutomatico": null,
-          "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null,
-          "id.old": "62608813c30e054efea971a5"
-        }
-      }
-    ],
-    "idHml": "625eda069bfea33c42199f8c"
-  },
-  {
-    "id": "621026692eb7d56d6ac91806",
-    "nome": "Gestora",
-    "podeFinalizarEsteira": true,
-    "status": "ATIVO",
-    "idFiltro": "1",
-    "etapaPadraoDevolucao": false,
-    "condicoes": [],
-    "usuario": {
-      "dataCriacao": "2022-02-18T20:06:17.756",
-      "dataUltimaAlteracao": null,
-      "usuario": "Rogerio Messias"
-    },
-    "modeloSubEtapaModel": [
-      {
-        "ordem": 1,
-        "modeloSubEtapa": {
-          "id": "621016222eb7d56d6ac917e0",
-          "nome": "Gestora",
-          "podeFinalizarEsteira": false,
-          "podeVoltarEtapa": true,
-          "requerParecer": true,
-          "requerVotacao": false,
-          "requerMotivo": false,
-          "preAtributos": [
-            "idProposta"
-          ],
-          "execAtributos": [
-            "idProposta"
-          ],
-          "posAtributos": [
-            "idProposta"
-          ],
-          "tempoMaxExecucao": 180,
-          "tempoNotificacaoOperador": 180,
-          "tempoNotificacaoObservador": 180,
-          "temPrazoExpiracao": null,
-          "diasExpiracao": null,
-          "operadores": [
-            {
-              "grupo": "Analista Gestora",
-              "tipoSeguranca": "",
-              "podeAlterarFormulario": true
-            }
-          ],
-          "urlValidador": "",
-          "urlWhatsapp": null,
-          "status": "ATIVO",
-          "usuario": {
-            "dataCriacao": "2023-01-23T08:51:30.383",
-            "dataUltimaAlteracao": null,
-            "usuario": "Tiago Roque"
-          },
-          "excluido": false,
-          "idFiltro": "1",
-          "area": "Gestora",
-          "requerAlcada": false,
-          "requerCondicao": false,
-          "tipoAlcada": null,
-          "chamadaApi": null,
-          "motivosRetornoEsteira": null,
-          "notificacaoArea": null,
-          "modeloAcao": [
-            {
-              "id": "62100db02eb7d56d6ac91795",
-              "nome": "Analisar Prospect",
-              "mfe": "/analisarProspect",
-              "enviaCondicao": true,
-              "status": "ATIVO",
-              "usuario": {
-                "dataCriacao": "2025-12-14T20:29:51.931",
-                "dataUltimaAlteracao": null,
-                "usuario": "Tiago Roque"
-              },
-              "excluido": false,
-              "idFiltro": null
-            }
-          ],
-          "avancoAutomatico": null,
-          "formaAprovacaoAlcada": null,
-          "numeroMinimoAprovacoes": null,
-          "id.old": "621016222eb7d56d6ac917e0"
-        }
-      }
-    ],
-    "idHml": "621026692eb7d56d6ac91806"
-  },
-  {
-    "id": "621027432eb7d56d6ac91814",
-    "nome": "Comitê de Crédito do Fornecedor Âncora",
-    "podeFinalizarEsteira": true,
-    "status": "ATIVO",
-    "idFiltro": "1",
-    "etapaPadraoDevolucao": false,
-    "condicoes": [
-      {
-        "condicao": "100",
-        "descricao": "Voltar",
-        "irIdEtapa": "621025c12eb7d56d6ac917fd"
-      }
-    ],
-    "usuario": {
-      "dataCriacao": "2022-02-18T20:09:55.936",
-      "dataUltimaAlteracao": null,
-      "usuario": "Rogerio Messias"
-    },
-    "modeloSubEtapaModel": [
-      {
-        "ordem": 1,
-        "modeloSubEtapa": {
-          "id": "6210118a2eb7d56d6ac917bd",
-          "nome": "Votação",
-          "podeFinalizarEsteira": false,
-          "podeVoltarEtapa": true,
-          "requerParecer": false,
-          "requerVotacao": true,
-          "requerMotivo": false,
-          "preAtributos": [
-            "idProposta"
-          ],
-          "execAtributos": [
-            "idProposta"
-          ],
-          "posAtributos": [
-            "idProposta"
-          ],
-          "tempoMaxExecucao": 3600,
-          "tempoNotificacaoOperador": 180,
-          "tempoNotificacaoObservador": 180,
-          "temPrazoExpiracao": null,
-          "diasExpiracao": null,
-          "operadores": [
-            {
-              "grupo": "Secretario Votação",
-              "tipoSeguranca": "6210410e2eb7d56d6ac9182e",
-              "podeAlterarFormulario": true
-            },
-            {
-              "grupo": "Compliance",
-              "tipoSeguranca": "",
-              "podeAlterarFormulario": true
-            }
-          ],
-          "urlValidador": "https://beyond.grupomultiplica.com.br/mc-poc-ms/api/v1/validadorEsteira/validaEtapaEsteira",
-          "urlWhatsapp": null,
-          "status": "ATIVO",
-          "usuario": {
-            "dataCriacao": "2026-06-02T12:22:57.59",
-            "dataUltimaAlteracao": null,
-            "usuario": "Beyond"
-          },
-          "excluido": false,
-          "idFiltro": "1",
-          "area": "Superintendente",
-          "requerAlcada": false,
-          "requerCondicao": false,
-          "tipoAlcada": null,
-          "chamadaApi": [
-            {
-              "url": "https://beyond.grupomultiplica.com.br/mc-cedente-ms/api/v1/cedSetup/geraSetup",
-              "gatilho": "NA_FINALIZACAO"
-            }
-          ],
+          "chamadaApi": [],
           "motivosRetornoEsteira": [
             {
-              "id": "6a1ef4e36331e36238af1a64",
-              "nome": "Operação não aprovada pelo comitê",
-              "descricao": "Rejeitada",
+              "id": "67fd0106863e3e045e365335",
+              "nome": "Data - Operação",
+              "descricao": "Lastro - Data - Operação",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd011502b63d5baf1b84b8",
+              "nome": "Valor - Operação",
+              "descricao": "Lastro - Valor - Operação",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd0129863e3e045e36533a",
+              "nome": "Impedimento de cessão",
+              "descricao": "Lastro - Impedimento de cessão",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fcff5902b63d5baf1b849d",
+              "nome": "Falta de Lastro",
+              "descricao": "MOP - Falta de Lastro",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd1a9878df6f119336ca3b",
+              "nome": "Problema Sistêmico",
+              "descricao": "Geral - Problema Sistêmico",
               "usuario": null,
               "status": null,
               "excluido": false,
@@ -1817,15 +949,15 @@
           "notificacaoArea": [],
           "modeloAcao": [
             {
-              "id": "62100dc62eb7d56d6ac91797",
-              "nome": "Votar",
-              "mfe": "/votar",
+              "id": "6348526249cd260334afc867",
+              "nome": "Analisar Operação",
+              "mfe": "\\",
               "enviaCondicao": true,
               "status": "ATIVO",
               "usuario": {
-                "dataCriacao": "2022-02-18T18:21:10.885",
+                "dataCriacao": "2022-10-13T15:01:06.786",
                 "dataUltimaAlteracao": null,
-                "usuario": "Rogerio Messias"
+                "usuario": "Elaine Tarallo"
               },
               "excluido": false,
               "idFiltro": "1"
@@ -1834,10 +966,350 @@
           "avancoAutomatico": null,
           "formaAprovacaoAlcada": null,
           "numeroMinimoAprovacoes": null,
-          "id.old": "6210118a2eb7d56d6ac917bd"
+          "id.old": "664d06743b3a340af4f416b8"
         }
       }
     ],
-    "idHml": "621027432eb7d56d6ac91814"
+    "idHml": "667c2abaa0378256b2c113b1"
+  },
+  {
+    "id": "663ed61737006b5d5bedc996",
+    "nome": "Gestora Cessão",
+    "podeFinalizarEsteira": true,
+    "status": "ATIVO",
+    "idFiltro": "1",
+    "etapaPadraoDevolucao": false,
+    "condicoes": [],
+    "usuario": {
+      "dataCriacao": "2024-05-10T23:21:11.74",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "modeloSubEtapaModel": [
+      {
+        "ordem": 1,
+        "modeloSubEtapa": {
+          "id": "66294b0bb759f13a39758ac9",
+          "nome": "Gestora Cessão",
+          "podeFinalizarEsteira": false,
+          "podeVoltarEtapa": true,
+          "requerParecer": true,
+          "requerVotacao": false,
+          "requerMotivo": false,
+          "preAtributos": [
+            "idOperacaoCessao"
+          ],
+          "execAtributos": [
+            "idOperacaoCessao"
+          ],
+          "posAtributos": [
+            "idOperacaoCessao"
+          ],
+          "tempoMaxExecucao": 3599,
+          "tempoNotificacaoOperador": 3600,
+          "tempoNotificacaoObservador": 3600,
+          "temPrazoExpiracao": null,
+          "diasExpiracao": null,
+          "operadores": [
+            {
+              "grupo": "Analista TI",
+              "tipoSeguranca": "",
+              "podeAlterarFormulario": true
+            },
+            {
+              "grupo": "Analista Gestora",
+              "tipoSeguranca": "",
+              "podeAlterarFormulario": true
+            },
+            {
+              "grupo": "BackOffice Gestora",
+              "tipoSeguranca": "",
+              "podeAlterarFormulario": true
+            }
+          ],
+          "urlValidador": "",
+          "urlWhatsapp": "",
+          "status": "ATIVO",
+          "usuario": {
+            "dataCriacao": "2025-11-07T15:51:08.262",
+            "dataUltimaAlteracao": null,
+            "usuario": "Thiago Santos"
+          },
+          "excluido": false,
+          "idFiltro": "1",
+          "area": "GESTORA",
+          "requerAlcada": false,
+          "requerCondicao": false,
+          "tipoAlcada": null,
+          "chamadaApi": [],
+          "motivosRetornoEsteira": [
+            {
+              "id": "67fd005602b63d5baf1b84ad",
+              "nome": "Necessidade de revisão do parecer",
+              "descricao": "MOP Gestora - Necessidade de revisão do parecer",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd007202b63d5baf1b84af",
+              "nome": "Minuta Divergente",
+              "descricao": "MOP Gestora - Minuta Divergente",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd00a4863e3e045e36532d",
+              "nome": "CCB/NC - Valores Divergentes",
+              "descricao": "MOP Gestora - CCB/NC - Valores Divergentes",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd00bc02b63d5baf1b84b3",
+              "nome": "Ausência de Lastro",
+              "descricao": "MOP Gestora - Ausência de Lastro",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd00cf863e3e045e36532f",
+              "nome": "Pendência dos Administradores",
+              "descricao": "MOP Gestora - Pendência dos Administradores",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd00e502b63d5baf1b84b6",
+              "nome": "Pré-Trade - Desenquadramento do Fundo",
+              "descricao": "MOP Gestora - Pré-Trade - Desenquadramento do Fundo",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd1a9878df6f119336ca3b",
+              "nome": "Problema Sistêmico",
+              "descricao": "Geral - Problema Sistêmico",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "680bd57916ad49188a21377d",
+              "nome": "Cliente Não Assinou a Operação",
+              "descricao": "Cliente Não Assinou a Operação",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            }
+          ],
+          "notificacaoArea": [],
+          "modeloAcao": [
+            {
+              "id": "6348526249cd260334afc867",
+              "nome": "Analisar Operação",
+              "mfe": "\\",
+              "enviaCondicao": true,
+              "status": "ATIVO",
+              "usuario": {
+                "dataCriacao": "2022-10-13T15:01:06.786",
+                "dataUltimaAlteracao": null,
+                "usuario": "Elaine Tarallo"
+              },
+              "excluido": false,
+              "idFiltro": "1"
+            }
+          ],
+          "avancoAutomatico": null,
+          "formaAprovacaoAlcada": null,
+          "numeroMinimoAprovacoes": null,
+          "id.old": "663ed60437006b5d5bedc994"
+        }
+      }
+    ],
+    "idHml": "66294b6eb759f13a39758ad1"
+  },
+  {
+    "id": "689cfcd716af001adbc56489",
+    "nome": "Aprovação Administrador Cessão",
+    "podeFinalizarEsteira": true,
+    "status": "ATIVO",
+    "idFiltro": "1",
+    "etapaPadraoDevolucao": false,
+    "condicoes": [],
+    "usuario": {
+      "dataCriacao": "2025-08-13T18:00:07.042",
+      "dataUltimaAlteracao": null,
+      "usuario": "Thiago Santos"
+    },
+    "modeloSubEtapaModel": [
+      {
+        "ordem": 1,
+        "modeloSubEtapa": {
+          "id": "66294b0bb759f13a39758ac9",
+          "nome": "Gestora Cessão",
+          "podeFinalizarEsteira": false,
+          "podeVoltarEtapa": true,
+          "requerParecer": true,
+          "requerVotacao": false,
+          "requerMotivo": false,
+          "preAtributos": [
+            "idOperacaoCessao"
+          ],
+          "execAtributos": [
+            "idOperacaoCessao"
+          ],
+          "posAtributos": [
+            "idOperacaoCessao"
+          ],
+          "tempoMaxExecucao": 3599,
+          "tempoNotificacaoOperador": 3600,
+          "tempoNotificacaoObservador": 3600,
+          "temPrazoExpiracao": null,
+          "diasExpiracao": null,
+          "operadores": [
+            {
+              "grupo": "Analista TI",
+              "tipoSeguranca": "",
+              "podeAlterarFormulario": true
+            },
+            {
+              "grupo": "Analista Gestora",
+              "tipoSeguranca": "",
+              "podeAlterarFormulario": true
+            },
+            {
+              "grupo": "BackOffice Gestora",
+              "tipoSeguranca": "",
+              "podeAlterarFormulario": true
+            }
+          ],
+          "urlValidador": "",
+          "urlWhatsapp": "",
+          "status": "ATIVO",
+          "usuario": {
+            "dataCriacao": "2025-11-07T15:51:08.262",
+            "dataUltimaAlteracao": null,
+            "usuario": "Thiago Santos"
+          },
+          "excluido": false,
+          "idFiltro": "1",
+          "area": "GESTORA",
+          "requerAlcada": false,
+          "requerCondicao": false,
+          "tipoAlcada": null,
+          "chamadaApi": [],
+          "motivosRetornoEsteira": [
+            {
+              "id": "67fd005602b63d5baf1b84ad",
+              "nome": "Necessidade de revisão do parecer",
+              "descricao": "MOP Gestora - Necessidade de revisão do parecer",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd007202b63d5baf1b84af",
+              "nome": "Minuta Divergente",
+              "descricao": "MOP Gestora - Minuta Divergente",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd00a4863e3e045e36532d",
+              "nome": "CCB/NC - Valores Divergentes",
+              "descricao": "MOP Gestora - CCB/NC - Valores Divergentes",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd00bc02b63d5baf1b84b3",
+              "nome": "Ausência de Lastro",
+              "descricao": "MOP Gestora - Ausência de Lastro",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd00cf863e3e045e36532f",
+              "nome": "Pendência dos Administradores",
+              "descricao": "MOP Gestora - Pendência dos Administradores",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd00e502b63d5baf1b84b6",
+              "nome": "Pré-Trade - Desenquadramento do Fundo",
+              "descricao": "MOP Gestora - Pré-Trade - Desenquadramento do Fundo",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "67fd1a9878df6f119336ca3b",
+              "nome": "Problema Sistêmico",
+              "descricao": "Geral - Problema Sistêmico",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            },
+            {
+              "id": "680bd57916ad49188a21377d",
+              "nome": "Cliente Não Assinou a Operação",
+              "descricao": "Cliente Não Assinou a Operação",
+              "usuario": null,
+              "status": null,
+              "excluido": false,
+              "idFiltro": null
+            }
+          ],
+          "notificacaoArea": [],
+          "modeloAcao": [
+            {
+              "id": "6348526249cd260334afc867",
+              "nome": "Analisar Operação",
+              "mfe": "\\",
+              "enviaCondicao": true,
+              "status": "ATIVO",
+              "usuario": {
+                "dataCriacao": "2022-10-13T15:01:06.786",
+                "dataUltimaAlteracao": null,
+                "usuario": "Elaine Tarallo"
+              },
+              "excluido": false,
+              "idFiltro": "1"
+            }
+          ],
+          "avancoAutomatico": null,
+          "formaAprovacaoAlcada": null,
+          "numeroMinimoAprovacoes": null,
+          "id.old": "663ed60437006b5d5bedc994"
+        }
+      }
+    ],
+    "idHml": "68b6eb82d08d0b053feb57b4"
   }
 ]

@@ -1,59 +1,16 @@
 [
   {
-    "id": "62100d082eb7d56d6ac91791",
-    "nome": "Prospect",
-    "descricao": "Prospect",
+    "id": "663ed7173b3a340af4f40a1c",
+    "nome": "CESSÃO ENTRE FUNDOS",
+    "descricao": "CESSÃO ENTRE FUNDOS",
     "excluido": false,
     "idFiltro": "1",
     "status": "ATIVO",
     "usuario": {
-      "dataCriacao": "2022-02-18T18:18:00.455",
+      "dataCriacao": "2024-05-10T23:25:27.156",
       "dataUltimaAlteracao": null,
-      "usuario": "Rogerio Messias"
-    }
-  },
-  {
-    "id": "6957e25994a04f5e3d4527e5",
-    "nome": "PROSPECT PRE-HOMOLOGACAO",
-    "descricao": "PROSPECT PRE-HOMOLOGACAO",
-    "excluido": false,
-    "idFiltro": "1",
-    "status": "ATIVO",
-    "usuario": {
-      "dataCriacao": "2026-01-02T12:20:57.931",
-      "dataUltimaAlteracao": null,
-      "usuario": "Beyond"
-    }
-  },
-  {
-    "id": "63a9ec01367ebb43d7089987",
-    "nome": "APR ESTRUTURADA",
-    "descricao": "Esteira para aprovação estruturada",
-    "excluido": false,
-    "idFiltro": "1",
-    "status": "ATIVO",
-    "usuario": null
-  },
-  {
-    "id": "63a0a6d0c5be58290f7e21e2",
-    "nome": "OPE ESTRUTURADA",
-    "descricao": "OPE ESTRUTURADA",
-    "excluido": false,
-    "idFiltro": "1",
-    "status": "ATIVO",
-    "usuario": null
-  },
-  {
-    "id": "64c19d9b3cef8547613c0b74",
-    "nome": "Garantia",
-    "descricao": "Garantia",
-    "excluido": false,
-    "idFiltro": "1",
-    "status": "ATIVO",
-    "usuario": {
-      "dataCriacao": "2023-07-26T19:26:35.787",
-      "dataUltimaAlteracao": null,
-      "usuario": "Elaine Tarallo"
-    }
+      "usuario": "Rodrigo Meneses"
+    },
+    "idHml": "662947ffb759f13a39758abf"
   }
 ]

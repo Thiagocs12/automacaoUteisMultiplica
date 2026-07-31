@@ -16,8 +16,21 @@ const MAPEAMENTO_ESTEIRAS = {
       { idSubstituido: 'idModeloEsteiraVinculado', arquivoDependencia: 'Esteiras/2 - esteirasVinculadas.json' },
       { idSubstituido: 'modeloEsteiraVinculado.id', arquivoDependencia: 'Esteiras/2 - esteirasVinculadas.json' },
     ],
+    chavesIgnoradas: [
+      'modeloEtapas.modeloEtapa.modeloSubEtapaModel',
+      'modeloEtapas.modeloEtapa.usuario',
+      'modeloEtapas.modeloEtapa.idFiltro',
+      'modeloEtapas.modeloEtapa.excluido',
+      'modeloEtapas.modeloEtapa.status',
+      'modeloEsteiraVinculado'
+    ],
+    camposLista: [
+      'observadores',
+      'gestores',
+      'modeloEtapas.modeloEtapa.condicoes'
+    ],
   },
-  /*ESTEIRA_VINCULADA: {
+  ESTEIRA_VINCULADA: {
     urlBuscaId: 'mc-multiflow-ms/api/v1/modeloesteira/pesquisarporid/',
     urlBusca: 'mc-multiflow-ms/api/v1/modeloesteira/pesquisar?status=TODOS&nome=',
     url: 'mc-multiflow-ms/api/v1/modeloesteira',
@@ -34,6 +47,19 @@ const MAPEAMENTO_ESTEIRAS = {
       { idSubstituido: 'idModeloEtapaPendencia', arquivoDependencia: 'Esteiras/4 - etapas.json' },
       { idSubstituido: 'modeloEtapas.modeloEtapa.condicoes.irIdEtapa', arquivoDependencia: 'Esteiras/4 - etapas.json' }
     ],
+    chavesIgnoradas: [
+      'modeloEtapas.modeloEtapa.modeloSubEtapaModel',
+      'modeloEtapas.modeloEtapa.usuario',
+      'modeloEtapas.modeloEtapa.idFiltro',
+      'modeloEtapas.modeloEtapa.excluido',
+      'modeloEtapas.modeloEtapa.status',
+      'modeloEsteiraVinculado'
+    ],
+    camposLista: [
+      'observadores',
+      'gestores',
+      'modeloEtapas.modeloEtapa.condicoes'
+    ],
   },
   TIPOESTEIRAS: {
     urlBuscaId: 'mc-multiflow-ms/api/v1/tipoesteira/pesquisarporid/',
@@ -44,7 +70,7 @@ const MAPEAMENTO_ESTEIRAS = {
     campoDescricao: 'nome',
     nomeArquivoReferencia: 'Esteiras/1 - esteiras.json',
     campoBusca: 'tipoEsteira.id',
-  },*/
+  },
   ETAPAS: {
     urlBuscaId: 'mc-multiflow-ms/api/v1/modeloetapa/pesquisarporid/',
     urlBusca: 'mc-multiflow-ms/api/v1/modeloetapa/pesquisar?status=TODOS&nome=',

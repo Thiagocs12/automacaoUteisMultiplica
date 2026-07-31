@@ -4,7 +4,8 @@ import { obterValor } from './utils';
 import tokens from '../temp/tokens.json';
 import MAPEAMENTOS_APIS from '../utils/mapeamentoProdutos';
 
-const LIMITE_LOTE = 10;
+const LIMITE_LOTE_PRODUTO = 20;
+const LIMITE_LOTE_ESTEIRAS = 20;
 const CAMINHO_LOG = 'cypress/output/ultimosUpdates.json';
 const ENTIDADES_IGNORADAS = ['PRODUTO', 'GRUPOS_KEYCLOAK', 'MULTIFLOW', 'SELECIONAR_CEDENTE', 'ESTEIRAS'];
 const ENTIDADES_COM_VALIDACAO = ['PRODUTO', 'ESTEIRAS'];
@@ -12,15 +13,99 @@ const ENTIDADES_COM_VALIDACAO = ['PRODUTO', 'ESTEIRAS'];
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
 /**
- * @description Remove campos apenas no primeiro nível do objeto.
+ * @description Força campos específicos a serem arrays.
+ * Suporta dot-notation e objetos com índices numéricos.
+ */
+function forcarCampoComoArray(obj, partes) {
+  if (!obj || !partes.length) return obj;
+
+  if (Array.isArray(obj)) {
+    return obj.map((item) => forcarCampoComoArray(item, partes));
+  }
+
+  if (typeof obj !== 'object') return obj;
+
+  const [proxima, ...resto] = partes;
+
+  if (!(proxima in obj)) return obj;
+
+  if (resto.length === 0) {
+    const valor = obj[proxima];
+    const comoArray = Array.isArray(valor)
+      ? valor
+      : valor !== null && typeof valor === 'object'
+        ? Object.values(valor)
+        : [];
+    return { ...obj, [proxima]: comoArray };
+  }
+
+  return {
+    ...obj,
+    [proxima]: forcarCampoComoArray(normalizarObjetosNumericos(obj[proxima]), resto),
+  };
+}
+
+function normalizarCamposLista(obj, camposLista) {
+  if (!camposLista?.length) return obj;
+
+  let resultado = obj;
+  camposLista.forEach((caminho) => {
+    resultado = forcarCampoComoArray(resultado, caminho.split('.'));
+  });
+  return resultado;
+}
+
+/**
+ * @description Navega recursivamente pelo caminho e remove a chave final.
+ * Normaliza objetos com índices numéricos para arrays durante a travessia.
+ * Não mutua o objeto original.
+ */
+function removerCaminhoAninhado(obj, partes) {
+  if (!obj || !partes.length) return obj;
+
+  const [proxima, ...resto] = partes;
+
+  if (Array.isArray(obj)) {
+    return obj.map((item) => removerCaminhoAninhado(item, partes));
+  }
+
+  if (typeof obj !== 'object' || !(proxima in obj)) return obj;
+
+  // Última parte do caminho → remove a chave
+  if (resto.length === 0) {
+    const { [proxima]: _, ...semChave } = obj;
+    return semChave;
+  }
+
+  // Navega para o próximo nível, normalizando índices numéricos
+  const valor = normalizarObjetosNumericos(obj[proxima]);
+  const valorAtualizado = Array.isArray(valor)
+    ? valor.map((item) => removerCaminhoAninhado(item, resto))
+    : removerCaminhoAninhado(valor, resto);
+
+  return { ...obj, [proxima]: valorAtualizado };
+}
+
+/**
+ * @description Remove campos no primeiro nível (chaves simples) e em
+ * caminhos aninhados via dot-notation (ex: modeloEtapas.modeloEtapa.modeloSubEtapaModel).
  * @param {Object} obj - Objeto a ser limpo.
  * @param {string[]} chavesIgnoradas - Campos a serem removidos.
  * @returns {Object}
  */
 function removerChavesIgnoradas(obj, chavesIgnoradas) {
-  return Object.fromEntries(
-    Object.entries(obj).filter(([chave]) => !chavesIgnoradas.includes(chave))
+  const chavesSimples = chavesIgnoradas.filter((c) => !c.includes('.'));
+  const chavesAninhadas = chavesIgnoradas.filter((c) => c.includes('.'));
+
+  let resultado = Object.fromEntries(
+    Object.entries(obj).filter(([chave]) => !chavesSimples.includes(chave))
   );
+
+  chavesAninhadas.forEach((caminho) => {
+    resultado = removerCaminhoAninhado(resultado, caminho.split('.'));
+  });
+
+  return resultado;
 }
 
 /**
@@ -220,7 +305,7 @@ Cypress.Commands.add('pesquisarDependenciasLigacao', (entidade) => {
           )];
 
           idsUnicos.forEach((id) => {
-            cy.executarRequest('prod', `${urlBuscaId}${encodeURIComponent(id)}`).then((resposta) => {
+            cy.executarRequest2('prod', `${urlBuscaId}${encodeURIComponent(id)}`).then((resposta) => {
               const itens = Array.isArray(resposta.body) ? resposta.body : [resposta.body];
               itens.forEach((item) => {
                 if (!registrosAcumulados.some((r) => r.id === item.id)) {
@@ -291,9 +376,14 @@ Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel, mapeamentoEntidad
             camposLimpos = { ...restante, name: grupo };
           }
 
+          const camposNormalizados = normalizarCamposLista(
+            normalizarObjetosNumericos(camposLimpos),
+            entidade.camposLista
+          );
+
           const body = entidade.novoArray
-            ? { [entidade.novoArray]: camposLimpos }
-            : camposLimpos;
+            ? { [entidade.novoArray]: camposNormalizados }
+            : camposNormalizados;
 
           cy.executarRequest(env, entidade.url, body, method).then((resultado) => {
             if (!entidadeKeycloak) {
@@ -353,7 +443,7 @@ Cypress.Commands.add('atualizarItensExistentesPorNivel', (nivel, mapeamentoEntid
     const method = entidade.methodAtualizacao || 'POST';
     const chavesIgnoradas = [
       'idHml', 'id', 'dataCadastro', 'dataUltimaAlteracao',
-      'usuarioCadastro', 'usuarioUltimaAlteracao', 'usuario',
+      'usuarioCadastro', 'usuarioUltimaAlteracao', 'usuario', 'atualizar',
       ...(entidade.chavesIgnoradas || []),
     ];
 
@@ -369,11 +459,16 @@ Cypress.Commands.add('atualizarItensExistentesPorNivel', (nivel, mapeamentoEntid
             id: String(item.idHml),
           };
 
-          const body = entidade.novoArray
-            ? { [entidade.novoArray]: camposLimpos }
-            : camposLimpos;
+          const camposNormalizados = normalizarCamposLista(
+            normalizarObjetosNumericos(camposLimpos),
+            entidade.camposLista
+          );
 
-          cy.executarRequest('hml', entidade.url, body, method).then(() => {
+          const body = entidade.novoArray
+            ? { [entidade.novoArray]: camposNormalizados }
+            : camposNormalizados;
+
+          cy.executarRequest2('hml', entidade.url, body, method).then(() => {
             if (!geraLog) return;
 
             if (!log[chaveEntidade]) log[chaveEntidade] = [];
@@ -441,6 +536,7 @@ Cypress.Commands.add('pesquisarItensPorNivel', (nivel, mapeamentoEntidade) => {
       cy.lerJsonDeOutput(nomeArquivo).then((dadosDoArquivo) => {
         for (const dado of dadosDoArquivo) {
           if (dado.idHml !== null && dado.idHml !== undefined) continue;
+          if (chaveEntidade === 'ESTEIRAS' && dado.atualizar !== true) continue;
 
           const valorChave1 = obterValor(dado, contentBusca[0]);
           const valorChave2 = obterValor(dado, contentBusca[1]);
@@ -473,6 +569,7 @@ Cypress.Commands.add('pesquisarItensPorNivel', (nivel, mapeamentoEntidade) => {
     cy.lerJsonDeOutput(nomeArquivo).then((dadosDoArquivo) => {
       for (const dado of dadosDoArquivo) {
         if (dado.idHml !== null && dado.idHml !== undefined) continue;
+        if (chaveEntidade === 'ESTEIRAS' && dado.atualizar !== true) continue;
 
         const valorBusca = dado[campoDescricao];
 
@@ -575,9 +672,11 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) =
         const idDependecia = dependencia.idDependecia || 'id';
 
         return cy.readFile(`cypress/output/${arquivoDependencia}`).then((dependencias) => {
+          const dependenciasNormalizadas = normalizarObjetosNumericos(dependencias);
+
           const listaDependencias = Array.isArray(dependencias[0])
-            ? dependencias.flat()
-            : dependencias;
+            ? dependenciasNormalizadas.flat()
+            : dependenciasNormalizadas;
 
           const partes = idSubstituido.split('.');
           const chaveId = partes[partes.length - 1];
@@ -589,6 +688,12 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) =
 
             if (Array.isArray(atual)) {
               atual.forEach((elemento) => substituir(elemento, partesRestantes));
+              return;
+            }
+
+            const chaves = Object.keys(atual);
+            if (chaves.length > 0 && chaves.every((c) => /^\d+$/.test(c))) {
+              chaves.forEach((chave) => substituir(atual[chave], partesRestantes));
               return;
             }
 
@@ -632,7 +737,6 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) =
 
           itens.forEach((item) => {
             if (partesParent.length === 0) {
-              // ← campo direto no item, sem navegação
               if (Object.prototype.hasOwnProperty.call(item, chaveOld)) return;
               const idOriginal = item[chaveId];
               if (!idOriginal) return;
@@ -665,14 +769,14 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) =
  * @returns {Cypress.Chainable<void>}
  */
 Cypress.Commands.add('processarEntidadesPorNivel', (nivel, mapeamentoEntidade) => {
-  cy.log('Iniciando processamento de entidades para o nível de dependência:', nivel);
-  cy.log('atualizar id iniciando')
+  console.log('Iniciando processamento de entidades para o nível de dependência:', nivel);
+  console.log('atualizar id iniciando')
   cy.atualizarIdsDeDependencias(nivel, mapeamentoEntidade);
-  cy.log('pesquisar iniciando')
+  console.log('pesquisar iniciando')
   cy.pesquisarItensPorNivel(nivel, mapeamentoEntidade);
-  cy.log('atualizar iniciando')
+  console.log('atualizar iniciando')
   cy.atualizarItensExistentesPorNivel(nivel, mapeamentoEntidade);
-  cy.log('criar iniciando')
+  console.log('criar iniciando')
   cy.criarItensInexistentesPorNivel(nivel, mapeamentoEntidade);
 });
 
@@ -726,6 +830,7 @@ Cypress.Commands.add('salvarNovosRegistros', (novosDados, caminhoArquivo, entida
       const registrosLog = (logAtual ?? {})[chaveEntidade] ?? [];
       const listaExistente = dadosExistentes ?? [];
       const idsExistentes = new Set(listaExistente.map((item) => item.id));
+      const LIMITE_LOTE = chaveEntidade === 'PRODUTO' ? LIMITE_LOTE_PRODUTO : LIMITE_LOTE_ESTEIRAS;
 
       const apenasNovos = novosDados.filter((novo) => !idsExistentes.has(novo.id));
 

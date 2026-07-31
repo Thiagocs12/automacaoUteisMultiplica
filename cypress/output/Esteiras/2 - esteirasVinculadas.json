@@ -1,27 +1,37 @@
 [
   {
-    "id": "637cda7132dcb7703bdcb551",
-    "nome": "Esteira MOP - Estruturada Sem Aprovação",
+    "id": "6691a18c9670327f569e62c6",
+    "nome": "Esteira Cessao Entre Fundos 2",
     "excluido": false,
     "idFiltro": "1",
     "tipoEsteira": {
-      "id": "63a0a6d0c5be58290f7e21e2",
-      "nome": "OPE ESTRUTURADA",
-      "descricao": "OPE ESTRUTURADA",
+      "id": "66919f3fa1fcf43cdd85d52c",
+      "nome": "MOP CESSÃO ENTRE FUNDOS",
+      "descricao": "MOP CESSÃO ENTRE FUNDOS",
       "excluido": false,
       "idFiltro": "1",
       "status": null,
-      "usuario": null
+      "usuario": {
+        "dataCriacao": "2024-07-12T18:25:19.828",
+        "dataUltimaAlteracao": null,
+        "usuario": "Natiele Silva"
+      }
     },
-    "observadores": [],
+    "observadores": [
+      {
+        "grupo": "Assistente Comercial",
+        "tipoSeguranca": "",
+        "podeAlterarFormulario": true
+      }
+    ],
     "gestores": [
       {
-        "grupo": "Diretoria",
+        "grupo": "Analista TI",
         "tipoSeguranca": "",
         "podeAlterarFormulario": true
       },
       {
-        "grupo": "Analista TI",
+        "grupo": "Diretoria",
         "tipoSeguranca": "",
         "podeAlterarFormulario": true
       }
@@ -31,15 +41,15 @@
       {
         "ordem": 1,
         "modeloEtapa": {
-          "id": "633eea25e1f9e94744c8456c",
-          "nome": "Middle",
-          "podeFinalizarEsteira": false,
+          "id": "664d0a893b3a340af4f416c6",
+          "nome": "Tesouraria Valida Cessão",
+          "podeFinalizarEsteira": true,
           "etapaPadraoDevolucao": false,
           "condicoes": [],
           "usuario": {
-            "dataCriacao": "2022-10-06T11:45:57.397",
-            "dataUltimaAlteracao": "2023-01-24T19:25:53.439",
-            "usuario": "Elaine Tarallo"
+            "dataCriacao": "2024-05-21T17:56:41.783",
+            "dataUltimaAlteracao": null,
+            "usuario": "Eduardo Ribeiro"
           },
           "status": "ATIVO",
           "excluido": false,
@@ -48,48 +58,28 @@
             {
               "ordem": 1,
               "modeloSubEtapa": {
-                "id": "633c4759e1f9e94744c844b3",
-                "nome": "Middle OPE",
+                "id": "664d06ac25233a73fc57316e",
+                "nome": "Tesouraria Valida Cessão",
                 "podeFinalizarEsteira": true,
-                "podeVoltarEtapa": false,
+                "podeVoltarEtapa": true,
                 "requerParecer": true,
                 "requerVotacao": false,
-                "requerMotivo": true,
+                "requerMotivo": false,
                 "preAtributos": [
-                  "idPreOperacao"
+                  "idOperacaoCessao"
                 ],
                 "execAtributos": [
-                  "idPreOperacao"
+                  "idOperacaoCessao"
                 ],
                 "posAtributos": [
-                  "idPreOperacao"
+                  "idOperacaoCessao"
                 ],
-                "tempoMaxExecucao": 60,
-                "tempoNotificacaoOperador": 60,
-                "tempoNotificacaoObservador": 60,
+                "tempoMaxExecucao": 3600,
+                "tempoNotificacaoOperador": 3600,
+                "tempoNotificacaoObservador": 3600,
                 "temPrazoExpiracao": null,
                 "diasExpiracao": null,
                 "operadores": [
-                  {
-                    "grupo": "Assistente Comercial",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  },
-                  {
-                    "grupo": "Agente Comercial",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  },
-                  {
-                    "grupo": "Analista Gestora",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  },
-                  {
-                    "grupo": "BackOffice",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  },
                   {
                     "grupo": "Analista TI",
                     "tipoSeguranca": "",
@@ -101,22 +91,22 @@
                     "podeAlterarFormulario": true
                   },
                   {
-                    "grupo": "Lastro",
+                    "grupo": "BackOffice Gestora",
                     "tipoSeguranca": "",
                     "podeAlterarFormulario": true
                   }
                 ],
                 "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-operacao-backoffice-ms/api/v1/validadorEsteira/validaEtapaEsteira",
-                "urlWhatsapp": null,
+                "urlWhatsapp": "",
                 "status": "ATIVO",
                 "usuario": {
-                  "dataCriacao": "2025-11-07T13:12:50.027",
+                  "dataCriacao": "2025-11-07T15:56:15.799",
                   "dataUltimaAlteracao": null,
                   "usuario": "Thiago Santos"
                 },
                 "excluido": false,
                 "idFiltro": "1",
-                "area": "Comercial",
+                "area": "Tesouraria",
                 "requerAlcada": false,
                 "requerCondicao": false,
                 "tipoAlcada": null,
@@ -166,15 +156,6 @@
                     "status": null,
                     "excluido": false,
                     "idFiltro": null
-                  },
-                  {
-                    "id": "682b4b715e8b2f6caccc8319",
-                    "nome": "Operação recusada pela MOP",
-                    "descricao": "Middle - Operação recusada pela MOP",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
                   }
                 ],
                 "notificacaoArea": [],
@@ -205,15 +186,15 @@
       {
         "ordem": 2,
         "modeloEtapa": {
-          "id": "633eea6ce1f9e94744c8456e",
-          "nome": "Comercial OPE",
-          "podeFinalizarEsteira": false,
+          "id": "6691a1792c5d153c5d1cc56d",
+          "nome": "Formalização Valida Cessão",
+          "podeFinalizarEsteira": true,
           "etapaPadraoDevolucao": false,
           "condicoes": [],
           "usuario": {
-            "dataCriacao": "2022-10-06T11:47:08.026",
-            "dataUltimaAlteracao": "2022-10-06T11:48:04.582",
-            "usuario": "Elaine Tarallo"
+            "dataCriacao": "2024-07-12T18:34:49.635",
+            "dataUltimaAlteracao": null,
+            "usuario": "Natiele Silva"
           },
           "status": "ATIVO",
           "excluido": false,
@@ -222,50 +203,50 @@
             {
               "ordem": 1,
               "modeloSubEtapa": {
-                "id": "633c4833e1f9e94744c844b8",
-                "nome": "Comercial OPE",
+                "id": "6691a1429670327f569e62c4",
+                "nome": "Formalização Valida Cessão",
                 "podeFinalizarEsteira": true,
                 "podeVoltarEtapa": true,
                 "requerParecer": true,
                 "requerVotacao": false,
-                "requerMotivo": true,
+                "requerMotivo": false,
                 "preAtributos": [
-                  "idPreOperacao"
+                  "idOperacaoCessao"
                 ],
                 "execAtributos": [
-                  "idPreOperacao"
+                  "idOperacaoCessao"
                 ],
                 "posAtributos": [
-                  "idPreOperacao"
+                  "idOperacaoCessao"
                 ],
-                "tempoMaxExecucao": 30,
-                "tempoNotificacaoOperador": 30,
-                "tempoNotificacaoObservador": 30,
+                "tempoMaxExecucao": 3600,
+                "tempoNotificacaoOperador": 3600,
+                "tempoNotificacaoObservador": 3600,
                 "temPrazoExpiracao": null,
                 "diasExpiracao": null,
                 "operadores": [
                   {
-                    "grupo": "Agente Comercial",
+                    "grupo": "Analista TI",
                     "tipoSeguranca": "",
                     "podeAlterarFormulario": true
                   },
                   {
-                    "grupo": "Assistente Comercial",
+                    "grupo": "Formalização",
                     "tipoSeguranca": "",
                     "podeAlterarFormulario": true
                   }
                 ],
                 "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-operacao-backoffice-ms/api/v1/validadorEsteira/validaEtapaEsteira",
-                "urlWhatsapp": null,
+                "urlWhatsapp": "",
                 "status": "ATIVO",
                 "usuario": {
-                  "dataCriacao": "2025-11-07T13:13:08.457",
+                  "dataCriacao": "2025-11-07T15:58:09.441",
                   "dataUltimaAlteracao": null,
                   "usuario": "Thiago Santos"
                 },
                 "excluido": false,
                 "idFiltro": "1",
-                "area": "Comercial",
+                "area": "Formalização",
                 "requerAlcada": false,
                 "requerCondicao": false,
                 "tipoAlcada": null,
@@ -345,15 +326,15 @@
       {
         "ordem": 3,
         "modeloEtapa": {
-          "id": "637ce1da496ee21d510327cb",
-          "nome": "Formalização OPE",
+          "id": "663ed6693b3a340af4f40a1a",
+          "nome": "MOP Cessão",
           "podeFinalizarEsteira": true,
           "etapaPadraoDevolucao": false,
           "condicoes": [],
           "usuario": {
-            "dataCriacao": "2022-11-22T11:51:06.892",
-            "dataUltimaAlteracao": "2023-01-18T11:35:55.007",
-            "usuario": "Elaine Tarallo"
+            "dataCriacao": "2024-05-10T23:22:33.46",
+            "dataUltimaAlteracao": null,
+            "usuario": "Rodrigo Meneses"
           },
           "status": "ATIVO",
           "excluido": false,
@@ -362,78 +343,91 @@
             {
               "ordem": 1,
               "modeloSubEtapa": {
-                "id": "63502c7e707e763b84dba711",
-                "nome": "Formalização Ativo OPE",
+                "id": "663ed65e3b3a340af4f40a18",
+                "nome": "MOP Cessão",
                 "podeFinalizarEsteira": true,
                 "podeVoltarEtapa": true,
                 "requerParecer": true,
                 "requerVotacao": false,
-                "requerMotivo": true,
+                "requerMotivo": false,
                 "preAtributos": [
-                  "idPreOperacao"
+                  "idOperacaoCessao"
                 ],
                 "execAtributos": [
-                  "idPreOperacao"
+                  "idOperacaoCessao"
                 ],
                 "posAtributos": [
-                  "idPreOperacao"
+                  "idOperacaoCessao"
                 ],
-                "tempoMaxExecucao": 3600,
+                "tempoMaxExecucao": 3599,
                 "tempoNotificacaoOperador": 3600,
                 "tempoNotificacaoObservador": 3600,
                 "temPrazoExpiracao": null,
                 "diasExpiracao": null,
                 "operadores": [
                   {
-                    "grupo": "Formalização",
+                    "grupo": "Analista TI",
                     "tipoSeguranca": "",
                     "podeAlterarFormulario": true
                   },
                   {
-                    "grupo": "Gestora",
+                    "grupo": "Mop",
                     "tipoSeguranca": "",
                     "podeAlterarFormulario": true
                   },
                   {
-                    "grupo": "BackOffice Gestora",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  },
-                  {
-                    "grupo": "Analista Gestora",
+                    "grupo": "Analista de Riscos",
                     "tipoSeguranca": "",
                     "podeAlterarFormulario": true
                   }
                 ],
-                "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-operacao-backoffice-ms/api/v1/validadorEsteira/validaEtapaEsteira",
-                "urlWhatsapp": null,
+                "urlValidador": "",
+                "urlWhatsapp": "",
                 "status": "ATIVO",
                 "usuario": {
-                  "dataCriacao": "2025-11-07T15:39:41.088",
+                  "dataCriacao": "2025-11-07T15:51:20.521",
                   "dataUltimaAlteracao": null,
                   "usuario": "Thiago Santos"
                 },
                 "excluido": false,
                 "idFiltro": "1",
-                "area": "Formalização",
+                "area": "MOP",
                 "requerAlcada": false,
                 "requerCondicao": false,
                 "tipoAlcada": null,
                 "chamadaApi": [],
                 "motivosRetornoEsteira": [
                   {
-                    "id": "67fd00a4863e3e045e36532d",
-                    "nome": "CCB/NC - Valores Divergentes",
-                    "descricao": "MOP Gestora - CCB/NC - Valores Divergentes",
+                    "id": "67fcffc102b63d5baf1b84a8",
+                    "nome": "Cancelamento cliente - Recusa de sacado",
+                    "descricao": "Middle - Cancelamento cliente - Recusa de sacado",
                     "usuario": null,
                     "status": null,
                     "excluido": false,
                     "idFiltro": null
                   },
                   {
-                    "id": "67fd016c02b63d5baf1b84bd",
-                    "nome": "Inclusão/Alteração em cláusula de Garantia",
-                    "descricao": "Formalização - Inclusão/Alteração em cláusula de Garantia",
+                    "id": "67fcffd0863e3e045e365322",
+                    "nome": "Cancelamento Cleinte - Taxa",
+                    "descricao": "Middle - Cancelamento Cleinte - Taxa",
+                    "usuario": null,
+                    "status": null,
+                    "excluido": false,
+                    "idFiltro": null
+                  },
+                  {
+                    "id": "67fcff7002b63d5baf1b849f",
+                    "nome": "Operação fora do aprovado em ATA",
+                    "descricao": "MOP - Operação fora do aprovado em ATA",
+                    "usuario": null,
+                    "status": null,
+                    "excluido": false,
+                    "idFiltro": null
+                  },
+                  {
+                    "id": "67fd003802b63d5baf1b84ab",
+                    "nome": "Informacoes incorretas",
+                    "descricao": "Middle - Informacoes incorretas",
                     "usuario": null,
                     "status": null,
                     "excluido": false,
@@ -443,15 +437,6 @@
                     "id": "67fd1a9878df6f119336ca3b",
                     "nome": "Problema Sistêmico",
                     "descricao": "Geral - Problema Sistêmico",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "680bd57916ad49188a21377d",
-                    "nome": "Cliente Não Assinou a Operação",
-                    "descricao": "Cliente Não Assinou a Operação",
                     "usuario": null,
                     "status": null,
                     "excluido": false,
@@ -486,15 +471,15 @@
       {
         "ordem": 4,
         "modeloEtapa": {
-          "id": "6568fcb5fc59213910941b86",
-          "nome": "Lastro",
+          "id": "664d0ab325233a73fc573179",
+          "nome": "Formalização Cessão",
           "podeFinalizarEsteira": true,
           "etapaPadraoDevolucao": false,
           "condicoes": [],
           "usuario": {
-            "dataCriacao": "2023-11-30T18:20:53.193",
+            "dataCriacao": "2024-05-21T17:57:23.246",
             "dataUltimaAlteracao": null,
-            "usuario": "Elaine Tarallo"
+            "usuario": "Eduardo Ribeiro"
           },
           "status": "ATIVO",
           "excluido": false,
@@ -503,35 +488,40 @@
             {
               "ordem": 1,
               "modeloSubEtapa": {
-                "id": "6568fc3efc59213910941b83",
-                "nome": "Lastro",
-                "podeFinalizarEsteira": false,
+                "id": "664d070e37006b5d5bedd680",
+                "nome": "Formalização Cessão",
+                "podeFinalizarEsteira": true,
                 "podeVoltarEtapa": true,
                 "requerParecer": true,
                 "requerVotacao": false,
-                "requerMotivo": true,
+                "requerMotivo": false,
                 "preAtributos": [
-                  "idPreOperacao"
+                  "idOperacaoCessao"
                 ],
                 "execAtributos": [
-                  "idPreOperacao"
+                  "idOperacaoCessao"
                 ],
                 "posAtributos": [
-                  "idPreOperacao"
+                  "idOperacaoCessao"
                 ],
-                "tempoMaxExecucao": 60,
-                "tempoNotificacaoOperador": 60,
-                "tempoNotificacaoObservador": 60,
+                "tempoMaxExecucao": 3600,
+                "tempoNotificacaoOperador": 3600,
+                "tempoNotificacaoObservador": 3600,
                 "temPrazoExpiracao": null,
                 "diasExpiracao": null,
                 "operadores": [
                   {
-                    "grupo": "Lastro",
+                    "grupo": "Analista TI",
                     "tipoSeguranca": "",
                     "podeAlterarFormulario": true
                   },
                   {
                     "grupo": "Formalização",
+                    "tipoSeguranca": "",
+                    "podeAlterarFormulario": true
+                  },
+                  {
+                    "grupo": "Lastro",
                     "tipoSeguranca": "",
                     "podeAlterarFormulario": true
                   }
@@ -540,7 +530,7 @@
                 "urlWhatsapp": "",
                 "status": "ATIVO",
                 "usuario": {
-                  "dataCriacao": "2025-11-07T15:49:48.432",
+                  "dataCriacao": "2025-11-07T15:56:33.084",
                   "dataUltimaAlteracao": null,
                   "usuario": "Thiago Santos"
                 },
@@ -553,36 +543,36 @@
                 "chamadaApi": [],
                 "motivosRetornoEsteira": [
                   {
-                    "id": "67fd0106863e3e045e365335",
-                    "nome": "Data - Operação",
-                    "descricao": "Lastro - Data - Operação",
+                    "id": "67fcffc102b63d5baf1b84a8",
+                    "nome": "Cancelamento cliente - Recusa de sacado",
+                    "descricao": "Middle - Cancelamento cliente - Recusa de sacado",
                     "usuario": null,
                     "status": null,
                     "excluido": false,
                     "idFiltro": null
                   },
                   {
-                    "id": "67fd011502b63d5baf1b84b8",
-                    "nome": "Valor - Operação",
-                    "descricao": "Lastro - Valor - Operação",
+                    "id": "67fcffd0863e3e045e365322",
+                    "nome": "Cancelamento Cleinte - Taxa",
+                    "descricao": "Middle - Cancelamento Cleinte - Taxa",
                     "usuario": null,
                     "status": null,
                     "excluido": false,
                     "idFiltro": null
                   },
                   {
-                    "id": "67fd0129863e3e045e36533a",
-                    "nome": "Impedimento de cessão",
-                    "descricao": "Lastro - Impedimento de cessão",
+                    "id": "67fcff7002b63d5baf1b849f",
+                    "nome": "Operação fora do aprovado em ATA",
+                    "descricao": "MOP - Operação fora do aprovado em ATA",
                     "usuario": null,
                     "status": null,
                     "excluido": false,
                     "idFiltro": null
                   },
                   {
-                    "id": "67fcff5902b63d5baf1b849d",
-                    "nome": "Falta de Lastro",
-                    "descricao": "MOP - Falta de Lastro",
+                    "id": "67fd003802b63d5baf1b84ab",
+                    "nome": "Informacoes incorretas",
+                    "descricao": "Middle - Informacoes incorretas",
                     "usuario": null,
                     "status": null,
                     "excluido": false,
@@ -626,15 +616,15 @@
       {
         "ordem": 5,
         "modeloEtapa": {
-          "id": "6351a614bbd1f9567fb4d0f4",
-          "nome": "Jurídico OPE",
+          "id": "664d0ad225233a73fc57317b",
+          "nome": "Gestora Valida Cessão",
           "podeFinalizarEsteira": true,
           "etapaPadraoDevolucao": false,
           "condicoes": [],
           "usuario": {
-            "dataCriacao": "2022-10-20T16:48:36.768",
+            "dataCriacao": "2024-05-21T17:57:54.268",
             "dataUltimaAlteracao": null,
-            "usuario": "Elaine Tarallo"
+            "usuario": "Eduardo Ribeiro"
           },
           "status": "ATIVO",
           "excluido": false,
@@ -643,30 +633,30 @@
             {
               "ordem": 1,
               "modeloSubEtapa": {
-                "id": "6351a5b0707e763b84dba841",
-                "nome": "Jurídico OPE",
-                "podeFinalizarEsteira": false,
+                "id": "664d07363b3a340af4f416ba",
+                "nome": "Gestora Valida Cessão",
+                "podeFinalizarEsteira": true,
                 "podeVoltarEtapa": true,
                 "requerParecer": true,
                 "requerVotacao": false,
-                "requerMotivo": true,
+                "requerMotivo": false,
                 "preAtributos": [
-                  "idPreOperacao"
+                  "idOperacaoCessao"
                 ],
                 "execAtributos": [
-                  "idPreOperacao"
+                  "idOperacaoCessao"
                 ],
                 "posAtributos": [
-                  "idPreOperacao"
+                  "idOperacaoCessao"
                 ],
-                "tempoMaxExecucao": 60,
-                "tempoNotificacaoOperador": 60,
-                "tempoNotificacaoObservador": 60,
+                "tempoMaxExecucao": 3600,
+                "tempoNotificacaoOperador": 3600,
+                "tempoNotificacaoObservador": 3600,
                 "temPrazoExpiracao": null,
                 "diasExpiracao": null,
                 "operadores": [
                   {
-                    "grupo": "Jurídico",
+                    "grupo": "Analista Gestora",
                     "tipoSeguranca": "",
                     "podeAlterarFormulario": true
                   },
@@ -677,25 +667,52 @@
                   }
                 ],
                 "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-operacao-backoffice-ms/api/v1/validadorEsteira/validaEtapaEsteira",
-                "urlWhatsapp": null,
+                "urlWhatsapp": "",
                 "status": "ATIVO",
                 "usuario": {
-                  "dataCriacao": "2025-11-07T15:46:08.632",
+                  "dataCriacao": "2025-11-07T15:56:46.604",
                   "dataUltimaAlteracao": null,
                   "usuario": "Thiago Santos"
                 },
                 "excluido": false,
                 "idFiltro": "1",
-                "area": "Jurídico",
+                "area": "Gestora",
                 "requerAlcada": false,
                 "requerCondicao": false,
                 "tipoAlcada": null,
                 "chamadaApi": [],
                 "motivosRetornoEsteira": [
                   {
-                    "id": "67fd022d863e3e045e365342",
-                    "nome": "TBD",
-                    "descricao": "Jurídico - TBD",
+                    "id": "67fcffc102b63d5baf1b84a8",
+                    "nome": "Cancelamento cliente - Recusa de sacado",
+                    "descricao": "Middle - Cancelamento cliente - Recusa de sacado",
+                    "usuario": null,
+                    "status": null,
+                    "excluido": false,
+                    "idFiltro": null
+                  },
+                  {
+                    "id": "67fcffd0863e3e045e365322",
+                    "nome": "Cancelamento Cleinte - Taxa",
+                    "descricao": "Middle - Cancelamento Cleinte - Taxa",
+                    "usuario": null,
+                    "status": null,
+                    "excluido": false,
+                    "idFiltro": null
+                  },
+                  {
+                    "id": "67fcff7002b63d5baf1b849f",
+                    "nome": "Operação fora do aprovado em ATA",
+                    "descricao": "MOP - Operação fora do aprovado em ATA",
+                    "usuario": null,
+                    "status": null,
+                    "excluido": false,
+                    "idFiltro": null
+                  },
+                  {
+                    "id": "67fd003802b63d5baf1b84ab",
+                    "nome": "Informacoes incorretas",
+                    "descricao": "Middle - Informacoes incorretas",
                     "usuario": null,
                     "status": null,
                     "excluido": false,
@@ -714,13 +731,13 @@
                 "notificacaoArea": [],
                 "modeloAcao": [
                   {
-                    "id": "6351a4a8bbd1f9567fb4d0f2",
-                    "nome": "Analisar Jurídico OPE",
+                    "id": "6348526249cd260334afc867",
+                    "nome": "Analisar Operação",
                     "mfe": "\\",
                     "enviaCondicao": true,
                     "status": "ATIVO",
                     "usuario": {
-                      "dataCriacao": "2022-10-20T16:42:32.632",
+                      "dataCriacao": "2022-10-13T15:01:06.786",
                       "dataUltimaAlteracao": null,
                       "usuario": "Elaine Tarallo"
                     },
@@ -739,15 +756,15 @@
       {
         "ordem": 6,
         "modeloEtapa": {
-          "id": "633eeb17cdb5ac474a25e73d",
-          "nome": "Análise MOP",
+          "id": "663ed57725233a73fc5724f3",
+          "nome": "Tesouraria Cessão",
           "podeFinalizarEsteira": true,
           "etapaPadraoDevolucao": false,
           "condicoes": [],
           "usuario": {
-            "dataCriacao": "2022-10-06T11:49:59.885",
-            "dataUltimaAlteracao": "2022-12-08T18:47:35.369",
-            "usuario": "Tiago Roque"
+            "dataCriacao": "2024-05-10T23:18:31.258",
+            "dataUltimaAlteracao": null,
+            "usuario": "Rodrigo Meneses"
           },
           "status": "ATIVO",
           "excluido": false,
@@ -756,63 +773,68 @@
             {
               "ordem": 1,
               "modeloSubEtapa": {
-                "id": "633dcb10e1f9e94744c8453a",
-                "nome": "Análise MOP",
-                "podeFinalizarEsteira": true,
+                "id": "663ed55e3b3a340af4f40a15",
+                "nome": "Tesouraria Cessão",
+                "podeFinalizarEsteira": false,
                 "podeVoltarEtapa": true,
                 "requerParecer": true,
                 "requerVotacao": false,
-                "requerMotivo": true,
+                "requerMotivo": false,
                 "preAtributos": [
-                  "idPreOperacao"
+                  "idOperacaoCessao"
                 ],
                 "execAtributos": [
-                  "idPreOperacao"
+                  "idOperacaoCessao"
                 ],
                 "posAtributos": [
-                  "idPreOperacao"
+                  "idOperacaoCessao"
                 ],
-                "tempoMaxExecucao": 45,
-                "tempoNotificacaoOperador": 45,
-                "tempoNotificacaoObservador": 45,
+                "tempoMaxExecucao": 3599,
+                "tempoNotificacaoOperador": 3600,
+                "tempoNotificacaoObservador": 3600,
                 "temPrazoExpiracao": null,
                 "diasExpiracao": null,
                 "operadores": [
                   {
-                    "grupo": "MOP",
+                    "grupo": "Analista TI",
+                    "tipoSeguranca": "",
+                    "podeAlterarFormulario": true
+                  },
+                  {
+                    "grupo": "Tesouraria",
                     "tipoSeguranca": "",
                     "podeAlterarFormulario": true
                   }
                 ],
-                "urlValidador": "https://beyond.grupomultiplica.com.br/mc-operacao-backoffice-ms/api/v1/validadorEsteira/validaEtapaEsteira",
-                "urlWhatsapp": null,
+                "urlValidador": "",
+                "urlWhatsapp": "",
                 "status": "ATIVO",
                 "usuario": {
-                  "dataCriacao": "2025-12-18T10:11:12.519",
+                  "dataCriacao": "2025-11-07T15:50:37.866",
                   "dataUltimaAlteracao": null,
-                  "usuario": "Lucas Carnovalli"
+                  "usuario": "Thiago Santos"
                 },
                 "excluido": false,
                 "idFiltro": "1",
-                "area": "MOP",
+                "area": "TESOURARIA",
                 "requerAlcada": false,
                 "requerCondicao": false,
                 "tipoAlcada": null,
                 "chamadaApi": [],
                 "motivosRetornoEsteira": [
                   {
-                    "id": "67fcff4002b63d5baf1b8499",
-                    "nome": "Solicitação Comercial",
-                    "descricao": "MOP - Solicitação Comercial",
+                    "id": "67fcffc102b63d5baf1b84a8",
+                    "nome": "Cancelamento cliente - Recusa de sacado",
+                    "descricao": "Middle - Cancelamento cliente - Recusa de sacado",
                     "usuario": null,
                     "status": null,
                     "excluido": false,
                     "idFiltro": null
                   },
                   {
-                    "id": "67fcff5902b63d5baf1b849d",
-                    "nome": "Falta de Lastro",
-                    "descricao": "MOP - Falta de Lastro",
+                    "id": "67fcffd0863e3e045e365322",
+                    "nome": "Cancelamento Cleinte - Taxa",
+                    "descricao": "Middle - Cancelamento Cleinte - Taxa",
                     "usuario": null,
                     "status": null,
                     "excluido": false,
@@ -828,36 +850,9 @@
                     "idFiltro": null
                   },
                   {
-                    "id": "67fcff7f02b63d5baf1b84a1",
-                    "nome": "Produto incorreto",
-                    "descricao": "MOP - Produto incorreto",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fcff9202b63d5baf1b84a3",
-                    "nome": "Limite/Tranche excedido",
-                    "descricao": "MOP - Limite/Tranche excedido",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fcffa002b63d5baf1b84a6",
-                    "nome": "Garantia Pendente",
-                    "descricao": "MOP - Garantia Pendente",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fcffad863e3e045e36531f",
-                    "nome": "Recusa MOP",
-                    "descricao": "MOP - Recusa MOP",
+                    "id": "67fd003802b63d5baf1b84ab",
+                    "nome": "Informacoes incorretas",
+                    "descricao": "Middle - Informacoes incorretas",
                     "usuario": null,
                     "status": null,
                     "excluido": false,
@@ -867,483 +862,6 @@
                     "id": "67fd1a9878df6f119336ca3b",
                     "nome": "Problema Sistêmico",
                     "descricao": "Geral - Problema Sistêmico",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "6943fbd14a2dbe528b503902",
-                    "nome": "Ata vencida",
-                    "descricao": "Ata vencida",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "6943fbe34a2dbe528b503904",
-                    "nome": "Pendência/Ajuste Formalização",
-                    "descricao": "Pendência/Ajuste Formalização",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "6943fc91fd2f6145c27fb8dc",
-                    "nome": "Solicitação de justificativa comercial",
-                    "descricao": "Solicitação de justificativa comercial",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "6943fca84a2dbe528b50390a",
-                    "nome": "Solicitação de parecer Sup. Comercial",
-                    "descricao": "Solicitação de parecer Sup. Comercial",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "6943fcbffd2f6145c27fb8e1",
-                    "nome": "Recusa Sacado",
-                    "descricao": "Recusa Sacado",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "6943fccffd2f6145c27fb8e4",
-                    "nome": "Vencidos em carteira",
-                    "descricao": "Vencidos em carteira",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  }
-                ],
-                "notificacaoArea": [],
-                "modeloAcao": [
-                  {
-                    "id": "633c42cbcdb5ac474a25e674",
-                    "nome": "Analisar Crédito OPE",
-                    "mfe": "\\",
-                    "enviaCondicao": true,
-                    "status": "ATIVO",
-                    "usuario": {
-                      "dataCriacao": "2022-10-13T15:03:11.404",
-                      "dataUltimaAlteracao": null,
-                      "usuario": "Elaine Tarallo"
-                    },
-                    "excluido": false,
-                    "idFiltro": null
-                  }
-                ],
-                "avancoAutomatico": null,
-                "formaAprovacaoAlcada": null,
-                "numeroMinimoAprovacoes": null
-              }
-            }
-          ]
-        }
-      },
-      {
-        "ordem": 7,
-        "modeloEtapa": {
-          "id": "633eebbce1f9e94744c84574",
-          "nome": "Checagem OPE",
-          "podeFinalizarEsteira": true,
-          "etapaPadraoDevolucao": false,
-          "condicoes": [],
-          "usuario": {
-            "dataCriacao": "2022-10-06T11:52:44.92",
-            "dataUltimaAlteracao": "2022-10-13T16:23:07.049",
-            "usuario": "Elaine Tarallo"
-          },
-          "status": "ATIVO",
-          "excluido": false,
-          "idFiltro": "1",
-          "modeloSubEtapaModel": [
-            {
-              "ordem": 1,
-              "modeloSubEtapa": {
-                "id": "633dcc0be1f9e94744c8453c",
-                "nome": "Checagem OPE",
-                "podeFinalizarEsteira": false,
-                "podeVoltarEtapa": true,
-                "requerParecer": true,
-                "requerVotacao": false,
-                "requerMotivo": false,
-                "preAtributos": [
-                  "idPreOperacao"
-                ],
-                "execAtributos": [
-                  "idPreOperacao"
-                ],
-                "posAtributos": [
-                  "idPreOperacao"
-                ],
-                "tempoMaxExecucao": 60,
-                "tempoNotificacaoOperador": 60,
-                "tempoNotificacaoObservador": 60,
-                "temPrazoExpiracao": null,
-                "diasExpiracao": null,
-                "operadores": [
-                  {
-                    "grupo": "Checagem",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  },
-                  {
-                    "grupo": "MOP",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  }
-                ],
-                "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-operacao-backoffice-ms/api/v1/validadorEsteira/condicao",
-                "urlWhatsapp": null,
-                "status": "ATIVO",
-                "usuario": {
-                  "dataCriacao": "2022-11-25T15:36:21.539",
-                  "dataUltimaAlteracao": null,
-                  "usuario": "Tiago Roque"
-                },
-                "excluido": false,
-                "idFiltro": "1",
-                "area": "Checagem",
-                "requerAlcada": false,
-                "requerCondicao": true,
-                "tipoAlcada": null,
-                "chamadaApi": null,
-                "motivosRetornoEsteira": null,
-                "notificacaoArea": null,
-                "modeloAcao": [
-                  {
-                    "id": "6348531fa185346ce9bd5c6f",
-                    "nome": "Fazer Checagem OPE",
-                    "mfe": "\\",
-                    "enviaCondicao": true,
-                    "status": "ATIVO",
-                    "usuario": {
-                      "dataCriacao": "2022-10-13T15:04:15.286",
-                      "dataUltimaAlteracao": null,
-                      "usuario": "Elaine Tarallo"
-                    },
-                    "excluido": false,
-                    "idFiltro": "1"
-                  }
-                ],
-                "avancoAutomatico": null,
-                "formaAprovacaoAlcada": null,
-                "numeroMinimoAprovacoes": null
-              }
-            }
-          ]
-        }
-      },
-      {
-        "ordem": 8,
-        "modeloEtapa": {
-          "id": "633eec0acdb5ac474a25e73f",
-          "nome": "MOP Pós Checagem",
-          "podeFinalizarEsteira": true,
-          "etapaPadraoDevolucao": false,
-          "condicoes": [],
-          "usuario": {
-            "dataCriacao": "2022-10-06T11:54:02.429",
-            "dataUltimaAlteracao": "2022-12-08T18:47:47.092",
-            "usuario": "Tiago Roque"
-          },
-          "status": "ATIVO",
-          "excluido": false,
-          "idFiltro": "1",
-          "modeloSubEtapaModel": [
-            {
-              "ordem": 1,
-              "modeloSubEtapa": {
-                "id": "636b9164bbd1f9567fb4dd46",
-                "nome": "MOP Pós Checagem OPE",
-                "podeFinalizarEsteira": true,
-                "podeVoltarEtapa": true,
-                "requerParecer": true,
-                "requerVotacao": false,
-                "requerMotivo": false,
-                "preAtributos": [
-                  ""
-                ],
-                "execAtributos": [
-                  "idPreOperacao"
-                ],
-                "posAtributos": [
-                  "idPreOperacao"
-                ],
-                "tempoMaxExecucao": 15,
-                "tempoNotificacaoOperador": 15,
-                "tempoNotificacaoObservador": 15,
-                "temPrazoExpiracao": null,
-                "diasExpiracao": null,
-                "operadores": [
-                  {
-                    "grupo": "MOP",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  }
-                ],
-                "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-operacao-backoffice-ms/api/v1/validadorEsteira/condicao",
-                "urlWhatsapp": null,
-                "status": "ATIVO",
-                "usuario": {
-                  "dataCriacao": "2022-12-09T00:30:16.214",
-                  "dataUltimaAlteracao": null,
-                  "usuario": "Tiago Roque"
-                },
-                "excluido": false,
-                "idFiltro": "1",
-                "area": "MOP",
-                "requerAlcada": false,
-                "requerCondicao": true,
-                "tipoAlcada": null,
-                "chamadaApi": null,
-                "motivosRetornoEsteira": null,
-                "notificacaoArea": null,
-                "modeloAcao": [
-                  {
-                    "id": "634852f149cd260334afc86a",
-                    "nome": "Analisar Crédito OPE",
-                    "mfe": "\\",
-                    "enviaCondicao": true,
-                    "status": "ATIVO",
-                    "usuario": {
-                      "dataCriacao": "2022-10-13T15:03:29.712",
-                      "dataUltimaAlteracao": null,
-                      "usuario": "Elaine Tarallo"
-                    },
-                    "excluido": false,
-                    "idFiltro": "1"
-                  }
-                ],
-                "avancoAutomatico": null,
-                "formaAprovacaoAlcada": null,
-                "numeroMinimoAprovacoes": null
-              }
-            }
-          ]
-        }
-      },
-      {
-        "ordem": 9,
-        "modeloEtapa": {
-          "id": "633eec5fcdb5ac474a25e741",
-          "nome": "Alçada MOP",
-          "podeFinalizarEsteira": true,
-          "etapaPadraoDevolucao": false,
-          "condicoes": [],
-          "usuario": {
-            "dataCriacao": "2022-10-06T11:55:27.549",
-            "dataUltimaAlteracao": "2022-12-08T18:47:58.359",
-            "usuario": "Tiago Roque"
-          },
-          "status": "ATIVO",
-          "excluido": false,
-          "idFiltro": "1",
-          "modeloSubEtapaModel": [
-            {
-              "ordem": 1,
-              "modeloSubEtapa": {
-                "id": "633dd006cdb5ac474a25e704",
-                "nome": "Alçada MOP",
-                "podeFinalizarEsteira": true,
-                "podeVoltarEtapa": true,
-                "requerParecer": true,
-                "requerVotacao": true,
-                "requerMotivo": false,
-                "preAtributos": [
-                  "idPreOperacao"
-                ],
-                "execAtributos": [
-                  "idPreOperacao"
-                ],
-                "posAtributos": [
-                  "idPreOperacao"
-                ],
-                "tempoMaxExecucao": 10,
-                "tempoNotificacaoOperador": 10,
-                "tempoNotificacaoObservador": 10,
-                "temPrazoExpiracao": null,
-                "diasExpiracao": null,
-                "operadores": [
-                  {
-                    "grupo": "Superintendente Crédito",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  },
-                  {
-                    "grupo": "Diretoria",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  },
-                  {
-                    "grupo": "Gerente MOP",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  }
-                ],
-                "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-operacao-backoffice-ms/api/v1/validadorEsteira/alcada",
-                "urlWhatsapp": "https://beyond.grupomultiplica.com.br/mc-whatsapp-ms/v1/mensagens/alcada",
-                "status": "ATIVO",
-                "usuario": {
-                  "dataCriacao": "2024-09-30T17:27:56.573",
-                  "dataUltimaAlteracao": null,
-                  "usuario": "Tiago Roque"
-                },
-                "excluido": false,
-                "idFiltro": "1",
-                "area": "MOP",
-                "requerAlcada": true,
-                "requerCondicao": false,
-                "tipoAlcada": "CREDITO",
-                "chamadaApi": [],
-                "motivosRetornoEsteira": null,
-                "notificacaoArea": null,
-                "modeloAcao": [
-                  {
-                    "id": "633c4317e1f9e94744c844a2",
-                    "nome": "Analisar Alçada MOP",
-                    "mfe": "\\",
-                    "enviaCondicao": false,
-                    "status": "ATIVO",
-                    "usuario": {
-                      "dataCriacao": "2022-10-13T15:05:25.076",
-                      "dataUltimaAlteracao": null,
-                      "usuario": "Elaine Tarallo"
-                    },
-                    "excluido": false,
-                    "idFiltro": null
-                  }
-                ],
-                "avancoAutomatico": null,
-                "formaAprovacaoAlcada": null,
-                "numeroMinimoAprovacoes": null
-              }
-            }
-          ]
-        }
-      },
-      {
-        "ordem": 10,
-        "modeloEtapa": {
-          "id": "63503567707e763b84dba72b",
-          "nome": "Formalização Doc",
-          "podeFinalizarEsteira": true,
-          "etapaPadraoDevolucao": false,
-          "condicoes": [],
-          "usuario": {
-            "dataCriacao": "2022-10-19T14:35:35.29",
-            "dataUltimaAlteracao": "2024-06-14T14:40:18.087",
-            "usuario": "Tiago Roque"
-          },
-          "status": "ATIVO",
-          "excluido": false,
-          "idFiltro": "1",
-          "modeloSubEtapaModel": [
-            {
-              "ordem": 1,
-              "modeloSubEtapa": {
-                "id": "63502c7e707e763b84dba711",
-                "nome": "Formalização Ativo OPE",
-                "podeFinalizarEsteira": true,
-                "podeVoltarEtapa": true,
-                "requerParecer": true,
-                "requerVotacao": false,
-                "requerMotivo": true,
-                "preAtributos": [
-                  "idPreOperacao"
-                ],
-                "execAtributos": [
-                  "idPreOperacao"
-                ],
-                "posAtributos": [
-                  "idPreOperacao"
-                ],
-                "tempoMaxExecucao": 3600,
-                "tempoNotificacaoOperador": 3600,
-                "tempoNotificacaoObservador": 3600,
-                "temPrazoExpiracao": null,
-                "diasExpiracao": null,
-                "operadores": [
-                  {
-                    "grupo": "Formalização",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  },
-                  {
-                    "grupo": "Gestora",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  },
-                  {
-                    "grupo": "BackOffice Gestora",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  },
-                  {
-                    "grupo": "Analista Gestora",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  }
-                ],
-                "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-operacao-backoffice-ms/api/v1/validadorEsteira/validaEtapaEsteira",
-                "urlWhatsapp": null,
-                "status": "ATIVO",
-                "usuario": {
-                  "dataCriacao": "2025-11-07T15:39:41.088",
-                  "dataUltimaAlteracao": null,
-                  "usuario": "Thiago Santos"
-                },
-                "excluido": false,
-                "idFiltro": "1",
-                "area": "Formalização",
-                "requerAlcada": false,
-                "requerCondicao": false,
-                "tipoAlcada": null,
-                "chamadaApi": [],
-                "motivosRetornoEsteira": [
-                  {
-                    "id": "67fd00a4863e3e045e36532d",
-                    "nome": "CCB/NC - Valores Divergentes",
-                    "descricao": "MOP Gestora - CCB/NC - Valores Divergentes",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fd016c02b63d5baf1b84bd",
-                    "nome": "Inclusão/Alteração em cláusula de Garantia",
-                    "descricao": "Formalização - Inclusão/Alteração em cláusula de Garantia",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fd1a9878df6f119336ca3b",
-                    "nome": "Problema Sistêmico",
-                    "descricao": "Geral - Problema Sistêmico",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "680bd57916ad49188a21377d",
-                    "nome": "Cliente Não Assinou a Operação",
-                    "descricao": "Cliente Não Assinou a Operação",
                     "usuario": null,
                     "status": null,
                     "excluido": false,
@@ -1365,1086 +883,6 @@
                     },
                     "excluido": false,
                     "idFiltro": "1"
-                  }
-                ],
-                "avancoAutomatico": null,
-                "formaAprovacaoAlcada": null,
-                "numeroMinimoAprovacoes": null
-              }
-            }
-          ]
-        }
-      },
-      {
-        "ordem": 11,
-        "modeloEtapa": {
-          "id": "6859b546a71cae7aa0b8f4f4",
-          "nome": "Aguardando Assinatura do Cliente",
-          "podeFinalizarEsteira": true,
-          "etapaPadraoDevolucao": false,
-          "condicoes": [],
-          "usuario": {
-            "dataCriacao": "2025-06-23T17:12:54.443",
-            "dataUltimaAlteracao": null,
-            "usuario": "Thiago Santos"
-          },
-          "status": "ATIVO",
-          "excluido": false,
-          "idFiltro": "1",
-          "modeloSubEtapaModel": [
-            {
-              "ordem": 1,
-              "modeloSubEtapa": {
-                "id": "63502c7e707e763b84dba711",
-                "nome": "Formalização Ativo OPE",
-                "podeFinalizarEsteira": true,
-                "podeVoltarEtapa": true,
-                "requerParecer": true,
-                "requerVotacao": false,
-                "requerMotivo": true,
-                "preAtributos": [
-                  "idPreOperacao"
-                ],
-                "execAtributos": [
-                  "idPreOperacao"
-                ],
-                "posAtributos": [
-                  "idPreOperacao"
-                ],
-                "tempoMaxExecucao": 3600,
-                "tempoNotificacaoOperador": 3600,
-                "tempoNotificacaoObservador": 3600,
-                "temPrazoExpiracao": null,
-                "diasExpiracao": null,
-                "operadores": [
-                  {
-                    "grupo": "Formalização",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  },
-                  {
-                    "grupo": "Gestora",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  },
-                  {
-                    "grupo": "BackOffice Gestora",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  },
-                  {
-                    "grupo": "Analista Gestora",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  }
-                ],
-                "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-operacao-backoffice-ms/api/v1/validadorEsteira/validaEtapaEsteira",
-                "urlWhatsapp": null,
-                "status": "ATIVO",
-                "usuario": {
-                  "dataCriacao": "2025-11-07T15:39:41.088",
-                  "dataUltimaAlteracao": null,
-                  "usuario": "Thiago Santos"
-                },
-                "excluido": false,
-                "idFiltro": "1",
-                "area": "Formalização",
-                "requerAlcada": false,
-                "requerCondicao": false,
-                "tipoAlcada": null,
-                "chamadaApi": [],
-                "motivosRetornoEsteira": [
-                  {
-                    "id": "67fd00a4863e3e045e36532d",
-                    "nome": "CCB/NC - Valores Divergentes",
-                    "descricao": "MOP Gestora - CCB/NC - Valores Divergentes",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fd016c02b63d5baf1b84bd",
-                    "nome": "Inclusão/Alteração em cláusula de Garantia",
-                    "descricao": "Formalização - Inclusão/Alteração em cláusula de Garantia",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fd1a9878df6f119336ca3b",
-                    "nome": "Problema Sistêmico",
-                    "descricao": "Geral - Problema Sistêmico",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "680bd57916ad49188a21377d",
-                    "nome": "Cliente Não Assinou a Operação",
-                    "descricao": "Cliente Não Assinou a Operação",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  }
-                ],
-                "notificacaoArea": [],
-                "modeloAcao": [
-                  {
-                    "id": "6348526249cd260334afc867",
-                    "nome": "Analisar Operação",
-                    "mfe": "\\",
-                    "enviaCondicao": true,
-                    "status": "ATIVO",
-                    "usuario": {
-                      "dataCriacao": "2022-10-13T15:01:06.786",
-                      "dataUltimaAlteracao": null,
-                      "usuario": "Elaine Tarallo"
-                    },
-                    "excluido": false,
-                    "idFiltro": "1"
-                  }
-                ],
-                "avancoAutomatico": null,
-                "formaAprovacaoAlcada": null,
-                "numeroMinimoAprovacoes": null
-              }
-            }
-          ]
-        }
-      },
-      {
-        "ordem": 12,
-        "modeloEtapa": {
-          "id": "6859b5669d643d3b45e23434",
-          "nome": "Aguardando IF",
-          "podeFinalizarEsteira": true,
-          "etapaPadraoDevolucao": false,
-          "condicoes": [],
-          "usuario": {
-            "dataCriacao": "2025-06-23T17:13:26.518",
-            "dataUltimaAlteracao": null,
-            "usuario": "Thiago Santos"
-          },
-          "status": "ATIVO",
-          "excluido": false,
-          "idFiltro": "1",
-          "modeloSubEtapaModel": [
-            {
-              "ordem": 1,
-              "modeloSubEtapa": {
-                "id": "63502c7e707e763b84dba711",
-                "nome": "Formalização Ativo OPE",
-                "podeFinalizarEsteira": true,
-                "podeVoltarEtapa": true,
-                "requerParecer": true,
-                "requerVotacao": false,
-                "requerMotivo": true,
-                "preAtributos": [
-                  "idPreOperacao"
-                ],
-                "execAtributos": [
-                  "idPreOperacao"
-                ],
-                "posAtributos": [
-                  "idPreOperacao"
-                ],
-                "tempoMaxExecucao": 3600,
-                "tempoNotificacaoOperador": 3600,
-                "tempoNotificacaoObservador": 3600,
-                "temPrazoExpiracao": null,
-                "diasExpiracao": null,
-                "operadores": [
-                  {
-                    "grupo": "Formalização",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  },
-                  {
-                    "grupo": "Gestora",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  },
-                  {
-                    "grupo": "BackOffice Gestora",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  },
-                  {
-                    "grupo": "Analista Gestora",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  }
-                ],
-                "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-operacao-backoffice-ms/api/v1/validadorEsteira/validaEtapaEsteira",
-                "urlWhatsapp": null,
-                "status": "ATIVO",
-                "usuario": {
-                  "dataCriacao": "2025-11-07T15:39:41.088",
-                  "dataUltimaAlteracao": null,
-                  "usuario": "Thiago Santos"
-                },
-                "excluido": false,
-                "idFiltro": "1",
-                "area": "Formalização",
-                "requerAlcada": false,
-                "requerCondicao": false,
-                "tipoAlcada": null,
-                "chamadaApi": [],
-                "motivosRetornoEsteira": [
-                  {
-                    "id": "67fd00a4863e3e045e36532d",
-                    "nome": "CCB/NC - Valores Divergentes",
-                    "descricao": "MOP Gestora - CCB/NC - Valores Divergentes",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fd016c02b63d5baf1b84bd",
-                    "nome": "Inclusão/Alteração em cláusula de Garantia",
-                    "descricao": "Formalização - Inclusão/Alteração em cláusula de Garantia",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fd1a9878df6f119336ca3b",
-                    "nome": "Problema Sistêmico",
-                    "descricao": "Geral - Problema Sistêmico",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "680bd57916ad49188a21377d",
-                    "nome": "Cliente Não Assinou a Operação",
-                    "descricao": "Cliente Não Assinou a Operação",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  }
-                ],
-                "notificacaoArea": [],
-                "modeloAcao": [
-                  {
-                    "id": "6348526249cd260334afc867",
-                    "nome": "Analisar Operação",
-                    "mfe": "\\",
-                    "enviaCondicao": true,
-                    "status": "ATIVO",
-                    "usuario": {
-                      "dataCriacao": "2022-10-13T15:01:06.786",
-                      "dataUltimaAlteracao": null,
-                      "usuario": "Elaine Tarallo"
-                    },
-                    "excluido": false,
-                    "idFiltro": "1"
-                  }
-                ],
-                "avancoAutomatico": null,
-                "formaAprovacaoAlcada": null,
-                "numeroMinimoAprovacoes": null
-              }
-            }
-          ]
-        }
-      },
-      {
-        "ordem": 13,
-        "modeloEtapa": {
-          "id": "633eec94e1f9e94744c84576",
-          "nome": "Alçada Diretoria OPE",
-          "podeFinalizarEsteira": true,
-          "etapaPadraoDevolucao": false,
-          "condicoes": [],
-          "usuario": {
-            "dataCriacao": "2022-10-06T11:56:20.32",
-            "dataUltimaAlteracao": null,
-            "usuario": "Elaine Tarallo"
-          },
-          "status": "ATIVO",
-          "excluido": false,
-          "idFiltro": "1",
-          "modeloSubEtapaModel": [
-            {
-              "ordem": 1,
-              "modeloSubEtapa": {
-                "id": "633dd0c0cdb5ac474a25e706",
-                "nome": "Alçada Diretoria OPE",
-                "podeFinalizarEsteira": true,
-                "podeVoltarEtapa": true,
-                "requerParecer": true,
-                "requerVotacao": true,
-                "requerMotivo": false,
-                "preAtributos": [
-                  "idPreOperacao"
-                ],
-                "execAtributos": [
-                  "idPreOperacao"
-                ],
-                "posAtributos": [
-                  "idPreOperacao"
-                ],
-                "tempoMaxExecucao": 10,
-                "tempoNotificacaoOperador": 10,
-                "tempoNotificacaoObservador": 10,
-                "temPrazoExpiracao": null,
-                "diasExpiracao": null,
-                "operadores": [
-                  {
-                    "grupo": "Diretoria",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  },
-                  {
-                    "grupo": "Gerente de Middle",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  }
-                ],
-                "urlValidador": "https://beyond.grupomultiplica.com.br/mc-operacao-backoffice-ms/api/v1/validadorEsteira/alcada",
-                "urlWhatsapp": "https://beyond.grupomultiplica.com.br/mc-whatsapp-ms/v1/mensagens/alcada",
-                "status": "ATIVO",
-                "usuario": {
-                  "dataCriacao": "2025-11-03T14:34:44.663",
-                  "dataUltimaAlteracao": null,
-                  "usuario": "Thiago Santos"
-                },
-                "excluido": false,
-                "idFiltro": "1",
-                "area": "Diretoria",
-                "requerAlcada": true,
-                "requerCondicao": false,
-                "tipoAlcada": "DIRETORIA",
-                "chamadaApi": [],
-                "motivosRetornoEsteira": [],
-                "notificacaoArea": [],
-                "modeloAcao": [
-                  {
-                    "id": "633c432acdb5ac474a25e678",
-                    "nome": "Analisar Alçada Diretoria OPE",
-                    "mfe": "\\",
-                    "enviaCondicao": false,
-                    "status": "ATIVO",
-                    "usuario": {
-                      "dataCriacao": "2022-10-13T15:08:18.274",
-                      "dataUltimaAlteracao": null,
-                      "usuario": "Elaine Tarallo"
-                    },
-                    "excluido": false,
-                    "idFiltro": null
-                  }
-                ],
-                "avancoAutomatico": null,
-                "formaAprovacaoAlcada": "UNICA",
-                "numeroMinimoAprovacoes": 0
-              }
-            }
-          ]
-        }
-      },
-      {
-        "ordem": 14,
-        "modeloEtapa": {
-          "id": "66734b5a37006b5d5bedfd5c",
-          "nome": "Alçada Acionista OPE",
-          "podeFinalizarEsteira": true,
-          "etapaPadraoDevolucao": false,
-          "condicoes": [],
-          "usuario": {
-            "dataCriacao": "2024-06-19T18:19:22.547",
-            "dataUltimaAlteracao": null,
-            "usuario": "Lucas Carnovalli"
-          },
-          "status": "ATIVO",
-          "excluido": false,
-          "idFiltro": "1",
-          "modeloSubEtapaModel": [
-            {
-              "ordem": 1,
-              "modeloSubEtapa": {
-                "id": "66734af6a1fcf43cdd85b550",
-                "nome": "Alçada Acionista OPE",
-                "podeFinalizarEsteira": true,
-                "podeVoltarEtapa": true,
-                "requerParecer": true,
-                "requerVotacao": true,
-                "requerMotivo": false,
-                "preAtributos": [
-                  "idPreOperacao"
-                ],
-                "execAtributos": [
-                  "idPreOperacao"
-                ],
-                "posAtributos": [
-                  "idPreOperacao"
-                ],
-                "tempoMaxExecucao": 10,
-                "tempoNotificacaoOperador": 10,
-                "tempoNotificacaoObservador": 10,
-                "temPrazoExpiracao": null,
-                "diasExpiracao": null,
-                "operadores": [
-                  {
-                    "grupo": "Diretoria",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  },
-                  {
-                    "grupo": "Gerente de Middle",
-                    "tipoSeguranca": "6210410e2eb7d56d6ac9182e",
-                    "podeAlterarFormulario": true
-                  }
-                ],
-                "urlValidador": "https://beyond.grupomultiplica.com.br/mc-operacao-backoffice-ms/api/v1/validadorEsteira/alcada",
-                "urlWhatsapp": "https://beyond.grupomultiplica.com.br/mc-whatsapp-ms/v1/mensagens/alcada",
-                "status": "ATIVO",
-                "usuario": {
-                  "dataCriacao": "2026-06-09T15:50:41.724",
-                  "dataUltimaAlteracao": null,
-                  "usuario": "Fernando Silva"
-                },
-                "excluido": false,
-                "idFiltro": "1",
-                "area": "Diretoria",
-                "requerAlcada": true,
-                "requerCondicao": false,
-                "tipoAlcada": "ACIONISTA",
-                "chamadaApi": [],
-                "motivosRetornoEsteira": [],
-                "notificacaoArea": [],
-                "modeloAcao": [
-                  {
-                    "id": "6348542449cd260334afc871",
-                    "nome": "Analisar Alçada Diretoria OPE",
-                    "mfe": "/",
-                    "enviaCondicao": false,
-                    "status": "ATIVO",
-                    "usuario": {
-                      "dataCriacao": "2023-05-30T13:28:24.453",
-                      "dataUltimaAlteracao": null,
-                      "usuario": "Eduardo Ribeiro"
-                    },
-                    "excluido": false,
-                    "idFiltro": null
-                  }
-                ],
-                "avancoAutomatico": null,
-                "formaAprovacaoAlcada": null,
-                "numeroMinimoAprovacoes": null
-              }
-            }
-          ]
-        }
-      },
-      {
-        "ordem": 15,
-        "modeloEtapa": {
-          "id": "633eecf2cdb5ac474a25e746",
-          "nome": "Tesouraria OPE",
-          "podeFinalizarEsteira": true,
-          "etapaPadraoDevolucao": false,
-          "condicoes": [
-            {
-              "condicao": "101",
-              "descricao": "Voltar",
-              "irIdEtapa": "633eea25e1f9e94744c8456c"
-            },
-            {
-              "condicao": "102",
-              "descricao": "Voltar",
-              "irIdEtapa": "633eeb17cdb5ac474a25e73d"
-            }
-          ],
-          "usuario": {
-            "dataCriacao": "2022-10-06T11:57:54.596",
-            "dataUltimaAlteracao": null,
-            "usuario": "Elaine Tarallo"
-          },
-          "status": "ATIVO",
-          "excluido": false,
-          "idFiltro": "1",
-          "modeloSubEtapaModel": [
-            {
-              "ordem": 1,
-              "modeloSubEtapa": {
-                "id": "633dd34ce1f9e94744c84542",
-                "nome": "Tesouraria OPE",
-                "podeFinalizarEsteira": false,
-                "podeVoltarEtapa": true,
-                "requerParecer": true,
-                "requerVotacao": false,
-                "requerMotivo": true,
-                "preAtributos": [
-                  "idPreOperacao"
-                ],
-                "execAtributos": [
-                  "idPreOperacao"
-                ],
-                "posAtributos": [
-                  "idPreOperacao"
-                ],
-                "tempoMaxExecucao": 30,
-                "tempoNotificacaoOperador": 30,
-                "tempoNotificacaoObservador": 30,
-                "temPrazoExpiracao": null,
-                "diasExpiracao": null,
-                "operadores": [
-                  {
-                    "grupo": "Tesouraria",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  }
-                ],
-                "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-operacao-backoffice-ms/api/v1/validadorEsteira/validaEtapaEsteira",
-                "urlWhatsapp": null,
-                "status": "ATIVO",
-                "usuario": {
-                  "dataCriacao": "2025-11-07T13:16:05.22",
-                  "dataUltimaAlteracao": null,
-                  "usuario": "Thiago Santos"
-                },
-                "excluido": false,
-                "idFiltro": "1",
-                "area": "Tesouraria",
-                "requerAlcada": false,
-                "requerCondicao": false,
-                "tipoAlcada": null,
-                "chamadaApi": [],
-                "motivosRetornoEsteira": [
-                  {
-                    "id": "67fcff4002b63d5baf1b8499",
-                    "nome": "Solicitação Comercial",
-                    "descricao": "MOP - Solicitação Comercial",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fd01d202b63d5baf1b84c1",
-                    "nome": "Cancelada conforme e-mail da Administradora",
-                    "descricao": "Tesouraria - Cancelada conforme e-mail da Administradora",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fd01f5863e3e045e36533d",
-                    "nome": "Cancelada por falta de assinatura",
-                    "descricao": "Tesouraria - Cancelada por falta de assinatura",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fd020c02b63d5baf1b84c3",
-                    "nome": "Sem tempo hábil para seguir no Portal",
-                    "descricao": "Tesouraria - Sem tempo hábil para seguir no Portal",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fd1a9878df6f119336ca3b",
-                    "nome": "Problema Sistêmico",
-                    "descricao": "Geral - Problema Sistêmico",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  }
-                ],
-                "notificacaoArea": [],
-                "modeloAcao": [
-                  {
-                    "id": "633c4350cdb5ac474a25e67a",
-                    "nome": "Analisar Tesouraria OPE",
-                    "mfe": "\\",
-                    "enviaCondicao": true,
-                    "status": "ATIVO",
-                    "usuario": {
-                      "dataCriacao": "2022-10-13T15:12:48.927",
-                      "dataUltimaAlteracao": null,
-                      "usuario": "Elaine Tarallo"
-                    },
-                    "excluido": false,
-                    "idFiltro": null
-                  }
-                ],
-                "avancoAutomatico": null,
-                "formaAprovacaoAlcada": null,
-                "numeroMinimoAprovacoes": null
-              }
-            }
-          ]
-        }
-      },
-      {
-        "ordem": 16,
-        "modeloEtapa": {
-          "id": "633eecc3cdb5ac474a25e744",
-          "nome": "Gestora OPE",
-          "podeFinalizarEsteira": true,
-          "etapaPadraoDevolucao": false,
-          "condicoes": [
-            {
-              "condicao": "107",
-              "descricao": "Voltar",
-              "irIdEtapa": "633eea6ce1f9e94744c8456e"
-            }
-          ],
-          "usuario": {
-            "dataCriacao": "2022-10-06T11:57:07.082",
-            "dataUltimaAlteracao": null,
-            "usuario": "Elaine Tarallo"
-          },
-          "status": "ATIVO",
-          "excluido": false,
-          "idFiltro": "1",
-          "modeloSubEtapaModel": [
-            {
-              "ordem": 1,
-              "modeloSubEtapa": {
-                "id": "633dd24fe1f9e94744c84540",
-                "nome": "Gestora OPE",
-                "podeFinalizarEsteira": false,
-                "podeVoltarEtapa": true,
-                "requerParecer": true,
-                "requerVotacao": false,
-                "requerMotivo": true,
-                "preAtributos": [
-                  "idPreOperacao"
-                ],
-                "execAtributos": [
-                  "idPreOperacao"
-                ],
-                "posAtributos": [
-                  "idPreOperacao"
-                ],
-                "tempoMaxExecucao": 180,
-                "tempoNotificacaoOperador": 180,
-                "tempoNotificacaoObservador": 180,
-                "temPrazoExpiracao": null,
-                "diasExpiracao": null,
-                "operadores": [
-                  {
-                    "grupo": "Analista Gestora",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  },
-                  {
-                    "grupo": "Tesouraria",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  }
-                ],
-                "urlValidador": "",
-                "urlWhatsapp": "https://beyond.grupomultiplica.com.br/mc-backoffice-multicomex-ms/api/v1/validador/validaEtapaEsteira",
-                "status": "ATIVO",
-                "usuario": {
-                  "dataCriacao": "2026-06-02T10:22:22.919",
-                  "dataUltimaAlteracao": null,
-                  "usuario": "Rodrigo Meneses"
-                },
-                "excluido": false,
-                "idFiltro": "1",
-                "area": "Gestora",
-                "requerAlcada": false,
-                "requerCondicao": false,
-                "tipoAlcada": null,
-                "chamadaApi": [
-                  {
-                    "url": "https://beyond.grupomultiplica.com.br/mc-operacao-backoffice-ms/api/v1/remessa/operacao",
-                    "gatilho": "NA_FINALIZACAO"
-                  }
-                ],
-                "motivosRetornoEsteira": [
-                  {
-                    "id": "67fd005602b63d5baf1b84ad",
-                    "nome": "Necessidade de revisão do parecer",
-                    "descricao": "MOP Gestora - Necessidade de revisão do parecer",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fd007202b63d5baf1b84af",
-                    "nome": "Minuta Divergente",
-                    "descricao": "MOP Gestora - Minuta Divergente",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fd00a4863e3e045e36532d",
-                    "nome": "CCB/NC - Valores Divergentes",
-                    "descricao": "MOP Gestora - CCB/NC - Valores Divergentes",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fd00bc02b63d5baf1b84b3",
-                    "nome": "Ausência de Lastro",
-                    "descricao": "MOP Gestora - Ausência de Lastro",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fd00cf863e3e045e36532f",
-                    "nome": "Pendência dos Administradores",
-                    "descricao": "MOP Gestora - Pendência dos Administradores",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fd00e502b63d5baf1b84b6",
-                    "nome": "Pré-Trade - Desenquadramento do Fundo",
-                    "descricao": "MOP Gestora - Pré-Trade - Desenquadramento do Fundo",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fd1a9878df6f119336ca3b",
-                    "nome": "Problema Sistêmico",
-                    "descricao": "Geral - Problema Sistêmico",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "680bd57916ad49188a21377d",
-                    "nome": "Cliente Não Assinou a Operação",
-                    "descricao": "Cliente Não Assinou a Operação",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  }
-                ],
-                "notificacaoArea": [],
-                "modeloAcao": [
-                  {
-                    "id": "634854ec49cd260334afc876",
-                    "nome": "Analisar Gestora OPE",
-                    "mfe": "\\",
-                    "enviaCondicao": true,
-                    "status": "ATIVO",
-                    "usuario": {
-                      "dataCriacao": "2022-10-13T15:11:56.905",
-                      "dataUltimaAlteracao": null,
-                      "usuario": "Elaine Tarallo"
-                    },
-                    "excluido": false,
-                    "idFiltro": "1"
-                  }
-                ],
-                "avancoAutomatico": null,
-                "formaAprovacaoAlcada": null,
-                "numeroMinimoAprovacoes": null
-              }
-            }
-          ]
-        }
-      },
-      {
-        "ordem": 17,
-        "modeloEtapa": {
-          "id": "6681ad86a1fcf43cdd85c3e3",
-          "nome": "Tesouraria Pag",
-          "podeFinalizarEsteira": true,
-          "etapaPadraoDevolucao": false,
-          "condicoes": [
-            {
-              "condicao": "101",
-              "descricao": "Voltar",
-              "irIdEtapa": "633eea25e1f9e94744c8456c"
-            },
-            {
-              "condicao": "102",
-              "descricao": "Voltar",
-              "irIdEtapa": "633eeb17cdb5ac474a25e73d"
-            }
-          ],
-          "usuario": {
-            "dataCriacao": "2024-06-30T16:09:58.491",
-            "dataUltimaAlteracao": "2024-08-09T21:28:42.659",
-            "usuario": "Tiago Roque"
-          },
-          "status": "ATIVO",
-          "excluido": false,
-          "idFiltro": "1",
-          "modeloSubEtapaModel": [
-            {
-              "ordem": 1,
-              "modeloSubEtapa": {
-                "id": "66b6b3db08067845babcf957",
-                "nome": "Tesouraria OPE 2",
-                "podeFinalizarEsteira": false,
-                "podeVoltarEtapa": true,
-                "requerParecer": true,
-                "requerVotacao": false,
-                "requerMotivo": true,
-                "preAtributos": [
-                  "idPreOperacao"
-                ],
-                "execAtributos": [
-                  "idPreOperacao"
-                ],
-                "posAtributos": [
-                  "idPreOperacao"
-                ],
-                "tempoMaxExecucao": 30,
-                "tempoNotificacaoOperador": 30,
-                "tempoNotificacaoObservador": 30,
-                "temPrazoExpiracao": null,
-                "diasExpiracao": null,
-                "operadores": [
-                  {
-                    "grupo": "Tesouraria",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  }
-                ],
-                "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-operacao-backoffice-ms/api/v1/validadorEsteira/validaEtapaEsteira",
-                "urlWhatsapp": "",
-                "status": "ATIVO",
-                "usuario": {
-                  "dataCriacao": "2026-04-15T11:34:54.578",
-                  "dataUltimaAlteracao": null,
-                  "usuario": "Rodrigo Meneses"
-                },
-                "excluido": false,
-                "idFiltro": "1",
-                "area": "Tesouraria",
-                "requerAlcada": false,
-                "requerCondicao": false,
-                "tipoAlcada": null,
-                "chamadaApi": [
-                  {
-                    "url": "https://beyond.grupomultiplica.com.br/mc-operacao-backoffice-ms/api/v1/documentos/enviar",
-                    "gatilho": "NA_FINALIZACAO"
-                  }
-                ],
-                "motivosRetornoEsteira": [
-                  {
-                    "id": "67fcff4002b63d5baf1b8499",
-                    "nome": "Solicitação Comercial",
-                    "descricao": "MOP - Solicitação Comercial",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fd01d202b63d5baf1b84c1",
-                    "nome": "Cancelada conforme e-mail da Administradora",
-                    "descricao": "Tesouraria - Cancelada conforme e-mail da Administradora",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fd01f5863e3e045e36533d",
-                    "nome": "Cancelada por falta de assinatura",
-                    "descricao": "Tesouraria - Cancelada por falta de assinatura",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fd020c02b63d5baf1b84c3",
-                    "nome": "Sem tempo hábil para seguir no Portal",
-                    "descricao": "Tesouraria - Sem tempo hábil para seguir no Portal",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fd1a9878df6f119336ca3b",
-                    "nome": "Problema Sistêmico",
-                    "descricao": "Geral - Problema Sistêmico",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  }
-                ],
-                "notificacaoArea": [],
-                "modeloAcao": [
-                  {
-                    "id": "6348553949cd260334afc878",
-                    "nome": "Analisar Tesouraria OPE",
-                    "mfe": "\\",
-                    "enviaCondicao": true,
-                    "status": "ATIVO",
-                    "usuario": {
-                      "dataCriacao": "2022-10-13T15:13:13.311",
-                      "dataUltimaAlteracao": null,
-                      "usuario": "Elaine Tarallo"
-                    },
-                    "excluido": false,
-                    "idFiltro": "1"
-                  }
-                ],
-                "avancoAutomatico": null,
-                "formaAprovacaoAlcada": null,
-                "numeroMinimoAprovacoes": null
-              }
-            }
-          ]
-        }
-      },
-      {
-        "ordem": 18,
-        "modeloEtapa": {
-          "id": "633eed53e1f9e94744c84578",
-          "nome": "Pagamento OPE",
-          "podeFinalizarEsteira": true,
-          "etapaPadraoDevolucao": false,
-          "condicoes": [],
-          "usuario": {
-            "dataCriacao": "2022-10-06T11:59:31.102",
-            "dataUltimaAlteracao": null,
-            "usuario": "Elaine Tarallo"
-          },
-          "status": "ATIVO",
-          "excluido": false,
-          "idFiltro": "1",
-          "modeloSubEtapaModel": [
-            {
-              "ordem": 1,
-              "modeloSubEtapa": {
-                "id": "633dd412cdb5ac474a25e70a",
-                "nome": "Pagamento OPE",
-                "podeFinalizarEsteira": false,
-                "podeVoltarEtapa": true,
-                "requerParecer": true,
-                "requerVotacao": false,
-                "requerMotivo": true,
-                "preAtributos": [
-                  "idPreOperacao"
-                ],
-                "execAtributos": [
-                  "idPreOperacao"
-                ],
-                "posAtributos": [
-                  "idPreOperacao"
-                ],
-                "tempoMaxExecucao": 180,
-                "tempoNotificacaoOperador": 180,
-                "tempoNotificacaoObservador": 180,
-                "temPrazoExpiracao": null,
-                "diasExpiracao": null,
-                "operadores": [
-                  {
-                    "grupo": "Tesouraria",
-                    "tipoSeguranca": "",
-                    "podeAlterarFormulario": true
-                  }
-                ],
-                "urlValidador": "https://beyond-us.grupomultiplica.com.br/mc-operacao-backoffice-ms/api/v1/validadorEsteira/validaEtapaEsteira",
-                "urlWhatsapp": null,
-                "status": "ATIVO",
-                "usuario": {
-                  "dataCriacao": "2025-11-07T13:16:16.601",
-                  "dataUltimaAlteracao": null,
-                  "usuario": "Thiago Santos"
-                },
-                "excluido": false,
-                "idFiltro": "1",
-                "area": "Tesouraria",
-                "requerAlcada": false,
-                "requerCondicao": false,
-                "tipoAlcada": null,
-                "chamadaApi": [],
-                "motivosRetornoEsteira": [
-                  {
-                    "id": "67fcff4002b63d5baf1b8499",
-                    "nome": "Solicitação Comercial",
-                    "descricao": "MOP - Solicitação Comercial",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fd01d202b63d5baf1b84c1",
-                    "nome": "Cancelada conforme e-mail da Administradora",
-                    "descricao": "Tesouraria - Cancelada conforme e-mail da Administradora",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fd01f5863e3e045e36533d",
-                    "nome": "Cancelada por falta de assinatura",
-                    "descricao": "Tesouraria - Cancelada por falta de assinatura",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fd020c02b63d5baf1b84c3",
-                    "nome": "Sem tempo hábil para seguir no Portal",
-                    "descricao": "Tesouraria - Sem tempo hábil para seguir no Portal",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  },
-                  {
-                    "id": "67fd1a9878df6f119336ca3b",
-                    "nome": "Problema Sistêmico",
-                    "descricao": "Geral - Problema Sistêmico",
-                    "usuario": null,
-                    "status": null,
-                    "excluido": false,
-                    "idFiltro": null
-                  }
-                ],
-                "notificacaoArea": [],
-                "modeloAcao": [
-                  {
-                    "id": "633c435fe1f9e94744c844a6",
-                    "nome": "Realizar Pagamento OPE",
-                    "mfe": "\\",
-                    "enviaCondicao": true,
-                    "status": "ATIVO",
-                    "usuario": {
-                      "dataCriacao": "2022-10-13T15:13:54.809",
-                      "dataUltimaAlteracao": null,
-                      "usuario": "Elaine Tarallo"
-                    },
-                    "excluido": false,
-                    "idFiltro": null
                   }
                 ],
                 "avancoAutomatico": null,
@@ -2457,14 +895,15 @@
       }
     ],
     "usuario": {
-      "dataCriacao": "2022-11-22T11:19:29.742",
-      "dataUltimaAlteracao": "2026-01-15T18:56:28.133",
-      "usuario": "Rodrigo Meneses"
+      "dataCriacao": "2024-07-12T18:35:08.967",
+      "dataUltimaAlteracao": "2025-05-26T16:42:06.907",
+      "usuario": "Thiago Santos"
     },
     "idModeloEsteiraVinculado": null,
     "modeloEsteiraVinculado": null,
     "idModeloEtapaCentral": null,
     "idModeloEtapaPendencia": null,
-    "modeloEtapaCentral": null
+    "modeloEtapaCentral": null,
+    "idHml": "667c2bfea0378256b2c113b9"
   }
 ]

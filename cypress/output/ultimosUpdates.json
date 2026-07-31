@@ -700,5 +700,491 @@
       "id": 456,
       "dataAtualizacao": "2026-07-29 16:50:54.712"
     }
+  ],
+  "ESTEIRAS": [
+    {
+      "id": "621028152eb7d56d6ac91816",
+      "dataAtualizacao": "2026-07-31 01:47:49.385"
+    },
+    {
+      "id": "6210290e2eb7d56d6ac91819",
+      "dataAtualizacao": "2026-07-31 01:47:49.668"
+    },
+    {
+      "id": "62102ad22eb7d56d6ac9181d",
+      "dataAtualizacao": "2026-07-31 01:47:49.970"
+    },
+    {
+      "id": "62102b942eb7d56d6ac91820",
+      "dataAtualizacao": "2026-07-31 01:47:50.292"
+    },
+    {
+      "id": "62102ca12eb7d56d6ac91823",
+      "dataAtualizacao": "2026-07-31 01:47:50.594"
+    },
+    {
+      "id": "62102d902eb7d56d6ac9182a",
+      "dataAtualizacao": "2026-07-31 01:47:50.882"
+    },
+    {
+      "id": "6218175766847b2af45e4964",
+      "dataAtualizacao": "2026-07-31 01:47:51.152"
+    },
+    {
+      "id": "62181c22627c0a311f6c87e0",
+      "dataAtualizacao": "2026-07-31 01:47:51.414"
+    },
+    {
+      "id": "62181eae627c0a311f6c87e3",
+      "dataAtualizacao": "2026-07-31 01:47:51.716"
+    },
+    {
+      "id": "62222a56a01c0c35140d8bc4",
+      "dataAtualizacao": "2026-07-31 01:47:52.038"
+    },
+    {
+      "id": "62224d1ea01c0c35140d8bde",
+      "dataAtualizacao": "2026-07-31 01:50:41.403"
+    },
+    {
+      "id": "6282c2d57b95a1333b836375",
+      "dataAtualizacao": "2026-07-31 01:50:41.787"
+    },
+    {
+      "id": "6287972c7b95a1333b836628",
+      "dataAtualizacao": "2026-07-31 01:50:42.127"
+    },
+    {
+      "id": "62ff0bd20b7f95108d609e3e",
+      "dataAtualizacao": "2026-07-31 01:50:42.509"
+    },
+    {
+      "id": "63402ffc2167630f279750af",
+      "dataAtualizacao": "2026-07-31 01:50:42.901"
+    },
+    {
+      "id": "63488739a185346ce9bd5ceb",
+      "dataAtualizacao": "2026-07-31 01:50:43.276"
+    },
+    {
+      "id": "6351aa11707e763b84dba845",
+      "dataAtualizacao": "2026-07-31 01:50:43.693"
+    },
+    {
+      "id": "637cd3e1496ee21d510327a0",
+      "dataAtualizacao": "2026-07-31 01:50:44.109"
+    },
+    {
+      "id": "63bec862990ae9623de51efb",
+      "dataAtualizacao": "2026-07-31 01:50:44.890"
+    },
+    {
+      "id": "6408f7f45cb05d0b60e9579a",
+      "dataAtualizacao": "2026-07-31 01:57:58.503"
+    },
+    {
+      "id": "6408f86ad94f5f564e70d1e1",
+      "dataAtualizacao": "2026-07-31 01:57:58.926"
+    },
+    {
+      "id": "64093b01c9efcd45f4d38a67",
+      "dataAtualizacao": "2026-07-31 01:57:59.378"
+    },
+    {
+      "id": "640961a6f2187f35154ea536",
+      "dataAtualizacao": "2026-07-31 01:57:59.761"
+    },
+    {
+      "id": "646546e5ab6c2515c7199551",
+      "dataAtualizacao": "2026-07-31 01:58:00.316"
+    },
+    {
+      "id": "646548d9ab6c2515c7199555",
+      "dataAtualizacao": "2026-07-31 01:58:00.692"
+    },
+    {
+      "id": "64c1ab259aaf5e269eccef57",
+      "dataAtualizacao": "2026-07-31 01:58:01.125"
+    },
+    {
+      "id": "6408f743d94f5f564e70d1dd",
+      "dataAtualizacao": "2026-07-31 01:58:02.100"
+    },
+    {
+      "id": "6408f824d94f5f564e70d1df",
+      "dataAtualizacao": "2026-07-31 01:58:03.778"
+    },
+    {
+      "id": "64c1b2e99aaf5e269eccef5b",
+      "dataAtualizacao": "2026-07-31 02:00:28.840"
+    },
+    {
+      "id": "64c1bc839aaf5e269eccef63",
+      "dataAtualizacao": "2026-07-31 02:02:58.447"
+    },
+    {
+      "id": "64dbb644c019680837be44f8",
+      "dataAtualizacao": "2026-07-31 02:02:58.773"
+    },
+    {
+      "id": "6504c88afc5921391093c000",
+      "dataAtualizacao": "2026-07-31 02:02:59.078"
+    },
+    {
+      "id": "6504cb61fc5921391093c002",
+      "dataAtualizacao": "2026-07-31 02:02:59.391"
+    },
+    {
+      "id": "65690162fc59213910941b89",
+      "dataAtualizacao": "2026-07-31 02:02:59.692"
+    },
+    {
+      "id": "65690296fc59213910941b8b",
+      "dataAtualizacao": "2026-07-31 02:03:00.005"
+    },
+    {
+      "id": "656903a5ccfcbd7aa994933f",
+      "dataAtualizacao": "2026-07-31 02:03:00.318"
+    },
+    {
+      "id": "65bf9f786132ca6fd9f9e457",
+      "dataAtualizacao": "2026-07-31 02:03:00.668"
+    },
+    {
+      "id": "64c8350e3cef8547613c1153",
+      "dataAtualizacao": "2026-07-31 02:03:01.558"
+    },
+    {
+      "id": "656906d8fc59213910941b96",
+      "dataAtualizacao": "2026-07-31 02:03:03.075"
+    },
+    {
+      "id": "65bfa0c655cf571cd12c8b70",
+      "dataAtualizacao": "2026-07-31 02:23:40.611"
+    },
+    {
+      "id": "65bfa3706132ca6fd9f9e45b",
+      "dataAtualizacao": "2026-07-31 02:23:41.047"
+    },
+    {
+      "id": "65bfaaa255cf571cd12c8b81",
+      "dataAtualizacao": "2026-07-31 02:23:41.532"
+    },
+    {
+      "id": "65bfae916132ca6fd9f9e46c",
+      "dataAtualizacao": "2026-07-31 02:23:41.988"
+    },
+    {
+      "id": "6691968fa1fcf43cdd85d4de",
+      "dataAtualizacao": "2026-07-31 02:23:42.490"
+    },
+    {
+      "id": "6691cc19b43a626535fabe8e",
+      "dataAtualizacao": "2026-07-31 02:23:42.490"
+    },
+    {
+      "id": "6691973a9670327f569e6259",
+      "dataAtualizacao": "2026-07-31 02:23:42.946"
+    },
+    {
+      "id": "66db79b4cc00e723b88da40a",
+      "dataAtualizacao": "2026-07-31 02:28:50.162"
+    },
+    {
+      "id": "66427f1837006b5d5bedcb85",
+      "dataAtualizacao": "2026-07-31 02:28:51.264"
+    },
+    {
+      "id": "6672d39f3b3a340af4f43bc8",
+      "dataAtualizacao": "2026-07-31 02:28:52.849"
+    },
+    {
+      "id": "66919de4a1fcf43cdd85d529",
+      "dataAtualizacao": "2026-07-31 02:28:54.334"
+    },
+    {
+      "id": "669fe7eb755fd6376c2b271d",
+      "dataAtualizacao": "2026-07-31 02:28:56.015"
+    },
+    {
+      "id": "669fec068a1f16518bbd679d",
+      "dataAtualizacao": "2026-07-31 02:28:57.667"
+    },
+    {
+      "id": "66bd06c9592fa65311e8e44f",
+      "dataAtualizacao": "2026-07-31 02:28:59.335"
+    },
+    {
+      "id": "66db7a2ecc00e723b88da40c",
+      "dataAtualizacao": "2026-07-31 02:29:01.039"
+    },
+    {
+      "id": "66db7aa586dd5f0515d2884e",
+      "dataAtualizacao": "2026-07-31 02:29:02.694"
+    },
+    {
+      "id": "66e3592c46fdaf4fba036aca",
+      "dataAtualizacao": "2026-07-31 02:29:04.300"
+    },
+    {
+      "id": "66fae3a5164ce671f3bbd15c",
+      "dataAtualizacao": "2026-07-31 02:29:04.300"
+    },
+    {
+      "id": "66e98df82525290d95f75f29",
+      "dataAtualizacao": "2026-07-31 02:29:05.923"
+    },
+    {
+      "id": "6724d4bdbae65030a7e315b2",
+      "dataAtualizacao": "2026-07-31 02:33:03.985"
+    },
+    {
+      "id": "672565de9a0df6658aa6b8b0",
+      "dataAtualizacao": "2026-07-31 02:33:05.575"
+    },
+    {
+      "id": "674102ade8d32d1c0f46d897",
+      "dataAtualizacao": "2026-07-31 02:33:07.138"
+    },
+    {
+      "id": "674db539a8de3a179bf3fb7a",
+      "dataAtualizacao": "2026-07-31 02:33:08.656"
+    },
+    {
+      "id": "674dc593a8de3a179bf3fbd5",
+      "dataAtualizacao": "2026-07-31 02:33:10.149"
+    },
+    {
+      "id": "674dc6043cbb554eeb90c26e",
+      "dataAtualizacao": "2026-07-31 02:33:11.726"
+    },
+    {
+      "id": "674f6b86a8de3a179bf3ff64",
+      "dataAtualizacao": "2026-07-31 02:33:13.197"
+    },
+    {
+      "id": "67e300220434907cafc57c8b",
+      "dataAtualizacao": "2026-07-31 02:33:13.197"
+    },
+    {
+      "id": "681bc39b37feb673f89d243d",
+      "dataAtualizacao": "2026-07-31 02:33:13.197"
+    },
+    {
+      "id": "6759de9da8de3a179bf40ea6",
+      "dataAtualizacao": "2026-07-31 02:33:14.707"
+    },
+    {
+      "id": "67e304d4b9e69a6c6a771130",
+      "dataAtualizacao": "2026-07-31 02:39:20.182"
+    },
+    {
+      "id": "67e30ada0434907cafc57caa",
+      "dataAtualizacao": "2026-07-31 02:39:21.552"
+    },
+    {
+      "id": "67e41602b9e69a6c6a77122d",
+      "dataAtualizacao": "2026-07-31 02:39:22.976"
+    },
+    {
+      "id": "67e41a12b9e69a6c6a77123b",
+      "dataAtualizacao": "2026-07-31 02:39:24.423"
+    },
+    {
+      "id": "67e5a8ef98a49278039069ac",
+      "dataAtualizacao": "2026-07-31 02:39:24.423"
+    },
+    {
+      "id": "67e449290434907cafc57e96",
+      "dataAtualizacao": "2026-07-31 02:39:25.925"
+    },
+    {
+      "id": "67ed7b179290f20612ca4b48",
+      "dataAtualizacao": "2026-07-31 02:43:09.596"
+    },
+    {
+      "id": "67f566faa1eef54753bdd040",
+      "dataAtualizacao": "2026-07-31 02:43:11.039"
+    },
+    {
+      "id": "67f572ae17731571dbfbc60b",
+      "dataAtualizacao": "2026-07-31 02:43:12.561"
+    },
+    {
+      "id": "67f9292d17731571dbfbcbce",
+      "dataAtualizacao": "2026-07-31 02:43:14.112"
+    },
+    {
+      "id": "6814f6cc0fba963b8e9c9ed4",
+      "dataAtualizacao": "2026-07-31 02:43:15.717"
+    },
+    {
+      "id": "681b707e202260431d764c5b",
+      "dataAtualizacao": "2026-07-31 02:43:17.209"
+    },
+    {
+      "id": "681b81ff37feb673f89d22e5",
+      "dataAtualizacao": "2026-07-31 02:43:18.737"
+    },
+    {
+      "id": "681b879d7ed25b3ebe09c36a",
+      "dataAtualizacao": "2026-07-31 02:43:20.336"
+    },
+    {
+      "id": "681bc81837feb673f89d2446",
+      "dataAtualizacao": "2026-07-31 02:43:21.869"
+    },
+    {
+      "id": "681bc8d97ed25b3ebe09c4a0",
+      "dataAtualizacao": "2026-07-31 02:43:23.311"
+    },
+    {
+      "id": "681bce36202260431d764e58",
+      "dataAtualizacao": "2026-07-31 02:43:24.859"
+    },
+    {
+      "id": "683f5010ee2e8b0044fb5852",
+      "dataAtualizacao": "2026-07-31 02:43:26.377"
+    },
+    {
+      "id": "68474d978a6a252a0207927a",
+      "dataAtualizacao": "2026-07-31 02:43:27.816"
+    },
+    {
+      "id": "68595b6c9d643d3b45e2326a",
+      "dataAtualizacao": "2026-07-31 02:43:27.816"
+    },
+    {
+      "id": "68c1e48bc91c1d58a3700981",
+      "dataAtualizacao": "2026-07-31 02:43:27.816"
+    },
+    {
+      "id": "67f566faa1eef54753bdd040",
+      "dataAtualizacao": "2026-07-31 02:43:27.816"
+    },
+    {
+      "id": "6859509e9d643d3b45e23233",
+      "dataAtualizacao": "2026-07-31 02:43:29.291"
+    },
+    {
+      "id": "6908edcc1e849f7802ee262d",
+      "dataAtualizacao": "2026-07-31 02:53:24.622"
+    },
+    {
+      "id": "6908f02cb2a27e64b8a7f29e",
+      "dataAtualizacao": "2026-07-31 02:53:25.102"
+    },
+    {
+      "id": "693e3d6f8adb1f661e8b14e1",
+      "dataAtualizacao": "2026-07-31 02:53:25.684"
+    },
+    {
+      "id": "694009473c0bb54d751b175b",
+      "dataAtualizacao": "2026-07-31 02:53:26.224"
+    },
+    {
+      "id": "6957ec089e3f6f5948eb37c7",
+      "dataAtualizacao": "2026-07-31 02:53:26.689"
+    },
+    {
+      "id": "68640a30bceff36041135bd4",
+      "dataAtualizacao": "2026-07-31 02:53:27.980"
+    },
+    {
+      "id": "687e421081ffe918567e9762",
+      "dataAtualizacao": "2026-07-31 02:53:29.577"
+    },
+    {
+      "id": "687f8ccd7b05d6629844d7a7",
+      "dataAtualizacao": "2026-07-31 02:53:31.121"
+    },
+    {
+      "id": "6890b9c213cc27151e010ca8",
+      "dataAtualizacao": "2026-07-31 02:53:32.602"
+    },
+    {
+      "id": "68a788314e140e07bc8833d3",
+      "dataAtualizacao": "2026-07-31 02:53:34.208"
+    },
+    {
+      "id": "68b0c515837c6c1367db086f",
+      "dataAtualizacao": "2026-07-31 02:53:35.830"
+    },
+    {
+      "id": "68b8a7f56f3efe021e769767",
+      "dataAtualizacao": "2026-07-31 02:53:37.511"
+    },
+    {
+      "id": "68c8816d867c4d316a0fb77a",
+      "dataAtualizacao": "2026-07-31 02:53:39.052"
+    },
+    {
+      "id": "68e7e09362f13e34eb8c935b",
+      "dataAtualizacao": "2026-07-31 02:53:40.610"
+    },
+    {
+      "id": "690900c7d61cf11506f4e0a1",
+      "dataAtualizacao": "2026-07-31 02:53:42.083"
+    },
+    {
+      "id": "6948040b4a2dbe528b504305",
+      "dataAtualizacao": "2026-07-31 02:53:43.739"
+    },
+    {
+      "id": "694ef4d365294fd9193a2b89",
+      "dataAtualizacao": "2026-07-31 02:53:45.293"
+    },
+    {
+      "id": "6957ecfd9e3f6f5948eb37ce",
+      "dataAtualizacao": "2026-07-31 02:53:46.854"
+    },
+    {
+      "id": "699f5eaf2c42cc13c5c82c3d",
+      "dataAtualizacao": "2026-07-31 02:53:46.854"
+    },
+    {
+      "id": "6957ec089e3f6f5948eb37c7",
+      "dataAtualizacao": "2026-07-31 02:53:46.854"
+    },
+    {
+      "id": "69f8f4545c2a0c4ec1315616",
+      "dataAtualizacao": "2026-07-31 02:53:46.854"
+    },
+    {
+      "id": "69694cfa3645482415cadff0",
+      "dataAtualizacao": "2026-07-31 02:53:48.454"
+    },
+    {
+      "id": "69f8fac30e61440105ce2011",
+      "dataAtualizacao": "2026-07-31 02:58:22.117"
+    },
+    {
+      "id": "6a6370686520585b1fc618bd",
+      "dataAtualizacao": "2026-07-31 02:58:22.411"
+    },
+    {
+      "id": "69d561c4d91366308f5a9a20",
+      "dataAtualizacao": "2026-07-31 02:58:23.408"
+    },
+    {
+      "id": "69d91c44b6171d7211463d6d",
+      "dataAtualizacao": "2026-07-31 02:58:24.877"
+    },
+    {
+      "id": "6a185b7620e04f3413126ca6",
+      "dataAtualizacao": "2026-07-31 02:58:26.377"
+    },
+    {
+      "id": "6a6371fb0b06da12b52b1cd6",
+      "dataAtualizacao": "2026-07-31 02:58:27.870"
+    },
+    {
+      "id": "6691a18c9670327f569e62c6",
+      "dataAtualizacao": "2026-07-31 03:00:51.677"
+    },
+    {
+      "id": "637cda7132dcb7703bdcb551",
+      "dataAtualizacao": "2026-07-31 03:03:28.156"
+    }
   ]
 }

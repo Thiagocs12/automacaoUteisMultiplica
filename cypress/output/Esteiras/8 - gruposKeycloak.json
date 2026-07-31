@@ -6,10 +6,22 @@
     "idHml": "87f5981c-fa8e-4e79-9c1d-6a40cb59561f"
   },
   {
-    "grupo": "Agente Comercial",
+    "grupo": "Tesouraria",
     "tipoSeguranca": "",
     "podeAlterarFormulario": true,
-    "idHml": "17d00f39-7eae-4f2a-a0cc-fa3fe9bfafe4"
+    "idHml": "fcaaff5b-05fa-47aa-8082-15170d4b07ae"
+  },
+  {
+    "grupo": "BackOffice Gestora",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "d5908171-64ef-46cb-a8cd-da3c44fc7d8a"
+  },
+  {
+    "grupo": "Middle",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "f26b3320-83a1-40cb-933f-01b86746f1fc"
   },
   {
     "grupo": "Assistente Comercial",
@@ -24,58 +36,34 @@
     "idHml": "23e300e6-d33e-4851-851c-eb415eb432c0"
   },
   {
-    "grupo": "Gerente de Plataforma",
-    "tipoSeguranca": "6210410e2eb7d56d6ac9182e",
-    "podeAlterarFormulario": true,
-    "idHml": "53dd21d2-8c2d-48cc-a2bc-f42db062e967"
-  },
-  {
-    "grupo": "Superintendente Comercial",
+    "grupo": "Lastro",
     "tipoSeguranca": "",
     "podeAlterarFormulario": true,
-    "idHml": "19ae96ab-dd8e-40bd-9006-9951b1de5c88"
-  },
-  {
-    "grupo": "Priorizador Comercial",
-    "tipoSeguranca": "",
-    "podeAlterarFormulario": true,
-    "idHml": "45474df8-171a-4e95-bb7d-d5f10c111e72"
-  },
-  {
-    "grupo": "Distribuidor de Crédito",
-    "tipoSeguranca": "",
-    "podeAlterarFormulario": true,
-    "idHml": "825e8084-c070-469d-ace0-a19054d98379"
-  },
-  {
-    "grupo": "Analista de Crédito",
-    "tipoSeguranca": "",
-    "podeAlterarFormulario": true,
-    "idHml": "352c314d-0146-4c63-a9da-0d4600af8021"
-  },
-  {
-    "grupo": "Superintendente Crédito",
-    "tipoSeguranca": "",
-    "podeAlterarFormulario": true,
-    "idHml": "348c2752-e992-4cd9-81ae-c662027f0b26"
-  },
-  {
-    "grupo": "Secretario Comitê",
-    "tipoSeguranca": "",
-    "podeAlterarFormulario": true,
-    "idHml": "2e2a54b9-7b04-4988-9d37-b9878bdc446e"
-  },
-  {
-    "grupo": "Secretario Votação",
-    "tipoSeguranca": "6210410e2eb7d56d6ac9182e",
-    "podeAlterarFormulario": true,
-    "idHml": "4e624c5d-e9a7-4e12-938c-25e9eb6d1dcf"
+    "idHml": "3e2cdfa5-e628-4efb-83e5-9927c3b485eb"
   },
   {
     "grupo": "Formalização",
     "tipoSeguranca": "",
     "podeAlterarFormulario": true,
     "idHml": "054f0f55-8bad-4b39-a59b-1e8651bf00ae"
+  },
+  {
+    "grupo": "Mop",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "994e7182-39cc-4364-89dd-89dd4f3ca91a"
+  },
+  {
+    "grupo": "Analista de Riscos",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "f905eca2-3976-45d7-a508-661e031195f0"
+  },
+  {
+    "grupo": "Jurídico",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "10ba45df-4715-495d-9c41-4cde018184d2"
   },
   {
     "grupo": "Analista Gestora",
