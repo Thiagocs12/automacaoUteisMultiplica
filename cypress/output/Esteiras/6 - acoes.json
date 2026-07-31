@@ -1,17 +1,1 @@
-[
-  {
-    "id": "6348526249cd260334afc867",
-    "nome": "Analisar Operação",
-    "mfe": "\\",
-    "enviaCondicao": true,
-    "status": "ATIVO",
-    "usuario": {
-      "dataCriacao": "2022-10-13T15:01:06.786",
-      "dataUltimaAlteracao": null,
-      "usuario": "Elaine Tarallo"
-    },
-    "excluido": false,
-    "idFiltro": "1",
-    "idHml": "6a637ddf87cca57c12ced7d2"
-  }
-]
+[]

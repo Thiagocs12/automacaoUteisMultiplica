@@ -27,6 +27,7 @@ const MAPEAMENTO_ESTEIRAS = {
     camposLista: [
       'observadores',
       'gestores',
+      'modeloEtapas',
       'modeloEtapas.modeloEtapa.condicoes'
     ],
   },
@@ -58,7 +59,8 @@ const MAPEAMENTO_ESTEIRAS = {
     camposLista: [
       'observadores',
       'gestores',
-      'modeloEtapas.modeloEtapa.condicoes'
+      'modeloEtapas.modeloEtapa.condicoes',
+      'modeloEtapas'
     ],
   },
   TIPOESTEIRAS: {
@@ -69,6 +71,17 @@ const MAPEAMENTO_ESTEIRAS = {
     nivelDependencia: 1,
     campoDescricao: 'nome',
     nomeArquivoReferencia: 'Esteiras/1 - esteiras.json',
+    campoBusca: 'tipoEsteira.id',
+  },
+  TIPOESTEIRAS_VINCULADAS: {
+    urlBuscaId: 'mc-multiflow-ms/api/v1/tipoesteira/pesquisarporid/',
+    urlBusca: 'mc-multiflow-ms/api/v1/tipoesteira/pesquisar?status=TODOS&nome=',
+    url: 'mc-multiflow-ms/api/v1/tipoesteira',
+    nomeArquivo: 'Esteiras/3 - tipoEsteiras.json',
+    nivelDependencia: 1,
+    campoDescricao: 'nome',
+    nomeArquivoReferencia: 'Esteiras/2 - esteirasVinculadas.json',
+    adiciona: true,
     campoBusca: 'tipoEsteira.id',
   },
   ETAPAS: {
@@ -84,6 +97,34 @@ const MAPEAMENTO_ESTEIRAS = {
       { idSubstituido: 'modeloSubEtapaModel.modeloSubEtapa.id', arquivoDependencia: 'Esteiras/5 - subetapas.json' },
     ],
     methodAtualizacao: 'patch',
+    chavesIgnoradas: [
+      'modeloSubEtapaModel.modeloSubEtapa.podeVoltarEtapa', 'modeloSubEtapaModel.modeloSubEtapa.requerMotivo', 'modeloSubEtapaModel.modeloSubEtapa.preAtributos',
+      'modeloSubEtapaModel.modeloSubEtapa.execAtributos', 'modeloSubEtapaModel.modeloSubEtapa.posAtributos', 'modeloSubEtapaModel.modeloSubEtapa.tempoMaxExecucao',
+      'modeloSubEtapaModel.modeloSubEtapa.tempoNotificacaoOperador', 'modeloSubEtapaModel.modeloSubEtapa.tempoNotificacaoObservador', 'modeloSubEtapaModel.modeloSubEtapa.temPrazoExpiracao',
+      'modeloSubEtapaModel.modeloSubEtapa.diasExpiracao', 'modeloSubEtapaModel.modeloSubEtapa.operadores', 'modeloSubEtapaModel.modeloSubEtapa.urlValidador',
+      'modeloSubEtapaModel.modeloSubEtapa.urlWhatsapp', 'modeloSubEtapaModel.modeloSubEtapa.status', 'modeloSubEtapaModel.modeloSubEtapa.usuario',
+      'modeloSubEtapaModel.modeloSubEtapa.excluido', 'modeloSubEtapaModel.modeloSubEtapa.idFiltro', 'modeloSubEtapaModel.modeloSubEtapa.area',
+      'modeloSubEtapaModel.modeloSubEtapa.requerAlcada', 'modeloSubEtapaModel.modeloSubEtapa.requerCondicao', 'modeloSubEtapaModel.modeloSubEtapa.tipoAlcada',
+      'modeloSubEtapaModel.modeloSubEtapa.chamadaApi', 'modeloSubEtapaModel.modeloSubEtapa.motivosRetornoEsteira', 'modeloSubEtapaModel.modeloSubEtapa.notificacaoArea',
+      'modeloSubEtapaModel.modeloSubEtapa.modeloAcao', 'modeloSubEtapaModel.modeloSubEtapa.avancoAutomatico', 'modeloSubEtapaModel.modeloSubEtapa.formaAprovacaoAlcada',
+      'modeloSubEtapaModel.modeloSubEtapa.numeroMinimoAprovacoes'
+    ],
+    novoArray: 'modeloEtapa'
+  },
+  ETAPAS_VINCULADAS: {
+    urlBuscaId: 'mc-multiflow-ms/api/v1/modeloetapa/pesquisarporid/',
+    urlBusca: 'mc-multiflow-ms/api/v1/modeloetapa/pesquisar?status=TODOS&nome=',
+    url: 'mc-multiflow-ms/api/v1/modeloetapa',
+    nomeArquivo: 'Esteiras/4 - etapas.json',
+    nivelDependencia: 3,
+    campoDescricao: 'nome',
+    nomeArquivoReferencia: 'Esteiras/2 - esteirasVinculadas.json',
+    campoBusca: 'modeloEtapas.modeloEtapa.id',
+    dependencia: [
+      { idSubstituido: 'modeloSubEtapaModel.modeloSubEtapa.id', arquivoDependencia: 'Esteiras/5 - subetapas.json' },
+    ],
+    methodAtualizacao: 'patch',
+    adiciona: true,
     novoArray: 'modeloEtapa'
   },
   SUB_ETAPAS: {
