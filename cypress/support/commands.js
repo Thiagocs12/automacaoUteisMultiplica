@@ -12,7 +12,7 @@ import MAPEAMENTOS_APIS from '../utils/mapeamentoProdutos';
 const LIMITE_LOTE_PRODUTO = 20;
 
 /** Tamanho máximo do lote de esteiras processadas por execução */
-const LIMITE_LOTE_ESTEIRAS = 100;
+const LIMITE_LOTE_ESTEIRAS = 20;
 
 /** Caminho do arquivo de log com os registros de última atualização */
 const CAMINHO_LOG = 'cypress/output/ultimosUpdates.json';
@@ -21,7 +21,7 @@ const CAMINHO_LOG = 'cypress/output/ultimosUpdates.json';
 const ENTIDADES_IGNORADAS = ['PRODUTO', 'GRUPOS_KEYCLOAK', 'MULTIFLOW', 'SELECIONAR_CEDENTE', 'ESTEIRAS'];
 
 /** Entidades que aplicam validação de lote e regra dos 7 dias */
-const ENTIDADES_COM_VALIDACAO = ['PRODUTO', 'ESTEIRAS'];
+const ENTIDADES_COM_VALIDACAO = ['PRODUTO', 'ESTEIRAS', 'MOP'];
 
 /** Entidades que contêm URLs de ambiente que devem ser substituídas */
 const ENTIDADES_COM_URL = ['SUB_ETAPAS', 'ESTEIRAS', 'ESTEIRA_VINCULADA'];
@@ -433,7 +433,7 @@ Cypress.Commands.add('salvarNovosRegistros', (novosDados, caminhoArquivo, entida
       const registrosLog = (logAtual ?? {})[chaveEntidade] ?? [];
       const listaExistente = dadosExistentes ?? [];
       const idsExistentes = new Set(listaExistente.map((item) => item.id));
-      const LIMITE_LOTE = chaveEntidade === 'PRODUTO' ? LIMITE_LOTE_PRODUTO : LIMITE_LOTE_ESTEIRAS;
+      const LIMITE_LOTE = chaveEntidade === 'ESTEIRA' ? LIMITE_LOTE_ESTEIRAS : LIMITE_LOTE_PRODUTO;
 
       const apenasNovos = novosDados.filter((novo) => !idsExistentes.has(novo.id));
 
@@ -1053,4 +1053,50 @@ Cypress.Commands.add('voltarIdsOriginais', (entidade) => {
       cy.writeFile(caminhoArquivo, itens.map((item) => restaurarCamposOld(item)));
     });
   }
+});
+
+Cypress.Commands.add('executarQuery', (env, query) => {
+  if (env === 'prod') {
+    cy.task('queryProd', { sqlQuery: query }).then((result) => {
+      expect(result).to.exist;
+      return result;
+    });
+  } else if (env === 'hml') {
+    cy.task('queryHml', { sqlQuery: query }).then((result) => {
+      expect(result).to.exist;
+      return result;
+    });
+  } else {
+    cy.log(`Ambiente ${env} não suportado para execução de query.`);
+  }
+});
+
+Cypress.Commands.add('pesquisarVinculoEsteiraHml', (entidade) => {
+  cy.lerJsonDeOutput(entidade.nomeArquivo).then((dadosDoArquivo) => {
+    if (!dadosDoArquivo?.length) return;
+
+    const itensSemId = dadosDoArquivo.filter((dado) => dado.idHml == null);
+
+
+    if (!itensSemId.length) return;
+
+    cy.executarQuery('hml', 'SELECT * FROM MC_MOP_VINCULO_ESTEIRA').then((registros) => {
+      for (const dado of itensSemId) {
+        const encontrado = registros.find(
+          (reg) => Number(reg.idProduto) === Number(dado.idProduto)
+        );
+        
+        console.log(encontrado)
+        
+        const idHml = encontrado?.id ?? null;
+
+        cy.setIdHmlPorDescricao(
+          idHml,
+          { idProduto: dado.idProduto },
+          entidade.nomeArquivo,
+          'idProduto'
+        );
+      }
+    });
+  });
 });
