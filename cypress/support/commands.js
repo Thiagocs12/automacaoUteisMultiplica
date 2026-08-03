@@ -315,18 +315,6 @@ Cypress.Commands.add('setIdHmlPorDescricao', (id, descricao, nomeArquivo, campoD
 });
 
 /**
- * @description Verifica se um diretório possui ao menos um arquivo,
- * falhando o teste caso o diretório esteja vazio.
- * @param {string} caminho - Caminho do diretório a ser verificado.
- * @returns {Cypress.Chainable<void>}
- */
-Cypress.Commands.add('verificarDiretorioNaoVazio', (caminho) => {
-  cy.task('listarArquivos', caminho).then((arquivos) => {
-    expect(arquivos.length, `Diretório "${caminho}" está vazio`).to.be.greaterThan(0);
-  });
-});
-
-/**
  * @description Pesquisa e vincula dependências de ligação entre entidades,
  * buscando dados de produção e salvando no diretório de output.
  * Suporta entidades especiais (CONDICOES, ACOES, OPERADORES, OBSERVADORES, GESTORES)
@@ -355,7 +343,7 @@ Cypress.Commands.add('pesquisarDependenciasLigacao', (entidade) => {
             ? dadosDoArquivo.filter((item) => item.atualizar === true)
             : dadosDoArquivo
           ).map(normalizarObjetosNumericos);
-
+          
           if (ehEntidadeSemBusca) {
             const campoDeduplicacao = chave === 'ACOES' ? 'id' : 'grupo';
 
