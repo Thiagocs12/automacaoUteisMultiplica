@@ -9,7 +9,7 @@ import MAPEAMENTOS_APIS from '../utils/mapeamentoProdutos';
 // ─── Constantes ──────────────────────────────────────────────────────────────
 
 /** Tamanho máximo do lote de produtos processados por execução */
-const LIMITE_LOTE_PRODUTO = 20;
+const LIMITE_PADRAO = 20;
 
 /** Tamanho máximo do lote de esteiras processadas por execução */
 const LIMITE_LOTE_ESTEIRAS = 20;
@@ -433,7 +433,7 @@ Cypress.Commands.add('salvarNovosRegistros', (novosDados, caminhoArquivo, entida
       const registrosLog = (logAtual ?? {})[chaveEntidade] ?? [];
       const listaExistente = dadosExistentes ?? [];
       const idsExistentes = new Set(listaExistente.map((item) => item.id));
-      const LIMITE_LOTE = chaveEntidade === 'ESTEIRA' ? LIMITE_LOTE_ESTEIRAS : LIMITE_LOTE_PRODUTO;
+      const LIMITE_LOTE = chaveEntidade === 'ESTEIRA' ? LIMITE_LOTE_ESTEIRAS : LIMITE_PADRAO;
 
       const apenasNovos = novosDados.filter((novo) => !idsExistentes.has(novo.id));
 
@@ -507,6 +507,8 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) =
       !entidade.dependencia?.length
     ) continue;
 
+    const removerSeNaoEncontrado = entidade.removerSeNaoEncontrado === true;
+
     cy.readFile(`cypress/output/${entidade.nomeArquivo}`).then((itensRaw) => {
       const itens = normalizarObjetosNumericos(itensRaw);
 
@@ -526,17 +528,21 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) =
           const chaveOld = `${chaveId}.old`;
           const partesParent = partes.slice(0, -1);
 
-          const substituir = (atual, partesRestantes) => {
+          const marcarRemocao = (itemRaiz) => {
+            if (removerSeNaoEncontrado) itemRaiz._remover = true;
+          };
+
+          const substituir = (atual, partesRestantes, itemRaiz) => {
             if (!atual || partesRestantes.length === 0) return;
 
             if (Array.isArray(atual)) {
-              atual.forEach((elemento) => substituir(elemento, partesRestantes));
+              atual.forEach((elemento) => substituir(elemento, partesRestantes, itemRaiz));
               return;
             }
 
             const chaves = Object.keys(atual);
-             if (chaves.length > 0 && chaves.every((c) => /^\d+$/.test(c))) {
-              chaves.forEach((chave) => substituir(atual[chave], partesRestantes));
+            if (chaves.length > 0 && chaves.every((c) => /^\d+$/.test(c))) {
+              chaves.forEach((chave) => substituir(atual[chave], partesRestantes, itemRaiz));
               return;
             }
 
@@ -554,7 +560,8 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) =
                   const equivalente = listaDependencias.find(
                     (dep) => dep[idDependecia] === idOriginal
                   );
-                  if (!equivalente) return;
+
+                  if (!equivalente) { marcarRemocao(itemRaiz); return; }
 
                   el[chaveOld] = idOriginal;
                   el[chaveId] = equivalente.idHml;
@@ -567,7 +574,8 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) =
                 const equivalente = listaDependencias.find(
                   (dep) => dep[idDependecia] === idOriginal
                 );
-                if (!equivalente) return;
+
+                if (!equivalente) { marcarRemocao(itemRaiz); return; }
 
                 elemento[chaveOld] = idOriginal;
                 elemento[chaveId] = equivalente.idHml;
@@ -575,7 +583,7 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) =
               return;
             }
 
-            substituir(atual[proxima], resto);
+            substituir(atual[proxima], resto, itemRaiz);
           };
 
           itens.forEach((item) => {
@@ -587,17 +595,22 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) =
               const equivalente = listaDependencias.find(
                 (dep) => dep[idDependecia] === idOriginal
               );
-              if (!equivalente) return;
+
+              if (!equivalente) { marcarRemocao(item); return; }
 
               item[chaveOld] = idOriginal;
               item[chaveId] = equivalente.idHml;
             } else {
-              substituir(item, partesParent);
+              substituir(item, partesParent, item);
             }
           });
         });
       }).then(() => {
-        cy.writeFile(`cypress/output/${entidade.nomeArquivo}`, itens);
+        const itensFinal = removerSeNaoEncontrado
+          ? itens.filter((item) => !item._remover)
+          : itens;
+
+        cy.writeFile(`cypress/output/${entidade.nomeArquivo}`, itensFinal);
       });
     });
   }
@@ -1056,14 +1069,13 @@ Cypress.Commands.add('voltarIdsOriginais', (entidade) => {
 });
 
 Cypress.Commands.add('executarQuery', (env, query) => {
+  console.log(query);
   if (env === 'prod') {
     cy.task('queryProd', { sqlQuery: query }).then((result) => {
-      expect(result).to.exist;
       return result;
     });
   } else if (env === 'hml') {
     cy.task('queryHml', { sqlQuery: query }).then((result) => {
-      expect(result).to.exist;
       return result;
     });
   } else {
@@ -1086,17 +1098,158 @@ Cypress.Commands.add('pesquisarVinculoEsteiraHml', (entidade) => {
           (reg) => Number(reg.idProduto) === Number(dado.idProduto)
         );
         
-        console.log(encontrado)
-        
         const idHml = encontrado?.id ?? null;
 
         cy.setIdHmlPorDescricao(
           idHml,
-          { idProduto: dado.idProduto },
+          dado.idProduto,
           entidade.nomeArquivo,
           'idProduto'
         );
       }
     });
+  });
+});
+
+Cypress.Commands.add('atualizarItensHml', (entidade) => {
+  const { nomeArquivo, tabela, camposUpdate, geraLog, chaveLog } = entidade;
+
+  cy.lerJsonDeOutput(nomeArquivo).then((dadosDoArquivo) => {
+    if (!dadosDoArquivo?.length) return;
+
+    const itensParaAtualizar = dadosDoArquivo.filter(
+      (dado) => dado.idHml != null && (!geraLog || dado.atualizar === true)
+    );
+
+    if (!itensParaAtualizar.length) return;
+
+    const executar = (log) => {
+      for (const dado of itensParaAtualizar) {
+        const camposOpcionais = camposUpdate
+          .filter(({ campo }) => dado[campo] != null)
+          .map(({ campo, tipo }) => {
+            const valor = dado[campo];
+            if (tipo === 'boolean') return `${campo} = ${valor ? 1 : 0}`;
+            if (tipo === 'string')  return `${campo} = '${valor}'`;
+            return `${campo} = ${valor}`;
+          });
+
+        const setClauses = [
+          ...camposOpcionais,
+          `usuarioUltimaAlteracao = 'automacao'`,
+          `dataUltimaAlteracao = GETDATE()`,
+        ];
+
+        const query = `
+          UPDATE ${tabela}
+          SET ${setClauses.join(', ')}
+          WHERE id = ${dado.idHml}
+        `;
+
+        cy.executarQuery('hml', query).then(() => {
+          if (!geraLog) return;
+
+          if (!log[chaveLog]) log[chaveLog] = [];
+
+          const registroExistente = log[chaveLog].find((r) => r.id === dado.id);
+          if (registroExistente) {
+            registroExistente.dataAtualizacao = new Date().toISOString().replace('T', ' ').slice(0, 23);
+          } else {
+            log[chaveLog].push({
+              id: dado.id,
+              dataAtualizacao: new Date().toISOString().replace('T', ' ').slice(0, 23),
+            });
+          }
+
+          cy.writeFile(CAMINHO_LOG, log);
+        });
+      }
+    };
+
+    if (geraLog) {
+      cy.task('lerJsonSeExistir', { caminhoArquivo: CAMINHO_LOG }).then((logAtual) => executar(logAtual ?? {}));
+    } else {
+      executar({});
+    }
+  });
+});
+
+Cypress.Commands.add('inserirItensHml', (entidade) => {
+  const { nomeArquivo, tabela, camposUpdate, campoIdentificador, geraLog, chaveLog } = entidade;
+
+  cy.lerJsonDeOutput(nomeArquivo).then((dadosDoArquivo) => {
+    if (!dadosDoArquivo?.length) return;
+
+    const itensParaInserir = dadosDoArquivo.filter(
+      (dado) => dado.idHml == null && (!geraLog || dado.atualizar === true)
+    );
+
+    if (!itensParaInserir.length) return;
+
+    const executar = (log) => {
+      for (const dado of itensParaInserir) {
+        const camposValidos = camposUpdate.filter(({ campo }) => dado[campo] != null);
+
+        const colunas = [
+          ...camposValidos.map(({ campo }) => campo),
+          'usuarioCadastro',
+          'dataCadastro',
+          'usuarioUltimaAlteracao',
+          'dataUltimaAlteracao',
+        ];
+
+        const valores = [
+          ...camposValidos.map(({ campo, tipo }) => {
+            const valor = dado[campo];
+            if (tipo === 'boolean') return valor ? 1 : 0;
+            if (tipo === 'string')  return `'${valor}'`;
+            return valor;
+          }),
+          `'automacao'`,
+          `GETDATE()`,
+          `'automacao'`,
+          `GETDATE()`,
+        ];
+
+        const query = `
+          INSERT INTO ${tabela} (${colunas.join(', ')})
+          OUTPUT INSERTED.id
+          VALUES (${valores.join(', ')})
+        `;
+
+        cy.executarQuery('hml', query).then((resultado) => {
+          const idCriado = resultado[0]?.id ?? resultado[0]?.ID ?? null;
+
+          cy.setIdHmlPorDescricao(
+            idCriado,
+            dado[campoIdentificador],
+            nomeArquivo,
+            campoIdentificador
+          );
+
+          if (!geraLog) return;
+
+          if (!log[chaveLog]) log[chaveLog] = [];
+
+          const registroExistente = log[chaveLog].find((r) => r.id === dado.id);
+          if (registroExistente) {
+            registroExistente.dataAtualizacao = new Date().toISOString().replace('T', ' ').slice(0, 23);
+          } else {
+            log[chaveLog].push({
+              id: dado.id,
+              dataAtualizacao: new Date().toISOString().replace('T', ' ').slice(0, 23),
+            });
+          }
+
+          cy.writeFile(CAMINHO_LOG, log);
+        });
+      }
+    };
+
+    if (geraLog) {
+      cy.task('lerJsonSeExistir', { caminhoArquivo: CAMINHO_LOG }).then((logAtual) => executar(logAtual ?? {}));
+    } else {
+      executar({});
+    }
   });
 });
