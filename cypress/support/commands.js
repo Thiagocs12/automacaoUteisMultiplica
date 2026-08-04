@@ -18,10 +18,10 @@ const LIMITE_LOTE_ESTEIRAS = 20;
 const CAMINHO_LOG = 'cypress/output/ultimosUpdates.json';
 
 /** Entidades ignoradas no fluxo de pesquisa de dependências de ligação */
-const ENTIDADES_IGNORADAS = ['PRODUTO', 'GRUPOS_KEYCLOAK', 'MULTIFLOW', 'SELECIONAR_CEDENTE', 'ESTEIRAS'];
+const ENTIDADES_IGNORADAS = ['PRODUTO', 'GRUPOS_KEYCLOAK', 'MULTIFLOW', 'SELECIONAR_CEDENTE', 'ESTEIRAS', 'MOP', 'POC'];
 
 /** Entidades que aplicam validação de lote e regra dos 7 dias */
-const ENTIDADES_COM_VALIDACAO = ['PRODUTO', 'ESTEIRAS', 'MOP'];
+const ENTIDADES_COM_VALIDACAO = ['PRODUTO', 'ESTEIRAS', 'MOP', 'POC'];
 
 /** Entidades que contêm URLs de ambiente que devem ser substituídas */
 const ENTIDADES_COM_URL = ['SUB_ETAPAS', 'ESTEIRAS', 'ESTEIRA_VINCULADA'];
@@ -1069,7 +1069,8 @@ Cypress.Commands.add('voltarIdsOriginais', (entidade) => {
 });
 
 Cypress.Commands.add('executarQuery', (env, query) => {
-  console.log(query);
+  console.log(query)
+
   if (env === 'prod') {
     cy.task('queryProd', { sqlQuery: query }).then((result) => {
       return result;
@@ -1083,173 +1084,282 @@ Cypress.Commands.add('executarQuery', (env, query) => {
   }
 });
 
-Cypress.Commands.add('pesquisarVinculoEsteiraHml', (entidade) => {
-  cy.lerJsonDeOutput(entidade.nomeArquivo).then((dadosDoArquivo) => {
-    if (!dadosDoArquivo?.length) return;
+Cypress.Commands.add('pesquisarVinculoEsteiraHml', (nivel, mapeamentoEntidade) => {
+  for (const chaveEntidade in mapeamentoEntidade) {
+    if (!Object.prototype.hasOwnProperty.call(mapeamentoEntidade, chaveEntidade)) continue
 
-    const itensSemId = dadosDoArquivo.filter((dado) => dado.idHml == null);
+    const entidade = mapeamentoEntidade[chaveEntidade]
 
+    if (entidade.nivelDependencia !== nivel) continue
 
-    if (!itensSemId.length) return;
+    const campos = Array.isArray(entidade.campoIdentificador)
+      ? entidade.campoIdentificador
+      : [entidade.campoIdentificador]
 
-    cy.executarQuery('hml', 'SELECT * FROM MC_MOP_VINCULO_ESTEIRA').then((registros) => {
-      for (const dado of itensSemId) {
-        const encontrado = registros.find(
-          (reg) => Number(reg.idProduto) === Number(dado.idProduto)
-        );
-        
-        const idHml = encontrado?.id ?? null;
+    cy.lerJsonDeOutput(entidade.nomeArquivo).then((dadosDoArquivo) => {
+      if (!dadosDoArquivo?.length) return
 
-        cy.setIdHmlPorDescricao(
-          idHml,
-          dado.idProduto,
-          entidade.nomeArquivo,
-          'idProduto'
-        );
-      }
-    });
-  });
-});
+      const itensSemId = dadosDoArquivo.filter((dado) => dado.idHml == null)
 
-Cypress.Commands.add('atualizarItensHml', (entidade) => {
-  const { nomeArquivo, tabela, camposUpdate, geraLog, chaveLog } = entidade;
+      if (!itensSemId.length) return
 
-  cy.lerJsonDeOutput(nomeArquivo).then((dadosDoArquivo) => {
-    if (!dadosDoArquivo?.length) return;
+      cy.executarQuery('hml', `SELECT * FROM ${entidade.tabela}`).then((registros) => {
+        for (const dado of itensSemId) {
 
-    const itensParaAtualizar = dadosDoArquivo.filter(
-      (dado) => dado.idHml != null && (!geraLog || dado.atualizar === true)
-    );
+          const encontrado = registros.find((reg) =>
+            campos.every((campo) => String(reg[campo]) === String(dado[campo])) // ✅ type-safe
+          )
 
-    if (!itensParaAtualizar.length) return;
+          const idHml = encontrado?.id ?? null
 
-    const executar = (log) => {
-      for (const dado of itensParaAtualizar) {
-        const camposOpcionais = camposUpdate
-          .filter(({ campo }) => dado[campo] != null)
-          .map(({ campo, tipo }) => {
-            const valor = dado[campo];
-            if (tipo === 'boolean') return `${campo} = ${valor ? 1 : 0}`;
-            if (tipo === 'string')  return `${campo} = '${valor}'`;
-            return `${campo} = ${valor}`;
-          });
-
-        const setClauses = [
-          ...camposOpcionais,
-          `usuarioUltimaAlteracao = 'automacao'`,
-          `dataUltimaAlteracao = GETDATE()`,
-        ];
-
-        const query = `
-          UPDATE ${tabela}
-          SET ${setClauses.join(', ')}
-          WHERE id = ${dado.idHml}
-        `;
-
-        cy.executarQuery('hml', query).then(() => {
-          if (!geraLog) return;
-
-          if (!log[chaveLog]) log[chaveLog] = [];
-
-          const registroExistente = log[chaveLog].find((r) => r.id === dado.id);
-          if (registroExistente) {
-            registroExistente.dataAtualizacao = new Date().toISOString().replace('T', ' ').slice(0, 23);
-          } else {
-            log[chaveLog].push({
-              id: dado.id,
-              dataAtualizacao: new Date().toISOString().replace('T', ' ').slice(0, 23),
-            });
-          }
-
-          cy.writeFile(CAMINHO_LOG, log);
-        });
-      }
-    };
-
-    if (geraLog) {
-      cy.task('lerJsonSeExistir', { caminhoArquivo: CAMINHO_LOG }).then((logAtual) => executar(logAtual ?? {}));
-    } else {
-      executar({});
-    }
-  });
-});
-
-Cypress.Commands.add('inserirItensHml', (entidade) => {
-  const { nomeArquivo, tabela, camposUpdate, campoIdentificador, geraLog, chaveLog } = entidade;
-
-  cy.lerJsonDeOutput(nomeArquivo).then((dadosDoArquivo) => {
-    if (!dadosDoArquivo?.length) return;
-
-    const itensParaInserir = dadosDoArquivo.filter(
-      (dado) => dado.idHml == null && (!geraLog || dado.atualizar === true)
-    );
-
-    if (!itensParaInserir.length) return;
-
-    const executar = (log) => {
-      for (const dado of itensParaInserir) {
-        const camposValidos = camposUpdate.filter(({ campo }) => dado[campo] != null);
-
-        const colunas = [
-          ...camposValidos.map(({ campo }) => campo),
-          'usuarioCadastro',
-          'dataCadastro',
-          'usuarioUltimaAlteracao',
-          'dataUltimaAlteracao',
-        ];
-
-        const valores = [
-          ...camposValidos.map(({ campo, tipo }) => {
-            const valor = dado[campo];
-            if (tipo === 'boolean') return valor ? 1 : 0;
-            if (tipo === 'string')  return `'${valor}'`;
-            return valor;
-          }),
-          `'automacao'`,
-          `GETDATE()`,
-          `'automacao'`,
-          `GETDATE()`,
-        ];
-
-        const query = `
-          INSERT INTO ${tabela} (${colunas.join(', ')})
-          OUTPUT INSERTED.id
-          VALUES (${valores.join(', ')})
-        `;
-
-        cy.executarQuery('hml', query).then((resultado) => {
-          const idCriado = resultado[0]?.id ?? resultado[0]?.ID ?? null;
+          const identificador = campos.length === 1
+            ? dado[campos[0]]
+            : Object.fromEntries(campos.map((campo) => [campo, dado[campo]]))
 
           cy.setIdHmlPorDescricao(
-            idCriado,
-            dado[campoIdentificador],
-            nomeArquivo,
-            campoIdentificador
-          );
+            idHml,
+            identificador,
+            entidade.nomeArquivo,
+            entidade.campoIdentificador
+          )
+        }
+      })
+    })
+  }
+})
 
-          if (!geraLog) return;
+Cypress.Commands.add('atualizarItensHml', (nivel, mapeamentoEntidade) => {
+  for (const chaveEntidade in mapeamentoEntidade) {
+    if (!Object.prototype.hasOwnProperty.call(mapeamentoEntidade, chaveEntidade)) continue;
 
-          if (!log[chaveLog]) log[chaveLog] = [];
+    const entidade = mapeamentoEntidade[chaveEntidade];
 
-          const registroExistente = log[chaveLog].find((r) => r.id === dado.id);
-          if (registroExistente) {
-            registroExistente.dataAtualizacao = new Date().toISOString().replace('T', ' ').slice(0, 23);
-          } else {
-            log[chaveLog].push({
-              id: dado.id,
-              dataAtualizacao: new Date().toISOString().replace('T', ' ').slice(0, 23),
+    if (entidade.nivelDependencia !== nivel) continue;
+
+    const { nomeArquivo, tabela, camposUpdate, geraLog, chaveLog } = entidade;
+
+    cy.lerJsonDeOutput(nomeArquivo).then((dadosDoArquivo) => {
+      if (!dadosDoArquivo?.length) return;
+
+      const itensParaAtualizar = dadosDoArquivo.filter(
+        (dado) => dado.idHml != null && (!geraLog || dado.atualizar === true)
+      );
+
+      if (!itensParaAtualizar.length) return;
+
+      const executar = (log) => {
+        for (const dado of itensParaAtualizar) {
+          const camposOpcionais = camposUpdate
+            .filter(({ campo }) => dado[campo] != null)
+            .map(({ campo, tipo }) => {
+              const valor = dado[campo];
+              if (tipo === 'boolean') return `${campo} = ${valor ? 1 : 0}`;
+              if (tipo === 'string')  return `${campo} = '${valor}'`;
+              return `${campo} = ${valor}`;
             });
+
+          const setClauses = [
+            ...camposOpcionais,
+            `usuarioUltimaAlteracao = 'automacao'`,
+            `dataUltimaAlteracao = GETDATE()`,
+          ];
+
+          const query = `
+            UPDATE ${tabela}
+            SET ${setClauses.join(', ')}
+            WHERE id = ${dado.idHml}
+          `;
+
+          cy.executarQuery('hml', query).then(() => {
+            if (!geraLog) return;
+
+            if (!log[chaveLog]) log[chaveLog] = [];
+
+            const registroExistente = log[chaveLog].find((r) => r.id === dado.id);
+            if (registroExistente) {
+              registroExistente.dataAtualizacao = new Date().toISOString().replace('T', ' ').slice(0, 23);
+            } else {
+              log[chaveLog].push({
+                id: dado.id,
+                dataAtualizacao: new Date().toISOString().replace('T', ' ').slice(0, 23),
+              });
+            }
+
+            cy.writeFile(CAMINHO_LOG, log);
+          });
+        }
+      };
+
+      if (geraLog) {
+        cy.task('lerJsonSeExistir', { caminhoArquivo: CAMINHO_LOG }).then((logAtual) => executar(logAtual ?? {}));
+      } else {
+        executar({});
+      }
+    });
+  }
+});
+
+Cypress.Commands.add('inserirItensHml',  (nivel, mapeamentoEntidade) => {
+  for (const chaveEntidade in mapeamentoEntidade) {
+    if (!Object.prototype.hasOwnProperty.call(mapeamentoEntidade, chaveEntidade)) continue;
+
+    const entidade = mapeamentoEntidade[chaveEntidade];
+
+    if (entidade.nivelDependencia !== nivel) continue;
+    const { nomeArquivo, tabela, camposUpdate, campoIdentificador, geraLog, chaveLog } = entidade;
+
+    cy.lerJsonDeOutput(nomeArquivo).then((dadosDoArquivo) => {
+      if (!dadosDoArquivo?.length) return;
+
+      const itensParaInserir = dadosDoArquivo.filter(
+        (dado) => dado.idHml == null && (!geraLog || dado.atualizar === true)
+      );
+
+      if (!itensParaInserir.length) return;
+
+      const executar = (log) => {
+        for (const dado of itensParaInserir) {
+          const camposValidos = camposUpdate.filter(({ campo }) => dado[campo] != null);
+
+          const colunas = [
+            ...camposValidos.map(({ campo }) => campo),
+            'usuarioCadastro',
+            'dataCadastro',
+            'usuarioUltimaAlteracao',
+            'dataUltimaAlteracao',
+          ];
+
+          const valores = [
+            ...camposValidos.map(({ campo, tipo }) => {
+              const valor = dado[campo];
+              if (tipo === 'boolean') return valor ? 1 : 0;
+              if (tipo === 'string')  return `'${valor}'`;
+              return valor;
+            }),
+            `'automacao'`,
+            `GETDATE()`,
+            `'automacao'`,
+            `GETDATE()`,
+          ];
+
+          const query = `
+            INSERT INTO ${tabela} (${colunas.join(', ')})
+            OUTPUT INSERTED.id
+            VALUES (${valores.join(', ')})
+          `;
+
+          cy.executarQuery('hml', query).then((resultado) => {
+            const idCriado = resultado[0]?.id ?? resultado[0]?.ID ?? null;
+
+            cy.setIdHmlPorDescricao(
+              idCriado,
+              dado[campoIdentificador],
+              nomeArquivo,
+              campoIdentificador
+            );
+
+            if (!geraLog) return;
+
+            if (!log[chaveLog]) log[chaveLog] = [];
+
+            const registroExistente = log[chaveLog].find((r) => r.id === dado.id);
+            if (registroExistente) {
+              registroExistente.dataAtualizacao = new Date().toISOString().replace('T', ' ').slice(0, 23);
+            } else {
+              log[chaveLog].push({
+                id: dado.id,
+                dataAtualizacao: new Date().toISOString().replace('T', ' ').slice(0, 23),
+              });
+            }
+
+            cy.writeFile(CAMINHO_LOG, log);
+          });
+        }
+      };
+
+      if (geraLog) {
+        cy.task('lerJsonSeExistir', { caminhoArquivo: CAMINHO_LOG }).then((logAtual) => executar(logAtual ?? {}));
+      } else {
+        executar({});
+      }
+    });
+  }
+});
+
+Cypress.Commands.add('pesquisarDependenciasBanco', (mapeamento, adiciona = false) => {
+  const entidadesComDependencia = Object.entries(mapeamento)
+    .filter(([chave]) => !ENTIDADES_IGNORADAS.includes(chave))
+    .filter(([, entidade]) => entidade.arquivoReferencia && entidade.camposReferencia)
+    .map(([, entidade]) => entidade)
+
+  if (entidadesComDependencia.length === 0) {
+    cy.log('[pesquisarDependenciasBanco] Nenhuma entidade com dependência definida')
+    return
+  }
+
+  cy.wrap(entidadesComDependencia).each((entidade) => {
+    const caminhoArquivo = `cypress/output/${entidade.nomeArquivo}`
+    const arquivoReferencia = `cypress/output/${entidade.arquivoReferencia}`
+
+    const inicializar = adiciona
+      ? cy.wrap(null)
+      : cy.task('escreverJson', { caminhoArquivo, conteudo: [] })
+
+    inicializar.then(() => {
+      cy.task('lerJsonSeExistir', { caminhoArquivo: arquivoReferencia })
+        .then((dadosReferencia) => {
+          
+          if (!dadosReferencia?.length) {
+            cy.log(`[${entidade.chaveLog}] Referência vazia: ${arquivoReferencia}`)
+            return
           }
 
-          cy.writeFile(CAMINHO_LOG, log);
-        });
-      }
-    };
+          const filtros = Object.entries(entidade.camposReferencia).map(
+            ([campoTabela, campoArquivo]) => ({
+              campoTabela,
+              valores: [
+                ...new Set(
+                  dadosReferencia
+                    .flatMap((item) => extrairValoresDoCaminho(item, campoArquivo))
+                    .filter((v) => v != null)
+                ),
+              ],
+            })
+          )
 
-    if (geraLog) {
-      cy.task('lerJsonSeExistir', { caminhoArquivo: CAMINHO_LOG }).then((logAtual) => executar(logAtual ?? {}));
-    } else {
-      executar({});
-    }
-  });
+          cy.executarQuery('prod', `SELECT * FROM ${entidade.tabela}`)
+            .then((registrosHml) => {
+              const registrosFiltrados = registrosHml.filter((item) =>
+                filtros.every(({ campoTabela, valores }) =>
+                  valores.includes(item[campoTabela])
+                )
+              )
+
+              if (entidade.geraLog) {
+                cy.log(`[${entidade.chaveLog}] ${registrosFiltrados.length} registro(s) encontrado(s)`)
+              }
+
+              if (adiciona) {
+                cy.task('lerJsonSeExistir', { caminhoArquivo }).then((existentes) => {
+                  const mesclado = mesclarSemDuplicatas(existentes ?? [], registrosFiltrados, 'id')
+                  cy.task('escreverJson', { caminhoArquivo, conteudo: mesclado })
+                })
+              } else {
+                cy.task('escreverJson', { caminhoArquivo, conteudo: registrosFiltrados })
+              }
+            })
+        })
+    })
+  })
+})
+
+Cypress.Commands.add('processarVinculosPorNivel', (nivel, mapeamentoEntidade) => {
+  cy.log('Rodando atualizarIdsDeDependencias')
+  cy.atualizarIdsDeDependencias(nivel, mapeamentoEntidade);
+  cy.log('Rodando pesquisarVinculoEsteiraHml')
+  cy.pesquisarVinculoEsteiraHml(nivel, mapeamentoEntidade);
+  cy.log('Rodando atualizarItensHml')
+  cy.atualizarItensHml(nivel, mapeamentoEntidade);
+  cy.log('Rodando inserirItensHml')
+  cy.inserirItensHml(nivel, mapeamentoEntidade);
 });

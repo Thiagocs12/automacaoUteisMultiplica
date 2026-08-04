@@ -1,6 +1,7 @@
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 import MAPEAMENTOS_APIS from '../../utils/mapeamentoProdutos';
 import MAPEAMENTO_ESTEIRAS from '../../utils/mapeamentoEsteiras';
+import MAPEAMENTO_VINCULOS from '../../utils/mapeamentoVinculos';
 
 Given('que possuo acesso aos ambientes necessarios', () => {
   cy.verificarTokens('prod')
@@ -35,6 +36,8 @@ When('processo as dependências do nivel {int} da entidade {string}', (nivel, en
     cy.processarEntidadesPorNivel(nivel, MAPEAMENTOS_APIS);
   } else if (entidade === 'esteiras') {
     cy.processarEntidadesPorNivel(nivel, MAPEAMENTO_ESTEIRAS);
+  } else if (entidade === 'vinculos') {
+    cy.processarVinculosPorNivel(nivel, MAPEAMENTO_VINCULOS);
   }
 });
 
