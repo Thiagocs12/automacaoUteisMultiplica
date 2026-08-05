@@ -37,7 +37,7 @@ const ENTIDADES_SEM_ATUALIZACAO = [
 
 /** Limites para cada entidade */
 const LIMITE_ESTEIRAS = 20;
-const LIMITE_PRODUTO = 40;
+const LIMITE_PRODUTO = 20;
 const LIMITE_MOP = 20;
 const LIMITE_POC = 20;
 
@@ -46,6 +46,31 @@ const CAMINHO_ESTOQUE = 'cypress/output/estoqueIds.json';
 const TRINTA_DIAS_EM_MS = 30 * 24 * 60 * 60 * 1000;
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
+/**
+ * Mescla profundamente dois objetos de log, combinando os arrays de cada entidade
+ * sem sobrescrever entradas existentes — atualiza pelo id ou adiciona se novo.
+ */
+function mesclarLog(logAtual, logNovo) {
+  const resultado = { ...(logAtual ?? {}) };
+
+  for (const chave in logNovo) {
+    if (!resultado[chave]) {
+      resultado[chave] = logNovo[chave];
+      continue;
+    }
+
+    for (const entrada of logNovo[chave]) {
+      const indice = resultado[chave].findIndex((r) => r.id === entrada.id);
+      if (indice >= 0) {
+        resultado[chave][indice] = entrada;
+      } else {
+        resultado[chave].push(entrada);
+      }
+    }
+  }
+
+  return resultado;
+}
 
 /**
  * Converte recursivamente objetos com chaves numéricas sequenciais em arrays.
