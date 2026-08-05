@@ -899,13 +899,13 @@ Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel, mapeamentoEntidad
       entidade.nivelDependencia !== nivel
     ) continue;
 
-    const geraLog = ['PRODUTO', 'ESTEIRAS'].includes(chaveEntidade);
+    const geraLog          = ['PRODUTO', 'ESTEIRAS'].includes(chaveEntidade);
     const entidadeKeycloak = ['OPERADORES'].includes(chaveEntidade);
-    const method = entidade.method || 'POST';
-    const env = entidade.env || 'hml';
-    const caminhoArquivo = `cypress/output/${entidade.nomeArquivo}`;
-    const campoDescricao = entidade.campoDescricao || 'descricao';
-    const chavesIgnoradas = [
+    const method           = entidade.method || 'POST';
+    const env              = entidade.env || 'hml'; // FIX 3 — já existia aqui, mantido
+    const caminhoArquivo   = `cypress/output/${entidade.nomeArquivo}`;
+    const campoDescricao   = entidade.campoDescricao || 'descricao';
+    const chavesIgnoradas  = [
       'idHml', 'id', 'dataCadastro', 'dataUltimaAlteracao',
       'usuarioCadastro', 'usuarioUltimaAlteracao', 'tipoSeguranca', 'podeAlterarFormulario',
       ...(entidade.chavesIgnoradas || []),
@@ -934,28 +934,36 @@ Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel, mapeamentoEntidad
             ? { [entidade.novoArray]: camposNormalizados }
             : camposNormalizados;
 
+          // FIX 2 — usando cy.executarRequest em ambos os commands
           cy.executarRequest(env, entidade.url, body, method).then((resultado) => {
             if (!entidadeKeycloak) {
-              cy.setIdHmlPorDescricao(resultado.body['id'], item[campoDescricao], entidade.nomeArquivo, campoDescricao);
+              cy.setIdHmlPorDescricao(
+                resultado.body['id'],
+                item[campoDescricao],
+                entidade.nomeArquivo,
+                campoDescricao
+              );
             }
 
             if (!geraLog) return;
 
             if (!log[chaveEntidade]) log[chaveEntidade] = [];
 
+            const dataAtualizacao = new Date().toISOString().replace('T', ' ').slice(0, 23);
             const registroExistente = log[chaveEntidade].find((r) => r.id === item.id);
-            if (registroExistente) {
-              registroExistente.dataAtualizacao = new Date().toISOString().replace('T', ' ').slice(0, 23);
-            } else {
-              log[chaveEntidade].push({
-                id: item.id,
-                dataAtualizacao: new Date().toISOString().replace('T', ' ').slice(0, 23),
-              });
-            }
 
-            cy.writeFile(CAMINHO_LOG, log);
+            if (registroExistente) {
+              registroExistente.dataAtualizacao = dataAtualizacao;
+            } else {
+              log[chaveEntidade].push({ id: item.id, dataAtualizacao });
+            }
           });
         });
+
+        // FIX 1 — escrita única após todos os requests serem processados
+        if (geraLog) {
+          cy.then(() => cy.writeFile(CAMINHO_LOG, log));
+        }
       };
 
       if (geraLog) {
@@ -986,16 +994,17 @@ Cypress.Commands.add('atualizarItensExistentesPorNivel', (nivel, mapeamentoEntid
         'GRUPOS_KEYCLOAK', 'CONDICOES', 'MOTIVOS_RETORNO',
         'GESTORES', 'OBSERVADORES', 'OPERADORES', 'TIPOESTEIRAS',
         'TIPOESTEIRAS_VINCULADAS', 'PRODUTO_TARIFA', 'PRODUTO_GARANTIA',
-        'PRODUTO_KIT','KIT_DOCUMENTO','TIPO_SITUACAO','TIPO_EVENTO',
-        'GRUPO_GARANTIA','CLASSIFICACAO_GARANTIA','NIVEL_GARANTIA',
-        'TIPO_GARANTIA','GRUPO_PRODUTO_RISCO','SEGMENTO_TARIFADOR',
-        'PRODUTO_INDEXADOR','CLASSIFICACAO_PRODUTO'
+        'PRODUTO_KIT', 'KIT_DOCUMENTO', 'TIPO_SITUACAO', 'TIPO_EVENTO',
+        'GRUPO_GARANTIA', 'CLASSIFICACAO_GARANTIA', 'NIVEL_GARANTIA',
+        'TIPO_GARANTIA', 'GRUPO_PRODUTO_RISCO', 'SEGMENTO_TARIFADOR',
+        'PRODUTO_INDEXADOR', 'CLASSIFICACAO_PRODUTO',
       ].includes(chaveEntidade) ||
       entidade.nivelDependencia !== nivel
     ) continue;
 
     const geraLog = ['PRODUTO', 'ESTEIRAS'].includes(chaveEntidade);
-    const method = entidade.methodAtualizacao || 'POST';
+    const method  = entidade.methodAtualizacao || 'POST';
+    const env     = entidade.env || 'hml'; // FIX 3 — era hardcoded 'hml', agora respeita entidade.env
     const chavesIgnoradas = [
       'idHml', 'id', 'dataCadastro', 'dataUltimaAlteracao',
       'usuarioCadastro', 'usuarioUltimaAlteracao', 'usuario', 'atualizar',
@@ -1023,24 +1032,27 @@ Cypress.Commands.add('atualizarItensExistentesPorNivel', (nivel, mapeamentoEntid
             ? { [entidade.novoArray]: camposNormalizados }
             : camposNormalizados;
 
-          cy.executarRequest2('hml', entidade.url, body, method).then(() => {
+          // FIX 2 — unificado para cy.executarRequest (era cy.executarRequest2)
+          cy.executarRequest(env, entidade.url, body, method).then(() => {
             if (!geraLog) return;
 
             if (!log[chaveEntidade]) log[chaveEntidade] = [];
 
+            const dataAtualizacao = new Date().toISOString().replace('T', ' ').slice(0, 23);
             const registroExistente = log[chaveEntidade].find((r) => r.id === item.id);
-            if (registroExistente) {
-              registroExistente.dataAtualizacao = new Date().toISOString().replace('T', ' ').slice(0, 23);
-            } else {
-              log[chaveEntidade].push({
-                id: item.id,
-                dataAtualizacao: new Date().toISOString().replace('T', ' ').slice(0, 23),
-              });
-            }
 
-            cy.writeFile(CAMINHO_LOG, log);
+            if (registroExistente) {
+              registroExistente.dataAtualizacao = dataAtualizacao;
+            } else {
+              log[chaveEntidade].push({ id: item.id, dataAtualizacao });
+            }
           });
         });
+
+        // FIX 1 — escrita única após todos os requests serem processados
+        if (geraLog) {
+          cy.then(() => cy.writeFile(CAMINHO_LOG, log));
+        }
       };
 
       if (geraLog) {

@@ -114,7 +114,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 41,
-    "atualizar": true
+    "atualizar": false
   },
   {
     "id": 102,
@@ -231,7 +231,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 17,
-    "atualizar": true
+    "atualizar": false
   },
   {
     "id": 202,
@@ -348,7 +348,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 25,
-    "atualizar": true
+    "atualizar": false
   },
   {
     "id": 52,
@@ -465,7 +465,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 282,
-    "atualizar": true
+    "atualizar": false
   },
   {
     "id": 56,
@@ -582,7 +582,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 56,
-    "atualizar": true
+    "atualizar": false
   },
   {
     "id": 60,
@@ -699,7 +699,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 60,
-    "atualizar": true
+    "atualizar": false
   },
   {
     "id": 297,
@@ -816,7 +816,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 125,
-    "atualizar": true
+    "atualizar": false
   },
   {
     "id": 285,
@@ -933,7 +933,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 121,
-    "atualizar": true
+    "atualizar": false
   },
   {
     "id": 83,
@@ -1050,7 +1050,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 9,
-    "atualizar": true
+    "atualizar": false
   },
   {
     "id": 87,
@@ -1167,7 +1167,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 11,
-    "atualizar": true
+    "atualizar": false
   },
   {
     "id": 28,
@@ -1284,7 +1284,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 28,
-    "atualizar": true
+    "atualizar": false
   },
   {
     "id": 290,
@@ -1401,7 +1401,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 197,
-    "atualizar": true
+    "atualizar": false
   },
   {
     "id": 287,
@@ -1518,7 +1518,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 207,
-    "atualizar": true
+    "atualizar": false
   },
   {
     "id": 288,
@@ -1635,7 +1635,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 208,
-    "atualizar": true
+    "atualizar": false
   },
   {
     "id": 43,
@@ -1752,7 +1752,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 283,
-    "atualizar": true
+    "atualizar": false
   },
   {
     "id": 46,
@@ -1869,7 +1869,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": false,
     "idHml": 46,
-    "atualizar": true
+    "atualizar": false
   },
   {
     "id": 30,
@@ -1986,7 +1986,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 209,
-    "atualizar": true
+    "atualizar": false
   },
   {
     "id": 54,
@@ -2103,7 +2103,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 54,
-    "atualizar": true
+    "atualizar": false
   },
   {
     "id": 267,
@@ -2220,7 +2220,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 95,
-    "atualizar": true
+    "atualizar": false
   },
   {
     "id": 62,
@@ -2337,7 +2337,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 62,
-    "atualizar": true
+    "atualizar": false
   },
   {
     "id": 5,
@@ -13431,6 +13431,123 @@
     "atualizar": false
   },
   {
+    "id": 457,
+    "descricao": "AQUISICAO LARCA - CCB ESTOQUE - CCB - FINANCEIRA - DEPOSITO EM CONTA",
+    "subProduto": {
+      "id": 2,
+      "descricao": "CCB",
+      "ativo": null,
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null
+    },
+    "classificacaoProduto": {
+      "id": 1,
+      "descricao": "PRODUTO",
+      "ativo": null,
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null
+    },
+    "grupoProduto": {
+      "id": 17,
+      "descricao": "CCB/NC",
+      "ativo": null,
+      "grupoProdutoRisco": {
+        "id": 2,
+        "descricao": "CCB/NC",
+        "ativo": null,
+        "dataCadastro": null,
+        "usuarioCadastro": null,
+        "dataUltimaAlteracao": null,
+        "usuarioUltimaAlteracao": null,
+        "diasVencidoConsideraLiquidez": null
+      },
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null
+    },
+    "focoNegocio": {
+      "id": 1,
+      "descricao": "AQUISICAO",
+      "ativo": null,
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "segmentoTarifador": null,
+      "indFocoAncora": false,
+      "indFocoMultiComex": false,
+      "indFocoCobranca": false,
+      "indRiscoSacado": null,
+      "indIsencaoTarifa": null
+    },
+    "tipoProduto": {
+      "id": 8,
+      "descricao": "CCB",
+      "ativo": null,
+      "indPermiteTranche": false,
+      "indEnviaTermoAssinaturaAutomatico": null,
+      "indRealizaChecagem": null,
+      "indConsideraRisco": null,
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "indCadastraGarantia": null,
+      "indNovoNumeroDocumento": null
+    },
+    "produtoIndexador": {
+      "id": 1,
+      "descricao": "PRE",
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "indObrigaTipoProduto": false
+    },
+    "produtoTPRecebimento": {
+      "id": 4,
+      "descricao": "DEPOSITO EM CONTA",
+      "dataCadastro": null,
+      "usuarioCadastro": null,
+      "indObrigaNN": false,
+      "dataUltimaAlteracao": null,
+      "usuarioUltimaAlteracao": null,
+      "indGarantiaSecundaria": null,
+      "indGeraRemessaBancaria": null,
+      "indEmiteBoleto": null,
+      "indGeraOperacaoTitulosRejeitados": null
+    },
+    "indClean": false,
+    "indObrigaGarantia": null,
+    "indCoobrigado": true,
+    "indSensibilizaCarteira": false,
+    "ativo": true,
+    "indPermiteCnpjCedenteSacadoIgual": false,
+    "indObrigaXML": false,
+    "codigoLegado": null,
+    "especiePapel": null,
+    "diasVencimentoEspecifico": "",
+    "siglaProduto": "CCBEL",
+    "dataCadastro": "2026-07-31T11:18:58.2",
+    "usuarioCadastro": "rodrigo.meneses",
+    "dataUltimaAlteracao": "2026-07-31T11:18:58.2",
+    "usuarioUltimaAlteracao": "rodrigo.meneses",
+    "garantiaCategoria": null,
+    "indOperacaoEstruturada": false,
+    "indDisponivelHomeBanking": true,
+    "indGarantiaPrimaria": false,
+    "indProdutoManterEmCobranca": false,
+    "idProdutoManterCobranca": null,
+    "indPermiteSplitPagamento": false,
+    "idHml": 294,
+    "atualizar": false
+  },
+  {
     "id": 366,
     "descricao": "AQUISIÇÃO DE ATIVO - CESSÃO FIDUCIÁRIA DE DIREITO - GARANTIA - GARANTIA - PRODUTO - DEPOSITO EM CONTA",
     "subProduto": {
@@ -20392,123 +20509,6 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 174,
-    "atualizar": false
-  },
-  {
-    "id": 457,
-    "descricao": "AQUISICAO LARCA - CCB ESTOQUE - CCB - FINANCEIRA - DEPOSITO EM CONTA",
-    "subProduto": {
-      "id": 2,
-      "descricao": "CCB",
-      "ativo": null,
-      "dataCadastro": null,
-      "usuarioCadastro": null,
-      "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
-    },
-    "classificacaoProduto": {
-      "id": 1,
-      "descricao": "PRODUTO",
-      "ativo": null,
-      "dataCadastro": null,
-      "usuarioCadastro": null,
-      "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
-    },
-    "grupoProduto": {
-      "id": 17,
-      "descricao": "CCB/NC",
-      "ativo": null,
-      "grupoProdutoRisco": {
-        "id": 2,
-        "descricao": "CCB/NC",
-        "ativo": null,
-        "dataCadastro": null,
-        "usuarioCadastro": null,
-        "dataUltimaAlteracao": null,
-        "usuarioUltimaAlteracao": null,
-        "diasVencidoConsideraLiquidez": null
-      },
-      "dataCadastro": null,
-      "usuarioCadastro": null,
-      "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null
-    },
-    "focoNegocio": {
-      "id": 1,
-      "descricao": "AQUISICAO",
-      "ativo": null,
-      "dataCadastro": null,
-      "usuarioCadastro": null,
-      "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null,
-      "segmentoTarifador": null,
-      "indFocoAncora": false,
-      "indFocoMultiComex": false,
-      "indFocoCobranca": false,
-      "indRiscoSacado": null,
-      "indIsencaoTarifa": null
-    },
-    "tipoProduto": {
-      "id": 8,
-      "descricao": "CCB",
-      "ativo": null,
-      "indPermiteTranche": false,
-      "indEnviaTermoAssinaturaAutomatico": null,
-      "indRealizaChecagem": null,
-      "indConsideraRisco": null,
-      "dataCadastro": null,
-      "usuarioCadastro": null,
-      "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null,
-      "indCadastraGarantia": null,
-      "indNovoNumeroDocumento": null
-    },
-    "produtoIndexador": {
-      "id": 1,
-      "descricao": "PRE",
-      "dataCadastro": null,
-      "usuarioCadastro": null,
-      "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null,
-      "indObrigaTipoProduto": false
-    },
-    "produtoTPRecebimento": {
-      "id": 4,
-      "descricao": "DEPOSITO EM CONTA",
-      "dataCadastro": null,
-      "usuarioCadastro": null,
-      "indObrigaNN": false,
-      "dataUltimaAlteracao": null,
-      "usuarioUltimaAlteracao": null,
-      "indGarantiaSecundaria": null,
-      "indGeraRemessaBancaria": null,
-      "indEmiteBoleto": null,
-      "indGeraOperacaoTitulosRejeitados": null
-    },
-    "indClean": false,
-    "indObrigaGarantia": null,
-    "indCoobrigado": true,
-    "indSensibilizaCarteira": false,
-    "ativo": true,
-    "indPermiteCnpjCedenteSacadoIgual": false,
-    "indObrigaXML": false,
-    "codigoLegado": null,
-    "especiePapel": null,
-    "diasVencimentoEspecifico": "",
-    "siglaProduto": "CCBEL",
-    "dataCadastro": "2026-07-31T11:18:58.2",
-    "usuarioCadastro": "rodrigo.meneses",
-    "dataUltimaAlteracao": "2026-07-31T11:18:58.2",
-    "usuarioUltimaAlteracao": "rodrigo.meneses",
-    "garantiaCategoria": null,
-    "indOperacaoEstruturada": false,
-    "indDisponivelHomeBanking": true,
-    "indGarantiaPrimaria": false,
-    "indProdutoManterEmCobranca": false,
-    "idProdutoManterCobranca": null,
-    "indPermiteSplitPagamento": false,
-    "idHml": 294,
     "atualizar": false
   }
 ]

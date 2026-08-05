@@ -1266,29 +1266,5 @@
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 1,
     "idTipoProposta.old": 6
-  },
-  {
-    "id": 65,
-    "idConsultoriaEspecializada": 1,
-    "descricao": "TESTE THIAGO 123",
-    "idTipoProspect": 13,
-    "idTipoProposta": 4,
-    "codigoModeloEsteira": "6a6ba6ad87cca57c12cedc25",
-    "codigoModeloEtapaInicial": "633ee9d7cdb5ac474a25e73a",
-    "usuarioUltimaAlteracao": "thiago.santos",
-    "dataUltimaAlteracao": "2026-08-04T20:43:05.490Z",
-    "dataCadastro": "2026-08-04T20:43:05.490Z",
-    "usuarioCadastro": "thiago.santos",
-    "indCedenteVinculado": true,
-    "indGeraSacado": true,
-    "indPermiteCadastroFilial": true,
-    "codigoModeloEsteiraFormalizacao": "6995fb50f98fb8785b90e017",
-    "qtdEsteiraAndamento": null,
-    "idHml": 72,
-    "atualizar": false,
-    "codigoModeloEsteira.old": "63402ffc2167630f279750af",
-    "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
-    "idTipoProspect.old": 15,
-    "idTipoProposta.old": 4
   }
 ]

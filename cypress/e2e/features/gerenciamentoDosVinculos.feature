@@ -7,7 +7,7 @@ Funcionalidade: Sincronização de Vínculos de Esteira entre Produção e Homol
   Para garantir que o ambiente de Homologação tenha dados consistentes para testes
 
   Contexto:
-    #Dado que os bancos de dados de Produção e Homologação estão acessíveis
+    Dado que os bancos de dados de Produção e Homologação estão acessíveis
 
   @vinculos
   Cenário: Sincronizar vínculos de esteira da MOP

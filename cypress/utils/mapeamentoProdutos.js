@@ -57,7 +57,7 @@ const MAPEAMENTOS_APIS = {
     nomeArquivo: 'Produtos/4 - FocosNegocio.json',
     nivelDependencia: 2,
     nomeArquivoReferencia: 'Produtos/1 - Produtos.json',
-    urlListAll: 'mc-cadastro-ms/api/v1/focoNegocio/listAll',
+    //urlListAll: 'mc-cadastro-ms/api/v1/focoNegocio/listAll',
     campoBusca: 'focoNegocio.id',
     dependencia: [
       { idSubstituido: 'segmentoTarifador.id', arquivoDependencia: 'Produtos/8 - SegmentosTarifadores.json' },
