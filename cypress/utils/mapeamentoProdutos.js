@@ -120,7 +120,7 @@ const MAPEAMENTOS_APIS = {
     nomeArquivo: 'Produtos/10 - ProdutosKit.json',
     nivelDependencia: 5,
     nomeArquivoReferencia: 'Produtos/1 - Produtos.json',
-    urlListAll: 'mc-cadastro-ms/api/v1/produtoKit/listAll',
+    //urlListAll: 'mc-cadastro-ms/api/v1/produtoKit/listAll',
     campoBusca: 'id',
     contentBusca: ['produto.id', 'kitDocumento.id'],
     dependencia: [
