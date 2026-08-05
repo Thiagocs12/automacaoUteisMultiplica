@@ -1,1 +1,66 @@
-[]
+[
+  {
+    "id": 1,
+    "descricao": "ANTECIPACAO DE CONTRATO ",
+    "ativo": true,
+    "indPermiteTranche": false,
+    "indEnviaTermoAssinaturaAutomatico": false,
+    "indRealizaChecagem": false,
+    "indConsideraRisco": false,
+    "dataCadastro": "2022-02-17T11:27:56.513",
+    "usuarioCadastro": "regiane.felicio",
+    "dataUltimaAlteracao": "2022-10-20T12:10:06.367",
+    "usuarioUltimaAlteracao": "aline.lucas",
+    "indCadastraGarantia": false,
+    "indNovoNumeroDocumento": false,
+    "idHml": 1
+  },
+  {
+    "id": 2,
+    "descricao": "ANTECIPACAO DE DUPLICATA",
+    "ativo": true,
+    "indPermiteTranche": true,
+    "indEnviaTermoAssinaturaAutomatico": false,
+    "indRealizaChecagem": true,
+    "indConsideraRisco": false,
+    "dataCadastro": "2022-02-17T11:28:17.587",
+    "usuarioCadastro": "regiane.felicio",
+    "dataUltimaAlteracao": "2024-11-25T10:27:37.613",
+    "usuarioUltimaAlteracao": "rodrigo.meneses",
+    "indCadastraGarantia": false,
+    "indNovoNumeroDocumento": true,
+    "idHml": 2
+  },
+  {
+    "id": 11,
+    "descricao": "AQUISICAO DE CHEQUE",
+    "ativo": true,
+    "indPermiteTranche": false,
+    "indEnviaTermoAssinaturaAutomatico": false,
+    "indRealizaChecagem": true,
+    "indConsideraRisco": false,
+    "dataCadastro": "2022-05-31T08:41:00.097",
+    "usuarioCadastro": "regiane.felicio",
+    "dataUltimaAlteracao": "2022-09-20T14:10:38.553",
+    "usuarioUltimaAlteracao": "regiane.felicio",
+    "indCadastraGarantia": false,
+    "indNovoNumeroDocumento": false,
+    "idHml": 23
+  },
+  {
+    "id": 15,
+    "descricao": "NOTA PROMISSORIA",
+    "ativo": true,
+    "indPermiteTranche": false,
+    "indEnviaTermoAssinaturaAutomatico": false,
+    "indRealizaChecagem": false,
+    "indConsideraRisco": false,
+    "dataCadastro": "2022-06-13T17:03:38.657",
+    "usuarioCadastro": "regiane.felicio",
+    "dataUltimaAlteracao": "2022-09-20T14:11:03.11",
+    "usuarioUltimaAlteracao": "regiane.felicio",
+    "indCadastraGarantia": false,
+    "indNovoNumeroDocumento": false,
+    "idHml": 10
+  }
+]

@@ -114,7 +114,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 41,
-    "atualizar": false
+    "atualizar": true
   },
   {
     "id": 102,
@@ -231,7 +231,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 17,
-    "atualizar": false
+    "atualizar": true
   },
   {
     "id": 202,
@@ -348,7 +348,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 25,
-    "atualizar": false
+    "atualizar": true
   },
   {
     "id": 52,
@@ -465,7 +465,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 282,
-    "atualizar": false
+    "atualizar": true
   },
   {
     "id": 56,
@@ -582,7 +582,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 56,
-    "atualizar": false
+    "atualizar": true
   },
   {
     "id": 60,
@@ -699,7 +699,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 60,
-    "atualizar": false
+    "atualizar": true
   },
   {
     "id": 297,
@@ -816,7 +816,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 125,
-    "atualizar": false
+    "atualizar": true
   },
   {
     "id": 285,
@@ -933,7 +933,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 121,
-    "atualizar": false
+    "atualizar": true
   },
   {
     "id": 83,
@@ -1050,7 +1050,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 9,
-    "atualizar": false
+    "atualizar": true
   },
   {
     "id": 87,
@@ -1167,7 +1167,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 11,
-    "atualizar": false
+    "atualizar": true
   },
   {
     "id": 28,
@@ -1284,7 +1284,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 28,
-    "atualizar": false
+    "atualizar": true
   },
   {
     "id": 290,
@@ -1401,7 +1401,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 197,
-    "atualizar": false
+    "atualizar": true
   },
   {
     "id": 287,
@@ -1518,7 +1518,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 207,
-    "atualizar": false
+    "atualizar": true
   },
   {
     "id": 288,
@@ -1635,7 +1635,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 208,
-    "atualizar": false
+    "atualizar": true
   },
   {
     "id": 43,
@@ -1752,7 +1752,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 283,
-    "atualizar": false
+    "atualizar": true
   },
   {
     "id": 46,
@@ -1869,7 +1869,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": false,
     "idHml": 46,
-    "atualizar": false
+    "atualizar": true
   },
   {
     "id": 30,
@@ -1986,7 +1986,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 209,
-    "atualizar": false
+    "atualizar": true
   },
   {
     "id": 54,
@@ -2103,7 +2103,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 54,
-    "atualizar": false
+    "atualizar": true
   },
   {
     "id": 267,
@@ -2220,7 +2220,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 95,
-    "atualizar": false
+    "atualizar": true
   },
   {
     "id": 62,
@@ -2337,7 +2337,7 @@
     "idProdutoManterCobranca": null,
     "indPermiteSplitPagamento": null,
     "idHml": 62,
-    "atualizar": false
+    "atualizar": true
   },
   {
     "id": 5,

@@ -11056,5 +11056,109 @@
       "idHml": 121,
       "dataAtualizacao": "2026-07-31 19:22:24.765"
     }
+  ],
+  "TIPO_PROSPECT": [
+    {
+      "id": 1,
+      "idHml": 1,
+      "dataAtualizacao": "2026-08-05 00:13:20.082"
+    },
+    {
+      "id": 2,
+      "idHml": 2,
+      "dataAtualizacao": "2026-08-05 00:13:20.178"
+    },
+    {
+      "id": 3,
+      "idHml": 3,
+      "dataAtualizacao": "2026-08-05 00:13:20.259"
+    },
+    {
+      "id": 4,
+      "idHml": 4,
+      "dataAtualizacao": "2026-08-05 00:13:20.344"
+    },
+    {
+      "id": 5,
+      "idHml": 5,
+      "dataAtualizacao": "2026-08-05 00:13:20.418"
+    },
+    {
+      "id": 6,
+      "idHml": 17,
+      "dataAtualizacao": "2026-08-05 00:13:20.503"
+    },
+    {
+      "id": 7,
+      "idHml": 6,
+      "dataAtualizacao": "2026-08-05 00:13:20.592"
+    },
+    {
+      "id": 8,
+      "idHml": 8,
+      "dataAtualizacao": "2026-08-05 00:13:20.673"
+    },
+    {
+      "id": 9,
+      "idHml": 9,
+      "dataAtualizacao": "2026-08-05 00:13:20.759"
+    },
+    {
+      "id": 10,
+      "idHml": 10,
+      "dataAtualizacao": "2026-08-05 00:13:20.843"
+    },
+    {
+      "id": 12,
+      "idHml": 18,
+      "dataAtualizacao": "2026-08-05 00:13:20.944"
+    },
+    {
+      "id": 13,
+      "idHml": 19,
+      "dataAtualizacao": "2026-08-05 00:13:21.029"
+    },
+    {
+      "id": 14,
+      "idHml": 20,
+      "dataAtualizacao": "2026-08-05 00:13:21.116"
+    },
+    {
+      "id": 15,
+      "idHml": 13,
+      "dataAtualizacao": "2026-08-05 00:13:21.207"
+    }
+  ],
+  "TIPO_PROPOSTA": [
+    {
+      "id": 1,
+      "idHml": 1,
+      "dataAtualizacao": "2026-08-05 00:13:21.729"
+    },
+    {
+      "id": 2,
+      "idHml": 2,
+      "dataAtualizacao": "2026-08-05 00:13:21.806"
+    },
+    {
+      "id": 3,
+      "idHml": 13,
+      "dataAtualizacao": "2026-08-05 00:13:21.880"
+    },
+    {
+      "id": 4,
+      "idHml": 4,
+      "dataAtualizacao": "2026-08-05 00:13:21.978"
+    },
+    {
+      "id": 5,
+      "idHml": 5,
+      "dataAtualizacao": "2026-08-05 00:13:22.059"
+    },
+    {
+      "id": 6,
+      "idHml": 11,
+      "dataAtualizacao": "2026-08-05 00:13:22.156"
+    }
   ]
 }

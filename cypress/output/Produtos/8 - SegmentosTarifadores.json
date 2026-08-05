@@ -1,1 +1,21 @@
-[]
+[
+  {
+    "id": 12,
+    "descricao": "TARIFAS CUSTO DE REGISTRO",
+    "ativo": true,
+    "sistema": {
+      "id": 1,
+      "descricao": "Beyond",
+      "ativo": true,
+      "dataCadastro": "2021-01-01T00:00:00",
+      "usuarioCadastro": "tiago.roque",
+      "dataUltimaAlteracao": "2021-01-01T00:00:00",
+      "usuarioUltimaAlteracao": "tiago.roque"
+    },
+    "dataCadastro": "2024-03-28T21:15:53.057",
+    "usuarioCadastro": "eduardo.ribeiro",
+    "dataUltimaAlteracao": "2024-03-28T21:15:53.057",
+    "usuarioUltimaAlteracao": "eduardo.ribeiro",
+    "idHml": 12
+  }
+]

@@ -39,6 +39,7 @@ const MAPEAMENTO_ESTEIRAS = {
     nivelDependencia: 4,
     campoDescricao: 'nome',
     nomeArquivoReferencia: 'Esteiras/1 - esteiras.json',
+    urlListAll: 'mc-multiflow-ms/api/v1/modeloesteira/all',
     campoBusca: 'idModeloEsteiraVinculado',
     methodAtualizacao: 'patch',
     dependencia: [
@@ -71,6 +72,7 @@ const MAPEAMENTO_ESTEIRAS = {
     nivelDependencia: 1,
     campoDescricao: 'nome',
     nomeArquivoReferencia: 'Esteiras/1 - esteiras.json',
+    urlListAll: 'mc-multiflow-ms/api/v1/tipoesteira/all',
     campoBusca: 'tipoEsteira.id',
   },
   TIPOESTEIRAS_VINCULADAS: {
@@ -82,6 +84,7 @@ const MAPEAMENTO_ESTEIRAS = {
     campoDescricao: 'nome',
     nomeArquivoReferencia: 'Esteiras/2 - esteirasVinculadas.json',
     adiciona: true,
+    urlListAll: 'mc-multiflow-ms/api/v1/tipoesteira/all',
     campoBusca: 'tipoEsteira.id',
   },
   ETAPAS: {
@@ -92,6 +95,7 @@ const MAPEAMENTO_ESTEIRAS = {
     nivelDependencia: 3,
     campoDescricao: 'nome',
     nomeArquivoReferencia: 'Esteiras/1 - esteiras.json',
+    urlListAll: 'mc-multiflow-ms/api/v1/modeloetapa/all',
     campoBusca: 'modeloEtapas.modeloEtapa.id',
     dependencia: [
       { idSubstituido: 'modeloSubEtapaModel.modeloSubEtapa.id', arquivoDependencia: 'Esteiras/5 - subetapas.json' },
@@ -119,6 +123,7 @@ const MAPEAMENTO_ESTEIRAS = {
     nivelDependencia: 3,
     campoDescricao: 'nome',
     nomeArquivoReferencia: 'Esteiras/2 - esteirasVinculadas.json',
+    urlListAll: 'mc-multiflow-ms/api/v1/modeloetapa/all',
     campoBusca: 'modeloEtapas.modeloEtapa.id',
     dependencia: [
       { idSubstituido: 'modeloSubEtapaModel.modeloSubEtapa.id', arquivoDependencia: 'Esteiras/5 - subetapas.json' },
@@ -135,6 +140,7 @@ const MAPEAMENTO_ESTEIRAS = {
     nivelDependencia: 2,
     campoDescricao: 'nome',
     nomeArquivoReferencia: 'Esteiras/4 - etapas.json',
+    urlListAll: 'mc-multiflow-ms/api/v1/modelosubetapa/all',
     campoBusca: 'modeloSubEtapaModel.modeloSubEtapa.id',
     methodAtualizacao: 'patch',
     dependencia: [
@@ -150,6 +156,7 @@ const MAPEAMENTO_ESTEIRAS = {
     nivelDependencia: 1,
     campoDescricao: 'nome',
     nomeArquivoReferencia: 'Esteiras/5 - subetapas.json',
+    urlListAll: 'mc-multiflow-ms/api/v1/modeloacao/all',
     campoBusca: 'modeloAcao',
   },
   MOTIVOS_RETORNO: {
@@ -160,6 +167,7 @@ const MAPEAMENTO_ESTEIRAS = {
     nivelDependencia: 1,
     campoDescricao: 'nome',
     nomeArquivoReferencia: 'Esteiras/5 - subetapas.json',
+    urlListAll: 'mc-multiflow-ms/api/v1/motivo-retorno-esteira/all',
     campoBusca: 'motivosRetornoEsteira.id',
   },
   OPERADORES: {
