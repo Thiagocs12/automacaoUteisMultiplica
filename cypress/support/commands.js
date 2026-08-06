@@ -44,6 +44,7 @@ const LIMITE_POC = 20;
 /** Valores para controle do estoque */
 const CAMINHO_ESTOQUE = 'cypress/output/estoqueIds.json';
 const TRINTA_DIAS_EM_MS = 30 * 24 * 60 * 60 * 1000;
+const ENTIDADE_SEM_ESTOQUE = []
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 /**
