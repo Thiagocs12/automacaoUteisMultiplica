@@ -8,6 +8,10 @@ Given('que os bancos de dados de Produção e Homologação estão acessíveis',
   cy.executarQuery('hml', 'select * from MC_CAD_CLASSIFICACAO_PRODUTO');
 })
 
+Given('que possuem parâmetros relacionados às esteiras cadastrados em Produção',() => {
+
+})
+
 Given('que existem vínculos das esteiras cadastrados em Produção', () => {
   cy.executarQuery('prod', 'select * from MC_MOP_VINCULO_ESTEIRA').then(resultado => {
     cy.salvarNovosRegistros(resultado, `cypress/output/${MOP.nomeArquivo}`, MAPEAMENTO_VINCULOS);
@@ -23,7 +27,9 @@ When('pesquiso as dependências dos vínculos', () => {
   cy.preencherIdsHmlPeloEstoque(MAPEAMENTO_VINCULOS)
 })
 
-Then('confirmo que todos os vínculos foram sincronizados corretamente', () => {
-  cy.atualizarEstoqueIds(MAPEAMENTO_VINCULOS);
-  cy.log(`Todos os vínculos foram sincronizados corretamente entre Produção e Homologação`);
+Then('confirmo que todos os {string} foram sincronizados corretamente', (entidade) => {
+  if (entidade === 'vínculos') {
+    cy.atualizarEstoqueIds(MAPEAMENTO_VINCULOS);
+  }
+  cy.log(`Todos os ${entidade} foram sincronizados corretamente entre Produção e Homologação`);
 })
