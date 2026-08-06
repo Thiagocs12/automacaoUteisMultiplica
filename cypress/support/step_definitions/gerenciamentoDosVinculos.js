@@ -20,8 +20,10 @@ Given('que existem vínculos das esteiras cadastrados em Produção', () => {
 When('pesquiso as dependências dos vínculos', () => {
   cy.voltarIdsOriginais(MAPEAMENTO_VINCULOS);
   cy.pesquisarDependenciasBanco(MAPEAMENTO_VINCULOS)
+  cy.preencherIdsHmlPeloEstoque(MAPEAMENTO_VINCULOS)
 })
 
 Then('confirmo que todos os vínculos foram sincronizados corretamente', () => {
+  cy.atualizarEstoqueIds(MAPEAMENTO_VINCULOS);
   cy.log(`Todos os vínculos foram sincronizados corretamente entre Produção e Homologação`);
 })

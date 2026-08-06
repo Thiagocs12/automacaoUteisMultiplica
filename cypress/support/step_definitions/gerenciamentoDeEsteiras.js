@@ -16,5 +16,6 @@ Given('a pesquisa retornou dados de esteiras para serem copiados de produção p
 });
 
 Then('os dados das esteiras e suas dependências estão copiados de produção para homologação', () => {
+  cy.atualizarEstoqueIds(MAPEAMENTO_ESTEIRAS);
   cy.log('SUCESSO: Os dados das esteiras e suas dependências foram copiados de produção para homologação');
 });

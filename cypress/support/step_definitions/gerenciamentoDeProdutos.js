@@ -25,9 +25,11 @@ When('pesquiso as dependências da entidade {string}', (entidade) => {
   if (entidade === 'produtos') {
     cy.voltarIdsOriginais(MAPEAMENTOS_APIS);
     cy.pesquisarDependenciasLigacao(MAPEAMENTOS_APIS);
+    cy.preencherIdsHmlPeloEstoque(MAPEAMENTOS_APIS);
   } else if (entidade === 'esteiras') {
     cy.voltarIdsOriginais(MAPEAMENTO_ESTEIRAS);
     cy.pesquisarDependenciasLigacao(MAPEAMENTO_ESTEIRAS);
+    cy.preencherIdsHmlPeloEstoque(MAPEAMENTO_ESTEIRAS);
   }
 });
 
@@ -42,5 +44,6 @@ When('processo as dependências do nivel {int} da entidade {string}', (nivel, en
 });
 
 Then('os dados dos produtos e suas dependências estão copiados de produção para homologação', () => {
+  cy.atualizarEstoqueIds(MAPEAMENTOS_APIS);
   cy.log('SUCESSO: Os dados dos produtos e suas dependências foram copiados de produção para homologação');
 });
