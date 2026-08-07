@@ -15,10 +15,5 @@ Funcionalidade: Sincronização de Vínculos de Esteira entre Produção e Homol
     Quando pesquiso as dependências dos vínculos
     E processo as dependências do nivel 1 da entidade "vinculos"
     E processo as dependências do nivel 2 da entidade "vinculos"
+    E processo as dependências do nivel 3 da entidade "vinculos"
     Então confirmo que todos os 'vínculos' foram sincronizados corretamente
-
-  @parametros
-  Cenário: Sincronizar os parâmetros relacionados ao esteiras
-    Dado que possuem parâmetros relacionados às esteiras cadastrados em Produção
-    Quando processo as dependências do nivel 1 da entidade "parametros"
-    Então confirmo que todos os 'parâmetros' foram sincronizados corretamente

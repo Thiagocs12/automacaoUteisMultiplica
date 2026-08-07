@@ -82,6 +82,24 @@ const MAPEAMENTO_VINCULOS = {
     ],
     removerSeNaoEncontrado: true
   },
+  PARAMETRO_ETAPAS: {
+    nomeArquivo: 'Vinculos/5 - parametroEtapas.json',
+    nivelDependencia: 3,
+    tabela: 'MC_CAD_PARAMETRO',
+    campoIdentificador: 'identificador',
+    dependencia: [
+      { idSubstituido: 'valor', arquivoDependencia: 'Esteiras/1 - esteiras.json' },
+    ]
+  },
+  PARAMETRO_ESTEIRAS: {
+    nomeArquivo: 'Vinculos/6 - parametroEsteiras.json',
+    nivelDependencia: 3,
+    tabela: 'MC_CAD_PARAMETRO',
+    campoIdentificador: 'identificador',
+    dependencia: [
+      { idSubstituido: 'valor', arquivoDependencia: 'Esteiras/4 - etapas.json' },
+    ]
+  }
 };
 
 export default MAPEAMENTO_VINCULOS;

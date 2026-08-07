@@ -1298,10 +1298,6 @@ Cypress.Commands.add('pesquisarDependenciasBanco', (mapeamento, adiciona = false
             filtros.every(({ campoTabela, valores }) => valores.includes(item[campoTabela])),
           );
 
-          if (entidade.geraLog) {
-            cy.log(`[${entidade.chaveLog}] ${registrosFiltrados.length} registro(s) encontrado(s)`);
-          }
-
           if (adiciona) {
             cy.task('lerJsonSeExistir', { caminhoArquivo }).then((existentes) => {
               const mesclado = mesclarSemDuplicatas(existentes ?? [], registrosFiltrados, 'id');
@@ -1755,27 +1751,13 @@ Cypress.Commands.add('inserirItensHml', (nivel, mapeamentoEntidade, log = {}) =>
  * @returns {Cypress.Chainable<void>}
  */
 Cypress.Commands.add('processarVinculosPorNivel', (nivel, mapeamentoEntidade) => {
-  cy.task(
-    'lerJsonSeExistir',
-    { caminhoArquivo: CAMINHO_LOG },
-    { log: false }
-  ).then((logAtual) => {
-    const log = logAtual ?? {};
-
     cy.log('Rodando atualizarIdsDeDependencias');
     cy.atualizarIdsDeDependencias(nivel, mapeamentoEntidade);
-
     cy.log('Rodando pesquisarVinculoEsteiraHml');
     cy.pesquisarVinculoEsteiraHml(nivel, mapeamentoEntidade);
 
     cy.log('Rodando atualizarItensHml');
-    cy.atualizarItensHml(nivel, mapeamentoEntidade, log);
-
+  cy.atualizarItensHml(nivel, mapeamentoEntidade);
     cy.log('Rodando inserirItensHml');
-    cy.inserirItensHml(nivel, mapeamentoEntidade, log);
-
-    cy.then(() => {
-      cy.writeFile(CAMINHO_LOG, log, { log: false });
-    });
-  });
+  cy.inserirItensHml(nivel, mapeamentoEntidade);
 });
