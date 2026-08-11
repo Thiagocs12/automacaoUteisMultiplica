@@ -64,7 +64,7 @@ const ENTIDADES_SEM_ATUALIZACAO = [
 ];
 
 /** Limites para cada entidade */
-const LIMITE_ESTEIRAS = 120;
+const LIMITE_ESTEIRAS = 20;
 const LIMITE_PRODUTO = 20;
 const LIMITE_MOP = 100;
 const LIMITE_POC = 100;
@@ -73,7 +73,7 @@ const LIMITE_POC = 100;
 const CAMINHO_ESTOQUE = 'cypress/output/estoqueIds.json';
 
 /** Período máximo de validade dos registros mantidos no estoque de IDs. */
-const TRINTA_DIAS_EM_MS = 30 * 24 * 60 * 60 * 1000;
+const TEMPO_ESTOQUE = 60 * 24 * 60 * 60 * 1000;
 
 /** Entidades que não devem participar dos fluxos de leitura e atualização do estoque. */
 const ENTIDADE_SEM_ESTOQUE = [
@@ -531,7 +531,7 @@ Cypress.Commands.add('salvarNovosRegistros', (novosDados, caminhoArquivo, entida
   cy.task('lerJsonSeExistir', { caminhoArquivo }).then((dadosExistentes) => {
     cy.task('lerJsonSeExistir', { caminhoArquivo: CAMINHO_LOG }).then((logAtual) => {
       const agora = new Date();
-      const seteDiasEmMs = 7 * 24 * 60 * 60 * 1000;
+      const TEMPO_LOG = 14 * 24 * 60 * 60 * 1000;
       const registrosLog = (logAtual ?? {})[chaveEntidade] ?? [];
       const listaExistente = dadosExistentes ?? [];
       const idsExistentes = new Set(listaExistente.map((item) => item.id));
@@ -549,7 +549,7 @@ Cypress.Commands.add('salvarNovosRegistros', (novosDados, caminhoArquivo, entida
 
       const estaVencido = (id) => {
         const registroLog = registrosLog.find((r) => r.id === id);
-        return !registroLog || agora - new Date(registroLog.dataAtualizacao) > seteDiasEmMs;
+        return !registroLog || agora - new Date(registroLog.dataAtualizacao) > TEMPO_LOG;
       };
 
       const apenasNovos = novosDados.filter((novo) => !idsExistentes.has(novo.id));
@@ -874,135 +874,209 @@ Cypress.Commands.add('substituirUrlsDeAmbiente', (nivel, mapeamentoEntidade) => 
  */
 Cypress.Commands.add('pesquisarItensPorNivel', (nivel, mapeamentoEntidade) => {
   for (const chaveEntidade in mapeamentoEntidade) {
-    if (!Object.prototype.hasOwnProperty.call(mapeamentoEntidade, chaveEntidade)) continue;
+    if (!Object.prototype.hasOwnProperty.call(mapeamentoEntidade, chaveEntidade)) {
+      continue;
+    }
 
     const entidade = mapeamentoEntidade[chaveEntidade];
 
     if (
       ['GRUPOS_KEYCLOAK', 'CONDICOES'].includes(chaveEntidade) ||
       entidade.nivelDependencia !== nivel
-    )
+    ) {
       continue;
+    }
 
     const nomeArquivo = entidade.nomeArquivo;
     const campoDescricao = entidade.campoDescricao || 'descricao';
     const contentBusca = entidade.contentBusca || 'falseId';
-    const entidadeKeycloak = ['OPERADORES', 'OBSERVADORES', 'GESTORES'].includes(chaveEntidade);
+
+    const entidadeKeycloak = [
+      'OPERADORES',
+      'OBSERVADORES',
+      'GESTORES',
+    ].includes(chaveEntidade);
+
     const CAMPO_DESCRICAO_KEYCLOAK = 'name';
 
+    const normalizarValor = (valor) =>
+      String(valor ?? '')
+        .trim()
+        .toLowerCase();
+
+    const extrairContent = (body) => {
+      if (Array.isArray(body)) {
+        return body;
+      }
+
+      return (
+        body?.tiposEsteira ||
+        body?.modelosAcao ||
+        body?.motivosRetornoEsteira ||
+        body?.modelosSubEtapa ||
+        body?.modelosEtapa ||
+        body?.modelosEsteira ||
+        body?.content ||
+        []
+      );
+    };
     const salvarId = (id, dado) => {
-      cy.setIdHmlPorDescricao(
+      return cy.setIdHmlPorDescricao(
         id,
         dado,
         nomeArquivo,
         Array.isArray(contentBusca) ? contentBusca : campoDescricao,
       );
     };
-
     if (Array.isArray(contentBusca)) {
       cy.lerJsonDeOutput(nomeArquivo).then((dadosDoArquivo) => {
-        for (const dado of dadosDoArquivo) {
-          if (dado.idHml !== null && dado.idHml !== undefined) continue;
-          if (chaveEntidade === 'ESTEIRAS' && dado.atualizar !== true) continue;
+        const dadosPendentes = dadosDoArquivo.filter((dado) => {
+          if (dado.idHml !== null && dado.idHml !== undefined) {
+            return false;
+          }
 
+          if (chaveEntidade === 'ESTEIRAS' && dado.atualizar !== true) {
+            return false;
+          }
+
+          return true;
+        });
+        const gruposPorPrimeiroCampo = new Map();
+
+        for (const dado of dadosPendentes) {
           const valorChave1 = obterValor(dado, contentBusca[0]);
-          const valorChave2 = obterValor(dado, contentBusca[1]);
+          const chaveAgrupamento = normalizarValor(valorChave1);
 
-          cy.executarRequest('hml', `${entidade.urlBusca}${valorChave1}`).then((resposta) => {
-            const content = Array.isArray(resposta.body)
-              ? resposta.body
-              : resposta.body?.content || [];
+          if (!gruposPorPrimeiroCampo.has(chaveAgrupamento)) {
+            gruposPorPrimeiroCampo.set(chaveAgrupamento, {
+              valorChave1,
+              dados: [],
+            });
+          }
 
-            if (!content.length) {
-              salvarId(null, { [contentBusca[0]]: valorChave1, [contentBusca[1]]: valorChave2 });
-              return;
-            }
-
-            const itemEncontrado = content.find(
-              (item) =>
-                String(obterValor(item, contentBusca[1]))?.trim()?.toLowerCase() ===
-                String(valorChave2)?.trim()?.toLowerCase(),
-            );
-
-            const id = itemEncontrado?.id ?? null;
-            salvarId(id, { [contentBusca[0]]: valorChave1, [contentBusca[1]]: valorChave2 });
-          });
+          gruposPorPrimeiroCampo.get(chaveAgrupamento).dados.push(dado);
         }
+        return Array.from(gruposPorPrimeiroCampo.values()).reduce(
+          (cadeiaDeGrupos, grupo) => {
+            return cadeiaDeGrupos.then(() => {
+              const { valorChave1, dados } = grupo;
+
+              return cy
+                .executarRequest(
+                  'hml',
+                  `${entidade.urlBusca}${encodeURIComponent(valorChave1)}`,
+                )
+                .then((resposta) => {
+                  const content = extrairContent(resposta.body);
+
+                  /*
+                   * Processa todos os registros encontrados para o mesmo
+                   * primeiro campo utilizando o retorno de uma única chamada.
+                   */
+                  return dados.reduce((cadeiaDeRegistros, dado) => {
+                    return cadeiaDeRegistros.then(() => {
+                      const valorChave2 = obterValor(
+                        dado,
+                        contentBusca[1],
+                      );
+
+                      const itemEncontrado = content.find((item) => {
+                        const valorRetornado = obterValor(
+                          item,
+                          contentBusca[1],
+                        );
+
+                        return (
+                          normalizarValor(valorRetornado) ===
+                          normalizarValor(valorChave2)
+                        );
+                      });
+
+                      const id = itemEncontrado?.id ?? null;
+
+                      return salvarId(id, {
+                        [contentBusca[0]]: valorChave1,
+                        [contentBusca[1]]: valorChave2,
+                      });
+                    });
+                  }, cy.wrap(null, { log: false }));
+                });
+            });
+          },
+          cy.wrap(null, { log: false }),
+        );
       });
+
       continue;
     }
 
     cy.lerJsonDeOutput(nomeArquivo).then((dadosDoArquivo) => {
       const dadosPendentes = dadosDoArquivo.filter((dado) => {
-        if (dado.idHml !== null && dado.idHml !== undefined) return false;
-        if (chaveEntidade === 'ESTEIRAS' && dado.atualizar !== true) return false;
-      
+        if (dado.idHml !== null && dado.idHml !== undefined) {
+          return false;
+        }
+
+        if (chaveEntidade === 'ESTEIRAS' && dado.atualizar !== true) {
+          return false;
+        }
+
         return true;
       });
-    
-      // Keycloak: executa o listAll apenas uma vez por entidade.
       if (entidadeKeycloak) {
         return cy
           .executarRequest('hml', entidade.urlBusca)
           .then((resposta) => {
-            const content = Array.isArray(resposta.body)
-              ? resposta.body
-              : resposta.body?.tiposEsteira ||
-                resposta.body?.content ||
-                [];
-          
-            for (const dado of dadosPendentes) {
-              const valorBusca = dado[campoDescricao];
-            
-              const id =
-                content.find(
-                  (item) =>
-                    String(item?.[CAMPO_DESCRICAO_KEYCLOAK])
-                      .trim()
-                      .toLowerCase() ===
-                    String(valorBusca)
-                      .trim()
-                      .toLowerCase(),
-                )?.id ?? null;
-              
-              salvarId(id, valorBusca);
-            }
+            const content = extrairContent(resposta.body);
+
+            return dadosPendentes.reduce((cadeia, dado) => {
+              return cadeia.then(() => {
+                const valorBusca = obterValor(dado, campoDescricao);
+
+                const itemEncontrado = content.find((item) => {
+                  return (
+                    normalizarValor(
+                      item?.[CAMPO_DESCRICAO_KEYCLOAK],
+                    ) === normalizarValor(valorBusca)
+                  );
+                });
+
+                const id = itemEncontrado?.id ?? null;
+
+                return salvarId(id, valorBusca);
+              });
+            }, cy.wrap(null, { log: false }));
           });
       }
-    
-      // Entidades comuns: mantém uma busca individual por registro.
-      for (const dado of dadosPendentes) {
-        const valorBusca = dado[campoDescricao];
-      
-        cy.executarRequest(
-          'hml',
-          `${entidade.urlBusca}${encodeURIComponent(valorBusca)}`,
-        ).then((resposta) => {
-          const content = Array.isArray(resposta.body)
-            ? resposta.body
-            : resposta.body?.tiposEsteira ||
-              resposta.body?.modelosAcao ||
-              resposta.body?.motivosRetornoEsteira ||
-              resposta.body?.modelosSubEtapa ||
-              resposta.body?.modelosEtapa ||
-              resposta.body?.modelosEsteira ||
-              resposta.body?.content ||
-              [];
-        
-          const id =
-            content.find(
-              (item) =>
-                String(item?.[campoDescricao])
-                  .trim()
-                  .toLowerCase() ===
-                String(valorBusca)
-                  .trim()
-                  .toLowerCase(),
-            )?.id ?? null;
-          
-          salvarId(id, valorBusca);
+      return dadosPendentes.reduce((cadeia, dado) => {
+        return cadeia.then(() => {
+          const valorBusca = obterValor(dado, campoDescricao);
+
+          return cy
+            .executarRequest(
+              'hml',
+              `${entidade.urlBusca}${encodeURIComponent(valorBusca)}`,
+            )
+            .then((resposta) => {
+              const content = extrairContent(resposta.body);
+
+              const itemEncontrado = content.find((item) => {
+                const valorRetornado = obterValor(
+                  item,
+                  campoDescricao,
+                );
+
+                return (
+                  normalizarValor(valorRetornado) ===
+                  normalizarValor(valorBusca)
+                );
+              });
+
+              const id = itemEncontrado?.id ?? null;
+
+              return salvarId(id, valorBusca);
+            });
         });
-      }
+      }, cy.wrap(null, { log: false }));
     });
   }
 });
@@ -1584,7 +1658,7 @@ Cypress.Commands.add('preencherIdsHmlPeloEstoque', (mapeamentoEntidade) => {
 
                 const estoqueVencido =
                   Number.isNaN(dataAtualizacao.getTime()) ||
-                  Date.now() - dataAtualizacao.getTime() > TRINTA_DIAS_EM_MS;
+                  Date.now() - dataAtualizacao.getTime() > TEMPO_ESTOQUE;
 
                 if (estoqueVencido) {
                   registroEstoque.dataAtualizacao = new Date()
