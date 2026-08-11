@@ -87,8 +87,14 @@ const MAPEAMENTO_VINCULOS = {
     nivelDependencia: 3,
     tabela: 'MC_CAD_PARAMETRO',
     campoIdentificador: 'identificador',
+    geraLog: true,
+    chaveLog: 'PARAMETRO_ETAPAS',
+    camposUpdate: [
+      { campo: 'valor', tipo: 'string' }
+    ],
     dependencia: [
-      { idSubstituido: 'valor', arquivoDependencia: 'Esteiras/1 - esteiras.json' },
+      { idSubstituido: 'valor', arquivoDependencia: 'Esteiras/4 - etapas.json' },
+      { idSubstituido: 'valor', arquivoDependencia: 'Esteiras/5 - subetapas.json' },
     ]
   },
   PARAMETRO_ESTEIRAS: {
@@ -96,10 +102,29 @@ const MAPEAMENTO_VINCULOS = {
     nivelDependencia: 3,
     tabela: 'MC_CAD_PARAMETRO',
     campoIdentificador: 'identificador',
+    geraLog: true,
+    chaveLog: 'PARAMETRO_ESTEIRAS',
+    camposUpdate: [
+      { campo: 'valor', tipo: 'string' }
+    ],
     dependencia: [
-      { idSubstituido: 'valor', arquivoDependencia: 'Esteiras/4 - etapas.json' },
+      { idSubstituido: 'valor', arquivoDependencia: 'Esteiras/1 - esteiras.json' },
     ]
-  }
+  },
+  PARAMETRO_TIPO_ESTEIRAS: {
+    nomeArquivo: 'Vinculos/7 - parametroTipoEsteiras.json',
+    nivelDependencia: 3,
+    tabela: 'MC_CAD_PARAMETRO',
+    campoIdentificador: 'identificador',
+    geraLog: true,
+    chaveLog: 'PARAMETRO_TIPO_ESTEIRAS',
+    camposUpdate: [
+      { campo: 'valor', tipo: 'string' }
+    ],
+    dependencia: [
+      { idSubstituido: 'valor', arquivoDependencia: 'Esteiras/3 - tipoEsteiras.json' },
+    ]
+  },
 };
 
 export default MAPEAMENTO_VINCULOS;

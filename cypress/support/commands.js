@@ -64,7 +64,7 @@ const ENTIDADES_SEM_ATUALIZACAO = [
 ];
 
 /** Limites para cada entidade */
-const LIMITE_ESTEIRAS = 20;
+const LIMITE_ESTEIRAS = 120;
 const LIMITE_PRODUTO = 20;
 const LIMITE_MOP = 100;
 const LIMITE_POC = 100;
@@ -655,6 +655,51 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) =
               if (removerSeNaoEncontrado) itemRaiz._remover = true;
             };
 
+            const substituirIdsParametro = (objeto, chave) => {
+              // Esta função só deve ser chamada se idSubstituido for 'valor'
+              if (idSubstituido !== 'valor') return false;
+              if (!objeto || typeof objeto !== 'object') return false;
+
+              const chaveOldParametro = `${chave}.old`;
+              const valorAtual = objeto[chave];
+
+              // Se o valor não for uma string ou estiver vazio, não faz sentido processar como IDs separados por vírgula
+              if (typeof valorAtual !== 'string' || !valorAtual.trim()) {
+                return false;
+              }
+
+              // Salva o valor original em chaveOldParametro APENAS SE AINDA NÃO EXISTIR
+              if (!Object.prototype.hasOwnProperty.call(objeto, chaveOldParametro)) {
+                objeto[chaveOldParametro] = valorAtual;
+              }
+
+              const idsAtuais = valorAtual
+                .split(',')
+                .map((id) => id.trim())
+                .filter(Boolean);
+
+              const idsAtualizados = idsAtuais.map((idAtual) => {
+                const equivalente = listaDependencias.find(
+                  (dep) =>
+                    dep &&
+                    dep[idDependecia] != null &&
+                    String(dep[idDependecia]).trim() === String(idAtual).trim()
+                );
+
+                if (!equivalente || equivalente.idHml == null) {
+                  // Se não encontrou equivalente nesta dependência, mantém o ID original
+                  return idAtual;
+                }
+
+                return String(equivalente.idHml).trim();
+              });
+
+              // Atualiza o campo com os IDs que foram substituídos e os que não foram
+              objeto[chave] = idsAtualizados.join(',');
+
+              return true;
+            };
+
             const substituir = (atual, partesRestantes, itemRaiz) => {
               if (!atual || partesRestantes.length === 0) return;
 
@@ -672,12 +717,38 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) =
               const [proxima, ...resto] = partesRestantes;
 
               if (resto.length === 0) {
+                // Se idSubstituido é 'valor', tenta substituir como parâmetro de IDs
+                if (idSubstituido === 'valor' && substituirIdsParametro(atual, proxima)) {
+                  return; // Se foi tratado como parâmetro de IDs, não faz mais nada
+                }
+
+                // Lógica original para substituição de ID único
                 const elemento = atual[proxima];
 
                 if (Array.isArray(elemento)) {
                   elemento.forEach((el) => {
-                    if (Object.prototype.hasOwnProperty.call(el, chaveOld)) return;
-                    const idOriginal = el[chaveId];
+                    // Salva o idOriginal em chaveOld APENAS SE AINDA NÃO EXISTIR
+                    if (!Object.prototype.hasOwnProperty.call(el, chaveOld)) {
+                      const idOriginal = el[chaveId];
+                      if (!idOriginal) return;
+
+                      const equivalente = listaDependencias.find(
+                        (dep) => dep[idDependecia] === idOriginal,
+                      );
+
+                      if (!equivalente) {
+                        marcarRemocao(itemRaiz);
+                        return;
+                      }
+
+                      el[chaveOld] = idOriginal;
+                      el[chaveId] = equivalente.idHml;
+                    }
+                  });
+                } else if (elemento && typeof elemento === 'object') {
+                  // Salva o idOriginal em chaveOld APENAS SE AINDA NÃO EXISTIR
+                  if (!Object.prototype.hasOwnProperty.call(elemento, chaveOld)) {
+                    const idOriginal = elemento[chaveId];
                     if (!idOriginal) return;
 
                     const equivalente = listaDependencias.find(
@@ -689,25 +760,9 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) =
                       return;
                     }
 
-                    el[chaveOld] = idOriginal;
-                    el[chaveId] = equivalente.idHml;
-                  });
-                } else if (elemento && typeof elemento === 'object') {
-                  if (Object.prototype.hasOwnProperty.call(elemento, chaveOld)) return;
-                  const idOriginal = elemento[chaveId];
-                  if (!idOriginal) return;
-
-                  const equivalente = listaDependencias.find(
-                    (dep) => dep[idDependecia] === idOriginal,
-                  );
-
-                  if (!equivalente) {
-                    marcarRemocao(itemRaiz);
-                    return;
+                    elemento[chaveOld] = idOriginal;
+                    elemento[chaveId] = equivalente.idHml;
                   }
-
-                  elemento[chaveOld] = idOriginal;
-                  elemento[chaveId] = equivalente.idHml;
                 }
                 return;
               }
@@ -717,21 +772,29 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) =
 
             itens.forEach((item) => {
               if (partesParent.length === 0) {
-                if (Object.prototype.hasOwnProperty.call(item, chaveOld)) return;
-                const idOriginal = item[chaveId];
-                if (!idOriginal) return;
-
-                const equivalente = listaDependencias.find(
-                  (dep) => dep[idDependecia] === idOriginal,
-                );
-
-                if (!equivalente) {
-                  marcarRemocao(item);
-                  return;
+                // Se idSubstituido é 'valor', tenta substituir como parâmetro de IDs
+                if (idSubstituido === 'valor' && substituirIdsParametro(item, chaveId)) {
+                  return; // Se foi tratado como parâmetro de IDs, não faz mais nada
                 }
 
-                item[chaveOld] = idOriginal;
-                item[chaveId] = equivalente.idHml;
+                // Lógica original para substituição de ID único no nível raiz do item
+                // Salva o idOriginal em chaveOld APENAS SE AINDA NÃO EXISTIR
+                if (!Object.prototype.hasOwnProperty.call(item, chaveOld)) {
+                  const idOriginal = item[chaveId];
+                  if (!idOriginal) return;
+
+                  const equivalente = listaDependencias.find(
+                    (dep) => dep[idDependecia] === idOriginal,
+                  );
+
+                  if (!equivalente) {
+                    marcarRemocao(item);
+                    return;
+                  }
+
+                  item[chaveOld] = idOriginal;
+                  item[chaveId] = equivalente.idHml;
+                }
               } else {
                 substituir(item, partesParent, item);
               }
@@ -870,52 +933,75 @@ Cypress.Commands.add('pesquisarItensPorNivel', (nivel, mapeamentoEntidade) => {
     }
 
     cy.lerJsonDeOutput(nomeArquivo).then((dadosDoArquivo) => {
-      for (const dado of dadosDoArquivo) {
-        if (dado.idHml !== null && dado.idHml !== undefined) continue;
-        if (chaveEntidade === 'ESTEIRAS' && dado.atualizar !== true) continue;
-
-        const valorBusca = dado[campoDescricao];
-
-        if (entidadeKeycloak) {
-          cy.executarRequest('hml', entidade.urlBusca).then((resposta) => {
+      const dadosPendentes = dadosDoArquivo.filter((dado) => {
+        if (dado.idHml !== null && dado.idHml !== undefined) return false;
+        if (chaveEntidade === 'ESTEIRAS' && dado.atualizar !== true) return false;
+      
+        return true;
+      });
+    
+      // Keycloak: executa o listAll apenas uma vez por entidade.
+      if (entidadeKeycloak) {
+        return cy
+          .executarRequest('hml', entidade.urlBusca)
+          .then((resposta) => {
             const content = Array.isArray(resposta.body)
               ? resposta.body
-              : resposta.body?.tiposEsteira || resposta.body?.content || [];
-
-            const id =
-              content.find(
-                (item) =>
-                  String(item?.[CAMPO_DESCRICAO_KEYCLOAK])?.trim()?.toLowerCase() ===
-                  String(valorBusca)?.trim()?.toLowerCase(),
-              )?.id ?? null;
-
-            salvarId(id, valorBusca);
-          });
-        } else {
-          cy.executarRequest('hml', `${entidade.urlBusca}${encodeURIComponent(valorBusca)}`).then(
-            (resposta) => {
-              const content = Array.isArray(resposta.body)
-                ? resposta.body
-                : resposta.body?.tiposEsteira ||
-                  resposta.body?.modelosAcao ||
-                  resposta.body?.motivosRetornoEsteira ||
-                  resposta.body?.modelosSubEtapa ||
-                  resposta.body?.modelosEtapa ||
-                  resposta.body?.modelosEsteira ||
-                  resposta.body?.content ||
-                  [];
-
+              : resposta.body?.tiposEsteira ||
+                resposta.body?.content ||
+                [];
+          
+            for (const dado of dadosPendentes) {
+              const valorBusca = dado[campoDescricao];
+            
               const id =
                 content.find(
                   (item) =>
-                    String(item?.[campoDescricao])?.trim()?.toLowerCase() ===
-                    String(valorBusca)?.trim()?.toLowerCase(),
+                    String(item?.[CAMPO_DESCRICAO_KEYCLOAK])
+                      .trim()
+                      .toLowerCase() ===
+                    String(valorBusca)
+                      .trim()
+                      .toLowerCase(),
                 )?.id ?? null;
-
+              
               salvarId(id, valorBusca);
-            },
-          );
-        }
+            }
+          });
+      }
+    
+      // Entidades comuns: mantém uma busca individual por registro.
+      for (const dado of dadosPendentes) {
+        const valorBusca = dado[campoDescricao];
+      
+        cy.executarRequest(
+          'hml',
+          `${entidade.urlBusca}${encodeURIComponent(valorBusca)}`,
+        ).then((resposta) => {
+          const content = Array.isArray(resposta.body)
+            ? resposta.body
+            : resposta.body?.tiposEsteira ||
+              resposta.body?.modelosAcao ||
+              resposta.body?.motivosRetornoEsteira ||
+              resposta.body?.modelosSubEtapa ||
+              resposta.body?.modelosEtapa ||
+              resposta.body?.modelosEsteira ||
+              resposta.body?.content ||
+              [];
+        
+          const id =
+            content.find(
+              (item) =>
+                String(item?.[campoDescricao])
+                  .trim()
+                  .toLowerCase() ===
+                String(valorBusca)
+                  .trim()
+                  .toLowerCase(),
+            )?.id ?? null;
+          
+          salvarId(id, valorBusca);
+        });
       }
     });
   }
@@ -1167,8 +1253,6 @@ Cypress.Commands.add('voltarIdsOriginais', (entidade) => {
  * @returns {Cypress.Chainable<unknown>}
  */
 Cypress.Commands.add('executarQuery', (env, query) => {
-  console.log(query);
-
   if (env === 'prod') {
     cy.task('queryProd', { sqlQuery: query }).then((result) => {
       return result;
@@ -1555,6 +1639,8 @@ Cypress.Commands.add('preencherIdsHmlPeloEstoque', (mapeamentoEntidade) => {
  * @returns {Cypress.Chainable<void>}
  */
 Cypress.Commands.add('atualizarItensHml', (nivel, mapeamentoEntidade, log = {}) => {
+  let cadeia = cy.wrap(null, { log: false });
+
   for (const chaveEntidade in mapeamentoEntidade) {
     if (!Object.prototype.hasOwnProperty.call(mapeamentoEntidade, chaveEntidade)) {
       continue;
@@ -1571,67 +1657,114 @@ Cypress.Commands.add('atualizarItensHml', (nivel, mapeamentoEntidade, log = {}) 
 
     const { nomeArquivo, tabela, camposUpdate, geraLog, chaveLog } = entidade;
 
-    cy.lerJsonDeOutput(nomeArquivo).then((dadosDoArquivo) => {
-      if (!dadosDoArquivo?.length) return;
+    cadeia = cadeia.then(() => {
+      return cy.lerJsonDeOutput(nomeArquivo).then((dadosDoArquivo) => {
+        if (!dadosDoArquivo?.length) return;
 
-      const itensParaAtualizar = dadosDoArquivo.filter(
-        (dado) => dado.idHml != null && (!geraLog || dado.atualizar === true)
-      );
+        
+        const itensParaAtualizar = dadosDoArquivo.filter(
+          (dado) => dado.idHml != null && (!geraLog || dado.atualizar === true)
+        );
 
-      if (!itensParaAtualizar.length) return;
+        if (!itensParaAtualizar.length) return;
 
-      for (const dado of itensParaAtualizar) {
-        const camposOpcionais = camposUpdate
-          .filter(({ campo }) => dado[campo] != null)
-          .map(({ campo, tipo }) => {
-            const valor = dado[campo];
+        return cy.wrap(itensParaAtualizar, { log: false }).each((dado) => {
+          const camposOpcionais = camposUpdate
+            .filter(({ campo }) => dado[campo] != null)
+            .map(({ campo, tipo }) => {
+              const valor = dado[campo];
 
-            if (tipo === 'boolean') return `${campo} = ${valor ? 1 : 0}`;
-            if (tipo === 'string') return `${campo} = '${valor}'`;
+              if (tipo === 'boolean') return `${campo} = ${valor ? 1 : 0}`;
+              if (tipo === 'string') return `${campo} = '${String(valor).replace(/'/g, "''")}'`;
 
-            return `${campo} = ${valor}`;
-          });
-
-        const setClauses = [
-          ...camposOpcionais,
-          `usuarioUltimaAlteracao = 'automacao'`,
-          `dataUltimaAlteracao = GETDATE()`,
-        ];
-
-        const query = `
-          UPDATE ${tabela}
-          SET ${setClauses.join(', ')}
-          WHERE id = ${dado.idHml}
-        `;
-
-        cy.executarQuery('hml', query).then(() => {
-          if (!geraLog) return;
-
-          if (!log[chaveLog]) {
-            log[chaveLog] = [];
-          }
-
-          const dataAtualizacao = new Date()
-            .toISOString()
-            .replace('T', ' ')
-            .slice(0, 23);
-
-          const registroExistente = log[chaveLog].find(
-            (registro) => registro.id === dado.id
-          );
-
-          if (registroExistente) {
-            registroExistente.dataAtualizacao = dataAtualizacao;
-          } else {
-            log[chaveLog].push({
-              id: dado.id,
-              dataAtualizacao,
+              return `${campo} = ${valor}`;
             });
-          }
+
+          const setClauses = [
+            ...camposOpcionais,
+            `usuarioUltimaAlteracao = 'automacao'`,
+            `dataUltimaAlteracao = GETDATE()`,
+          ];
+
+          const query = `
+            UPDATE ${tabela}
+            SET ${setClauses.join(', ')}
+            WHERE id = ${dado.idHml}
+          `;
+
+          return cy.executarQuery('hml', query).then(() => {
+            if (!geraLog) return;
+
+            if (!chaveLog) {
+              throw new Error(
+                `A entidade ${chaveEntidade} está com geraLog = true, mas não possui chaveLog.`
+              );
+            }
+
+            if (!log[chaveLog]) {
+              log[chaveLog] = [];
+            }
+
+            const dataAtualizacao = new Date()
+              .toISOString()
+              .replace('T', ' ')
+              .slice(0, 23);
+
+            const registroExistente = log[chaveLog].find(
+              (registro) => registro.id === dado.id
+            );
+
+            if (registroExistente) {
+              registroExistente.dataAtualizacao = dataAtualizacao;
+            } else {
+              log[chaveLog].push({
+                id: dado.id,
+                dataAtualizacao,
+              });
+            }
+          });
         });
-      }
+      });
     });
   }
+
+  return cadeia.then(() => {
+    return cy.readFile(CAMINHO_LOG, { failOnNonExistence: false, log: false }).then((logExistente = {}) => {
+      const logFinal = {
+        ...logExistente,
+      };
+
+      Object.entries(log).forEach(([chaveLog, registros]) => {
+        if (!logFinal[chaveLog]) {
+          logFinal[chaveLog] = [];
+        }
+
+        registros.forEach((novoRegistro) => {
+          const registroJaExiste = logFinal[chaveLog].some(
+            (registroExistente) => String(registroExistente.id) === String(novoRegistro.id)
+          );
+
+          if (!registroJaExiste) {
+            logFinal[chaveLog].push(novoRegistro);
+          }
+        });
+      });
+
+      return cy.writeFile(CAMINHO_LOG, logFinal, { log: false }).then(() => {
+        Cypress.log({
+          name: 'salvarLog',
+          message: `Novos registros adicionados em ${CAMINHO_LOG}`,
+          consoleProps: () => ({
+            caminho: CAMINHO_LOG,
+            novosRegistros: log,
+            logFinal,
+          }),
+        });
+
+        return logFinal;
+      });
+    });
+  });
 });
 
 /**
@@ -1751,13 +1884,12 @@ Cypress.Commands.add('inserirItensHml', (nivel, mapeamentoEntidade, log = {}) =>
  * @returns {Cypress.Chainable<void>}
  */
 Cypress.Commands.add('processarVinculosPorNivel', (nivel, mapeamentoEntidade) => {
-    cy.log('Rodando atualizarIdsDeDependencias');
-    cy.atualizarIdsDeDependencias(nivel, mapeamentoEntidade);
-    cy.log('Rodando pesquisarVinculoEsteiraHml');
-    cy.pesquisarVinculoEsteiraHml(nivel, mapeamentoEntidade);
-
-    cy.log('Rodando atualizarItensHml');
+  cy.log('Rodando atualizarIdsDeDependencias');
+  cy.atualizarIdsDeDependencias(nivel, mapeamentoEntidade);
+  cy.log('Rodando pesquisarVinculoEsteiraHml');
+  cy.pesquisarVinculoEsteiraHml(nivel, mapeamentoEntidade);
+  cy.log('Rodando atualizarItensHml');
   cy.atualizarItensHml(nivel, mapeamentoEntidade);
-    cy.log('Rodando inserirItensHml');
+  cy.log('Rodando inserirItensHml');
   cy.inserirItensHml(nivel, mapeamentoEntidade);
 });

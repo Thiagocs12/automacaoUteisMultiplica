@@ -1,1 +1,324 @@
-[]
+[
+  {
+    "grupo": "Analista TI",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "87f5981c-fa8e-4e79-9c1d-6a40cb59561f",
+    "atualizar": false
+  },
+  {
+    "grupo": "Superintendente Comercial",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "19ae96ab-dd8e-40bd-9006-9951b1de5c88",
+    "atualizar": false
+  },
+  {
+    "grupo": "Gerente de Plataforma",
+    "tipoSeguranca": "6210410e2eb7d56d6ac9182e",
+    "podeAlterarFormulario": true,
+    "idHml": "53dd21d2-8c2d-48cc-a2bc-f42db062e967",
+    "atualizar": false
+  },
+  {
+    "grupo": "Secretario Votação",
+    "tipoSeguranca": "6210410e2eb7d56d6ac9182e",
+    "podeAlterarFormulario": true,
+    "idHml": "4e624c5d-e9a7-4e12-938c-25e9eb6d1dcf",
+    "atualizar": false
+  },
+  {
+    "grupo": "Compliance",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "23e300e6-d33e-4851-851c-eb415eb432c0",
+    "atualizar": false
+  },
+  {
+    "grupo": "Agente Comercial",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "17d00f39-7eae-4f2a-a0cc-fa3fe9bfafe4",
+    "atualizar": false
+  },
+  {
+    "grupo": "Assistente Comercial",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "5fe5deb9-ffcc-4456-9acf-b33c4f586a2d",
+    "atualizar": false
+  },
+  {
+    "grupo": "Priorizador Comercial",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "45474df8-171a-4e95-bb7d-d5f10c111e72",
+    "atualizar": false
+  },
+  {
+    "grupo": "Distribuidor de Crédito",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "825e8084-c070-469d-ace0-a19054d98379",
+    "atualizar": false
+  },
+  {
+    "grupo": "Analista de Crédito",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "352c314d-0146-4c63-a9da-0d4600af8021",
+    "atualizar": false
+  },
+  {
+    "grupo": "Superintendente Crédito",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "348c2752-e992-4cd9-81ae-c662027f0b26",
+    "atualizar": false
+  },
+  {
+    "grupo": "Secretario Comitê",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "2e2a54b9-7b04-4988-9d37-b9878bdc446e",
+    "atualizar": false
+  },
+  {
+    "grupo": "Formalização",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "054f0f55-8bad-4b39-a59b-1e8651bf00ae",
+    "atualizar": false
+  },
+  {
+    "grupo": "Analista Gestora",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "60466b71-70ad-444d-ae98-bdf531c7644d",
+    "atualizar": false
+  },
+  {
+    "grupo": "Backoffice Exportação",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "cdff4e85-837f-40f9-bb6d-6b256a981535",
+    "atualizar": false
+  },
+  {
+    "grupo": "Fechamento Câmbio",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "c91bd659-cc2e-4fd7-a513-804cdc42639c",
+    "atualizar": false
+  },
+  {
+    "grupo": "Tesouraria",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "fcaaff5b-05fa-47aa-8082-15170d4b07ae",
+    "atualizar": false
+  },
+  {
+    "grupo": "Cedente",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "332c6554-008b-4784-a9bb-eb5d09439f17",
+    "atualizar": false
+  },
+  {
+    "grupo": "BackOffice",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "0c016cf1-3e21-4a0f-af16-7eb16cfacee5",
+    "atualizar": false
+  },
+  {
+    "grupo": "Lastro",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "3e2cdfa5-e628-4efb-83e5-9927c3b485eb",
+    "atualizar": false
+  },
+  {
+    "grupo": "Diretoria",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "064d5232-520a-4791-b06b-75ac0d2ff379",
+    "atualizar": false
+  },
+  {
+    "grupo": "MOP",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "994e7182-39cc-4364-89dd-89dd4f3ca91a",
+    "atualizar": false
+  },
+  {
+    "grupo": "Checagem",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "243d135a-7a14-4795-bcee-4ee77d049f48",
+    "atualizar": false
+  },
+  {
+    "grupo": "Gerente MOP",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "5c2f6f0b-5fc8-4d07-9f46-248c74d083e3",
+    "atualizar": false
+  },
+  {
+    "grupo": "Gerente de Middle",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "fc019752-9aee-4e3f-8bee-c0f3990163a4",
+    "atualizar": false
+  },
+  {
+    "grupo": "Fornecedor Ancora",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "b3655585-5245-4dec-902e-03d227f926a0",
+    "atualizar": false
+  },
+  {
+    "grupo": "Gestora",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "25d86c8b-a315-4a0c-8ecb-1ff98356199c",
+    "atualizar": false
+  },
+  {
+    "grupo": "BackOffice Gestora",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "d5908171-64ef-46cb-a8cd-da3c44fc7d8a",
+    "atualizar": false
+  },
+  {
+    "grupo": "Jurídico",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "10ba45df-4715-495d-9c41-4cde018184d2",
+    "atualizar": false
+  },
+  {
+    "grupo": "Mop",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "994e7182-39cc-4364-89dd-89dd4f3ca91a",
+    "atualizar": false
+  },
+  {
+    "grupo": "Analista de Riscos",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "f905eca2-3976-45d7-a508-661e031195f0",
+    "atualizar": false
+  },
+  {
+    "grupo": "Middle",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "f26b3320-83a1-40cb-933f-01b86746f1fc",
+    "atualizar": false
+  },
+  {
+    "grupo": "Cadastro Cedente",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": false,
+    "idHml": "c75a9cef-89e1-4be2-b227-b8c2c99665e3",
+    "atualizar": false
+  },
+  {
+    "grupo": "Cadastro",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "4384d783-bbad-436a-b935-48a1c2bc1648",
+    "atualizar": false
+  },
+  {
+    "grupo": "Cobrança",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "e35dac17-497c-4980-b7be-15dcd430d074",
+    "atualizar": false
+  },
+  {
+    "grupo": "APC",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "764e4966-385d-4a45-b3d7-daf186fcbe0f",
+    "atualizar": false
+  },
+  {
+    "grupo": "Superintendente Controladoria",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "58e58014-67c7-4148-911e-38c38a808a8e",
+    "atualizar": false
+  },
+  {
+    "grupo": "Estruturador de Fundo",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "b18f9ba0-912f-4516-991b-3ba9a7369597",
+    "atualizar": false
+  },
+  {
+    "grupo": "RI",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "9e74dbfd-3250-43dc-8318-4355d44dffe3",
+    "atualizar": false
+  },
+  {
+    "grupo": "Middle da Gestora",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "75a34cca-f677-4910-8957-87634fe1e7b5",
+    "atualizar": false
+  },
+  {
+    "grupo": "CSC",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "3fa28cfd-0765-444c-86ba-3036044c00f4",
+    "atualizar": false
+  },
+  {
+    "grupo": "BackOffice Bank",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "6f6aa979-9d6b-4463-bef7-b6bf4004fbb6",
+    "atualizar": false
+  },
+  {
+    "grupo": "Floorplan",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "72b33dfc-07e4-4f4c-8e6e-b8cf81e6caac",
+    "atualizar": false
+  },
+  {
+    "grupo": "Gestora Liquidos",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "27a81f74-1063-4992-b4e5-5ecb3d340731",
+    "atualizar": false
+  },
+  {
+    "grupo": "Controladoria",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "3c098c8a-6db0-4866-89db-63949b5f0a34",
+    "atualizar": false
+  },
+  {
+    "grupo": "Setup",
+    "tipoSeguranca": "",
+    "podeAlterarFormulario": true,
+    "idHml": "f7ed8255-a150-4de0-b7f7-ab0cb64c28a3",
+    "atualizar": false
+  }
+]

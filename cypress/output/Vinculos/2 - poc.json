@@ -19,6 +19,7 @@
     "idHml": 6,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f743d94f5f564e70d1dd",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 1,
     "idTipoProposta.old": 1
@@ -43,6 +44,7 @@
     "idHml": 7,
     "atualizar": false,
     "codigoModeloEsteira.old": "6948040b4a2dbe528b504305",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 1,
     "idTipoProposta.old": 2
   },
@@ -66,6 +68,7 @@
     "idHml": 8,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f743d94f5f564e70d1dd",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 3,
     "idTipoProposta.old": 1
@@ -90,6 +93,7 @@
     "idHml": 9,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f824d94f5f564e70d1df",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 3,
     "idTipoProposta.old": 2
@@ -114,6 +118,7 @@
     "idHml": 10,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f7f45cb05d0b60e9579a",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 2,
     "idTipoProposta.old": 1
@@ -138,6 +143,7 @@
     "idHml": 11,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f824d94f5f564e70d1df",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 2,
     "idTipoProposta.old": 2
@@ -162,6 +168,7 @@
     "idHml": 12,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f824d94f5f564e70d1df",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 1,
     "idTipoProposta.old": 3
   },
@@ -185,6 +192,7 @@
     "idHml": 13,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f824d94f5f564e70d1df",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 3,
     "idTipoProposta.old": 3
   },
@@ -208,6 +216,7 @@
     "idHml": 14,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f824d94f5f564e70d1df",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 2,
     "idTipoProposta.old": 3
   },
@@ -231,6 +240,7 @@
     "idHml": 15,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f743d94f5f564e70d1dd",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 4,
     "idTipoProposta.old": 1
@@ -255,6 +265,7 @@
     "idHml": 16,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f824d94f5f564e70d1df",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 4,
     "idTipoProposta.old": 2
@@ -279,6 +290,7 @@
     "idHml": 17,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f743d94f5f564e70d1dd",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 5,
     "idTipoProposta.old": 1
@@ -303,6 +315,7 @@
     "idHml": 19,
     "atualizar": false,
     "codigoModeloEsteira.old": "6948040b4a2dbe528b504305",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 5,
     "idTipoProposta.old": 2
@@ -327,6 +340,7 @@
     "idHml": 18,
     "atualizar": false,
     "codigoModeloEsteira.old": "621028152eb7d56d6ac91816",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 6,
     "idTipoProposta.old": 1
@@ -351,6 +365,7 @@
     "idHml": 51,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f824d94f5f564e70d1df",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 4,
     "idTipoProposta.old": 3
   },
@@ -374,6 +389,7 @@
     "idHml": 27,
     "atualizar": false,
     "codigoModeloEsteira.old": "6948040b4a2dbe528b504305",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 1,
     "idTipoProposta.old": 5
   },
@@ -397,6 +413,7 @@
     "idHml": 20,
     "atualizar": false,
     "codigoModeloEsteira.old": "6948040b4a2dbe528b504305",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 1,
     "idTipoProposta.old": 4
   },
@@ -420,6 +437,7 @@
     "idHml": 28,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f824d94f5f564e70d1df",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 2,
     "idTipoProposta.old": 5
   },
@@ -443,6 +461,7 @@
     "idHml": 29,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f824d94f5f564e70d1df",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 3,
     "idTipoProposta.old": 5
   },
@@ -466,6 +485,7 @@
     "idHml": 31,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f824d94f5f564e70d1df",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 2,
     "idTipoProposta.old": 4
   },
@@ -489,6 +509,7 @@
     "idHml": 32,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f824d94f5f564e70d1df",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 3,
     "idTipoProposta.old": 4
   },
@@ -512,6 +533,7 @@
     "idHml": 30,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f824d94f5f564e70d1df",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 4,
     "idTipoProposta.old": 5
   },
@@ -535,6 +557,7 @@
     "idHml": 36,
     "atualizar": false,
     "codigoModeloEsteira.old": "6948040b4a2dbe528b504305",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 5,
     "idTipoProposta.old": 5
   },
@@ -558,6 +581,7 @@
     "idHml": 33,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f824d94f5f564e70d1df",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 4,
     "idTipoProposta.old": 4
   },
@@ -581,6 +605,7 @@
     "idHml": 34,
     "atualizar": false,
     "codigoModeloEsteira.old": "6948040b4a2dbe528b504305",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 5,
     "idTipoProposta.old": 4
   },
@@ -591,7 +616,7 @@
     "idTipoProspect": 5,
     "idTipoProposta": 13,
     "codigoModeloEsteira": "6a6ba6b887cca57c12cedc2b",
-    "codigoModeloEtapaInicial": "63bebcd4990ae9623de51eb4",
+    "codigoModeloEtapaInicial": "630d5697f18094524a48cd90",
     "usuarioUltimaAlteracao": "eduardo.ribeiro",
     "dataUltimaAlteracao": "2023-01-12T18:42:39.773Z",
     "dataCadastro": "2023-01-12T18:42:39.773Z",
@@ -604,6 +629,7 @@
     "idHml": 52,
     "atualizar": false,
     "codigoModeloEsteira.old": "63bec862990ae9623de51efb",
+    "codigoModeloEtapaInicial.old": "63bebcd4990ae9623de51eb4",
     "idTipoProspect.old": 5,
     "idTipoProposta.old": 3
   },
@@ -627,6 +653,7 @@
     "idHml": 21,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f743d94f5f564e70d1dd",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 7,
     "idTipoProposta.old": 1
@@ -651,6 +678,7 @@
     "idHml": 53,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f743d94f5f564e70d1dd",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 8,
     "idTipoProposta.old": 1
@@ -675,6 +703,7 @@
     "idHml": 54,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f824d94f5f564e70d1df",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 7,
     "idTipoProposta.old": 2
@@ -699,6 +728,7 @@
     "idHml": 55,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f824d94f5f564e70d1df",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 7,
     "idTipoProposta.old": 3
   },
@@ -722,6 +752,7 @@
     "idHml": 26,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f824d94f5f564e70d1df",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 7,
     "idTipoProposta.old": 4
   },
@@ -745,6 +776,7 @@
     "idHml": 56,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f824d94f5f564e70d1df",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 7,
     "idTipoProposta.old": 5
   },
@@ -768,6 +800,7 @@
     "idHml": 57,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f824d94f5f564e70d1df",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 8,
     "idTipoProposta.old": 2
@@ -792,6 +825,7 @@
     "idHml": 58,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f824d94f5f564e70d1df",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 8,
     "idTipoProposta.old": 3
   },
@@ -815,6 +849,7 @@
     "idHml": 59,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f824d94f5f564e70d1df",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 8,
     "idTipoProposta.old": 4
   },
@@ -838,6 +873,7 @@
     "idHml": 60,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f824d94f5f564e70d1df",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 8,
     "idTipoProposta.old": 5
   },
@@ -861,6 +897,7 @@
     "idHml": 38,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f7f45cb05d0b60e9579a",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 9,
     "idTipoProposta.old": 1
@@ -885,6 +922,7 @@
     "idHml": 39,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f824d94f5f564e70d1df",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 9,
     "idTipoProposta.old": 2
@@ -909,6 +947,7 @@
     "idHml": 40,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f824d94f5f564e70d1df",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 9,
     "idTipoProposta.old": 3
   },
@@ -932,6 +971,7 @@
     "idHml": 42,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f824d94f5f564e70d1df",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 9,
     "idTipoProposta.old": 5
   },
@@ -955,6 +995,7 @@
     "idHml": 41,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f824d94f5f564e70d1df",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 9,
     "idTipoProposta.old": 4
   },
@@ -978,6 +1019,7 @@
     "idHml": 43,
     "atualizar": false,
     "codigoModeloEsteira.old": "64dbb644c019680837be44f8",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 10,
     "idTipoProposta.old": 1
@@ -1002,6 +1044,7 @@
     "idHml": 44,
     "atualizar": false,
     "codigoModeloEsteira.old": "64dbb644c019680837be44f8",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 10,
     "idTipoProposta.old": 2
@@ -1026,6 +1069,7 @@
     "idHml": 46,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f743d94f5f564e70d1dd",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 12,
     "idTipoProposta.old": 1
@@ -1050,6 +1094,7 @@
     "idHml": 48,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f743d94f5f564e70d1dd",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 13,
     "idTipoProposta.old": 1
@@ -1074,6 +1119,7 @@
     "idHml": 63,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f743d94f5f564e70d1dd",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 14,
     "idTipoProposta.old": 1
@@ -1098,6 +1144,7 @@
     "idHml": 64,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f743d94f5f564e70d1dd",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 12,
     "idTipoProposta.old": 2
@@ -1122,6 +1169,7 @@
     "idHml": 65,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f824d94f5f564e70d1df",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 13,
     "idTipoProposta.old": 2
@@ -1146,6 +1194,7 @@
     "idHml": 66,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f743d94f5f564e70d1dd",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 14,
     "idTipoProposta.old": 2
@@ -1170,6 +1219,7 @@
     "idHml": 67,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f743d94f5f564e70d1dd",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 13,
     "idTipoProposta.old": 5
   },
@@ -1193,6 +1243,7 @@
     "idHml": 68,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f743d94f5f564e70d1dd",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 13,
     "idTipoProposta.old": 3
   },
@@ -1216,6 +1267,7 @@
     "idHml": 69,
     "atualizar": false,
     "codigoModeloEsteira.old": "6408f743d94f5f564e70d1dd",
+    "codigoModeloEtapaInicial.old": "621026fa2eb7d56d6ac91810",
     "idTipoProspect.old": 13,
     "idTipoProposta.old": 4
   },
@@ -1226,7 +1278,7 @@
     "idTipoProspect": 13,
     "idTipoProposta": 1,
     "codigoModeloEsteira": "69f9ec3a27392232ff30e575",
-    "codigoModeloEtapaInicial": "69f8f0690b87251f0a415ca9",
+    "codigoModeloEtapaInicial": "69f948d21a2d300ccf0bd649",
     "usuarioUltimaAlteracao": "thiago.santos",
     "dataUltimaAlteracao": "2026-05-05T10:18:11.927Z",
     "dataCadastro": "2026-05-04T16:35:53.800Z",
@@ -1239,6 +1291,7 @@
     "idHml": 70,
     "atualizar": false,
     "codigoModeloEsteira.old": "69f8f4545c2a0c4ec1315616",
+    "codigoModeloEtapaInicial.old": "69f8f0690b87251f0a415ca9",
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 15,
     "idTipoProposta.old": 1
@@ -1250,7 +1303,7 @@
     "idTipoProspect": 1,
     "idTipoProposta": 11,
     "codigoModeloEsteira": "69f9ec3a27392232ff30e575",
-    "codigoModeloEtapaInicial": "69f8f0690b87251f0a415ca9",
+    "codigoModeloEtapaInicial": "69f948d21a2d300ccf0bd649",
     "usuarioUltimaAlteracao": "tiago.roque",
     "dataUltimaAlteracao": "2026-05-06T17:25:51.293Z",
     "dataCadastro": "2026-05-06T17:25:51.293Z",
@@ -1263,6 +1316,7 @@
     "idHml": 71,
     "atualizar": false,
     "codigoModeloEsteira.old": "69f8f4545c2a0c4ec1315616",
+    "codigoModeloEtapaInicial.old": "69f8f0690b87251f0a415ca9",
     "codigoModeloEsteiraFormalizacao.old": "6957ec089e3f6f5948eb37c7",
     "idTipoProspect.old": 1,
     "idTipoProposta.old": 6

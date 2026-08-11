@@ -14842,5 +14842,136 @@
       "idHml": 11,
       "dataAtualizacao": "2026-08-06 03:12:11.907"
     }
+  ],
+  "PARAMETRO_ETAPAS": [
+    {
+      "idProducao": 47,
+      "idHml": 48,
+      "dataAtualizacao": "2026-08-11 01:56:32.689"
+    },
+    {
+      "idProducao": 109,
+      "idHml": 169,
+      "dataAtualizacao": "2026-08-11 01:56:32.689"
+    },
+    {
+      "idProducao": 123,
+      "idHml": 192,
+      "dataAtualizacao": "2026-08-11 01:56:32.689"
+    },
+    {
+      "idProducao": 239,
+      "idHml": 238,
+      "dataAtualizacao": "2026-08-11 01:56:32.689"
+    },
+    {
+      "idProducao": 464,
+      "idHml": 392,
+      "dataAtualizacao": "2026-08-11 01:56:32.689"
+    },
+    {
+      "idProducao": 472,
+      "idHml": 451,
+      "dataAtualizacao": "2026-08-11 01:56:32.689"
+    },
+    {
+      "idProducao": 513,
+      "idHml": 450,
+      "dataAtualizacao": "2026-08-11 01:56:32.689"
+    },
+    {
+      "idProducao": 516,
+      "idHml": 476,
+      "dataAtualizacao": "2026-08-11 01:56:32.689"
+    }
+  ],
+  "PARAMETRO_ESTEIRAS": [
+    {
+      "idProducao": 104,
+      "idHml": 168,
+      "dataAtualizacao": "2026-08-11 01:56:32.691"
+    },
+    {
+      "idProducao": 108,
+      "idHml": 166,
+      "dataAtualizacao": "2026-08-11 01:56:32.691"
+    },
+    {
+      "idProducao": 182,
+      "idHml": 204,
+      "dataAtualizacao": "2026-08-11 01:56:32.691"
+    },
+    {
+      "idProducao": 204,
+      "idHml": 220,
+      "dataAtualizacao": "2026-08-11 01:56:32.691"
+    },
+    {
+      "idProducao": 276,
+      "idHml": 252,
+      "dataAtualizacao": "2026-08-11 01:56:32.691"
+    },
+    {
+      "idProducao": 280,
+      "idHml": 259,
+      "dataAtualizacao": "2026-08-11 01:56:32.692"
+    },
+    {
+      "idProducao": 281,
+      "idHml": 260,
+      "dataAtualizacao": "2026-08-11 01:56:32.692"
+    },
+    {
+      "idProducao": 328,
+      "idHml": 297,
+      "dataAtualizacao": "2026-08-11 01:56:32.692"
+    },
+    {
+      "idProducao": 347,
+      "idHml": 313,
+      "dataAtualizacao": "2026-08-11 01:56:32.692"
+    },
+    {
+      "idProducao": 348,
+      "idHml": 314,
+      "dataAtualizacao": "2026-08-11 01:56:32.692"
+    },
+    {
+      "idProducao": 400,
+      "idHml": 343,
+      "dataAtualizacao": "2026-08-11 01:56:32.692"
+    }
+  ],
+  "PARAMETRO_TIPO_ESTEIRAS": [
+    {
+      "idProducao": 248,
+      "idHml": 223,
+      "dataAtualizacao": "2026-08-11 01:56:32.694"
+    },
+    {
+      "idProducao": 346,
+      "idHml": 306,
+      "dataAtualizacao": "2026-08-11 01:56:32.694"
+    },
+    {
+      "idProducao": 128,
+      "idHml": 144,
+      "dataAtualizacao": "2026-08-11 01:56:32.694"
+    },
+    {
+      "idProducao": 476,
+      "idHml": 454,
+      "dataAtualizacao": "2026-08-11 01:56:32.694"
+    },
+    {
+      "idProducao": 474,
+      "idHml": 452,
+      "dataAtualizacao": "2026-08-11 01:56:32.694"
+    },
+    {
+      "idProducao": 475,
+      "idHml": 453,
+      "dataAtualizacao": "2026-08-11 01:56:32.694"
+    }
   ]
 }
