@@ -1,0 +1,234 @@
+[
+  {
+    "id": "62100d082eb7d56d6ac91791",
+    "nome": "Prospect",
+    "descricao": "Prospect",
+    "usuario": {
+      "dataCriacao": "2022-02-18T18:18:00.455",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rogerio Messias"
+    },
+    "status": "ATIVO",
+    "excluido": false,
+    "idFiltro": "1",
+    "idHml": "62100d082eb7d56d6ac91791",
+    "atualizar": false
+  },
+  {
+    "id": "6287a2677b95a1333b83663c",
+    "nome": "Liquidação Exportação",
+    "descricao": "MultiComex",
+    "usuario": {
+      "dataCriacao": "2022-05-20T11:15:03.625",
+      "dataUltimaAlteracao": null,
+      "usuario": "Tiago Roque"
+    },
+    "status": "ATIVO",
+    "excluido": false,
+    "idFiltro": "1",
+    "idHml": "624c7f2e9bfea33c42199aff",
+    "atualizar": false
+  },
+  {
+    "id": "63402ce32167630f279750a7",
+    "nome": "OPE",
+    "descricao": "Operações Brasil",
+    "usuario": {
+      "dataCriacao": "2022-10-07T10:42:59.976",
+      "dataUltimaAlteracao": null,
+      "usuario": "Elaine Tarallo"
+    },
+    "status": "ATIVO",
+    "excluido": false,
+    "idFiltro": "1",
+    "idHml": "6a637dde87cca57c12ced7c8",
+    "atualizar": false
+  },
+  {
+    "id": "63a0a6d0c5be58290f7e21e2",
+    "nome": "OPE ESTRUTURADA",
+    "descricao": "OPE ESTRUTURADA",
+    "usuario": null,
+    "status": "ATIVO",
+    "excluido": false,
+    "idFiltro": "1",
+    "idHml": "63c0512ac9cbc478d3ec5c9a",
+    "atualizar": false
+  },
+  {
+    "id": "63a9ec01367ebb43d7089987",
+    "nome": "APR ESTRUTURADA",
+    "descricao": "Esteira para aprovação estruturada",
+    "usuario": null,
+    "status": "ATIVO",
+    "excluido": false,
+    "idFiltro": "1",
+    "idHml": "63c05121c9cbc478d3ec5c97",
+    "atualizar": false
+  },
+  {
+    "id": "63bebb3e94c72a4250d32e94",
+    "nome": "MOP - MultiComex",
+    "descricao": "MOP - MultiComex",
+    "usuario": {
+      "dataCriacao": "2023-01-11T10:35:58.816",
+      "dataUltimaAlteracao": null,
+      "usuario": "Eduardo Ribeiro"
+    },
+    "status": "ATIVO",
+    "excluido": false,
+    "idFiltro": "1",
+    "idHml": "630d2a3ff18094524a48cd62",
+    "atualizar": false
+  },
+  {
+    "id": "64c19d9b3cef8547613c0b74",
+    "nome": "Garantia",
+    "descricao": "Garantia",
+    "usuario": {
+      "dataCriacao": "2023-07-26T19:26:35.787",
+      "dataUltimaAlteracao": null,
+      "usuario": "Elaine Tarallo"
+    },
+    "status": "ATIVO",
+    "excluido": false,
+    "idFiltro": "1",
+    "idHml": "63bddcf6d7e43508bc1b9575",
+    "atualizar": false
+  },
+  {
+    "id": "65bfa2e86132ca6fd9f9e459",
+    "nome": "LIQUIDAÇÃO",
+    "descricao": "LIQUIDAÇÃO",
+    "usuario": {
+      "dataCriacao": "2024-02-04T11:44:56.935",
+      "dataUltimaAlteracao": null,
+      "usuario": "Eduardo Ribeiro"
+    },
+    "status": "ATIVO",
+    "excluido": false,
+    "idFiltro": "1",
+    "idHml": "651445a8902e8200134ee2a1",
+    "atualizar": false
+  },
+  {
+    "id": "65bfa2fe55cf571cd12c8b72",
+    "nome": "INSTRUÇÃO",
+    "descricao": "INSTRUÇÃO",
+    "usuario": {
+      "dataCriacao": "2024-02-04T11:45:18.492",
+      "dataUltimaAlteracao": null,
+      "usuario": "Eduardo Ribeiro"
+    },
+    "status": "ATIVO",
+    "excluido": false,
+    "idFiltro": "1",
+    "idHml": "6532be02ea179d5a35c1b925",
+    "atualizar": false
+  },
+  {
+    "id": "663ed7173b3a340af4f40a1c",
+    "nome": "CESSÃO ENTRE FUNDOS",
+    "descricao": "CESSÃO ENTRE FUNDOS",
+    "usuario": {
+      "dataCriacao": "2024-05-10T23:25:27.156",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "status": "ATIVO",
+    "excluido": false,
+    "idFiltro": "1",
+    "idHml": "662947ffb759f13a39758abf",
+    "atualizar": false
+  },
+  {
+    "id": "666381cc25233a73fc574901",
+    "nome": "SITUAÇÃO GARANTIA",
+    "descricao": "SITUAÇÃO GARANTIA",
+    "usuario": {
+      "dataCriacao": "2024-06-07T18:55:24.449",
+      "dataUltimaAlteracao": null,
+      "usuario": "Tiago Roque"
+    },
+    "status": "ATIVO",
+    "excluido": false,
+    "idFiltro": "1",
+    "idHml": "66462233a163de193ee34e66",
+    "atualizar": false
+  },
+  {
+    "id": "66919f3fa1fcf43cdd85d52c",
+    "nome": "MOP CESSÃO ENTRE FUNDOS",
+    "descricao": "MOP CESSÃO ENTRE FUNDOS",
+    "usuario": {
+      "dataCriacao": "2024-07-12T18:25:19.828",
+      "dataUltimaAlteracao": null,
+      "usuario": "Natiele Silva"
+    },
+    "status": "ATIVO",
+    "excluido": false,
+    "idFiltro": "1",
+    "idHml": "667e0586e826ac068f743661",
+    "atualizar": false
+  },
+  {
+    "id": "66dbb7855ae9207666f07238",
+    "nome": "SOLICITAÇÃO",
+    "descricao": "SOLICITAÇÃO",
+    "usuario": {
+      "dataCriacao": "2024-09-06T23:16:37.988",
+      "dataUltimaAlteracao": null,
+      "usuario": "Tiago Roque"
+    },
+    "status": "ATIVO",
+    "excluido": false,
+    "idFiltro": "1",
+    "idHml": "66ccbf921fc244179b5d530a",
+    "atualizar": false
+  },
+  {
+    "id": "67f924ea4e31d15f444a46cf",
+    "nome": "INSTRUÇÃO_LOTE",
+    "descricao": "Instrução Bancária em Lote",
+    "usuario": {
+      "dataCriacao": "2025-04-11T11:19:22.088",
+      "dataUltimaAlteracao": null,
+      "usuario": "Rodrigo Meneses"
+    },
+    "status": "ATIVO",
+    "excluido": false,
+    "idFiltro": "1",
+    "idHml": "67cef6ebfcd8e66c9ed0a59a",
+    "atualizar": false
+  },
+  {
+    "id": "6957e25371961b7bb10da324",
+    "nome": "PROSPECT ADITAMENTO",
+    "descricao": "PROSPECT ADITAMENTO",
+    "usuario": {
+      "dataCriacao": "2026-01-02T12:20:51.22",
+      "dataUltimaAlteracao": null,
+      "usuario": "Beyond"
+    },
+    "status": "ATIVO",
+    "excluido": false,
+    "idFiltro": "1",
+    "idHml": "6952e39f9d15a32e536bc3f5",
+    "atualizar": false
+  },
+  {
+    "id": "6957e25994a04f5e3d4527e5",
+    "nome": "PROSPECT PRE-HOMOLOGACAO",
+    "descricao": "PROSPECT PRE-HOMOLOGACAO",
+    "usuario": {
+      "dataCriacao": "2026-01-02T12:20:57.931",
+      "dataUltimaAlteracao": null,
+      "usuario": "Beyond"
+    },
+    "status": "ATIVO",
+    "excluido": false,
+    "idFiltro": "1",
+    "idHml": "6952e3ab9d15a32e536bc3f7",
+    "atualizar": false
+  }
+]

@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "idConsultoriaEspecializada": 1,
+    "descricao": "NOVA",
+    "ativo": true,
+    "usuarioUltimaAlteracao": "tiago.roque",
+    "dataUltimaAlteracao": "2022-02-17T19:14:15.943Z",
+    "dataCadastro": "2022-02-17T19:14:15.943Z",
+    "usuarioCadastro": "tiago.roque",
+    "indExigePriorizacao": false,
+    "idHml": 1
+  },
+  {
+    "id": 2,
+    "idConsultoriaEspecializada": 1,
+    "descricao": "RENOVAÇÃO",
+    "ativo": true,
+    "usuarioUltimaAlteracao": "tiago.roque",
+    "dataUltimaAlteracao": "2022-02-17T19:14:24.437Z",
+    "dataCadastro": "2022-02-17T19:14:24.437Z",
+    "usuarioCadastro": "tiago.roque",
+    "indExigePriorizacao": false,
+    "idHml": 2
+  },
+  {
+    "id": 3,
+    "idConsultoriaEspecializada": 1,
+    "descricao": "ALTERACAO/EXTRA PAUTA",
+    "ativo": true,
+    "usuarioUltimaAlteracao": "elaine.tarallo",
+    "dataUltimaAlteracao": "2023-03-08T21:41:24.423Z",
+    "dataCadastro": "2022-02-17T19:14:31.217Z",
+    "usuarioCadastro": "tiago.roque",
+    "indExigePriorizacao": false,
+    "idHml": 13
+  },
+  {
+    "id": 4,
+    "idConsultoriaEspecializada": 1,
+    "descricao": "RENOVAÇÃO MAJORAÇÃO",
+    "ativo": true,
+    "usuarioUltimaAlteracao": "elaine.tarallo",
+    "dataUltimaAlteracao": "2023-03-08T19:33:24.423Z",
+    "dataCadastro": "2023-03-08T19:32:59.747Z",
+    "usuarioCadastro": "elaine.tarallo",
+    "indExigePriorizacao": false,
+    "idHml": 4
+  },
+  {
+    "id": 5,
+    "idConsultoriaEspecializada": 1,
+    "descricao": "PRORROGAÇÃO",
+    "ativo": true,
+    "usuarioUltimaAlteracao": "elaine.tarallo",
+    "dataUltimaAlteracao": "2023-03-08T19:33:46.213Z",
+    "dataCadastro": "2023-03-08T19:33:46.213Z",
+    "usuarioCadastro": "elaine.tarallo",
+    "indExigePriorizacao": false,
+    "idHml": 5
+  },
+  {
+    "id": 6,
+    "idConsultoriaEspecializada": 1,
+    "descricao": "NOVA - LARCA",
+    "ativo": true,
+    "usuarioUltimaAlteracao": "elaine.tarallo",
+    "dataUltimaAlteracao": "2023-03-08T19:33:46.213Z",
+    "dataCadastro": "2023-03-08T19:33:46.213Z",
+    "usuarioCadastro": "elaine.tarallo",
+    "indExigePriorizacao": false,
+    "idHml": 11
+  }
+]

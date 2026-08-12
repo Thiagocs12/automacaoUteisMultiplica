@@ -1,73 +1,81 @@
-// cypress.config.js
-import { defineConfig } from 'cypress';
-import dotenv from 'dotenv'; // Importação do dotenv
-import fs from 'fs';
-const path = require('path');
+import { defineConfig } from 'cypress'
+import dotenv from 'dotenv'
+import fs from 'fs'
+const path = require('path')
+const { dbTasks } = require('./cypress/support/tasks/dbTasks')
+const { closeAllPools } = require('./cypress/support/db/dbClient')
 
-// Chame dotenv.config() para carregar as variáveis do .env
-dotenv.config();
+import createBundler from "@bahmutov/cypress-esbuild-preprocessor"
+import { addCucumberPreprocessorPlugin } from "@badeball/cypress-cucumber-preprocessor"
+import { createEsbuildPlugin } from "@badeball/cypress-cucumber-preprocessor/esbuild"
 
-// Importações para @badeball/cypress-cucumber-preprocessor
-import createBundler from "@bahmutov/cypress-esbuild-preprocessor";
-import { addCucumberPreprocessorPlugin } from "@badeball/cypress-cucumber-preprocessor";
-import { createEsbuildPlugin } from "@badeball/cypress-cucumber-preprocessor/esbuild";
+dotenv.config()
 
 export default defineConfig({
   e2e: {
-    specPattern: "**/*.feature", // Define que os arquivos de feature serão os specs
+    specPattern: "**/*.feature",
     async setupNodeEvents(on, config) {
-      // Configuração do @badeball/cypress-cucumber-preprocessor
-      await addCucumberPreprocessorPlugin(on, config);
+      await addCucumberPreprocessorPlugin(on, config)
 
       on(
         "file:preprocessor",
         createBundler({
-          plugins: [
-            createEsbuildPlugin(config, {
-              loader: { '.js': 'js' },
-            }),
-          ],
+          plugins: [createEsbuildPlugin(config)],
         })
-      );
+      )
+
       on('task', {
+        // ─── File tasks ───────────────────────────────────────
         lerJsonSeExistir(args) {
-          const { caminhoArquivo } = args || {};
-          if (!caminhoArquivo) return null;
+          const { caminhoArquivo } = args || {}
+          if (!caminhoArquivo) return null
 
           const caminhoCompleto = path.isAbsolute(caminhoArquivo)
             ? caminhoArquivo
-            : path.join(process.cwd(), caminhoArquivo);
+            : path.join(process.cwd(), caminhoArquivo)
 
-          if (!fs.existsSync(caminhoCompleto)) return null;
+          if (!fs.existsSync(caminhoCompleto)) return null
 
-          const conteudoBruto = fs.readFileSync(caminhoCompleto, 'utf8');
-          if (!conteudoBruto || !conteudoBruto.trim()) return [];
-          return JSON.parse(conteudoBruto);
+          const conteudoBruto = fs.readFileSync(caminhoCompleto, 'utf8')
+          if (!conteudoBruto || !conteudoBruto.trim()) return []
+
+          try {
+            return JSON.parse(conteudoBruto)
+          } catch (e) {
+            console.error(`[lerJsonSeExistir] Falha ao parsear: ${caminhoCompleto}`)
+            console.error(`[lerJsonSeExistir] Erro: ${e.message}`)
+            return null
+          }
         },
         escreverJson({ caminhoArquivo, conteudo }) {
-          const caminhoCompleto = path.join(process.cwd(), caminhoArquivo);
-          fs.writeFileSync(caminhoCompleto, JSON.stringify(conteudo, null, 2), 'utf8');
-          return null;
+          const caminhoCompleto = path.join(process.cwd(), caminhoArquivo)
+          fs.writeFileSync(caminhoCompleto, JSON.stringify(conteudo, null, 2), 'utf8')
+          return null
         },
         listarArquivos(caminho) {
-          const diretorioCompleto = path.resolve(caminho);
-
+          const diretorioCompleto = path.resolve(caminho)
           if (!fs.existsSync(diretorioCompleto)) {
-            throw new Error(`Diretório não encontrado: ${diretorioCompleto}`);
+            throw new Error(`Diretório não encontrado: ${diretorioCompleto}`)
           }
-
-          const arquivos = fs.readdirSync(diretorioCompleto);
-          return arquivos;
+          return fs.readdirSync(diretorioCompleto)
         },
-      });
+
+        // ─── DB tasks ─────────────────────────────────────────
+        ...dbTasks,
+      })
+
+      on('after:run', async () => {
+        await closeAllPools()
+      })
 
       config.env = {
         ...config.env,
         ...process.env,
       }
-      return config;
+
+      return config
     },
-  pageLoadTimeout: 20000,  
-  defaultCommandTimeout: 20000,  
+    pageLoadTimeout: 20000,
+    defaultCommandTimeout: 20000,
   },
-});
+})

@@ -3,7 +3,6 @@ const MAPEAMENTOS_ETAPAS = {
         tipoEsteira: 'poc',
         caminhoTela: ['Beyond BackOffice', 'Crédito', 'Home', 'Prospect', 'Distribuição'],
         baseUrl: 'mc-poc-ms/api/v1/distribuicaoProposta',
-        method: 'POST',
         etapasParaAvanco: ['salvaComitePropostas', 'avancarEsteiraComitePropostas']
     },
     COMITE: {
@@ -47,7 +46,6 @@ const MAPEAMENTOS_ETAPAS = {
           }
         ],
         votacao: 'mc-whatsapp-ms/v1/mensagens/votacao',        
-        method: 'POST',
     }
 };
 

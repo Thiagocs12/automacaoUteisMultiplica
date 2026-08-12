@@ -14,7 +14,6 @@ Given("que possuo uma lista de ids de esteiras que preciso finalizar de esteira 
     cnpjs.forEach((cnpj) => {
       cy.criarPocEAvancar(cnpj)
     });
-    //cy.pause()
 });
 
 When("realizo o avanco da etapa {string}", (etapa) => {
