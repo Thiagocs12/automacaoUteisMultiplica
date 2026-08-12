@@ -3,7 +3,6 @@
 import './commands';
 import './apiCommands';
 import './utils';
-import './larca';
 
 const ERROS_IGNORADOS = [
   /Cannot read properties of undefined |reading 'content'|/,

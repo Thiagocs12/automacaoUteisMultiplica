@@ -13452,12 +13452,12 @@
       "usuarioUltimaAlteracao": null
     },
     "grupoProduto": {
-      "id": 17,
-      "descricao": "CCB/NC",
+      "id": 51,
+      "descricao": "CCB/NC - LARCA",
       "ativo": null,
       "grupoProdutoRisco": {
-        "id": 2,
-        "descricao": "CCB/NC",
+        "id": 14,
+        "descricao": "CCB/NC - LARCA",
         "ativo": null,
         "dataCadastro": null,
         "usuarioCadastro": null,
@@ -13535,8 +13535,8 @@
     "siglaProduto": "CCBEL",
     "dataCadastro": "2026-07-31T11:18:58.2",
     "usuarioCadastro": "rodrigo.meneses",
-    "dataUltimaAlteracao": "2026-07-31T11:18:58.2",
-    "usuarioUltimaAlteracao": "rodrigo.meneses",
+    "dataUltimaAlteracao": "2026-08-06T14:27:42.867",
+    "usuarioUltimaAlteracao": "matheus.oliveira",
     "garantiaCategoria": null,
     "indOperacaoEstruturada": false,
     "indDisponivelHomeBanking": true,

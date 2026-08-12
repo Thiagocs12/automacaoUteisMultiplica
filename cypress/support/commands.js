@@ -13,14 +13,14 @@ const CAMINHO_LOG = 'cypress/output/ultimosUpdates.json';
 
 /** Entidades ignoradas no fluxo de pesquisa de dependências de ligação */
 const ENTIDADES_IGNORADAS = [
-  'PRODUTO',
+  'SELECIONAR_CEDENTE',
+  'ESTEIRA_VALIDADOR',
   'GRUPOS_KEYCLOAK',
   'MULTIFLOW',
-  'SELECIONAR_CEDENTE',
   'ESTEIRAS',
+  'PRODUTO',
   'MOP',
   'POC',
-  'ESTEIRA_VALIDADOR'
 ];
 
 /** Entidades que contêm URLs de ambiente que devem ser substituídas */
@@ -40,28 +40,28 @@ const SUBSTITUICOES_URL = [
 
 /** Entidades que não atualizam */
 const ENTIDADES_SEM_ATUALIZACAO = [
-  'GRUPOS_KEYCLOAK',
-  'CONDICOES',
-  'MOTIVOS_RETORNO',
-  'GESTORES',
-  'OBSERVADORES',
-  'OPERADORES',
   'TIPOESTEIRAS_VINCULADAS',
-  'PRODUTO_TARIFA',
-  'PRODUTO_GARANTIA',
-  'PRODUTO_KIT',
-  'KIT_DOCUMENTO',
-  'TIPO_SITUACAO',
-  'GRUPO_GARANTIA',
   'CLASSIFICACAO_GARANTIA',
-  'NIVEL_GARANTIA',
-  'TIPO_GARANTIA',
+  'CLASSIFICACAO_PRODUTO',
   'GRUPO_PRODUTO_RISCO',
   'SEGMENTO_TARIFADOR',
   'PRODUTO_INDEXADOR',
-  'CLASSIFICACAO_PRODUTO',
-  'TIPO_EVENTO',
+  'PRODUTO_GARANTIA',
+  'GRUPOS_KEYCLOAK',
+  'MOTIVOS_RETORNO',
+  'PRODUTO_TARIFA',
+  'GRUPO_GARANTIA',
+  'NIVEL_GARANTIA',
+  'KIT_DOCUMENTO',
+  'TIPO_SITUACAO',
+  'TIPO_GARANTIA',
+  'OBSERVADORES',
   'TIPOESTEIRAS',
+  'PRODUTO_KIT',
+  'TIPO_EVENTO',
+  'OPERADORES',
+  'CONDICOES',
+  'GESTORES',
 ];
 
 /** Limites para cada entidade */
@@ -78,8 +78,8 @@ const TEMPO_ESTOQUE = 60 * 24 * 60 * 60 * 1000;
 
 /** Entidades que não devem participar dos fluxos de leitura e atualização do estoque. */
 const ENTIDADE_SEM_ESTOQUE = [
-  'OPERADORES',
   'OBSERVADORES',
+  'OPERADORES',
   'GESTORES',
 ];
 
