@@ -207,6 +207,18 @@ const MAPEAMENTO_ESTEIRAS = {
     adiciona: true,
     env: 'keycloak',
   },
+  ESTEIRA_VALIDADOR: {
+    urlListAll: 'mc-cadastro-ms/api/v1/esteiraValidador/listAll',
+    urlBusca: 'mc-cadastro-ms/api/v1/esteiraValidador/search/0?&codigoModeloEtapa=',
+    url: 'mc-cadastro-ms/api/v1/esteiraValidador',
+    nomeArquivo: 'Esteiras/9 - esteiraValidador.json',
+    nivelDependencia: 5,
+    campoDescricao: 'codigoModeloEtapa',
+    dependencia: [
+      { idSubstituido: 'codigoModeloEtapa', arquivoDependencia: 'Esteiras/4 - etapas.json' },
+    ],
+    removerSeNaoEncontrado: true,
+  },
 };
 
 export default MAPEAMENTO_ESTEIRAS;

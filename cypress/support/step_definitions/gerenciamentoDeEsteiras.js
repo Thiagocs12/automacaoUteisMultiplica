@@ -6,6 +6,9 @@ import MAPEAMENTO_ESTEIRAS from '../../utils/mapeamentoEsteiras';
 Given('uma consulta às esteiras de produção é realizada para obter os dados atuais', () => {
   cy.executarRequest('prod', `${MAPEAMENTO_ESTEIRAS.ESTEIRAS.urlListAll}`).then((resposta) => {
     cy.salvarNovosRegistros(resposta.body, `cypress/output/${MAPEAMENTO_ESTEIRAS.ESTEIRAS.nomeArquivo}`, MAPEAMENTO_ESTEIRAS);
+  });  
+  cy.executarRequest('prod', `${MAPEAMENTO_ESTEIRAS.ESTEIRA_VALIDADOR.urlListAll}`).then((resposta) => {
+    cy.salvarNovosRegistros(resposta.body, `cypress/output/${MAPEAMENTO_ESTEIRAS.ESTEIRA_VALIDADOR.nomeArquivo}`, MAPEAMENTO_ESTEIRAS);
   });
 });
 

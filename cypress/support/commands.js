@@ -20,6 +20,7 @@ const ENTIDADES_IGNORADAS = [
   'ESTEIRAS',
   'MOP',
   'POC',
+  'ESTEIRA_VALIDADOR'
 ];
 
 /** Entidades que contêm URLs de ambiente que devem ser substituídas */
@@ -1245,7 +1246,7 @@ Cypress.Commands.add('atualizarItensExistentesPorNivel', (nivel, mapeamentoEntid
             ? { [entidade.novoArray]: camposNormalizados }
             : camposNormalizados;
 
-          cy.executarRequest2(env, entidade.url, body, method).then(() => {
+          cy.executarRequest(env, entidade.url, body, method).then(() => {
             if (!log[chaveEntidade]) log[chaveEntidade] = [];
 
             const dataAtualizacao = new Date().toISOString().replace('T', ' ').slice(0, 23);
