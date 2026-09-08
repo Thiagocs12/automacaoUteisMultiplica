@@ -76,6 +76,9 @@ const MAPEAMENTO_ESTEIRAS = {
     nomeArquivo: 'Esteiras/3 - tipoEsteiras.json',
     nivelDependencia: 1,
     campoDescricao: 'nome',
+    // Diferença de configuração entre ambientes: o tipo de esteira chamado
+    // "OPE" em produção é o mesmo conceito chamado "MOP" em HML.
+    traducaoBusca: { OPE: 'MOP' },
     nomeArquivoReferencia: 'Esteiras/1 - esteiras.json',
     adiciona: true,
     urlListAll: 'mc-multiflow-ms/api/v1/tipoesteira/all',
@@ -88,6 +91,8 @@ const MAPEAMENTO_ESTEIRAS = {
     nomeArquivo: 'Esteiras/3 - tipoEsteiras.json',
     nivelDependencia: 1,
     campoDescricao: 'nome',
+    // Mesma diferença de nomenclatura entre ambientes descrita em TIPOESTEIRAS.
+    traducaoBusca: { OPE: 'MOP' },
     nomeArquivoReferencia: 'Esteiras/2 - esteirasVinculadas.json',
     adiciona: true,
     urlListAll: 'mc-multiflow-ms/api/v1/tipoesteira/all',

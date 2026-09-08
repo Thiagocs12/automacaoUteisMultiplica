@@ -77,6 +77,22 @@ Cypress.Commands.add('pesquisarItensPorNivel', (nivel, mapeamentoEntidade) => {
         .trim()
         .toLowerCase();
 
+    // Algumas entidades têm nomes diferentes entre ambientes por diferença de
+    // configuração (ex.: tipo de esteira "OPE" em produção é "MOP" em HML).
+    // Quando `entidade.traducaoBusca` está definido, o valor é traduzido antes
+    // de consultar/comparar com HML — a busca por chave é sempre feita ignorando
+    // maiúsculas/minúsculas.
+    const traduzirParaHml = (valor) => {
+      const mapa = entidade.traducaoBusca;
+      if (!mapa) return valor;
+
+      const chaveEncontrada = Object.keys(mapa).find(
+        (chave) => normalizarValor(chave) === normalizarValor(valor),
+      );
+
+      return chaveEncontrada ? mapa[chaveEncontrada] : valor;
+    };
+
     const extrairContent = (body) => {
       if (Array.isArray(body)) {
         return body;
@@ -215,7 +231,7 @@ Cypress.Commands.add('pesquisarItensPorNivel', (nivel, mapeamentoEntidade) => {
       const gruposPorValorBusca = new Map();
 
       for (const dado of dadosPendentes) {
-        const valorBusca = obterValor(dado, campoDescricao);
+        const valorBusca = traduzirParaHml(obterValor(dado, campoDescricao));
         const chaveAgrupamento = normalizarValor(valorBusca);
 
         if (!gruposPorValorBusca.has(chaveAgrupamento)) {
@@ -311,6 +327,20 @@ Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel, mapeamentoEntidad
         if (entidadeKeycloak && 'grupo' in camposLimpos) {
           const { grupo, ...restante } = camposLimpos;
           camposLimpos = { ...restante, name: grupo };
+        }
+
+        // Diferença de nomenclatura entre ambientes (ex.: tipo de esteira "OPE" em
+        // produção é "MOP" em HML): traduz só o valor enviado no body de criação,
+        // sem alterar o registro local (que continua com o nome original de produção).
+        if (entidade.traducaoBusca && campoDescricao in camposLimpos) {
+          const valorOriginal = camposLimpos[campoDescricao];
+          const chaveEncontrada = Object.keys(entidade.traducaoBusca).find(
+            (chave) => chave.toLowerCase() === String(valorOriginal ?? '').toLowerCase(),
+          );
+
+          if (chaveEncontrada) {
+            camposLimpos = { ...camposLimpos, [campoDescricao]: entidade.traducaoBusca[chaveEncontrada] };
+          }
         }
 
         const camposNormalizados = normalizarCamposLista(
