@@ -1,3 +1,8 @@
+// Invariante: produção é somente leitura. Nenhuma entidade abaixo deve usar
+// `env: 'prod'` em fluxos de criação/atualização — isso é bloqueado
+// estruturalmente em cypress/support/tasks/dbTasks.cjs (queries de escrita)
+// e cypress/support/apiCommands.js (métodos != GET), mas não deve nem ser
+// tentado aqui.
 const MAPEAMENTOS_APIS = {
   PRODUTO: {
     url: 'mc-cadastro-ms/api/v1/produto',

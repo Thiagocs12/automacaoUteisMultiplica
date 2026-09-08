@@ -1,3 +1,8 @@
+// Invariante: produção é somente leitura. As queries SQL contra produção
+// (cy.executarQuery('prod', ...)) devem ser sempre SELECT — isso é bloqueado
+// estruturalmente em cypress/support/tasks/dbTasks.cjs, mas não deve nem ser
+// tentado aqui. As atualizações/inserções deste mapeamento (camposUpdate) são
+// sempre executadas contra HML, nunca produção.
 const MAPEAMENTO_VINCULOS = {
   MOP: {
     nomeArquivo: 'Vinculos/1 - mop.json',
