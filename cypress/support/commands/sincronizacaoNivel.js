@@ -93,15 +93,18 @@ Cypress.Commands.add('pesquisarItensPorNivel', (nivel, mapeamentoEntidade) => {
         []
       );
     };
-    const salvarId = (id, dado, idOriginal) => {
-      return cy.setIdHmlPorDescricao(
-        id,
-        dado,
-        nomeArquivo,
-        Array.isArray(contentBusca) ? contentBusca : campoDescricao,
-        idOriginal,
-      );
+
+    // Acumula os pares {idProducao, idHml} resolvidos para esta entidade e
+    // persiste com uma única leitura+escrita ao final (cy.aplicarResolucoesIdHml),
+    // em vez de 1 leitura + 1 escrita de arquivo por item — a pesquisa em HML é
+    // apenas leitura (idempotente), então perder o progresso de um crash no meio
+    // do processamento é barato de refazer.
+    const resolucoesAcumuladas = [];
+    const registrarResolucao = (idOriginal, id) => {
+      if (idOriginal == null) return;
+      resolucoesAcumuladas.push({ idProducao: idOriginal, idHml: id });
     };
+
     if (Array.isArray(contentBusca)) {
       cy.lerJsonDeOutput(nomeArquivo).then((dadosDoArquivo) => {
         const dadosPendentes = dadosDoArquivo.filter((dado) => {
@@ -130,8 +133,8 @@ Cypress.Commands.add('pesquisarItensPorNivel', (nivel, mapeamentoEntidade) => {
 
           gruposPorPrimeiroCampo.get(chaveAgrupamento).dados.push(dado);
         }
-        return Array.from(gruposPorPrimeiroCampo.values()).reduce(
-          (cadeiaDeGrupos, grupo) => {
+        return Array.from(gruposPorPrimeiroCampo.values())
+          .reduce((cadeiaDeGrupos, grupo) => {
             return cadeiaDeGrupos.then(() => {
               const { valorChave1, dados } = grupo;
 
@@ -147,42 +150,24 @@ Cypress.Commands.add('pesquisarItensPorNivel', (nivel, mapeamentoEntidade) => {
                    * Processa todos os registros encontrados para o mesmo
                    * primeiro campo utilizando o retorno de uma única chamada.
                    */
-                  return dados.reduce((cadeiaDeRegistros, dado) => {
-                    return cadeiaDeRegistros.then(() => {
-                      const valorChave2 = obterValor(
-                        dado,
-                        contentBusca[1],
-                      );
+                  dados.forEach((dado) => {
+                    const valorChave2 = obterValor(dado, contentBusca[1]);
 
-                      const itemEncontrado = content.find((item) => {
-                        const valorRetornado = obterValor(
-                          item,
-                          contentBusca[1],
-                        );
+                    const itemEncontrado = content.find((item) => {
+                      const valorRetornado = obterValor(item, contentBusca[1]);
 
-                        return (
-                          normalizarValor(valorRetornado) ===
-                          normalizarValor(valorChave2)
-                        );
-                      });
-
-                      const id = itemEncontrado?.id ?? null;
-
-                      return salvarId(
-                        id,
-                        {
-                          [contentBusca[0]]: valorChave1,
-                          [contentBusca[1]]: valorChave2,
-                        },
-                        dado.id,
+                      return (
+                        normalizarValor(valorRetornado) ===
+                        normalizarValor(valorChave2)
                       );
                     });
-                  }, cy.wrap(null, { log: false }));
+
+                    registrarResolucao(dado.id, itemEncontrado?.id ?? null);
+                  });
                 });
             });
-          },
-          cy.wrap(null, { log: false }),
-        );
+          }, cy.wrap(null, { log: false }))
+          .then(() => cy.aplicarResolucoesIdHml(nomeArquivo, resolucoesAcumuladas));
       });
 
       continue;
@@ -200,61 +185,75 @@ Cypress.Commands.add('pesquisarItensPorNivel', (nivel, mapeamentoEntidade) => {
 
         return true;
       });
+
       if (entidadeKeycloak) {
         return cy
           .executarRequest2('hml', entidade.urlBusca)
           .then((resposta) => {
             const content = extrairContent(resposta.body);
 
-            return dadosPendentes.reduce((cadeia, dado) => {
-              return cadeia.then(() => {
-                const valorBusca = obterValor(dado, campoDescricao);
+            dadosPendentes.forEach((dado) => {
+              const valorBusca = obterValor(dado, campoDescricao);
+
+              const itemEncontrado = content.find((item) => {
+                return (
+                  normalizarValor(item?.[CAMPO_DESCRICAO_KEYCLOAK]) ===
+                  normalizarValor(valorBusca)
+                );
+              });
+
+              registrarResolucao(dado.id, itemEncontrado?.id ?? null);
+            });
+          })
+          .then(() => cy.aplicarResolucoesIdHml(nomeArquivo, resolucoesAcumuladas));
+      }
+
+      // Agrupa por valor normalizado de busca antes de consultar HML: evita disparar
+      // uma requisição idêntica por registro quando há nomes duplicados (ex.: duas
+      // etapas de mesmo nome em esteiras diferentes) — cada registro do grupo ainda
+      // é resolvido individualmente pelo seu próprio id de produção.
+      const gruposPorValorBusca = new Map();
+
+      for (const dado of dadosPendentes) {
+        const valorBusca = obterValor(dado, campoDescricao);
+        const chaveAgrupamento = normalizarValor(valorBusca);
+
+        if (!gruposPorValorBusca.has(chaveAgrupamento)) {
+          gruposPorValorBusca.set(chaveAgrupamento, { valorBusca, dados: [] });
+        }
+
+        gruposPorValorBusca.get(chaveAgrupamento).dados.push(dado);
+      }
+
+      return Array.from(gruposPorValorBusca.values())
+        .reduce((cadeia, grupo) => {
+          return cadeia.then(() => {
+            const { valorBusca, dados } = grupo;
+
+            return cy
+              .executarRequest2(
+                'hml',
+                `${entidade.urlBusca}${encodeURIComponent(valorBusca)}`,
+              )
+              .then((resposta) => {
+                const content = extrairContent(resposta.body);
 
                 const itemEncontrado = content.find((item) => {
+                  const valorRetornado = obterValor(item, campoDescricao);
+
                   return (
-                    normalizarValor(
-                      item?.[CAMPO_DESCRICAO_KEYCLOAK],
-                    ) === normalizarValor(valorBusca)
+                    normalizarValor(valorRetornado) ===
+                    normalizarValor(valorBusca)
                   );
                 });
 
                 const id = itemEncontrado?.id ?? null;
 
-                return salvarId(id, valorBusca, dado.id);
+                dados.forEach((dado) => registrarResolucao(dado.id, id));
               });
-            }, cy.wrap(null, { log: false }));
           });
-      }
-      return dadosPendentes.reduce((cadeia, dado) => {
-        return cadeia.then(() => {
-          const valorBusca = obterValor(dado, campoDescricao);
-
-          return cy
-            .executarRequest2(
-              'hml',
-              `${entidade.urlBusca}${encodeURIComponent(valorBusca)}`,
-            )
-            .then((resposta) => {
-              const content = extrairContent(resposta.body);
-
-              const itemEncontrado = content.find((item) => {
-                const valorRetornado = obterValor(
-                  item,
-                  campoDescricao,
-                );
-
-                return (
-                  normalizarValor(valorRetornado) ===
-                  normalizarValor(valorBusca)
-                );
-              });
-
-              const id = itemEncontrado?.id ?? null;
-
-              return salvarId(id, valorBusca, dado.id);
-            });
-        });
-      }, cy.wrap(null, { log: false }));
+        }, cy.wrap(null, { log: false }))
+        .then(() => cy.aplicarResolucoesIdHml(nomeArquivo, resolucoesAcumuladas));
     });
   }
 });

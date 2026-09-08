@@ -57,3 +57,29 @@ Cypress.Commands.add('setIdHmlPorDescricao', (id, descricao, nomeArquivo, campoD
     cy.writeFile(filePath, conteudo, { log: false });
   });
 });
+
+/**
+ * @description Aplica em lote resoluções de `idHml` (por `id` de produção) a um
+ * arquivo de output, com uma única leitura e uma única escrita — em vez de um
+ * par leitura+escrita por item. Usado pelos fluxos de busca/pesquisa (idempotentes:
+ * apenas resolvem `idHml` via consulta, não criam nada em HML), onde processar N
+ * itens não precisa custar 2N operações de I/O de arquivo.
+ * @param {string} nomeArquivo - Nome do arquivo JSON localizado em 'cypress/output/'.
+ * @param {Array<{idProducao: string|number, idHml: string|number|null}>} resolucoes -
+ * Pares de id de produção e o idHml resolvido para ele.
+ * @returns {Cypress.Chainable<void>}
+ */
+Cypress.Commands.add('aplicarResolucoesIdHml', (nomeArquivo, resolucoes) => {
+  if (!resolucoes?.length) return cy.wrap(null, { log: false });
+
+  const caminhoArquivo = `cypress/output/${nomeArquivo}`;
+  const idHmlPorIdProducao = new Map(resolucoes.map((r) => [r.idProducao, r.idHml]));
+
+  return cy.task('lerJsonSeExistir', { caminhoArquivo }, { log: false }).then((conteudo) => {
+    const atualizado = (conteudo ?? []).map((item) =>
+      idHmlPorIdProducao.has(item.id) ? { ...item, idHml: idHmlPorIdProducao.get(item.id) } : item,
+    );
+
+    return cy.task('escreverJson', { caminhoArquivo, conteudo: atualizado }, { log: false });
+  });
+});

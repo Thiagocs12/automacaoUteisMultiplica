@@ -44,13 +44,6 @@ Cypress.Commands.add('pesquisarVinculoEsteiraHml', (nivel, mapeamentoEntidade) =
       ? entidade.campoIdentificador
       : [entidade.campoIdentificador];
 
-    const montarIdentificador = (dado) =>
-      campos.length === 1
-        ? dado[campos[0]]
-        : Object.fromEntries(
-            campos.map((campo) => [campo, dado[campo]])
-          );
-
     cy.lerJsonDeOutput(entidade.nomeArquivo).then((dadosDoArquivo) => {
       if (!dadosDoArquivo?.length) return;
 
@@ -64,9 +57,9 @@ Cypress.Commands.add('pesquisarVinculoEsteiraHml', (nivel, mapeamentoEntidade) =
         'hml',
         `SELECT * FROM ${entidade.tabela}`
       ).then((registros) => {
-        for (const dado of itensSemId) {
-          if (dado.idHml != null) continue;
-
+        // Consulta é uma única SELECT para toda a entidade; acumula as resoluções
+        // e persiste com 1 leitura + 1 escrita ao final em vez de por item.
+        const resolucoes = itensSemId.map((dado) => {
           const encontrado = registros.find((reg) =>
             campos.every(
               (campo) =>
@@ -74,16 +67,10 @@ Cypress.Commands.add('pesquisarVinculoEsteiraHml', (nivel, mapeamentoEntidade) =
             )
           );
 
-          const idHml = encontrado?.id ?? null;
+          return { idProducao: dado.id, idHml: encontrado?.id ?? null };
+        });
 
-          cy.setIdHmlPorDescricao(
-            idHml,
-            montarIdentificador(dado),
-            entidade.nomeArquivo,
-            entidade.campoIdentificador,
-            dado.id,
-          );
-        }
+        return cy.aplicarResolucoesIdHml(entidade.nomeArquivo, resolucoes);
       });
     });
   }
