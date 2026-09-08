@@ -1,6 +1,6 @@
 // arquivo: e2e.js
 
-import './commands';
+import './commands/index.js';
 import './apiCommands';
 import './utils';
 

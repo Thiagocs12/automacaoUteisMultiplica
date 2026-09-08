@@ -1,12 +1,32 @@
 import { validarSomenteLeituraEmProducao } from './shared/producaoSomenteLeitura';
 
+const CABECALHOS_PADRAO = (token) => ({
+  accept: 'application/json, text/plain, */*',
+  'accept-language': 'pt-BR,pt;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6',
+  authorization: `Bearer ${token}`,
+  'content-type': 'application/json',
+});
+
+/**
+ * @description Resolve token e baseUrl para uma requisição.
+ * Para os ambientes 'bhml' e 'bprod', utiliza o token do ambiente 'bhml'
+ * combinado com a baseUrl do ambiente 'hml'. Para os demais ambientes,
+ * utiliza token e baseUrl do próprio ambiente informado.
+ * @param {'prod'|'hml'|'keycloak'|'bhml'|'bprod'} ambiente - Ambiente alvo da requisição.
+ * @returns {Cypress.Chainable<{token: string, baseUrl: string}>}
+ */
+const resolverAmbienteDaRequisicao = (ambiente) => {
+  if (ambiente === 'bhml' || ambiente === 'bprod') {
+    return cy
+      .definirAmbiente('bhml')
+      .then(({ token }) => cy.definirAmbiente('hml').then(({ baseUrl }) => ({ token, baseUrl })));
+  }
+
+  return cy.definirAmbiente(ambiente).then(({ baseUrl, token }) => ({ token, baseUrl }));
+};
+
 /**
  * @description Executa uma requisição HTTP autenticada para uma API de um ambiente específico.
- *
- * Para os ambientes 'bhml' e 'bprod', utiliza o token do ambiente 'bhml'
- * combinado com a baseUrl do ambiente 'hml'.
- * Para os demais ambientes, utiliza token e baseUrl do próprio ambiente informado.
- *
  * @param {'prod'|'hml'|'keycloak'|'bhml'|'bprod'} ambiente - Ambiente alvo da requisição.
  * @param {string} api - Caminho relativo da API (será concatenado à baseUrl do ambiente).
  * @param {object|string} [body=''] - Corpo da requisição (usado em POST, PUT, PATCH etc.).
@@ -14,52 +34,24 @@ import { validarSomenteLeituraEmProducao } from './shared/producaoSomenteLeitura
  * @param {boolean} [fail=true] - Se true, falha o teste automaticamente em status codes de erro (4xx/5xx).
  * @returns {Cypress.Chainable<Cypress.Response>} A resposta completa da requisição HTTP.
  */
-Cypress.Commands.add('executarRequest', (ambiente, api, body = '', method = 'GET', fail = true) => {
+const executarRequisicaoHttp = (ambiente, api, body, method, fail) => {
   validarSomenteLeituraEmProducao(ambiente, method);
 
-  const cabecalhosPadrao = (token) => ({
-    accept: 'application/json, text/plain, */*',
-    'accept-language': 'pt-BR,pt;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6',
-    authorization: `Bearer ${token}`,
-    'content-type': 'application/json',
-  });
-
-  const montarRequest = (token, baseUrl) =>
+  return resolverAmbienteDaRequisicao(ambiente).then(({ token, baseUrl }) =>
     cy.request({
       method,
       url: `${baseUrl}/${api}`,
-      headers: cabecalhosPadrao(token),
+      headers: CABECALHOS_PADRAO(token),
       body,
       failOnStatusCode: fail,
-    });
+    }),
+  );
+};
 
-  if (ambiente === 'bhml' || ambiente === 'bprod') {
-    return cy.definirAmbiente('bhml').then(({ token }) =>
-      cy.definirAmbiente('hml').then(({ baseUrl }) => montarRequest(token, baseUrl))
-    );
-  }
+Cypress.Commands.add('executarRequest', (ambiente, api, body = '', method = 'GET', fail = true) =>
+  executarRequisicaoHttp(ambiente, api, body, method, fail),
+);
 
-  return cy.definirAmbiente(ambiente).then(({ baseUrl, token }) => montarRequest(token, baseUrl));
-});
-
-Cypress.Commands.add('executarRequest2', (ambiente, api, body = '', method = 'GET', fail = true) => {
-  validarSomenteLeituraEmProducao(ambiente, method);
-
-  return cy.definirAmbiente(ambiente).then(({ baseUrl, token }) => {
-    const tokenAutorizacao = `Bearer ${token}`;
-    const urlCompleta = `${baseUrl}/${api}`;
-
-    return cy.request({
-      method,
-      url: urlCompleta,
-      headers: {
-        accept: 'application/json, text/plain, */*',
-        'accept-language': 'pt-BR,pt;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6',
-        authorization: tokenAutorizacao,
-        'content-type': 'application/json'
-      },
-      body,
-      failOnStatusCode: fail
-    });
-  });
-});
+Cypress.Commands.add('executarRequest2', (ambiente, api, body = '', method = 'GET', fail = true) =>
+  executarRequisicaoHttp(ambiente, api, body, method, fail),
+);
