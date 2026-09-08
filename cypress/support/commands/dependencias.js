@@ -45,6 +45,8 @@ Cypress.Commands.add('pesquisarDependenciasLigacao', (entidade) => {
         (config?.urlListAll || config?.urlBuscaId),
     )
     .forEach(([chave, config]) => {
+      cy.logExecucao(`[pesquisarDependenciasLigacao] ${chave}`);
+
       const { nomeArquivoReferencia, campoBusca, nomeArquivo, urlBuscaId, urlListAll } = config;
       const caminhoArquivo = `cypress/output/${nomeArquivo}`;
       const ehEntidadeSemBusca = ['ACOES', 'OPERADORES', 'OBSERVADORES', 'GESTORES'].includes(
@@ -263,6 +265,8 @@ Cypress.Commands.add('atualizarIdsDeDependencias', (nivel, mapeamentoEntidade) =
       !entidade.dependencia?.length
     )
       continue;
+
+    cy.logExecucao(`[atualizarIdsDeDependencias] ${chaveEntidade}`);
 
     const removerSeNaoEncontrado = entidade.removerSeNaoEncontrado === true;
 
@@ -488,11 +492,13 @@ Cypress.Commands.add('pesquisarDependenciasBanco', (mapeamento, adiciona = false
     .map(([, entidade]) => entidade);
 
   if (entidadesComDependencia.length === 0) {
-    cy.log('[pesquisarDependenciasBanco] Nenhuma entidade com dependência definida');
+    cy.logExecucao('[pesquisarDependenciasBanco] Nenhuma entidade com dependência definida');
     return;
   }
 
   cy.wrap(entidadesComDependencia).each((entidade) => {
+    cy.logExecucao(`[pesquisarDependenciasBanco] ${entidade.chaveLog}`);
+
     const caminhoArquivo = `cypress/output/${entidade.nomeArquivo}`;
     const arquivoReferencia = `cypress/output/${entidade.arquivoReferencia}`;
 
@@ -503,7 +509,7 @@ Cypress.Commands.add('pesquisarDependenciasBanco', (mapeamento, adiciona = false
     inicializar.then(() => {
       cy.task('lerJsonSeExistir', { caminhoArquivo: arquivoReferencia }).then((dadosReferencia) => {
         if (!dadosReferencia?.length) {
-          cy.log(`[${entidade.chaveLog}] Referência vazia: ${arquivoReferencia}`);
+          cy.logExecucao(`[pesquisarDependenciasBanco] ${entidade.chaveLog}: referência vazia (${arquivoReferencia})`);
           return;
         }
 

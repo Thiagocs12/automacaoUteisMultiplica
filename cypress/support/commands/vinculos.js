@@ -10,12 +10,18 @@ import { CAMINHO_LOG } from '../shared/constants';
  * @returns {Cypress.Chainable<unknown>}
  */
 Cypress.Commands.add('executarQuery', (env, query) => {
+  const queryResumida = query.trim().replace(/\s+/g, ' ').slice(0, 200);
+
   if (env === 'prod') {
+    cy.logExecucao(`[SQL] (prod) ${queryResumida}`);
     cy.task('queryProd', { sqlQuery: query }).then((result) => {
+      cy.logExecucao(`[SQL] (prod) ${queryResumida} -> ${result?.length ?? 0} linha(s)`);
       return result;
     });
   } else if (env === 'hml') {
+    cy.logExecucao(`[SQL] (hml) ${queryResumida}`);
     cy.task('queryHml', { sqlQuery: query }).then((result) => {
+      cy.logExecucao(`[SQL] (hml) ${queryResumida} -> ${result?.length ?? 0} linha(s)`);
       return result;
     });
   } else {
@@ -39,6 +45,8 @@ Cypress.Commands.add('pesquisarVinculoEsteiraHml', (nivel, mapeamentoEntidade) =
     const entidade = mapeamentoEntidade[chaveEntidade];
 
     if (entidade.nivelDependencia !== nivel) continue;
+
+    cy.logExecucao(`[pesquisarVinculoEsteiraHml] ${chaveEntidade}`);
 
     const campos = Array.isArray(entidade.campoIdentificador)
       ? entidade.campoIdentificador
@@ -104,9 +112,10 @@ Cypress.Commands.add('atualizarItensHml', (nivel, mapeamentoEntidade, log = {}) 
     const { nomeArquivo, tabela, camposUpdate, geraLog, chaveLog } = entidade;
 
     cadeia = cadeia.then(() => {
+      cy.logExecucao(`[atualizarItensHml] ${chaveEntidade}`);
+
       return cy.lerJsonDeOutput(nomeArquivo).then((dadosDoArquivo) => {
         if (!dadosDoArquivo?.length) return;
-
 
         const itensParaAtualizar = dadosDoArquivo.filter(
           (dado) => dado.idHml != null && (!geraLog || dado.atualizar === true)
@@ -231,6 +240,8 @@ Cypress.Commands.add('inserirItensHml', (nivel, mapeamentoEntidade, log = {}) =>
 
     if (entidade.nivelDependencia !== nivel) continue;
 
+    cy.logExecucao(`[inserirItensHml] ${chaveEntidade}`);
+
     const {
       nomeArquivo,
       tabela,
@@ -331,12 +342,12 @@ Cypress.Commands.add('inserirItensHml', (nivel, mapeamentoEntidade, log = {}) =>
  * @returns {Cypress.Chainable<void>}
  */
 Cypress.Commands.add('processarVinculosPorNivel', (nivel, mapeamentoEntidade) => {
-  cy.log('Rodando atualizarIdsDeDependencias');
+  cy.logExecucao(`[Nível ${nivel}] atualizarIdsDeDependencias`);
   cy.atualizarIdsDeDependencias(nivel, mapeamentoEntidade);
-  cy.log('Rodando pesquisarVinculoEsteiraHml');
+  cy.logExecucao(`[Nível ${nivel}] pesquisarVinculoEsteiraHml`);
   cy.pesquisarVinculoEsteiraHml(nivel, mapeamentoEntidade);
-  cy.log('Rodando atualizarItensHml');
+  cy.logExecucao(`[Nível ${nivel}] atualizarItensHml`);
   cy.atualizarItensHml(nivel, mapeamentoEntidade);
-  cy.log('Rodando inserirItensHml');
+  cy.logExecucao(`[Nível ${nivel}] inserirItensHml`);
   cy.inserirItensHml(nivel, mapeamentoEntidade);
 });

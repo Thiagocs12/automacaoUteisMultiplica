@@ -61,6 +61,14 @@ export default defineConfig({
           return fs.readdirSync(diretorioCompleto)
         },
 
+        // ─── Log ────────────────────────────────────────────────
+        // Roda em Node (não no browser), então aparece no terminal mesmo em
+        // `cypress run` headless — diferente de cy.log(), que só aparece na UI.
+        log(mensagem) {
+          console.log(mensagem)
+          return null
+        },
+
         // ─── DB tasks ─────────────────────────────────────────
         ...dbTasks,
       })

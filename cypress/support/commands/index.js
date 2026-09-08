@@ -5,6 +5,7 @@
 // comandos (`cy.outroComando(...)`) só é resolvida em runtime, quando os
 // steps do Cucumber executam — não em tempo de import.
 
+import './log';
 import './ambiente';
 import './arquivos';
 import './urls';

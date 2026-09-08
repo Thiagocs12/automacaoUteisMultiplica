@@ -60,6 +60,8 @@ Cypress.Commands.add('pesquisarItensPorNivel', (nivel, mapeamentoEntidade) => {
       continue;
     }
 
+    cy.logExecucao(`[pesquisarItensPorNivel] ${chaveEntidade}`);
+
     const nomeArquivo = entidade.nomeArquivo;
     const campoDescricao = entidade.campoDescricao || 'descricao';
     const contentBusca = entidade.contentBusca || 'falseId';
@@ -302,6 +304,8 @@ Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel, mapeamentoEntidad
     )
       continue;
 
+    cy.logExecucao(`[criarItensInexistentesPorNivel] ${chaveEntidade}`);
+
     const entidadeKeycloak = chaveEntidade === 'OPERADORES';
     const method = entidade.method || 'POST';
     const env = entidade.env || 'hml';
@@ -325,6 +329,10 @@ Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel, mapeamentoEntidad
       const itensValidos = itens
         .filter((item) => item.idHml === null)
         .filter((item) => item.atualizar === true);
+
+      cy.logExecucao(
+        `[criarItensInexistentesPorNivel] ${chaveEntidade}: ${itensValidos.length} item(ns) a criar em HML`,
+      );
 
       const log = {};
 
@@ -359,6 +367,8 @@ Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel, mapeamentoEntidad
           ? { [entidade.novoArray]: camposNormalizados }
           : camposNormalizados;
 
+        cy.logExecucao(`[criarItensInexistentesPorNivel] ${chaveEntidade}: criando "${item[campoDescricao]}" (id produção ${item.id})`);
+
         // Para grupos do Keycloak, a busca (mc-keycloak-ms) e a criação (API do
         // Keycloak direto) são serviços diferentes e podem divergir sobre o que já
         // existe. Nesse caso o Keycloak responde 409 — tratamos como sucesso (o
@@ -366,7 +376,7 @@ Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel, mapeamentoEntidad
         // a execução inteira.
         cy.executarRequest2(env, entidade.url, body, method, !entidadeKeycloak).then((resultado) => {
           if (entidadeKeycloak && resultado.status === 409) {
-            cy.log(`[criarItensInexistentesPorNivel] Grupo Keycloak "${item[campoDescricao]}" já existe — ignorando.`);
+            cy.logExecucao(`[criarItensInexistentesPorNivel] Grupo Keycloak "${item[campoDescricao]}" já existe — ignorando.`);
           } else if (entidadeKeycloak && (resultado.status < 200 || resultado.status >= 300)) {
             throw new Error(
               `[criarItensInexistentesPorNivel] Falha ao criar grupo Keycloak "${item[campoDescricao]}": ${resultado.status} - ${JSON.stringify(resultado.body)}`,
@@ -423,6 +433,8 @@ Cypress.Commands.add('atualizarItensExistentesPorNivel', (nivel, mapeamentoEntid
 
     if (entidade.nivelDependencia !== nivel) continue;
 
+    cy.logExecucao(`[atualizarItensExistentesPorNivel] ${chaveEntidade}`);
+
     const ehEntidadeSemAtualizacao = ENTIDADES_SEM_ATUALIZACAO.includes(chaveEntidade);
     const method = entidade.methodAtualizacao || 'POST';
     const env = entidade.env || 'hml';
@@ -442,6 +454,10 @@ Cypress.Commands.add('atualizarItensExistentesPorNivel', (nivel, mapeamentoEntid
       const itensValidos = itens
         .filter((item) => item.idHml != null)
         .filter((item) => item.atualizar === true);
+
+      cy.logExecucao(
+        `[atualizarItensExistentesPorNivel] ${chaveEntidade}: ${itensValidos.length} item(ns) a atualizar em HML`,
+      );
 
       const log = {};
 
@@ -510,14 +526,14 @@ Cypress.Commands.add('atualizarItensExistentesPorNivel', (nivel, mapeamentoEntid
  * @returns {Cypress.Chainable<void>}
  */
 Cypress.Commands.add('processarEntidadesPorNivel', (nivel, mapeamentoEntidade) => {
-  cy.log('estou executando substituirUrlsDeAmbiente');
+  cy.logExecucao(`[Nível ${nivel}] substituirUrlsDeAmbiente`);
   cy.substituirUrlsDeAmbiente(nivel, mapeamentoEntidade);
-  cy.log('estou executando atualizarIdsDeDependencias');
+  cy.logExecucao(`[Nível ${nivel}] atualizarIdsDeDependencias`);
   cy.atualizarIdsDeDependencias(nivel, mapeamentoEntidade);
-  cy.log('estou executando pesquisarItensPorNivel');
+  cy.logExecucao(`[Nível ${nivel}] pesquisarItensPorNivel`);
   cy.pesquisarItensPorNivel(nivel, mapeamentoEntidade);
-  cy.log('estou executando atualizarItensExistentesPorNivel');
+  cy.logExecucao(`[Nível ${nivel}] atualizarItensExistentesPorNivel`);
   cy.atualizarItensExistentesPorNivel(nivel, mapeamentoEntidade);
-  cy.log('estou executando criarItensInexistentesPorNivel');
+  cy.logExecucao(`[Nível ${nivel}] criarItensInexistentesPorNivel`);
   cy.criarItensInexistentesPorNivel(nivel, mapeamentoEntidade);
 });

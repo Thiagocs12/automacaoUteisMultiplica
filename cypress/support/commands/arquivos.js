@@ -54,6 +54,12 @@ Cypress.Commands.add('setIdHmlPorDescricao', (id, descricao, nomeArquivo, campoD
       item.idHml = id;
     });
 
+    cy.logExecucao(
+      `[setIdHmlPorDescricao] ${nomeArquivo}: ${itens.length} item(ns) -> idHml=${id}${
+        idOriginal != null ? ` (id produção ${idOriginal})` : ''
+      }`,
+    );
+
     cy.writeFile(filePath, conteudo, { log: false });
   });
 });
@@ -74,6 +80,11 @@ Cypress.Commands.add('aplicarResolucoesIdHml', (nomeArquivo, resolucoes) => {
 
   const caminhoArquivo = `cypress/output/${nomeArquivo}`;
   const idHmlPorIdProducao = new Map(resolucoes.map((r) => [r.idProducao, r.idHml]));
+  const encontrados = resolucoes.filter((r) => r.idHml != null).length;
+
+  cy.logExecucao(
+    `[aplicarResolucoesIdHml] ${nomeArquivo}: ${resolucoes.length} resolução(ões) (${encontrados} encontrada(s) em HML)`,
+  );
 
   return cy.task('lerJsonSeExistir', { caminhoArquivo }, { log: false }).then((conteudo) => {
     const atualizado = (conteudo ?? []).map((item) =>

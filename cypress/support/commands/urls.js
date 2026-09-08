@@ -35,6 +35,8 @@ Cypress.Commands.add('substituirUrlsDeAmbiente', (nivel, mapeamentoEntidade) => 
 
     if (entidade.nivelDependencia !== nivel) continue;
 
+    cy.logExecucao(`[substituirUrlsDeAmbiente] ${chaveEntidade}`);
+
     cy.readFile(`cypress/output/${entidade.nomeArquivo}`).then((itensRaw) => {
       const itens = normalizarObjetosNumericos(itensRaw);
 

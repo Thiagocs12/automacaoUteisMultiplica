@@ -37,15 +37,25 @@ const resolverAmbienteDaRequisicao = (ambiente) => {
 const executarRequisicaoHttp = (ambiente, api, body, method, fail) => {
   validarSomenteLeituraEmProducao(ambiente, method);
 
-  return resolverAmbienteDaRequisicao(ambiente).then(({ token, baseUrl }) =>
-    cy.request({
-      method,
-      url: `${baseUrl}/${api}`,
-      headers: CABECALHOS_PADRAO(token),
-      body,
-      failOnStatusCode: fail,
-    }),
-  );
+  return resolverAmbienteDaRequisicao(ambiente).then(({ token, baseUrl }) => {
+    const url = `${baseUrl}/${api}`;
+
+    return cy
+      .logExecucao(`[HTTP] ${method} (${ambiente}) ${url}`)
+      .then(() =>
+        cy.request({
+          method,
+          url,
+          headers: CABECALHOS_PADRAO(token),
+          body,
+          failOnStatusCode: fail,
+        }),
+      )
+      .then((resposta) => {
+        cy.logExecucao(`[HTTP] ${method} (${ambiente}) ${url} -> ${resposta.status}`);
+        return resposta;
+      });
+  });
 };
 
 Cypress.Commands.add('executarRequest', (ambiente, api, body = '', method = 'GET', fail = true) =>

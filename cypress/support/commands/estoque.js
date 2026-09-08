@@ -21,6 +21,8 @@ const ENTIDADE_SEM_ESTOQUE = [
  * @returns {Cypress.Chainable<void>}
  */
 Cypress.Commands.add('atualizarEstoqueIds', (mapeamentoEntidade) => {
+  cy.logExecucao('[atualizarEstoqueIds] iniciando');
+
   const possuiValorValido = (valor) =>
     valor !== null && valor !== undefined && !(typeof valor === 'string' && valor.trim() === '');
 
@@ -132,6 +134,8 @@ Cypress.Commands.add('atualizarEstoqueIds', (mapeamentoEntidade) => {
  * @returns {Cypress.Chainable<void>}
  */
 Cypress.Commands.add('preencherIdsHmlPeloEstoque', (mapeamentoEntidade) => {
+  cy.logExecucao('[preencherIdsHmlPeloEstoque] iniciando');
+
   const possuiValorValido = (valor) =>
     valor !== null && valor !== undefined && !(typeof valor === 'string' && valor.trim() === '');
 
