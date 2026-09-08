@@ -2,8 +2,8 @@ import { defineConfig } from 'cypress'
 import dotenv from 'dotenv'
 import fs from 'fs'
 const path = require('path')
-const { dbTasks } = require('./cypress/support/tasks/dbTasks')
-const { closeAllPools } = require('./cypress/support/db/dbClient')
+const { dbTasks } = require('./cypress/support/tasks/dbTasks.cjs')
+const { closeAllPools } = require('./cypress/support/db/dbClient.cjs')
 
 import createBundler from "@bahmutov/cypress-esbuild-preprocessor"
 import { addCucumberPreprocessorPlugin } from "@badeball/cypress-cucumber-preprocessor"
@@ -49,6 +49,7 @@ export default defineConfig({
         },
         escreverJson({ caminhoArquivo, conteudo }) {
           const caminhoCompleto = path.join(process.cwd(), caminhoArquivo)
+          fs.mkdirSync(path.dirname(caminhoCompleto), { recursive: true })
           fs.writeFileSync(caminhoCompleto, JSON.stringify(conteudo, null, 2), 'utf8')
           return null
         },

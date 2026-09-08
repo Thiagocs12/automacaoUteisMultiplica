@@ -1,19 +1,19 @@
-const sql = require('mssql')
+const sql = require('mssql/msnodesqlv8')
 
 const pools = {}
 
-const buildConfig = ({ host, user, password, database, port }) => ({
+const buildConfig = ({ host, database, port }) => ({
   server: host,
-  user,
-  password,
   database,
   port: Number(port),
+  driver: 'msnodesqlv8',
   pool: {
     max: 5,
     min: 0,
     idleTimeoutMillis: 30000
   },
   options: {
+    trustedConnection: true,      // ✅ usa autenticação do Windows do usuário logado no processo Node
     encrypt: false,                // ✅ desativa TLS para IP interno
     trustServerCertificate: true,
   }
@@ -42,16 +42,12 @@ const executeQuery = async (poolName, config, sqlQuery, params = {}) => {
 
 const prodConfig = () => buildConfig({
   host:     process.env.PROD_DB_HOST,
-  user:     process.env.PROD_DB_USER,
-  password: process.env.PROD_DB_PASS,
   database: process.env.PROD_DB_NAME,
   port:     process.env.PROD_DB_PORT
 })
 
 const hmlConfig = () => buildConfig({
   host:     process.env.HOMOLOG_DB_HOST,
-  user:     process.env.HOMOLOG_DB_USER,
-  password: process.env.HOMOLOG_DB_PASS,
   database: process.env.HOMOLOG_DB_NAME,
   port:     process.env.HOMOLOG_DB_PORT
 })
