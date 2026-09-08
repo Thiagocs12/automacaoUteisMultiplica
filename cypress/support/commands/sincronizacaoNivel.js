@@ -291,6 +291,8 @@ Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel, mapeamentoEntidad
       'dataUltimaAlteracao',
       'usuarioCadastro',
       'usuarioUltimaAlteracao',
+      'usuario',
+      'atualizar',
       'tipoSeguranca',
       'podeAlterarFormulario',
       ...(entidade.chavesIgnoradas || []),
