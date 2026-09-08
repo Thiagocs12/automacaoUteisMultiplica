@@ -203,25 +203,32 @@ Cypress.Commands.add('pesquisarItensPorNivel', (nivel, mapeamentoEntidade) => {
       });
 
       if (entidadeKeycloak) {
+        // Grupos do Keycloak (OPERADORES/OBSERVADORES/GESTORES) não têm um `id` de
+        // produção estável — só existe o nome (`grupo`). Por isso não dá pra usar o
+        // batching por id (cy.aplicarResolucoesIdHml): o vínculo aqui é feito por
+        // nome mesmo, gravando imediatamente por item via setIdHmlPorDescricao.
         return cy
           .executarRequest2('hml', entidade.urlBusca)
           .then((resposta) => {
             const content = extrairContent(resposta.body);
 
-            dadosPendentes.forEach((dado) => {
-              const valorBusca = obterValor(dado, campoDescricao);
+            return dadosPendentes.reduce((cadeia, dado) => {
+              return cadeia.then(() => {
+                const valorBusca = obterValor(dado, campoDescricao);
 
-              const itemEncontrado = content.find((item) => {
-                return (
-                  normalizarValor(item?.[CAMPO_DESCRICAO_KEYCLOAK]) ===
-                  normalizarValor(valorBusca)
-                );
+                const itemEncontrado = content.find((item) => {
+                  return (
+                    normalizarValor(item?.[CAMPO_DESCRICAO_KEYCLOAK]) ===
+                    normalizarValor(valorBusca)
+                  );
+                });
+
+                const id = itemEncontrado?.id ?? null;
+
+                return cy.setIdHmlPorDescricao(id, valorBusca, nomeArquivo, campoDescricao, dado.id);
               });
-
-              registrarResolucao(dado.id, itemEncontrado?.id ?? null);
-            });
-          })
-          .then(() => cy.aplicarResolucoesIdHml(nomeArquivo, resolucoesAcumuladas));
+            }, cy.wrap(null, { log: false }));
+          });
       }
 
       // Agrupa por valor normalizado de busca antes de consultar HML: evita disparar
