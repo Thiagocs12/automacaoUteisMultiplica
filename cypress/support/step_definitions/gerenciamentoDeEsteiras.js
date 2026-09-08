@@ -1,6 +1,6 @@
 // cypress/e2e/steps/esteiras/sincronizacao-esteiras.steps.js
 
-import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import { Given, Then } from '@badeball/cypress-cucumber-preprocessor';
 import MAPEAMENTO_ESTEIRAS from '../../utils/mapeamentoEsteiras';
 
 Given('uma consulta às esteiras de produção é realizada para obter os dados atuais', () => {

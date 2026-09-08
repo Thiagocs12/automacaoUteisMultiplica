@@ -6,7 +6,8 @@
   "scripts": {
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "test:safety": "node --test cypress/support/shared/__tests__/*.test.js cypress/support/tasks/__tests__/*.test.js"
+    "test:safety": "node --test cypress/support/shared/__tests__/*.test.js cypress/support/tasks/__tests__/*.test.js",
+    "lint": "eslint ."
   },
   "keywords": [
     "cypress",
@@ -21,8 +22,12 @@
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "latest",
     "@bahmutov/cypress-esbuild-preprocessor": "latest",
+    "@eslint/js": "^10.0.1",
     "cypress": "15.14.2",
     "dotenv": "^17.3.1",
+    "eslint": "^10.10.0",
+    "eslint-plugin-cypress": "^7.0.2",
+    "globals": "^17.12.0",
     "mssql": "^12.2.1"
   },
   "dependencies": {
