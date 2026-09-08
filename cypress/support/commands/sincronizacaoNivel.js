@@ -322,7 +322,20 @@ Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel, mapeamentoEntidad
           ? { [entidade.novoArray]: camposNormalizados }
           : camposNormalizados;
 
-        cy.executarRequest2(env, entidade.url, body, method).then((resultado) => {
+        // Para grupos do Keycloak, a busca (mc-keycloak-ms) e a criação (API do
+        // Keycloak direto) são serviços diferentes e podem divergir sobre o que já
+        // existe. Nesse caso o Keycloak responde 409 — tratamos como sucesso (o
+        // grupo já existe, que é exatamente o estado desejado), em vez de falhar
+        // a execução inteira.
+        cy.executarRequest2(env, entidade.url, body, method, !entidadeKeycloak).then((resultado) => {
+          if (entidadeKeycloak && resultado.status === 409) {
+            cy.log(`[criarItensInexistentesPorNivel] Grupo Keycloak "${item[campoDescricao]}" já existe — ignorando.`);
+          } else if (entidadeKeycloak && (resultado.status < 200 || resultado.status >= 300)) {
+            throw new Error(
+              `[criarItensInexistentesPorNivel] Falha ao criar grupo Keycloak "${item[campoDescricao]}": ${resultado.status} - ${JSON.stringify(resultado.body)}`,
+            );
+          }
+
           if (!entidadeKeycloak) {
             cy.setIdHmlPorDescricao(
               resultado.body['id'],
