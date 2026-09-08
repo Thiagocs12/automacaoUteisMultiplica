@@ -6,7 +6,7 @@ import MAPEAMENTO_VINCULOS from '../../utils/mapeamentoVinculos';
 Given('que possuo acesso aos ambientes necessarios', () => {
   cy.verificarTokens('prod')
   cy.verificarTokens('hml')
-  //cy.verificarTokens('keycloak')
+  cy.verificarTokens('keycloak')
 });
 
 Given('uma consulta aos produtos de produção é realizada para obter os dados atuais', () => {
