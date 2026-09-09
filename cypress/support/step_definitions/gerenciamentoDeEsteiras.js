@@ -12,9 +12,16 @@ Given('uma consulta às esteiras de produção é realizada para obter os dados 
   });
 });
 
-Given('a pesquisa retornou dados de esteiras para serem copiados de produção para homologação', () => {
+// function (não arrow): precisa do `this` do Mocha para poder pular o cenário
+// via `this.skip()` sem quebrar a pipeline quando não há nada a sincronizar.
+Given('a pesquisa retornou dados de esteiras para serem copiados de produção para homologação', function () {
   return cy.lerJsonDeOutput(MAPEAMENTO_ESTEIRAS.ESTEIRAS.nomeArquivo).then((dadosDoArquivo) => {
     expect(dadosDoArquivo[0]['id']).to.be.a('string');
+
+    if (!dadosDoArquivo.some((item) => item.atualizar === true)) {
+      cy.logExecucao('[Esteiras] Nenhuma esteira nova ou desatualizada encontrada — não há nada a ser sincronizado. Cenário pulado.');
+      this.skip();
+    }
   });
 });
 

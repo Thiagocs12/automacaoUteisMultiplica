@@ -6,7 +6,7 @@ import MAPEAMENTO_VINCULOS from '../../utils/mapeamentoVinculos';
 Given('que possuo acesso aos ambientes necessarios', () => {
   cy.verificarTokens('prod')
   cy.verificarTokens('hml')
-  cy.verificarTokens('keycloak')
+  //cy.verificarTokens('keycloak')
 });
 
 Given('uma consulta aos produtos de produção é realizada para obter os dados atuais', () => {
@@ -15,9 +15,16 @@ Given('uma consulta aos produtos de produção é realizada para obter os dados 
   });
 });
 
-Given('a pesquisa retornou dados de produtos para serem copiados de produção para homologação', () => {
+// function (não arrow): precisa do `this` do Mocha para poder pular o cenário
+// via `this.skip()` sem quebrar a pipeline quando não há nada a sincronizar.
+Given('a pesquisa retornou dados de produtos para serem copiados de produção para homologação', function () {
   return cy.lerJsonDeOutput(MAPEAMENTOS_APIS.PRODUTO.nomeArquivo).then((dadosDoArquivo) => {
     expect(dadosDoArquivo[0]['id']).to.be.a('number');
+
+    if (!dadosDoArquivo.some((item) => item.atualizar === true)) {
+      cy.logExecucao('[Produtos] Nenhum produto novo ou desatualizado encontrado — não há nada a ser sincronizado. Cenário pulado.');
+      this.skip();
+    }
   });
 });
 

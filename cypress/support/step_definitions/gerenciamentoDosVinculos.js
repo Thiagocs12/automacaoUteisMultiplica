@@ -44,7 +44,22 @@ Given('que existem vínculos das esteiras cadastrados em Produção', () => {
   })
 });
 
-When('pesquiso as dependências dos vínculos', () => {
+// function (não arrow): precisa do `this` do Mocha para poder pular o cenário
+// via `this.skip()` sem quebrar a pipeline quando não há nada a sincronizar.
+When('pesquiso as dependências dos vínculos', function () {
+  cy.lerJsonDeOutput(MOP.nomeArquivo).then((dadosMop) => {
+    return cy.lerJsonDeOutput(POC.nomeArquivo).then((dadosPoc) => {
+      const possuiAtualizacao = [...(dadosMop ?? []), ...(dadosPoc ?? [])].some(
+        (item) => item.atualizar === true,
+      );
+
+      if (!possuiAtualizacao) {
+        cy.logExecucao('[Vínculos] Nenhum vínculo MOP/POC novo ou desatualizado encontrado — não há nada a ser sincronizado. Cenário pulado.');
+        this.skip();
+      }
+    });
+  });
+
   cy.voltarIdsOriginais(MAPEAMENTO_VINCULOS);
   cy.pesquisarDependenciasBanco(MAPEAMENTO_VINCULOS)
   cy.preencherIdsHmlPeloEstoque(MAPEAMENTO_VINCULOS)
