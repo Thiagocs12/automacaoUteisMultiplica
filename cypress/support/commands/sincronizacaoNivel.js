@@ -367,8 +367,6 @@ Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel, mapeamentoEntidad
           ? { [entidade.novoArray]: camposNormalizados }
           : camposNormalizados;
 
-        cy.logExecucao(`[criarItensInexistentesPorNivel] ${chaveEntidade}: criando "${item[campoDescricao]}" (id produção ${item.id})`);
-
         // Para grupos do Keycloak, a busca (mc-keycloak-ms) e a criação (API do
         // Keycloak direto) são serviços diferentes e podem divergir sobre o que já
         // existe. Nesse caso o Keycloak responde 409 — tratamos como sucesso (o
@@ -384,8 +382,24 @@ Cypress.Commands.add('criarItensInexistentesPorNivel', (nivel, mapeamentoEntidad
           }
 
           if (!entidadeKeycloak) {
+            // Quando o body de criação é enviado embrulhado em `novoArray` (ex.:
+            // { modeloEtapa: {...} }), a resposta de sucesso pode ecoar o mesmo
+            // formato — sem isso, `resultado.body['id']` fica undefined e o item
+            // é gravado com idHml=null mesmo após uma criação "bem-sucedida"
+            // (HTTP 2xx), quebrando silenciosamente só mais tarde, quando outra
+            // entidade tentar resolver essa dependência.
+            const idCriado =
+              resultado.body?.id ??
+              (entidade.novoArray ? resultado.body?.[entidade.novoArray]?.id : undefined);
+
+            if (idCriado == null) {
+              throw new Error(
+                `[criarItensInexistentesPorNivel] ${chaveEntidade}: resposta de criação sem "id" para "${item[campoDescricao]}" (id produção ${item.id}). Resposta: ${JSON.stringify(resultado.body)}`,
+              );
+            }
+
             cy.setIdHmlPorDescricao(
-              resultado.body['id'],
+              idCriado,
               item[campoDescricao],
               entidade.nomeArquivo,
               campoDescricao,
