@@ -226,10 +226,18 @@ Cypress.Commands.add('salvarNovosRegistros', (novosDados, caminhoArquivo, entida
           const dadoNovo = deveAtualizar
             ? novosDados.find((novo) => novo.id === existente.id)
             : null;
+          // Para entidades sem limite de lote (ex.: ETAPAS, que dependem do
+          // 'atualizar' da ESTEIRA pai para entrar no fetch da rodada), nunca
+          // rebaixa para false um item que ainda não existe em HML — senão ele
+          // fica travado para sempre, pois criarItensInexistentesPorNivel só cria
+          // quem tem atualizar === true. Entidades com LIMITE_LOTE real (ESTEIRAS,
+          // PRODUTO, MOP, POC) continuam respeitando o corte do lote normalmente.
+          const precisaCriar = !Number.isFinite(LIMITE_LOTE) && existente.idHml == null;
+
           return {
             ...(dadoNovo ?? existente),
             idHml: existente.idHml,
-            atualizar: deveAtualizar,
+            atualizar: deveAtualizar || precisaCriar,
           };
         }),
         ...apenasNovos.map((novo) => ({
