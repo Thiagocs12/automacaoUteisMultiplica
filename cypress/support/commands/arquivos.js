@@ -54,12 +54,6 @@ Cypress.Commands.add('setIdHmlPorDescricao', (id, descricao, nomeArquivo, campoD
       item.idHml = id;
     });
 
-    cy.logExecucao(
-      `[setIdHmlPorDescricao] ${nomeArquivo}: ${itens.length} item(ns) -> idHml=${id}${
-        idOriginal != null ? ` (id produção ${idOriginal})` : ''
-      }`,
-    );
-
     cy.writeFile(filePath, conteudo, { log: false });
   });
 });

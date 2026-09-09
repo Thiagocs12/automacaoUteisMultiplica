@@ -8,6 +8,33 @@ const CABECALHOS_PADRAO = (token) => ({
 });
 
 /**
+ * @description Monta o comando curl equivalente a uma requisição, para facilitar a
+ * reprodução manual de falhas. O token de acesso NUNCA é incluído (risco de vazamento
+ * de credencial em logs) — o cabeçalho authorization é logado apenas como "Bearer ",
+ * para ser completado manualmente por quem for reproduzir a chamada.
+ * @param {'GET'|'POST'|'PUT'|'PATCH'|'DELETE'} method - Método HTTP da requisição.
+ * @param {string} url - URL completa da requisição.
+ * @param {object} headers - Cabeçalhos enviados na requisição.
+ * @param {object|string} body - Corpo da requisição.
+ * @returns {string}
+ */
+const montarCurl = (method, url, headers, body) => {
+  const headersString = Object.entries(headers)
+    .map(([chave, valor]) => {
+      const valorParaLog = chave.toLowerCase() === 'authorization' ? 'Bearer ' : valor;
+      return `-H '${chave}: ${valorParaLog}'`;
+    })
+    .join(' ');
+
+  const corpoSerializado = typeof body === 'string' ? body : JSON.stringify(body ?? '');
+  const bodyString = corpoSerializado
+    ? ` -d '${corpoSerializado.replace(/'/g, `'\\''`)}'`
+    : '';
+
+  return `curl -X ${method} '${url}' ${headersString}${bodyString}`;
+};
+
+/**
  * @description Resolve token e baseUrl para uma requisição.
  * Para os ambientes 'bhml' e 'bprod', utiliza o token do ambiente 'bhml'
  * combinado com a baseUrl do ambiente 'hml'. Para os demais ambientes,
@@ -39,21 +66,33 @@ const executarRequisicaoHttp = (ambiente, api, body, method, fail) => {
 
   return resolverAmbienteDaRequisicao(ambiente).then(({ token, baseUrl }) => {
     const url = `${baseUrl}/${api}`;
+    const headers = CABECALHOS_PADRAO(token);
 
     return cy
-      .logExecucao(`[HTTP] ${method} (${ambiente}) ${url}`)
-      .then(() =>
-        cy.request({
-          method,
-          url,
-          headers: CABECALHOS_PADRAO(token),
-          body,
-          failOnStatusCode: fail,
-        }),
-      )
+      .request({
+        method,
+        url,
+        headers,
+        body,
+        // Sempre false: o status é conferido manualmente abaixo, para poder logar o
+        // curl de reprodução ANTES de decidir se a requisição deve falhar o teste.
+        failOnStatusCode: false,
+      })
       .then((resposta) => {
-        cy.logExecucao(`[HTTP] ${method} (${ambiente}) ${url} -> ${resposta.status}`);
-        return resposta;
+        if (resposta.isOkStatusCode) {
+          return resposta;
+        }
+
+        return cy
+          .logExecucao(
+            `[HTTP] ${method} (${ambiente}) ${url} -> ${resposta.status}\nFalha — curl para reproduzir (complete o token):\n${montarCurl(method, url, headers, body)}`,
+          )
+          .then(() => {
+            if (fail) {
+              throw new Error(`[executarRequest] ${method} ${url} falhou com status ${resposta.status}`);
+            }
+            return resposta;
+          });
       });
   });
 };

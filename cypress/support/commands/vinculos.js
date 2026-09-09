@@ -10,20 +10,10 @@ import { CAMINHO_LOG } from '../shared/constants';
  * @returns {Cypress.Chainable<unknown>}
  */
 Cypress.Commands.add('executarQuery', (env, query) => {
-  const queryResumida = query.trim().replace(/\s+/g, ' ').slice(0, 200);
-
   if (env === 'prod') {
-    cy.logExecucao(`[SQL] (prod) ${queryResumida}`);
-    cy.task('queryProd', { sqlQuery: query }).then((result) => {
-      cy.logExecucao(`[SQL] (prod) ${queryResumida} -> ${result?.length ?? 0} linha(s)`);
-      return result;
-    });
+    return cy.task('queryProd', { sqlQuery: query });
   } else if (env === 'hml') {
-    cy.logExecucao(`[SQL] (hml) ${queryResumida}`);
-    cy.task('queryHml', { sqlQuery: query }).then((result) => {
-      cy.logExecucao(`[SQL] (hml) ${queryResumida} -> ${result?.length ?? 0} linha(s)`);
-      return result;
-    });
+    return cy.task('queryHml', { sqlQuery: query });
   } else {
     cy.log(`Ambiente ${env} não suportado para execução de query.`);
   }
@@ -122,6 +112,8 @@ Cypress.Commands.add('atualizarItensHml', (nivel, mapeamentoEntidade, log = {}) 
         );
 
         if (!itensParaAtualizar.length) return;
+
+        cy.logExecucao(`[atualizarItensHml] ${chaveEntidade}: ${itensParaAtualizar.length} item(ns) a atualizar`);
 
         return cy.wrap(itensParaAtualizar, { log: false }).each((dado) => {
           const camposOpcionais = camposUpdate
@@ -259,6 +251,8 @@ Cypress.Commands.add('inserirItensHml', (nivel, mapeamentoEntidade, log = {}) =>
       );
 
       if (!itensParaInserir.length) return;
+
+      cy.logExecucao(`[inserirItensHml] ${chaveEntidade}: ${itensParaInserir.length} item(ns) a inserir`);
 
       for (const dado of itensParaInserir) {
         const camposValidos = camposUpdate.filter(
