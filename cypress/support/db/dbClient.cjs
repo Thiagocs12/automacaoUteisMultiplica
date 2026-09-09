@@ -6,7 +6,11 @@ const buildConfig = ({ host, database, port }) => ({
   server: host,
   database,
   port: Number(port),
-  driver: 'msnodesqlv8',
+  // Nome do driver ODBC instalado na máquina (`Get-OdbcDriver` no Windows).
+  // Sem isso, mssql/msnodesqlv8 cai no default "SQL Server Native Client 11.0",
+  // descontinuado e ausente na maioria das instalações atuais — resultando em
+  // "[ODBC Driver Manager] Nome da fonte de dados não encontrado...".
+  driver: 'SQL Server',
   pool: {
     max: 5,
     min: 0,
