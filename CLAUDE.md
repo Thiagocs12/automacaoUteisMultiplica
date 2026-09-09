@@ -55,7 +55,7 @@ Os arquivos .feature chamam, para cada nível 1..N: `cy.processarEntidadesPorNiv
 2. `atualizarIdsDeDependencias` (`dependencias.js`) — para cada lista `dependencia` da entidade, substitui o id aninhado do lado PROD pelo id já resolvido em HML (percorrendo caminhos com ponto/array), salvando o valor original em uma chave irmã `<campo>.old` para permitir reversão.
 3. `pesquisarItensPorNivel` — busca em HML um registro equivalente para cada item (por campo único, `contentBusca` composto, ou busca por nome no estilo Keycloak), gravando o id encontrado em `idHml`.
 4. `atualizarItensExistentesPorNivel` — PUT/PATCH nos itens que já tiveram um `idHml` resolvido.
-5. `criarItensInexistentesPorNivel` — POST nos que não tiveram, gravando em seguida o novo id de HML via `setIdHmlPorDescricao`.
+5. `criarItensInexistentesPorNivel` — POST nos que não tiveram, gravando em seguida o novo id de HML via `setIdHmlPorDescricao`. Quando a entidade tem `novoArray` (corpo de criação embrulhado, ex.: `{ modeloEtapa: {...} }`), o id da resposta é lido tanto em `resultado.body.id` quanto em `resultado.body[novoArray].id` — se nenhum dos dois existir, falha imediatamente (nome do item + resposta crua) em vez de gravar `idHml: null` silenciosamente e só quebrar depois, quando outra entidade tentar resolver essa dependência.
 
 Antes de processar os níveis, os features chamam `cy.voltarIdsOriginais` (reverte substituições `.old` de uma execução anterior), `cy.pesquisarDependenciasLigacao` (busca em PROD os registros vinculados/filhos referenciados pela entidade base) e `cy.preencherIdsHmlPeloEstoque` (pré-preenche `idHml` a partir do cache de ids entre execuções, evitando uma busca redundante em HML).
 
@@ -67,7 +67,11 @@ Após todos os níveis: `cy.atualizarEstoqueIds` persiste os pares de id PROD→
 
 ### Lotes / limites na busca inicial em PROD
 
-`salvarNovosRegistros` (`dependencias.js`) limita quantos registros novos/desatualizados são trazidos de PROD por execução para algumas entidades de alto volume (`LIMITE_ESTEIRAS`, `LIMITE_PRODUTO`, `LIMITE_MOP`, `LIMITE_POC`), priorizando os atualizados há mais tempo com base em `cypress/output/ultimosUpdates.json` (janela de 14 dias). Entidades sem limite declarado não têm limite.
+`salvarNovosRegistros` (`dependencias.js`) limita quantos registros novos/desatualizados são trazidos de PROD por execução para algumas entidades de alto volume (`LIMITE_ESTEIRAS`, `LIMITE_PRODUTO`, `LIMITE_MOP`, `LIMITE_POC`), priorizando os atualizados há mais tempo com base em `cypress/output/ultimosUpdates.json` (janela de 14 dias). Entidades sem limite declarado (`LIMITE_LOTE = Infinity`, ex.: `ETAPAS`) não respeitam esse corte por lote: um item sem `idHml` ainda é sempre marcado `atualizar: true`, senão ficaria travado para sempre (essas entidades entram no fetch a reboque do `atualizar` da entidade pai — ex.: uma etapa só é buscada quando a esteira dona dela está no lote da rodada — e não têm uma rodada própria de novas tentativas).
+
+### "Nada a sincronizar" não é uma falha
+
+`PRODUTO`, `ESTEIRAS` e `MOP`/`POC` são as entidades principais de cada domínio (Produtos, Esteiras, Vínculos) — se nenhum registro delas tiver `atualizar === true` na rodada, o restante do cenário (dependências, todos os níveis) nem deveria rodar. Os steps que fazem essa validação (`gerenciamentoDeProdutos.js`, `gerenciamentoDeEsteiras.js`, `gerenciamentoDosVinculos.js`) usam `this.skip()` (Mocha) em vez de `throw` — o cenário fica `pending`, não `failed`, para não quebrar uma pipeline de CI só porque não havia nada novo para sincronizar. Por causa disso, esses steps específicos são `function ()` normal, não arrow function — arrow function não tem `this` próprio para chamar `.skip()`.
 
 ### Ambientes e autenticação
 
@@ -88,6 +92,10 @@ Todas as chamadas HTTP autenticadas passam por `cy.executarRequest`/`cy.executar
 ### Formatos de módulo
 
 O projeto é ESM (`"type": "module"` no package.json), **exceto**: o próprio `cypress.config.js` (carregado pelo bundler CJS do Cypress, mistura `import`/`require`) e `cypress/support/tasks/**/*.cjs` + `cypress/support/db/**/*.cjs` (CommonJS de fato, para acesso direto a Node/mssql fora do bundle de specs do Cypress). O flat config do ESLint (`eslint.config.js`) tem blocos separados com `globals`/`sourceType` correspondentes por grupo de arquivos — confira esse arquivo ao adicionar um novo diretório fora do padrão.
+
+### Logs — só em pontos estratégicos
+
+`cy.logExecucao` (`commands/log.js`) loga em `cy.log` (UI) e via `cy.task('log', ...)` (terminal, inclusive em `cypress run` headless). Cada chamada é um round-trip síncrono até o processo Node — caro quando repetido por item dentro de um laço de centenas de registros. Convenção do projeto: logar por entidade/nível (ex.: `[Nível X] ...`, contagem agregada de itens a criar/atualizar) e em falhas (erro HTTP com curl de reprodução, erro de SQL, dependência não resolvida) — nunca um log de sucesso por item individual dentro de `criarItensInexistentesPorNivel`, `atualizarItensExistentesPorNivel`, `atualizarItensHml`, `inserirItensHml` ou `setIdHmlPorDescricao`. Ao adicionar uma chamada nova nesses fluxos, prefira um log agregado antes do laço a um log dentro dele.
 
 ### Peculiaridades de nomenclatura/tradução entre ambientes
 
