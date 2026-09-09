@@ -535,8 +535,13 @@ Cypress.Commands.add('pesquisarDependenciasBanco', (mapeamento, adiciona = false
         );
 
         cy.executarQuery('prod', `SELECT * FROM ${entidade.tabela}`).then((registrosHml) => {
+          // Comparação tolerante a tipo: colunas numeric/decimal costumam voltar do
+          // msnodesqlv8 como string, enquanto os valores extraídos do JSON são number —
+          // `.includes()` estrito filtraria tudo fora mesmo com as linhas existindo.
           const registrosFiltrados = registrosHml.filter((item) =>
-            filtros.every(({ campoTabela, valores }) => valores.includes(item[campoTabela])),
+            filtros.every(({ campoTabela, valores }) =>
+              valores.some((valor) => String(valor) === String(item[campoTabela])),
+            ),
           );
 
           if (adiciona) {

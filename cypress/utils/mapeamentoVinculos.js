@@ -52,7 +52,12 @@ const MAPEAMENTO_VINCULOS = {
       { campo: 'indGeraSacado',                   tipo: 'boolean' },
       { campo: 'indPermiteCadastroFilial',        tipo: 'boolean' },
       { campo: 'qtdEsteiraAndamento',             tipo: 'number'  }
-    ]
+    ],
+    // Sem isso, uma dependência não resolvida (ex.: idTipoProposta ainda sem
+    // idHml) mantinha o id cru de PRODUÇÃO no registro e o enviava direto pro
+    // UPDATE em HML, batendo em FK constraint (ex.: FK_PRT_ESTEIRA_TIP_PROP) em
+    // vez de descartar o registro e tentar de novo na próxima rodada.
+    removerSeNaoEncontrado: true
   },
   TIPO_PROSPECT: {
     nomeArquivo: 'Vinculos/3 - tipoProspect.json',
