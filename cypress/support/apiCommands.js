@@ -35,26 +35,17 @@ const montarCurl = (method, url, headers, body) => {
 };
 
 /**
- * @description Resolve token e baseUrl para uma requisição.
- * Para os ambientes 'bhml' e 'bprod', utiliza o token do ambiente 'bhml'
- * combinado com a baseUrl do ambiente 'hml'. Para os demais ambientes,
- * utiliza token e baseUrl do próprio ambiente informado.
- * @param {'prod'|'hml'|'keycloak'|'bhml'|'bprod'} ambiente - Ambiente alvo da requisição.
+ * @description Resolve token e baseUrl para uma requisição, a partir do
+ * próprio ambiente informado.
+ * @param {'prod'|'hml'|'keycloak'|'keycloakProd'} ambiente - Ambiente alvo da requisição.
  * @returns {Cypress.Chainable<{token: string, baseUrl: string}>}
  */
-const resolverAmbienteDaRequisicao = (ambiente) => {
-  if (ambiente === 'bhml' || ambiente === 'bprod') {
-    return cy
-      .definirAmbiente('bhml')
-      .then(({ token }) => cy.definirAmbiente('hml').then(({ baseUrl }) => ({ token, baseUrl })));
-  }
-
-  return cy.definirAmbiente(ambiente).then(({ baseUrl, token }) => ({ token, baseUrl }));
-};
+const resolverAmbienteDaRequisicao = (ambiente) =>
+  cy.definirAmbiente(ambiente).then(({ baseUrl, token }) => ({ token, baseUrl }));
 
 /**
  * @description Executa uma requisição HTTP autenticada para uma API de um ambiente específico.
- * @param {'prod'|'hml'|'keycloak'|'bhml'|'bprod'} ambiente - Ambiente alvo da requisição.
+ * @param {'prod'|'hml'|'keycloak'|'keycloakProd'} ambiente - Ambiente alvo da requisição.
  * @param {string} api - Caminho relativo da API (será concatenado à baseUrl do ambiente).
  * @param {object|string} [body=''] - Corpo da requisição (usado em POST, PUT, PATCH etc.).
  * @param {'GET'|'POST'|'PUT'|'PATCH'|'DELETE'} [method='GET'] - Método HTTP da requisição.

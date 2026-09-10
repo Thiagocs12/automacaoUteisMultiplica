@@ -46,8 +46,13 @@ Given('que existem vínculos das esteiras cadastrados em Produção', () => {
 
 // function (não arrow): precisa do `this` do Mocha para poder pular o cenário
 // via `this.skip()` sem quebrar a pipeline quando não há nada a sincronizar.
-When('pesquiso as dependências dos vínculos', function () {
-  cy.lerJsonDeOutput(MOP.nomeArquivo).then((dadosMop) => {
+// Precisa ser um step à parte (com `return` do chain) para que o Cucumber espere
+// esse step terminar antes de chamar "pesquiso as dependências dos vínculos" —
+// senão os comandos desse próximo step já estariam na fila do Cypress antes do
+// this.skip() ter chance de agir (mesmo bug seria escondido se estivesse tudo
+// no mesmo step, como acontecia aqui antes).
+Given('a pesquisa retornou vínculos mop ou poc para serem copiados de produção para homologação', function () {
+  return cy.lerJsonDeOutput(MOP.nomeArquivo).then((dadosMop) => {
     return cy.lerJsonDeOutput(POC.nomeArquivo).then((dadosPoc) => {
       const possuiAtualizacao = [...(dadosMop ?? []), ...(dadosPoc ?? [])].some(
         (item) => item.atualizar === true,
@@ -59,7 +64,9 @@ When('pesquiso as dependências dos vínculos', function () {
       }
     });
   });
+});
 
+When('pesquiso as dependências dos vínculos', () => {
   cy.voltarIdsOriginais(MAPEAMENTO_VINCULOS);
   cy.pesquisarDependenciasBanco(MAPEAMENTO_VINCULOS)
   cy.preencherIdsHmlPeloEstoque(MAPEAMENTO_VINCULOS)

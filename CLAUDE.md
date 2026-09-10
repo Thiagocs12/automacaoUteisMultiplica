@@ -4,15 +4,15 @@ Este arquivo fornece orientações ao Claude Code (claude.ai/code) ao trabalhar 
 
 ## O que é este projeto
 
-Uma ferramenta de automação Cypress + Cucumber (BDD) que sincroniza dados de referência **PROD → HML** (produção → homologação), para os domínios Produtos, Esteiras e Vínculos. Ela consulta entidades em PROD (API REST e SQL Server), localiza/cria o registro correspondente em HML e os vincula por ID — respeitando a ordem de dependência entre entidades. Isto **não** é uma suíte de testes de UI; é uma ferramenta de orquestração de dados construída sobre a infraestrutura do Cypress/Cucumber.
+Uma ferramenta de automação Cypress + Cucumber (BDD) que sincroniza dados de referência **PROD → HML** (produção → homologação), para os domínios Produtos, Esteiras, Vínculos e Grupos e Permissões (Keycloak). Ela consulta entidades em PROD (API REST, SQL Server e a API de administração do Keycloak), localiza/cria o registro correspondente em HML e os vincula por ID — respeitando a ordem de dependência entre entidades. Isto **não** é uma suíte de testes de UI; é uma ferramenta de orquestração de dados construída sobre a infraestrutura do Cypress/Cucumber.
 
-**Produção é somente leitura por construção.** `validarSomenteLeituraEmProducao` (`cypress/support/shared/producaoSomenteLeitura.js`) lança erro se qualquer requisição não-GET for direcionada a `prod`/`bprod`. Nunca escreva caminhos de código que possam enviar uma requisição não-GET para `prod`/`bprod`.
+**Produção é somente leitura por construção.** `validarSomenteLeituraEmProducao` (`cypress/support/shared/producaoSomenteLeitura.js`) lança erro se qualquer requisição não-GET for direcionada a `prod`/`keycloakProd`. Nunca escreva caminhos de código que possam enviar uma requisição não-GET para esses ambientes.
 
 ## Comandos
 
 ```bash
 npm install
-cp .env.example .env        # preencha credenciais de API PROD/HML/Keycloak/BHML e do SQL Server
+cp .env.example .env        # preencha credenciais de API PROD/HML/Keycloak (HML e PROD) e do SQL Server
 
 npm run cypress:open        # interface interativa, escolha o .feature desejado
 npm run cypress:run         # roda todos os cenários (specPattern: **/*.feature)
@@ -21,7 +21,7 @@ npm run test:safety         # node:test — testes de lógica pura (ex.: bloquei
 npm run lint                # ESLint (flat config)
 ```
 
-Cenários são marcados por tag de domínio: `@produto`, `@esteira`, `@vinculos`. O filtro de tags do Cypress pode direcionar apenas uma, ex.: `cypress run --env tags=@produto`.
+Cenários são marcados por tag de domínio: `@produto`, `@esteira`, `@vinculos`, `@keycloak`. O filtro de tags do Cypress pode direcionar apenas uma, ex.: `cypress run --env tags=@produto`.
 
 Para rodar um único arquivo de `node:test` diretamente: `node --test cypress/support/shared/__tests__/producaoSomenteLeitura.test.js`.
 
@@ -75,9 +75,13 @@ Após todos os níveis: `cy.atualizarEstoqueIds` persiste os pares de id PROD→
 
 ### Ambientes e autenticação
 
-`cypress/support/commands/ambiente.js` define quatro ambientes base: `prod`, `hml`, `keycloak`, `bhml`. `bprod` é um alias que reaproveita o token de `bhml` + a baseUrl de `hml` e permanece bloqueado para escrita (ver `resolverAmbienteDaRequisicao` em `apiCommands.js`).
+`cypress/support/commands/ambiente.js` define quatro ambientes base: `prod`, `hml`, `keycloak` (Keycloak de HML), `keycloakProd` (Keycloak de PRODUÇÃO — só leitura, usado para sincronizar grupos/roles). `keycloakProd` é bloqueado para escrita diretamente em `validarSomenteLeituraEmProducao`, assim como `prod`.
 
-A autenticação é feita via UI: `cy.loginUi(ambiente)` (`cypress/support/utils.js`) acessa a aplicação, preenche o formulário de login do Keycloak (tratando cross-origin via `cy.origin` quando necessário), intercepta a resposta do token e o persiste em `cypress/temp/tokens.json` (gitignored, nunca commitar). `cy.verificarTokens(ambiente)` é chamado no início de cada feature e faz uma requisição de teste barata; se o status não for 200, aciona `loginUi` para renovar.
+A autenticação **não usa UI**: `cy.verificarTokens(ambiente)` é chamado no início de cada feature (e, no fluxo de Grupos e Permissões, de novo antes de cada fase) e faz uma requisição de teste barata; se o status não for 200, chama `cy.obterToken(ambiente)` (`cypress/support/utils.js`), que faz um `POST` direto ao endpoint de token do Keycloak e persiste o resultado em `cypress/temp/tokens.json` (gitignored, nunca commitar). Dois grant types diferentes, por tipo de ambiente:
+- `prod`/`hml`: `grant_type=password` no client **`autenticacao`** (o mesmo client público que a aplicação usa por trás da UI — mesmo `clientId` nos dois ambientes), com `HML_API_USERNAME`/`PASSWORD` ou `PROD_API_USERNAME`/`PASSWORD`. Não dá pra usar um client de automação genérico aqui: o `mc-cadastro-ms` depende de claims (`idAnalista`, `cargoPrincipal`, etc.) que só esse client específico emite (protocol mappers dedicados a ele) — sem eles a API quebra com `NullPointerException`, não com 401/403 (o token é aceito, só falta o claim que a lógica de negócio espera).
+- `keycloak`/`keycloakProd`: `grant_type=client_credentials` num client de automação dedicado (`cypress-uteis-automation`, `HML_KEYCLOAK_CLIENT_ID`/`SECRET` ou `PROD_KEYCLOAK_CLIENT_ID`/`SECRET`), criado no realm `multiplicacapital` (não `master`) com "Service accounts roles" habilitado e o client scope `roles` como default (sem esse scope o token sai sem `realm_access`/`resource_access`, mesmo com as roles certas atribuídas — não é óbvio, custa tempo de debug se esquecer). Escopo mínimo confirmado por teste real contra os endpoints que `gruposPermissoes.js` usa: `view-clients`, `manage-clients`, `view-users`, `manage-users` (`realm-management`) + `manage-realm` em HML (leitura e escrita) ou só `view-realm` em PROD (somente leitura — `keycloakProd` nunca escreve). Tokens duram horas, não mais segundos.
+
+O Cloudflare Access que protege `lgni.grupomultiplica.com.br` (PROD) só bloqueia a rota de UI/console (`/auth/admin/master/console/`) — o endpoint de token e a API REST admin respondem normalmente por trás dele, sem Service Token nenhum.
 
 Todas as chamadas HTTP autenticadas passam por `cy.executarRequest`/`cy.executarRequest2` (aliases da mesma implementação, `apiCommands.js`), que resolve token+baseUrl para o ambiente, aplica o bloqueio de escrita em produção e, em caso de falha, loga um comando `curl` pronto para reproduzir (token oculto) antes de opcionalmente lançar erro.
 
@@ -100,6 +104,18 @@ O projeto é ESM (`"type": "module"` no package.json), **exceto**: o próprio `c
 ### Peculiaridades de nomenclatura/tradução entre ambientes
 
 Algumas entidades têm nomes canônicos diferentes entre PROD e HML para o mesmo conceito (ex.: o tipo de esteira "OPE" em PROD é "MOP" em HML). Use o mapa `traducaoBusca` da entidade (ver uso em `sincronizacaoNivel.js`) para traduzir o valor usado na busca/criação em HML, sem alterar o registro de PROD cacheado localmente.
+
+### Grupos e Permissões (Keycloak) — pipeline próprio, fora de `sincronizacaoNivel.js`
+
+Diferente de Produtos/Esteiras/Vínculos, o domínio Grupos e Permissões (`cypress/utils/mapeamentoGruposPermissoes.js` + `cypress/support/commands/gruposPermissoes.js`, feature `@keycloak`) **não** usa o pipeline genérico de níveis de dependência: a API de administração do Keycloak tem forma própria demais para caber no contrato `nivelDependencia`/`contentBusca`/`novoArray` (pensado para as APIs REST de negócio, ex.: mc-cadastro-ms) sem recorrer a mais casos especiais hardcoded em `sincronizacaoNivel.js` — o mesmo tipo de solução pontual já usada ali para os grupos Keycloak de OPERADORES/OBSERVADORES/GESTORES de esteira (ver `ENTIDADES_SEM_ATUALIZACAO`, `ENTIDADE_SEM_ESTOQUE`), que são um caso à parte (só o nome do grupo, sem id estável em PROD) e continuam nesse fluxo antigo.
+
+Peculiaridades da API do Keycloak que moldam esse pipeline:
+- **Grupos e roles são localizados em HML por busca textual** (`?search=nome`), que faz correspondência **parcial** — todo resultado é filtrado pelo nome exato (`encontrarPorNomeExato` em `shared/keycloakHelpers.js`) antes de decidir se o registro já existe.
+- **A criação não devolve o novo `id` no corpo da resposta** (ao contrário de mc-cadastro-ms) — não se usa o cabeçalho `Location`; em vez disso, repete-se a mesma busca por nome logo após o POST para obter o id (também cobre o caso `409`: tratado como sucesso, já existe o que se queria criar).
+- **Client roles exigem resolver o UUID interno do client antes** (`buscarUuidClienteKeycloak`, via `GET .../clients?clientId=`), porque o `clientId` público é o mesmo em PROD e HML mas o UUID interno é gerado por ambiente.
+- **O vínculo grupo→role não vem de um endpoint de "role-mappings" separado**: vem embutido na representação completa do grupo (`GET .../groups/{id}`, campos `realmRoles: string[]` e `clientRoles: {[clientId]: string[]}`) — só a listagem/busca de grupos é que retorna uma representação "brief" sem esses campos. `sincronizarRoleMappingsDosGrupos` busca essa representação completa em PROD e em HML, faz o diff por nome (`calcularNomesFaltantes`) e atribui (`POST .../role-mappings/realm|clients/{uuid}`) só o que falta — resolvendo a representação completa de cada role faltante **na hora**, nunca a partir de um valor cacheado no arquivo de output (o `idHml` de uma role pode ter vindo do estoque de ids de uma execução anterior, sem repassar pela busca desta rodada).
+
+GRUPOS/ROLES_REALM/ROLES_CLIENTE têm id estável em PROD (UUID do Keycloak) e por isso participam normalmente do estoque de ids (`cy.preencherIdsHmlPeloEstoque`/`cy.atualizarEstoqueIds`) — ao contrário dos grupos OPERADORES/OBSERVADORES/GESTORES do fluxo de Esteiras.
 
 ## Segurança / não commitar
 

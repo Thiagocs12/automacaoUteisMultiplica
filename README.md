@@ -18,9 +18,9 @@ Automação para sincronizar dados de **Produção (PROD)** para **Homologação
 cypress/
 ├── e2e/features/              # Cenários BDD (.feature)
 ├── support/
-│   ├── step_definitions/      # Steps de cada domínio (Produtos, Esteiras, Vínculos)
+│   ├── step_definitions/      # Steps de cada domínio (Produtos, Esteiras, Vínculos, Grupos e Permissões)
 │   ├── commands/               # Comandos customizados, por responsabilidade
-│   │   (ambiente, arquivos, urls, dependencias, sincronizacaoNivel, estoque, vinculos, log)
+│   │   (ambiente, arquivos, urls, dependencias, sincronizacaoNivel, estoque, vinculos, gruposPermissoes, log)
 │   ├── shared/                 # Lógica pura testável fora do Cypress (node:test)
 │   ├── db/dbClient.cjs         # Pools de conexão SQL Server (prod/hml)
 │   ├── tasks/dbTasks.cjs       # Tasks de banco expostas ao Cypress
@@ -28,7 +28,7 @@ cypress/
 │   ├── utils.js                # Login via UI, verificação/renovação de token
 │   └── e2e.js
 ├── utils/                      # Mapeamento de entidades por domínio
-│   (mapeamentoProdutos, mapeamentoEsteiras, mapeamentoVinculos)
+│   (mapeamentoProdutos, mapeamentoEsteiras, mapeamentoVinculos, mapeamentoGruposPermissoes)
 ├── output/                     # JSONs intermediários + estoqueIds.json (gitignored)
 └── temp/tokens.json            # Tokens de sessão (gitignored)
 ```
@@ -42,13 +42,15 @@ Cada entidade é descrita em um arquivo de mapeamento (`cypress/utils/mapeamento
 3. localiza o registro correspondente em HML;
 4. cria (POST) ou atualiza (PUT/PATCH) o registro, e registra o novo par PROD→HML no estoque.
 
-Os três domínios sincronizados (Produtos, Esteiras, Vínculos) têm cada um seu arquivo de mapeamento e feature própria — novas entidades são adicionadas configurando o mapeamento, sem alterar a lógica central de processamento.
+Os domínios Produtos, Esteiras e Vínculos têm cada um seu arquivo de mapeamento e feature própria — novas entidades são adicionadas configurando o mapeamento, sem alterar a lógica central de processamento.
+
+O domínio **Grupos e Permissões** (grupos, realm roles, client roles e o vínculo grupo→role do Keycloak) tem um pipeline próprio, fora desse fluxo genérico — grupos/roles são localizados em HML por busca textual (`?search=`, filtrando o resultado pelo nome exato), a criação não devolve o `id` no corpo da resposta (repete-se a busca em seguida) e o vínculo grupo→role vem embutido na representação completa do grupo (`GET /groups/{id}`), não de um endpoint de role-mappings à parte. A lógica vive em `commands/gruposPermissoes.js` + `utils/mapeamentoGruposPermissoes.js`.
 
 ## Configuração
 
 ```bash
 npm install
-cp .env.example .env   # preencha credenciais e URLs de PROD, HML, Keycloak, BHML e SQL Server
+cp .env.example .env   # preencha credenciais e URLs de PROD, HML, Keycloak (HML e PROD) e SQL Server
 ```
 
 Nunca versionar `.env` ou `cypress/temp/tokens.json` (já cobertos pelo `.gitignore`).
@@ -60,11 +62,16 @@ npm run cypress:open   # interface do Cypress, escolha o .feature desejado
 npm run cypress:run    # roda todos os cenários (specPattern: **/*.feature)
 ```
 
-Cenários são marcados por tag de domínio: `@produto`, `@esteira`, `@vinculos`.
+Cenários são marcados por tag de domínio: `@produto`, `@esteira`, `@vinculos`, `@keycloak`.
 
 ## Autenticação
 
-Login é feito via UI (Keycloak), interceptando o token retornado e salvando em `cypress/temp/tokens.json`. Antes de cada execução, `cy.verificarTokens(ambiente)` testa se o token salvo ainda é válido e refaz o login se necessário. Ambientes suportados: `prod`, `hml`, `keycloak`, `bhml` (o alias `bprod` reaproveita a base de HML/BHML e permanece bloqueado para escrita).
+Sem UI: `cy.verificarTokens(ambiente)` testa se o token salvo em `cypress/temp/tokens.json` ainda é válido e, se não for, chama `cy.obterToken(ambiente)` (`utils.js`), que faz um `POST` direto ao endpoint de token do Keycloak. Ambientes suportados: `prod`, `hml`, `keycloak`, `keycloakProd` (bloqueado para escrita, assim como `prod`).
+
+- `prod`/`hml`: `grant_type=password` no client `autenticacao` (o mesmo client que a aplicação usa por trás da UI), com `HML_API_USERNAME`/`PASSWORD` ou `PROD_API_USERNAME`/`PASSWORD`.
+- `keycloak`/`keycloakProd`: `grant_type=client_credentials` num client de automação dedicado (`HML_KEYCLOAK_CLIENT_ID`/`SECRET` ou `PROD_KEYCLOAK_CLIENT_ID`/`SECRET`), criado no realm `multiplicacapital` com "Service accounts roles" habilitado.
+
+Tokens duram horas (não mais segundos), então não há mais a limitação de token expirando em segundos que existia com o client `security-admin-console`.
 
 ## Testes e lint
 
@@ -75,7 +82,7 @@ npm run lint           # ESLint
 
 ## Segurança
 
-- Produção é somente leitura por construção: `validarSomenteLeituraEmProducao` lança erro se qualquer requisição não-GET for direcionada a `prod`/`bprod`.
+- Produção é somente leitura por construção: `validarSomenteLeituraEmProducao` lança erro se qualquer requisição não-GET for direcionada a `prod`/`keycloakProd`.
 - Nunca commitar `.env`, `cypress/temp/tokens.json` ou dados sensíveis em `cypress/output/`.
 - `package-lock.json` está no `.gitignore` — instalações podem resolver versões diferentes entre execuções.
 

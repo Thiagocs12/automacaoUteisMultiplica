@@ -4,99 +4,92 @@ import MAPEAMENTOS_APIS from '../utils/mapeamentoProdutos';
 
 const CLASSIFICACAO_PRODUTO = MAPEAMENTOS_APIS.CLASSIFICACAO_PRODUTO;
 const GRUPOS_KEYCLOAK = MAPEAMENTOS_APIS.GRUPOS_KEYCLOAK;
-const SELECIONAR_CEDENTE = MAPEAMENTOS_APIS.SELECIONAR_CEDENTE;
+
+/** Ambientes que se autenticam via `client_credentials` (client de automação dedicado). */
+const AMBIENTES_CLIENT_CREDENTIALS = ['keycloak', 'keycloakProd'];
+
+/** clientId do client usado pela própria aplicação Beyond por trás da UI — o mesmo em 'prod' e 'hml'. */
+const CLIENT_ID_AUTENTICACAO = 'autenticacao';
+
+/**
+ * @description Obtém um token novo via POST direto ao endpoint de token do
+ * Keycloak, sem passar por UI, e o salva em 'cypress/temp/tokens.json'.
+ *
+ * 'prod'/'hml' usam `grant_type=password` no client `autenticacao` (o mesmo
+ * client que a aplicação usa por trás da UI) — replica exatamente as
+ * permissões que o usuário já tem, sem precisar atribuir nenhuma role: o
+ * `mc-cadastro-ms` depende de claims (`idAnalista`, `cargoPrincipal`, etc.)
+ * que só o client `autenticacao` emite (protocol mappers dedicados a ele), daí
+ * não dar pra usar um client de automação genérico aqui.
+ *
+ * 'keycloak'/'keycloakProd' usam `grant_type=client_credentials` num client de
+ * automação dedicado (`clientId`/`clientSecret` do ambiente), criado no realm
+ * `multiplicacapital` com "Service accounts roles" habilitado.
+ * @param {'prod'|'hml'|'keycloak'|'keycloakProd'} ambiente - Ambiente para o qual obter o token.
+ * @returns {Cypress.Chainable<void>}
+ */
+Cypress.Commands.add('obterToken', (ambiente) => {
+  return cy.definirAmbiente(ambiente).then(({ urlToken, loginUsername, loginPassword, clientId, clientSecret }) => {
+    const form = AMBIENTES_CLIENT_CREDENTIALS.includes(ambiente)
+      ? { grant_type: 'client_credentials', client_id: clientId, client_secret: clientSecret }
+      : { grant_type: 'password', client_id: CLIENT_ID_AUTENTICACAO, username: loginUsername, password: loginPassword };
+
+    return cy
+      .request({ method: 'POST', url: urlToken, form: true, body: form })
+      .then((resposta) => {
+        const accessToken = resposta.body?.access_token;
+
+        if (!accessToken) {
+          throw new Error(`[obterToken] Token não encontrado na resposta para o ambiente "${ambiente}".`);
+        }
+
+        return salvarTokenObtido(ambiente, accessToken);
+      });
+  });
+});
 
 /**
  * @description Verifica se o token do ambiente informado ainda é válido
- * executando uma requisição de teste. Caso o token esteja expirado (status diferente de 200),
- * aciona o fluxo de login via UI para renovação do token.
- * @param {'prod'|'hml'|'bhml'|'keycloak'} ambiente - Ambiente cujo token será verificado.
+ * executando uma requisição de teste. Caso o token esteja expirado (status
+ * diferente de 200), obtém um novo via `cy.obterToken`.
+ * @param {'prod'|'hml'|'keycloak'|'keycloakProd'} ambiente - Ambiente cujo token será verificado.
  * @returns {Cypress.Chainable<void>}
  */
 Cypress.Commands.add('verificarTokens', (ambiente) => {
-  if (['prod', 'hml'].includes(ambiente)) {
-    return cy.executarRequest(ambiente, `${CLASSIFICACAO_PRODUTO.urlBusca}PRODUTO`, '', 'GET', false).then((response) => {
-      if (response.status === 200) return;
-      cy.loginUi(ambiente);
-    });
-  }
+  const urlTeste = AMBIENTES_CLIENT_CREDENTIALS.includes(ambiente)
+    ? `${GRUPOS_KEYCLOAK.urlBusca}APC`
+    : `${CLASSIFICACAO_PRODUTO.urlBusca}PRODUTO`;
 
-  if (ambiente === 'bhml') {
-    return cy.executarRequest(ambiente, `${SELECIONAR_CEDENTE.url}Agrofoods`, '', 'GET', false).then((response) => {
-      if (response.status === 200) return;
-      cy.loginUi(ambiente);
-    });
-  }
-
-  if (ambiente === 'keycloak') {
-    return cy.executarRequest(ambiente, `${GRUPOS_KEYCLOAK.urlBusca}APC`, '', 'GET', false).then((response) => {
-      if (response.status === 200) return;
-      cy.loginUi(ambiente);
-    });
-  }
+  return cy.executarRequest(ambiente, urlTeste, '', 'GET', false).then((response) => {
+    if (response.status === 200) return;
+    return cy.obterToken(ambiente);
+  });
 });
 
 /**
- * @description Realiza o login via interface gráfica (UI) para o ambiente informado,
- * intercepta o token de acesso retornado pelo Keycloak e o salva em 'cypress/temp/tokens.json'.
- * Suporta fluxos com e sem redirecionamento cross-origin entre a baseUrl da aplicação e a URL do Keycloak.
- * @param {'prod'|'hml'|'bhml'|'keycloak'} ambiente - Ambiente onde o login será realizado.
+ * @description Grava o access token obtido para um ambiente em
+ * 'cypress/temp/tokens.json' (uma única leitura + escrita).
+ * @param {string} ambiente - Ambiente cujo token foi obtido.
+ * @param {string} accessToken - Access token obtido.
  * @returns {Cypress.Chainable<void>}
  */
-Cypress.Commands.add('loginUi', (ambiente) => {
-  cy.definirAmbiente(ambiente).then(({ loginUrl, baseUrl, loginUsername, loginPassword, urlTokenApiIntercept }) => {
-    cy.intercept('POST', urlTokenApiIntercept).as('obterToken');
+const salvarTokenObtido = (ambiente, accessToken) => {
+  const filePath = 'cypress/temp/tokens.json';
 
-    const baseOrigin = new URL(baseUrl).origin;
-    const keycloakOrigin = new URL(loginUrl).origin;
-    const precisaDeCrossOrigin = baseOrigin !== keycloakOrigin;
-
-    cy.visit(baseUrl);
-
-    if (precisaDeCrossOrigin) {
-      cy.origin(
-        keycloakOrigin,
-        { args: { loginUsername, loginPassword, keycloakOrigin } },
-        ({ loginUsername, loginPassword, keycloakOrigin }) => {
-          cy.url({ timeout: 20000 }).should('include', keycloakOrigin);
-          cy.get('#username').should('be.visible').type(loginUsername, { log: false });
-          cy.get('#password').should('be.visible').type(loginPassword, { log: false });
-          cy.get('#kc-login').should('be.visible').click();
-        }
-      );
-    } else {
-      cy.url({ timeout: 20000 }).should('include', keycloakOrigin);
-      cy.get('#username').should('be.visible').type(loginUsername, { log: false });
-      cy.get('#password').should('be.visible').type(loginPassword, { log: false });
-      cy.get('#kc-login').should('be.visible').click();
-    }
-
-    cy.wait('@obterToken', { timeout: 20000 }).then((interception) => {
-      const accessToken = interception?.response?.body?.access_token;
-
-      if (!accessToken) {
-        throw new Error(`[loginUi] Token não encontrado na resposta para o ambiente "${ambiente}".`);
+  return cy
+    .readFile(filePath, { log: false, timeout: 5000 })
+    .then(
+      (existentes) => (typeof existentes === 'object' && existentes !== null ? existentes : {}),
+      (err) => {
+        if (err.code === 'ENOENT') return {};
+        throw new Error(`[obterToken] Erro ao ler tokens.json: ${err.message}`);
       }
-
-      const filePath = 'cypress/temp/tokens.json';
-
-      cy.readFile(filePath, { log: false, timeout: 5000 })
-        .then(
-          (existentes) => (typeof existentes === 'object' && existentes !== null ? existentes : {}),
-          (err) => {
-            if (err.code === 'ENOENT') return {};
-            throw new Error(`[loginUi] Erro ao ler tokens.json: ${err.message}`);
-          }
-        )
-        .then((tokens) => {
-          tokens[ambiente] = { token: accessToken };
-          cy.writeFile(filePath, tokens, { log: false });
-        });
+    )
+    .then((tokens) => {
+      tokens[ambiente] = { token: accessToken };
+      return cy.writeFile(filePath, tokens, { log: false });
     });
-
-    cy.url({ timeout: 15000 }).should('include', baseUrl);
-  });
-});
+};
 
 /**
  * @description Utilitário para acessar o valor de uma propriedade aninhada de um objeto

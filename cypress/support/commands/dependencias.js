@@ -10,7 +10,6 @@ import {
 
 /** Entidades ignoradas no fluxo de pesquisa de dependências de ligação */
 const ENTIDADES_IGNORADAS = [
-  'SELECIONAR_CEDENTE',
   'ESTEIRA_VALIDADOR',
   'GRUPOS_KEYCLOAK',
   'MULTIFLOW',

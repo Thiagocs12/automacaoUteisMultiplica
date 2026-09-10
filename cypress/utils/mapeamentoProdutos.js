@@ -300,9 +300,6 @@ const MAPEAMENTOS_APIS = {
     url: 'auth/admin/realms/multiplicacapital/groups?',
     urlBusca: 'auth/admin/realms/multiplicacapital/groups?search=',
   },
-  SELECIONAR_CEDENTE: {
-    url: 'mc-api-gateway-ms/v1/cedentes/search/0?numeroRegistros=100&nome=',
-  }
 };
 
 export default MAPEAMENTOS_APIS;
