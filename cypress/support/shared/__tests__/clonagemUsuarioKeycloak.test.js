@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   montarPayloadNovoUsuario,
+  gerarEmailInvalidoUnico,
   extrairNomesRolesRealm,
   extrairRolesPorCliente,
   extrairNomesGrupos,
@@ -28,17 +29,41 @@ test('montarPayloadNovoUsuario usa o novo username/senha, nunca os do usuário d
   assert.deepEqual(payload.credentials, [{ type: 'password', value: 'SenhaForte123!', temporary: false }]);
 });
 
-test('montarPayloadNovoUsuario mantém atributos, nome, email e flags do usuário de origem', () => {
+test('montarPayloadNovoUsuario mantém atributos, nome e flags do usuário de origem', () => {
   const payload = montarPayloadNovoUsuario(usuarioOrigem, 'fulano.hml', 'SenhaForte123!');
 
   assert.equal(payload.enabled, usuarioOrigem.enabled);
   assert.equal(payload.emailVerified, usuarioOrigem.emailVerified);
   assert.equal(payload.firstName, usuarioOrigem.firstName);
   assert.equal(payload.lastName, usuarioOrigem.lastName);
-  assert.equal(payload.email, usuarioOrigem.email);
   assert.deepEqual(payload.attributes, usuarioOrigem.attributes);
   assert.deepEqual(payload.requiredActions, usuarioOrigem.requiredActions);
   assert.equal(payload.id, undefined);
+});
+
+test('montarPayloadNovoUsuario nunca copia o email do usuário de origem — sempre gera um inválido/único', () => {
+  const payload = montarPayloadNovoUsuario(usuarioOrigem, 'fulano.hml', 'SenhaForte123!');
+
+  assert.notEqual(payload.email, usuarioOrigem.email);
+  assert.match(payload.email, /^fulano\.hml\.[0-9a-f]{8}@invalido\.multiplica\.local$/);
+});
+
+test('montarPayloadNovoUsuario gera emails diferentes em duas chamadas seguidas, mesmo com o mesmo usuário de origem', () => {
+  const payload1 = montarPayloadNovoUsuario(usuarioOrigem, 'fulano.hml', 'SenhaForte123!');
+  const payload2 = montarPayloadNovoUsuario(usuarioOrigem, 'fulano.hml', 'SenhaForte123!');
+
+  assert.notEqual(payload1.email, payload2.email);
+  assert.notEqual(payload1.email, usuarioOrigem.email);
+  assert.notEqual(payload2.email, usuarioOrigem.email);
+});
+
+test('gerarEmailInvalidoUnico nunca repete e nunca é o email real do usuário de origem', () => {
+  const email1 = gerarEmailInvalidoUnico('fulano.hml');
+  const email2 = gerarEmailInvalidoUnico('fulano.hml');
+
+  assert.notEqual(email1, email2);
+  assert.notEqual(email1, usuarioOrigem.email);
+  assert.match(email1, /^fulano\.hml\.[0-9a-f]{8}@invalido\.multiplica\.local$/);
 });
 
 test('montarPayloadNovoUsuario preenche attributes/requiredActions vazios quando o usuário de origem não os tiver', () => {

@@ -5,11 +5,23 @@
 // node:test puro em `__tests__/`, sem precisar rodar o Cypress.
 
 /**
+ * @description Gera um email inválido/não-real e único para o novo usuário em HML,
+ * a partir do `novoUsername` (já exigido único em HML) combinado com um sufixo
+ * aleatório e um domínio claramente não real. Nunca copiar o email do usuário de
+ * origem: isso causava conflito de criação sempre que o mesmo email já existisse em
+ * HML (era uma das dúvidas bloqueantes da versão anterior deste recurso) — como o
+ * email agora nunca vem do usuário original, não há mais como colidir com o dele.
+ * @param {string} novoUsername - Novo username, já validado como único em HML.
+ * @returns {string} Email gerado, único por chamada (nunca repete).
+ */
+export const gerarEmailInvalidoUnico = (novoUsername) => `${novoUsername}.${crypto.randomUUID().slice(0, 8)}@invalido.multiplica.local`;
+
+/**
  * @description Monta o corpo de criação do novo usuário em HML a partir da
  * representação completa do usuário de origem em PROD (`GET /users/{id}`): mantém
- * tudo (atributos, nome, email, enabled, emailVerified, requiredActions), exceto
- * username e senha — sempre os informados a cada execução, nunca copiados do
- * usuário original.
+ * atributos, nome, enabled, emailVerified e requiredActions, exceto username, senha
+ * e email — sempre os informados/gerados a cada execução, nunca copiados do usuário
+ * original (ver `gerarEmailInvalidoUnico`).
  * @param {object} usuarioOrigem - Representação completa do usuário de origem em PROD.
  * @param {string} novoUsername - Novo username, informado a cada execução.
  * @param {string} novaSenha - Nova senha, informada a cada execução.
@@ -25,7 +37,7 @@ export const montarPayloadNovoUsuario = (usuarioOrigem, novoUsername, novaSenha,
   emailVerified: usuarioOrigem.emailVerified,
   firstName: usuarioOrigem.firstName,
   lastName: usuarioOrigem.lastName,
-  email: usuarioOrigem.email,
+  email: gerarEmailInvalidoUnico(novoUsername),
   attributes: usuarioOrigem.attributes ?? {},
   requiredActions: usuarioOrigem.requiredActions ?? [],
   credentials: [{ type: 'password', value: novaSenha, temporary }],
@@ -70,8 +82,8 @@ export const extrairNomesGrupos = (grupos) => (grupos ?? []).map((grupo) => grup
  * (`commands/usuariosKeycloak.js` injeta a clonagem real via `cy.executarRequest2`;
  * os testes injetam um stub), e nunca deve rejeitar — casos de "dúvida bloqueante"
  * (usuário de origem não encontrado, role/grupo sem correspondente em HML,
- * conflito de username/email) são sinalizados via `{ ok: false, motivo }`, nunca
- * via exceção, exatamente para permitir continuar para o próximo item.
+ * conflito de username) são sinalizados via `{ ok: false, motivo }`, nunca via
+ * exceção, exatamente para permitir continuar para o próximo item.
  *
  * `valorInicial` é recebido em vez de fixo em `Promise.resolve([])` porque, no uso
  * real dentro do Cypress, `clonarUmUsuario` devolve um `Cypress.Chainable` (não uma

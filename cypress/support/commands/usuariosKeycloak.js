@@ -5,8 +5,10 @@
 // do usuário igual: realm roles, client roles (de TODOS os clients em que o usuário
 // tiver role atribuída, via `GET /users/{id}/role-mappings`, não só o client
 // configurado em `KEYCLOAK_CLIENT_ID` usado pela sincronização de Grupos e
-// Permissões), grupos (por nome exato) e atributos/email/nome/enabled/
-// emailVerified/requiredActions.
+// Permissões), grupos (por nome exato) e atributos/nome/enabled/
+// emailVerified/requiredActions. O email NUNCA é copiado do usuário de origem —
+// é sempre gerado, inválido/não-real e único (`gerarEmailInvalidoUnico`, em
+// clonagemUsuarioKeycloak.js), para nunca colidir com um email já existente em HML.
 //
 // Diferente do domínio Grupos e Permissões (sincronização em lote, contínua, com
 // cache de ids em estoqueIds.json), este é um recurso pontual sob demanda: uma
@@ -15,13 +17,14 @@
 // `cypress/fixtures/usuariosParaClonar.json`) — sem estoque nem reprocessamento.
 //
 // Nunca decide sozinho diante de ambiguidade: usuário de origem não encontrado,
-// role/grupo sem correspondente em HML (nunca cria o que falta), ou novo
-// username/email já existente em HML são a "dúvida bloqueante" deste recurso. No
-// modo único isso lança erro descritivo, interrompendo a clonagem — sempre
-// executado sob demanda por um humano, que vê exatamente o que precisa resolver
-// antes de rodar de novo, em vez de seguir silenciosamente ou duplicar. No modo em
-// lote, a mesma checagem (`executarClonagem`, compartilhada pelos dois modos) NÃO
-// lança erro — devolve `{ ok: false, motivo }` para aquele item específico, sem
+// role/grupo sem correspondente em HML (nunca cria o que falta), ou novo username
+// já existente em HML são a "dúvida bloqueante" deste recurso (conflito de email
+// deixou de existir, já que o email nunca mais vem do usuário original). No modo
+// único isso lança erro descritivo, interrompendo a clonagem — sempre executado
+// sob demanda por um humano, que vê exatamente o que precisa resolver antes de
+// rodar de novo, em vez de seguir silenciosamente ou duplicar. No modo em lote, a
+// mesma checagem (`executarClonagem`, compartilhada pelos dois modos) NÃO lança
+// erro — devolve `{ ok: false, motivo }` para aquele item específico, sem
 // interromper o restante do lote.
 
 import MAPEAMENTO_USUARIOS from '../../utils/mapeamentoUsuarios';
@@ -61,19 +64,6 @@ const SENHA_TEMPORARIA_LOTE = 'Automacao@123';
 Cypress.Commands.add('buscarUsuarioKeycloakPorUsername', (ambiente, username) =>
   cy
     .executarRequest2(ambiente, `${USUARIOS.urlUsuarios}?username=${encodeURIComponent(username)}&exact=true`)
-    .then((resposta) => (resposta.body || [])[0] ?? null),
-);
-
-/**
- * @description Busca um usuário pelo email exato (`exact=true`), mesma lógica de
- * `buscarUsuarioKeycloakPorUsername`.
- * @param {'keycloak'|'keycloakProd'} ambiente - Ambiente Keycloak consultado.
- * @param {string} email - Email exato procurado.
- * @returns {Cypress.Chainable<object|null>}
- */
-Cypress.Commands.add('buscarUsuarioKeycloakPorEmail', (ambiente, email) =>
-  cy
-    .executarRequest2(ambiente, `${USUARIOS.urlUsuarios}?email=${encodeURIComponent(email)}&exact=true`)
     .then((resposta) => (resposta.body || [])[0] ?? null),
 );
 
@@ -305,11 +295,13 @@ const criarUsuarioEAtribuir = (origem, novoUsername, novaSenha, { realmRolesHml,
 /**
  * @description Executa a checagem + clonagem completa de um usuário (usada pelos
  * dois modos, único e em lote): busca o usuário de origem em PROD, checa conflito
- * de username/email em HML, resolve roles/grupos em HML e cria o novo usuário —
- * nunca lança erro diretamente; toda "dúvida bloqueante" (usuário de origem não
- * encontrado, role/grupo sem correspondente em HML, conflito de username/email)
- * volta como `{ ok: false, motivo }`, para que o modo em lote possa seguir para o
- * próximo item. `cy.clonarUsuarioKeycloak` (modo único) converte isso em `throw`.
+ * de username em HML (o email nunca é copiado do usuário de origem — é sempre
+ * gerado único, não tem mais como colidir), resolve roles/grupos em HML e cria o
+ * novo usuário — nunca lança erro diretamente; toda "dúvida bloqueante" (usuário de
+ * origem não encontrado, role/grupo sem correspondente em HML, conflito de
+ * username) volta como `{ ok: false, motivo }`, para que o modo em lote possa
+ * seguir para o próximo item. `cy.clonarUsuarioKeycloak` (modo único) converte isso
+ * em `throw`.
  * @param {{usuarioOrigem: string, novoUsername: string, novaSenha: string, temporary?: boolean}} params
  * @returns {Cypress.Chainable<{ok: boolean, motivo?: string, valor?: {id: string, username: string}}>}
  */
@@ -327,48 +319,37 @@ const executarClonagem = ({ usuarioOrigem, novoUsername, novaSenha, temporary = 
         return { ok: false, motivo: `Já existe um usuário com o username "${novoUsername}" em HML — escolha outro username.` };
       }
 
-      const verificarEmail = origem.email ? cy.buscarUsuarioKeycloakPorEmail('keycloak', origem.email) : cy.wrap(null, { log: false });
+      return buscarDadosDoUsuarioDeOrigem(origem.id).then(({ nomesRolesRealm, rolesPorCliente, nomesGrupos }) => {
+        cy.logExecucao(
+          `[clonarUsuarioKeycloak] Usuário de origem "${usuarioOrigem}": ${nomesRolesRealm.length} realm role(s), ${rolesPorCliente.length} client(s) com role(s), ${nomesGrupos.length} grupo(s).`,
+        );
 
-      return verificarEmail.then((conflitoEmail) => {
-        if (conflitoEmail) {
-          return {
-            ok: false,
-            motivo: `Já existe um usuário com o email "${origem.email}" (do usuário de origem "${usuarioOrigem}") em HML.`,
-          };
-        }
+        return resolverRolesRealmEmHml(nomesRolesRealm).then((realmResultado) => {
+          if (!realmResultado.ok) {
+            return realmResultado;
+          }
 
-        return buscarDadosDoUsuarioDeOrigem(origem.id).then(({ nomesRolesRealm, rolesPorCliente, nomesGrupos }) => {
-          cy.logExecucao(
-            `[clonarUsuarioKeycloak] Usuário de origem "${usuarioOrigem}": ${nomesRolesRealm.length} realm role(s), ${rolesPorCliente.length} client(s) com role(s), ${nomesGrupos.length} grupo(s).`,
-          );
-
-          return resolverRolesRealmEmHml(nomesRolesRealm).then((realmResultado) => {
-            if (!realmResultado.ok) {
-              return realmResultado;
+          return resolverRolesClienteEmHml(rolesPorCliente).then((clienteResultado) => {
+            if (!clienteResultado.ok) {
+              return clienteResultado;
             }
 
-            return resolverRolesClienteEmHml(rolesPorCliente).then((clienteResultado) => {
-              if (!clienteResultado.ok) {
-                return clienteResultado;
+            return resolverGruposEmHml(nomesGrupos).then((gruposResultado) => {
+              if (!gruposResultado.ok) {
+                return gruposResultado;
               }
 
-              return resolverGruposEmHml(nomesGrupos).then((gruposResultado) => {
-                if (!gruposResultado.ok) {
-                  return gruposResultado;
-                }
-
-                return criarUsuarioEAtribuir(
-                  origem,
-                  novoUsername,
-                  novaSenha,
-                  {
-                    realmRolesHml: realmResultado.valor,
-                    clienteRolesHml: clienteResultado.valor,
-                    grupoIdsHml: gruposResultado.valor,
-                  },
-                  temporary,
-                ).then((criado) => ({ ok: true, valor: criado }));
-              });
+              return criarUsuarioEAtribuir(
+                origem,
+                novoUsername,
+                novaSenha,
+                {
+                  realmRolesHml: realmResultado.valor,
+                  clienteRolesHml: clienteResultado.valor,
+                  grupoIdsHml: gruposResultado.valor,
+                },
+                temporary,
+              ).then((criado) => ({ ok: true, valor: criado }));
             });
           });
         });
@@ -379,7 +360,8 @@ const executarClonagem = ({ usuarioOrigem, novoUsername, novaSenha, temporary = 
 /**
  * @description Clona um usuário do Keycloak de PRODUÇÃO para HML, com novo
  * username/senha — mantendo o resto igual (realm roles, client roles de todos os
- * clients, grupos e atributos/email/nome/enabled/emailVerified/requiredActions).
+ * clients, grupos e atributos/nome/enabled/emailVerified/requiredActions). O email
+ * é sempre gerado, inválido/não-real e único — nunca copiado do usuário de origem.
  * Nunca escreve em PROD (só GET, via `keycloakProd`) nem decide sozinho diante de
  * ambiguidade (ver módulo acima) — qualquer dúvida bloqueante lança erro descritivo,
  * interrompendo a clonagem (comportamento inalterado do modo de execução única).
@@ -408,7 +390,7 @@ Cypress.Commands.add('clonarUsuarioKeycloak', ({ usuarioOrigem, novoUsername, no
  * login) — nunca senha aleatória, nunca pedida por item.
  *
  * Um item que cair numa "dúvida bloqueante" (usuário de origem não encontrado,
- * role/grupo sem correspondente em HML, conflito de username/email em HML) **não**
+ * role/grupo sem correspondente em HML, conflito de username em HML) **não**
  * interrompe o lote — vira um resultado `{ ok: false, motivo }` na lista final e o
  * processamento segue para o próximo item.
  * @param {Object<string,string>} mapaUsuarios - Mapa `usuarioProd: usuarioHml` a clonar.
