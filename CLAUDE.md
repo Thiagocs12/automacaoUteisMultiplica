@@ -117,6 +117,17 @@ Peculiaridades da API do Keycloak que moldam esse pipeline:
 
 GRUPOS/ROLES_REALM/ROLES_CLIENTE têm id estável em PROD (UUID do Keycloak) e por isso participam normalmente do estoque de ids (`cy.preencherIdsHmlPeloEstoque`/`cy.atualizarEstoqueIds`) — ao contrário dos grupos OPERADORES/OBSERVADORES/GESTORES do fluxo de Esteiras.
 
+### Clonagem de Usuário (Keycloak) — ação pontual sob demanda, sem estoque
+
+Diferente de todos os domínios acima (sincronização em lote, recorrente, com cache de ids em `estoqueIds.json`), o domínio **Usuários** (`cypress/utils/mapeamentoUsuarios.js` + `cypress/support/commands/usuariosKeycloak.js`, feature `@keycloakUsuario`) **clona um único usuário** do Keycloak de PRODUÇÃO para HML por execução, com novo `username`/senha informados via `--env` (`usuarioOrigem`, `novoUsername`, `novaSenha`) — não uma lista fixa nem um script de uso único. Não participa do estoque de ids (não há um "próximo usuário" a sincronizar depois).
+
+Tudo do usuário de origem é copiado para o novo usuário, **exceto** `username` e senha: realm roles, client roles (de **todos** os clients em que o usuário tiver role atribuída — resolvido via `GET /users/{id}/role-mappings`, que já devolve `realmMappings`/`clientMappings` agrupados por client sem precisar iterar client por client, ao contrário do client fixo `KEYCLOAK_CLIENT_ID` usado pela sincronização de Grupos e Permissões), grupos (por nome exato, reaproveitando `encontrarPorNomeExato`/a busca textual de `GRUPOS.urlGrupos` já usada por Grupos e Permissões) e atributos/email/nome/`enabled`/`emailVerified`/`requiredActions`.
+
+Peculiaridades que diferenciam este pipeline do de Grupos e Permissões:
+- **A API de usuários do Keycloak suporta busca por correspondência exata nativamente** (`?username=...&exact=true`, `?email=...&exact=true`) — diferente de grupos/roles, não é preciso filtrar o resultado da busca depois.
+- **Nunca decide sozinho diante de ambiguidade** (`cy.clonarUsuarioKeycloak`, em `commands/usuariosKeycloak.js`): usuário de origem não encontrado em PROD, uma role/grupo do usuário de origem sem correspondente em HML (nunca cria o que falta — diferente de Grupos e Permissões, que cria grupos/roles faltantes), ou o novo `username`/email já existente em HML lançam erro descritivo imediatamente, em vez de seguir silenciosamente ou duplicar. Como este recurso é sempre executado sob demanda por um humano (não uma pipeline recorrente), o erro lançado É a forma de sinalizar a "dúvida" a quem estiver rodando.
+- **A criação do usuário não é seguida de nova busca "às cegas"**: o `username` já foi conferido como livre em HML antes de criar (passo anterior do fluxo), então a busca por `username` logo após o `POST` serve só para obter o `id` do novo usuário (necessário para os `POST`/`PUT` de role-mappings/grupos seguintes), não para tratar `409` como sucesso — um `POST` de criação que falhar aqui é sempre um erro real, não uma corrida esperada.
+
 ## Segurança / não commitar
 
 - Nunca commitar `.env` ou `cypress/temp/tokens.json` (ambos no `.gitignore`).

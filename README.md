@@ -18,7 +18,7 @@ Automação para sincronizar dados de **Produção (PROD)** para **Homologação
 cypress/
 ├── e2e/features/              # Cenários BDD (.feature)
 ├── support/
-│   ├── step_definitions/      # Steps de cada domínio (Produtos, Esteiras, Vínculos, Grupos e Permissões)
+│   ├── step_definitions/      # Steps de cada domínio (Produtos, Esteiras, Vínculos, Grupos e Permissões, Usuários)
 │   ├── commands/               # Comandos customizados, por responsabilidade
 │   │   (ambiente, arquivos, urls, dependencias, sincronizacaoNivel, estoque, vinculos, gruposPermissoes, log)
 │   ├── shared/                 # Lógica pura testável fora do Cypress (node:test)
@@ -28,7 +28,7 @@ cypress/
 │   ├── utils.js                # Login via UI, verificação/renovação de token
 │   └── e2e.js
 ├── utils/                      # Mapeamento de entidades por domínio
-│   (mapeamentoProdutos, mapeamentoEsteiras, mapeamentoVinculos, mapeamentoGruposPermissoes)
+│   (mapeamentoProdutos, mapeamentoEsteiras, mapeamentoVinculos, mapeamentoGruposPermissoes, mapeamentoUsuarios)
 ├── output/                     # JSONs intermediários + estoqueIds.json (gitignored)
 └── temp/tokens.json            # Tokens de sessão (gitignored)
 ```
@@ -46,6 +46,8 @@ Os domínios Produtos, Esteiras e Vínculos têm cada um seu arquivo de mapeamen
 
 O domínio **Grupos e Permissões** (grupos, realm roles, client roles e o vínculo grupo→role do Keycloak) tem um pipeline próprio, fora desse fluxo genérico — grupos/roles são localizados em HML por busca textual (`?search=`, filtrando o resultado pelo nome exato), a criação não devolve o `id` no corpo da resposta (repete-se a busca em seguida) e o vínculo grupo→role vem embutido na representação completa do grupo (`GET /groups/{id}`), não de um endpoint de role-mappings à parte. A lógica vive em `commands/gruposPermissoes.js` + `utils/mapeamentoGruposPermissoes.js`.
 
+O domínio **Usuários** (`@keycloakUsuario`) não sincroniza uma lista de registros — é uma ação pontual sob demanda que **clona um usuário do Keycloak de Produção para Homologação**, com novo username/senha informados a cada execução (`cypress run --env usuarioOrigem=...,novoUsername=...,novaSenha=...`), mantendo o resto igual (realm roles, client roles de todos os clients, grupos e atributos). A lógica vive em `commands/usuariosKeycloak.js` + `utils/mapeamentoUsuarios.js`; ver detalhes em `CLAUDE.md`.
+
 ## Configuração
 
 ```bash
@@ -62,7 +64,13 @@ npm run cypress:open   # interface do Cypress, escolha o .feature desejado
 npm run cypress:run    # roda todos os cenários (specPattern: **/*.feature)
 ```
 
-Cenários são marcados por tag de domínio: `@produto`, `@esteira`, `@vinculos`, `@keycloak`.
+Cenários são marcados por tag de domínio: `@produto`, `@esteira`, `@vinculos`, `@keycloak`, `@keycloakUsuario`.
+
+A clonagem de usuário (`@keycloakUsuario`) é parametrizada a cada execução via `--env`:
+
+```bash
+npx cypress run --env tags=@keycloakUsuario,usuarioOrigem=fulano,novoUsername=fulano.hml,novaSenha=SenhaForte123!
+```
 
 ## Autenticação
 
