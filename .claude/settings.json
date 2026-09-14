@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "powershell",
+            "command": "git fetch origin reviewAgents --quiet 2>$null; $branch = (git rev-parse --abbrev-ref HEAD 2>$null); $dirty = (git status --porcelain 2>$null); if ($branch -eq 'reviewAgents' -and [string]::IsNullOrEmpty($dirty)) { git pull origin reviewAgents --quiet 2>$null; if ($LASTEXITCODE -eq 0) { $msg = 'reviewAgents atualizado automaticamente via git pull.' } else { $msg = 'Nao foi possivel dar git pull em reviewAgents (branch remota pode nao existir ainda, ou houve conflito) - verifique manualmente.' } } else { if ([string]::IsNullOrEmpty($dirty)) { $pend = 'nao' } else { $pend = 'sim' }; $msg = 'Pull automatico da reviewAgents nao executado (branch atual: ' + $branch + ', mudancas pendentes: ' + $pend + '). Rode git pull origin reviewAgents manualmente se precisar.' }; Write-Output ('{\"systemMessage\": \"' + $msg + '\"}')",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
