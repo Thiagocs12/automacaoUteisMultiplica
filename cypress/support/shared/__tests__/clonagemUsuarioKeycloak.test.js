@@ -5,6 +5,7 @@ import {
   extrairNomesRolesRealm,
   extrairRolesPorCliente,
   extrairNomesGrupos,
+  clonarUsuariosEmLote,
 } from '../clonagemUsuarioKeycloak.js';
 
 const usuarioOrigem = {
@@ -45,6 +46,18 @@ test('montarPayloadNovoUsuario preenche attributes/requiredActions vazios quando
 
   assert.deepEqual(payload.attributes, {});
   assert.deepEqual(payload.requiredActions, []);
+});
+
+test('montarPayloadNovoUsuario cria a credencial com temporary: false por padrão (modo de execução única)', () => {
+  const payload = montarPayloadNovoUsuario(usuarioOrigem, 'fulano.hml', 'SenhaForte123!');
+
+  assert.deepEqual(payload.credentials, [{ type: 'password', value: 'SenhaForte123!', temporary: false }]);
+});
+
+test('montarPayloadNovoUsuario cria a credencial com temporary: true quando informado (modo em lote)', () => {
+  const payload = montarPayloadNovoUsuario(usuarioOrigem, 'fulano.hml', 'Automacao@123', true);
+
+  assert.deepEqual(payload.credentials, [{ type: 'password', value: 'Automacao@123', temporary: true }]);
 });
 
 test('extrairNomesRolesRealm extrai os nomes das realm roles de GET /users/{id}/role-mappings', () => {
@@ -110,4 +123,46 @@ test('cenário completo: usuário com realm role + client role + grupo é extra�
   assert.deepEqual(rolesPorCliente, [{ clientId: 'mc-cadastro-ms', nomesRoles: ['BKO_FOR_CEDENTE'] }]);
   assert.deepEqual(nomesGrupos, ['OPERADORES']);
   assert.equal(payload.username, 'fulano.hml');
+});
+
+test('clonarUsuariosEmLote processa o caso de sucesso mesmo com outro item do lote falhando', async () => {
+  const mapaUsuarios = { 'joao.silva': 'joao.silva.hml', 'usuario.inexistente': 'usuario.inexistente.hml' };
+  const chamadas = [];
+
+  const clonarUmUsuario = (usuarioProd, usuarioHml) => {
+    chamadas.push(usuarioProd);
+
+    if (usuarioProd === 'usuario.inexistente') {
+      return Promise.resolve({
+        ok: false,
+        motivo: `Usuário de origem "${usuarioProd}" não encontrado em produção (realm multiplicacapital).`,
+      });
+    }
+
+    return Promise.resolve({ ok: true, valor: { id: 'uuid-hml-1', username: usuarioHml } });
+  };
+
+  const resultados = await clonarUsuariosEmLote(mapaUsuarios, clonarUmUsuario);
+
+  assert.deepEqual(chamadas, ['joao.silva', 'usuario.inexistente']);
+  assert.equal(resultados.length, 2);
+
+  assert.equal(resultados[0].usuarioProd, 'joao.silva');
+  assert.equal(resultados[0].usuarioHml, 'joao.silva.hml');
+  assert.equal(resultados[0].ok, true);
+  assert.deepEqual(resultados[0].valor, { id: 'uuid-hml-1', username: 'joao.silva.hml' });
+
+  assert.equal(resultados[1].usuarioProd, 'usuario.inexistente');
+  assert.equal(resultados[1].ok, false);
+  assert.match(resultados[1].motivo, /não encontrado em produção/);
+});
+
+test('clonarUsuariosEmLote devolve lista vazia para um mapa vazio, sem chamar clonarUmUsuario', async () => {
+  const clonarUmUsuario = () => {
+    throw new Error('não deveria ser chamado');
+  };
+
+  const resultados = await clonarUsuariosEmLote({}, clonarUmUsuario);
+
+  assert.deepEqual(resultados, []);
 });

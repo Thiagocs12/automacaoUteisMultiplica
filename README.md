@@ -46,7 +46,12 @@ Os domínios Produtos, Esteiras e Vínculos têm cada um seu arquivo de mapeamen
 
 O domínio **Grupos e Permissões** (grupos, realm roles, client roles e o vínculo grupo→role do Keycloak) tem um pipeline próprio, fora desse fluxo genérico — grupos/roles são localizados em HML por busca textual (`?search=`, filtrando o resultado pelo nome exato), a criação não devolve o `id` no corpo da resposta (repete-se a busca em seguida) e o vínculo grupo→role vem embutido na representação completa do grupo (`GET /groups/{id}`), não de um endpoint de role-mappings à parte. A lógica vive em `commands/gruposPermissoes.js` + `utils/mapeamentoGruposPermissoes.js`.
 
-O domínio **Usuários** (`@keycloakUsuario`) não sincroniza uma lista de registros — é uma ação pontual sob demanda que **clona um usuário do Keycloak de Produção para Homologação**, com novo username/senha informados a cada execução (`cypress run --env usuarioOrigem=...,novoUsername=...,novaSenha=...`), mantendo o resto igual (realm roles, client roles de todos os clients, grupos e atributos). A lógica vive em `commands/usuariosKeycloak.js` + `utils/mapeamentoUsuarios.js`; ver detalhes em `CLAUDE.md`.
+O domínio **Usuários** não sincroniza uma lista de registros — é uma ação pontual sob demanda que **clona usuário(s) do Keycloak de Produção para Homologação**, mantendo o resto igual (realm roles, client roles de todos os clients, grupos e atributos), em dois modos:
+
+- **Único** (`@keycloakUsuario`): um usuário por execução, com novo username/senha informados via `--env` (`usuarioOrigem`, `novoUsername`, `novaSenha`).
+- **Em lote** (`@clonarUsuariosEmLote`): todos os usuários de um mapa `usuarioProd: usuarioHml` lido do fixture `cypress/fixtures/usuariosParaClonar.json` (populado antes de rodar), numa única execução — cada usuário criado recebe a senha temporária fixa `Automacao@123`, com troca obrigatória no primeiro login. Um item problemático (usuário de origem não encontrado, role/grupo sem correspondente em HML, conflito de username/email em HML) não interrompe o lote — vira uma dúvida bloqueante só daquele item, e o processamento segue para o próximo.
+
+A lógica vive em `commands/usuariosKeycloak.js` + `utils/mapeamentoUsuarios.js`; ver detalhes em `CLAUDE.md`.
 
 ## Configuração
 
@@ -64,12 +69,18 @@ npm run cypress:open   # interface do Cypress, escolha o .feature desejado
 npm run cypress:run    # roda todos os cenários (specPattern: **/*.feature)
 ```
 
-Cenários são marcados por tag de domínio: `@produto`, `@esteira`, `@vinculos`, `@keycloak`, `@keycloakUsuario`.
+Cenários são marcados por tag de domínio: `@produto`, `@esteira`, `@vinculos`, `@keycloak`, `@keycloakUsuario`, `@clonarUsuariosEmLote`.
 
-A clonagem de usuário (`@keycloakUsuario`) é parametrizada a cada execução via `--env`:
+A clonagem de usuário única (`@keycloakUsuario`) é parametrizada a cada execução via `--env`:
 
 ```bash
 npx cypress run --env tags=@keycloakUsuario,usuarioOrigem=fulano,novoUsername=fulano.hml,novaSenha=SenhaForte123!
+```
+
+A clonagem em lote (`@clonarUsuariosEmLote`) lê o mapa `usuarioProd: usuarioHml` de `cypress/fixtures/usuariosParaClonar.json` — popule esse arquivo antes de rodar:
+
+```bash
+npx cypress run --env tags=@clonarUsuariosEmLote
 ```
 
 ## Autenticação
