@@ -2,9 +2,11 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   montarPayloadNovoUsuario,
+  gerarEmailInvalidoUnico,
   extrairNomesRolesRealm,
   extrairRolesPorCliente,
   extrairNomesGrupos,
+  clonarUsuariosEmLote,
 } from '../clonagemUsuarioKeycloak.js';
 
 const usuarioOrigem = {
@@ -27,17 +29,41 @@ test('montarPayloadNovoUsuario usa o novo username/senha, nunca os do usuário d
   assert.deepEqual(payload.credentials, [{ type: 'password', value: 'SenhaForte123!', temporary: false }]);
 });
 
-test('montarPayloadNovoUsuario mantém atributos, nome, email e flags do usuário de origem', () => {
+test('montarPayloadNovoUsuario mantém atributos, nome e flags do usuário de origem', () => {
   const payload = montarPayloadNovoUsuario(usuarioOrigem, 'fulano.hml', 'SenhaForte123!');
 
   assert.equal(payload.enabled, usuarioOrigem.enabled);
   assert.equal(payload.emailVerified, usuarioOrigem.emailVerified);
   assert.equal(payload.firstName, usuarioOrigem.firstName);
   assert.equal(payload.lastName, usuarioOrigem.lastName);
-  assert.equal(payload.email, usuarioOrigem.email);
   assert.deepEqual(payload.attributes, usuarioOrigem.attributes);
   assert.deepEqual(payload.requiredActions, usuarioOrigem.requiredActions);
   assert.equal(payload.id, undefined);
+});
+
+test('montarPayloadNovoUsuario nunca copia o email do usuário de origem — sempre gera um inválido/único', () => {
+  const payload = montarPayloadNovoUsuario(usuarioOrigem, 'fulano.hml', 'SenhaForte123!');
+
+  assert.notEqual(payload.email, usuarioOrigem.email);
+  assert.match(payload.email, /^fulano\.hml\.[0-9a-f]{8}@invalido\.multiplica\.local$/);
+});
+
+test('montarPayloadNovoUsuario gera emails diferentes em duas chamadas seguidas, mesmo com o mesmo usuário de origem', () => {
+  const payload1 = montarPayloadNovoUsuario(usuarioOrigem, 'fulano.hml', 'SenhaForte123!');
+  const payload2 = montarPayloadNovoUsuario(usuarioOrigem, 'fulano.hml', 'SenhaForte123!');
+
+  assert.notEqual(payload1.email, payload2.email);
+  assert.notEqual(payload1.email, usuarioOrigem.email);
+  assert.notEqual(payload2.email, usuarioOrigem.email);
+});
+
+test('gerarEmailInvalidoUnico nunca repete e nunca é o email real do usuário de origem', () => {
+  const email1 = gerarEmailInvalidoUnico('fulano.hml');
+  const email2 = gerarEmailInvalidoUnico('fulano.hml');
+
+  assert.notEqual(email1, email2);
+  assert.notEqual(email1, usuarioOrigem.email);
+  assert.match(email1, /^fulano\.hml\.[0-9a-f]{8}@invalido\.multiplica\.local$/);
 });
 
 test('montarPayloadNovoUsuario preenche attributes/requiredActions vazios quando o usuário de origem não os tiver', () => {
@@ -45,6 +71,18 @@ test('montarPayloadNovoUsuario preenche attributes/requiredActions vazios quando
 
   assert.deepEqual(payload.attributes, {});
   assert.deepEqual(payload.requiredActions, []);
+});
+
+test('montarPayloadNovoUsuario cria a credencial com temporary: false por padrão (modo de execução única)', () => {
+  const payload = montarPayloadNovoUsuario(usuarioOrigem, 'fulano.hml', 'SenhaForte123!');
+
+  assert.deepEqual(payload.credentials, [{ type: 'password', value: 'SenhaForte123!', temporary: false }]);
+});
+
+test('montarPayloadNovoUsuario cria a credencial com temporary: true quando informado (modo em lote)', () => {
+  const payload = montarPayloadNovoUsuario(usuarioOrigem, 'fulano.hml', 'Automacao@123', true);
+
+  assert.deepEqual(payload.credentials, [{ type: 'password', value: 'Automacao@123', temporary: true }]);
 });
 
 test('extrairNomesRolesRealm extrai os nomes das realm roles de GET /users/{id}/role-mappings', () => {
@@ -110,4 +148,46 @@ test('cenário completo: usuário com realm role + client role + grupo é extra�
   assert.deepEqual(rolesPorCliente, [{ clientId: 'mc-cadastro-ms', nomesRoles: ['BKO_FOR_CEDENTE'] }]);
   assert.deepEqual(nomesGrupos, ['OPERADORES']);
   assert.equal(payload.username, 'fulano.hml');
+});
+
+test('clonarUsuariosEmLote processa o caso de sucesso mesmo com outro item do lote falhando', async () => {
+  const mapaUsuarios = { 'joao.silva': 'joao.silva.hml', 'usuario.inexistente': 'usuario.inexistente.hml' };
+  const chamadas = [];
+
+  const clonarUmUsuario = (usuarioProd, usuarioHml) => {
+    chamadas.push(usuarioProd);
+
+    if (usuarioProd === 'usuario.inexistente') {
+      return Promise.resolve({
+        ok: false,
+        motivo: `Usuário de origem "${usuarioProd}" não encontrado em produção (realm multiplicacapital).`,
+      });
+    }
+
+    return Promise.resolve({ ok: true, valor: { id: 'uuid-hml-1', username: usuarioHml } });
+  };
+
+  const resultados = await clonarUsuariosEmLote(mapaUsuarios, clonarUmUsuario);
+
+  assert.deepEqual(chamadas, ['joao.silva', 'usuario.inexistente']);
+  assert.equal(resultados.length, 2);
+
+  assert.equal(resultados[0].usuarioProd, 'joao.silva');
+  assert.equal(resultados[0].usuarioHml, 'joao.silva.hml');
+  assert.equal(resultados[0].ok, true);
+  assert.deepEqual(resultados[0].valor, { id: 'uuid-hml-1', username: 'joao.silva.hml' });
+
+  assert.equal(resultados[1].usuarioProd, 'usuario.inexistente');
+  assert.equal(resultados[1].ok, false);
+  assert.match(resultados[1].motivo, /não encontrado em produção/);
+});
+
+test('clonarUsuariosEmLote devolve lista vazia para um mapa vazio, sem chamar clonarUmUsuario', async () => {
+  const clonarUmUsuario = () => {
+    throw new Error('não deveria ser chamado');
+  };
+
+  const resultados = await clonarUsuariosEmLote({}, clonarUmUsuario);
+
+  assert.deepEqual(resultados, []);
 });
