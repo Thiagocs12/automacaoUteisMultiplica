@@ -122,3 +122,28 @@ GRUPOS/ROLES_REALM/ROLES_CLIENTE têm id estável em PROD (UUID do Keycloak) e p
 - Nunca commitar `.env` ou `cypress/temp/tokens.json` (ambos no `.gitignore`).
 - `package-lock.json` está no `.gitignore` — instalações podem resolver versões diferentes entre execuções/máquinas.
 - `cypress/output/**` contém snapshots de dados sincronizados (gitignored) — trate como potencialmente sensível.
+
+## Collaboration workflow
+
+Este repositório é mantido por agentes automatizados (Claude Code), com toda integração passando
+por Pull Request aprovado por humano:
+
+- Cada tarefa é implementada por um subAgent numa branch nova a partir de `reviewAgents`; o
+  subAgent commita e publica (push) essa branch quando a tarefa termina e o autoteste passa.
+- Um Agent Master valida a branch — merge de teste local contra `reviewAgents` para achar
+  conflito (resolvido com a skill `/resolve-conflicts`, `.claude/skills/resolve-conflicts/`,
+  commitado na própria branch da feature) e roda os testes — e então abre um **Pull Request**
+  (`gh pr create --base reviewAgents --head <branch>`). O Agent Master **nunca mergeia nem dá
+  push direto** na `reviewAgents` ou na `main`.
+- Um humano revisa e mergeia cada PR manualmente no GitHub, tarefa por tarefa, conforme for
+  validando (normalmente rodando a suíte contra aquela branch antes). O Agent Master sincroniza o
+  que já foi mergeado (`git pull origin reviewAgents`) — ele nunca mergeia o PR sozinho.
+- `main`/`master` só recebe merge vindo de `reviewAgents`, em momentos de release — nunca commit
+  direto.
+- Um hook de projeto (`.claude/settings.json`, `SessionStart`) busca `origin/reviewAgents` ao
+  iniciar uma sessão e só dá pull automático se a branch atual for `reviewAgents` com working tree
+  limpa; caso contrário, só avisa em vez de trocar de branch ou sobrescrever trabalho local.
+- Cada instância de agente (subAgent ou Agent Master) fixa sua própria conta do Claude Code via
+  `CLAUDE_CONFIG_DIR`, setada antes do `claude` iniciar — isso é configurado centralmente na pasta
+  de automação do Supervisor (fora deste repositório), não por clone aqui. O Agent Master também
+  autentica o `gh` CLI via uma variável de ambiente `GH_TOKEN`, setada da mesma forma.
