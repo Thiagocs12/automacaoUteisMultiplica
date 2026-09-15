@@ -36,6 +36,7 @@ import {
   extrairRolesPorCliente,
   extrairNomesGrupos,
   clonarUsuariosEmLote,
+  normalizarUsername,
 } from '../shared/clonagemUsuarioKeycloak';
 
 const { USUARIOS } = MAPEAMENTO_USUARIOS;
@@ -305,23 +306,26 @@ const criarUsuarioEAtribuir = (origem, novoUsername, novaSenha, { realmRolesHml,
  * @param {{usuarioOrigem: string, novoUsername: string, novaSenha: string, temporary?: boolean}} params
  * @returns {Cypress.Chainable<{ok: boolean, motivo?: string, valor?: {id: string, username: string}}>}
  */
-const executarClonagem = ({ usuarioOrigem, novoUsername, novaSenha, temporary = false }) =>
-  cy.buscarUsuarioKeycloakPorUsername('keycloakProd', usuarioOrigem).then((origem) => {
+const executarClonagem = ({ usuarioOrigem, novoUsername, novaSenha, temporary = false }) => {
+  const usuarioOrigemNormalizado = normalizarUsername(usuarioOrigem);
+  const novoUsernameNormalizado = normalizarUsername(novoUsername);
+
+  return cy.buscarUsuarioKeycloakPorUsername('keycloakProd', usuarioOrigemNormalizado).then((origem) => {
     if (!origem) {
       return {
         ok: false,
-        motivo: `Usuário de origem "${usuarioOrigem}" não encontrado em produção (realm multiplicacapital).`,
+        motivo: `Usuário de origem "${usuarioOrigemNormalizado}" não encontrado em produção (realm multiplicacapital).`,
       };
     }
 
-    return cy.buscarUsuarioKeycloakPorUsername('keycloak', novoUsername).then((conflitoUsername) => {
+    return cy.buscarUsuarioKeycloakPorUsername('keycloak', novoUsernameNormalizado).then((conflitoUsername) => {
       if (conflitoUsername) {
-        return { ok: false, motivo: `Já existe um usuário com o username "${novoUsername}" em HML — escolha outro username.` };
+        return { ok: false, motivo: `Já existe um usuário com o username "${novoUsernameNormalizado}" em HML — escolha outro username.` };
       }
 
       return buscarDadosDoUsuarioDeOrigem(origem.id).then(({ nomesRolesRealm, rolesPorCliente, nomesGrupos }) => {
         cy.logExecucao(
-          `[clonarUsuarioKeycloak] Usuário de origem "${usuarioOrigem}": ${nomesRolesRealm.length} realm role(s), ${rolesPorCliente.length} client(s) com role(s), ${nomesGrupos.length} grupo(s).`,
+          `[clonarUsuarioKeycloak] Usuário de origem "${usuarioOrigemNormalizado}": ${nomesRolesRealm.length} realm role(s), ${rolesPorCliente.length} client(s) com role(s), ${nomesGrupos.length} grupo(s).`,
         );
 
         return resolverRolesRealmEmHml(nomesRolesRealm).then((realmResultado) => {
@@ -341,7 +345,7 @@ const executarClonagem = ({ usuarioOrigem, novoUsername, novaSenha, temporary = 
 
               return criarUsuarioEAtribuir(
                 origem,
-                novoUsername,
+                novoUsernameNormalizado,
                 novaSenha,
                 {
                   realmRolesHml: realmResultado.valor,
@@ -356,6 +360,7 @@ const executarClonagem = ({ usuarioOrigem, novoUsername, novaSenha, temporary = 
       });
     });
   });
+};
 
 /**
  * @description Clona um usuário do Keycloak de PRODUÇÃO para HML, com novo
@@ -375,7 +380,9 @@ Cypress.Commands.add('clonarUsuarioKeycloak', ({ usuarioOrigem, novoUsername, no
     }
 
     return cy
-      .logExecucao(`[clonarUsuarioKeycloak] Usuário "${novoUsername}" criado em HML com sucesso (a partir de "${usuarioOrigem}").`)
+      .logExecucao(
+        `[clonarUsuarioKeycloak] Usuário "${resultado.valor.username}" criado em HML com sucesso (a partir de "${normalizarUsername(usuarioOrigem)}").`,
+      )
       .then(() => resultado.valor);
   }),
 );
