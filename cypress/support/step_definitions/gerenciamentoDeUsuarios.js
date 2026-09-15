@@ -15,9 +15,14 @@
 //     npx cypress run --env tags=@clonarUsuariosEmLote
 
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
-import { normalizarUsername } from '../shared/clonagemUsuarioKeycloak';
+import {
+  normalizarUsername,
+  parametrosClonagemUnicaCompletos,
+  MENSAGEM_PARAMETROS_CLONAGEM_UNICA_AUSENTES,
+} from '../shared/clonagemUsuarioKeycloak';
 
 let usuarioClonado = null;
+let clonagemUnicaPulada = false;
 let resultadosLote = [];
 
 Given('que possuo acesso aos ambientes de Keycloak necessarios para usuários', () => {
@@ -30,24 +35,30 @@ When('clono o usuário de produção informado via parâmetros de execução par
   const novoUsername = Cypress.env('novoUsername');
   const novaSenha = Cypress.env('novaSenha');
 
-  if (!usuarioOrigem || !novoUsername || !novaSenha) {
-    throw new Error(
-      '[gerenciamentoDeUsuarios] Informe usuarioOrigem, novoUsername e novaSenha via --env, ex.: ' +
-        'cypress run --env tags=@keycloakUsuario,usuarioOrigem=fulano,novoUsername=fulano.hml,novaSenha=SenhaForte123!',
-    );
+  if (!parametrosClonagemUnicaCompletos({ usuarioOrigem, novoUsername, novaSenha })) {
+    clonagemUnicaPulada = true;
+    usuarioClonado = null;
+    return cy.logExecucao(MENSAGEM_PARAMETROS_CLONAGEM_UNICA_AUSENTES);
   }
+
+  clonagemUnicaPulada = false;
 
   // Reverifica: o login do passo anterior já pode ter consumido boa parte dos ~60s
   // de vida do token (às vezes os dois logins, PROD e HML, juntos).
   cy.verificarTokens('keycloakProd');
   cy.verificarTokens('keycloak');
 
-  cy.clonarUsuarioKeycloak({ usuarioOrigem, novoUsername, novaSenha }).then((criado) => {
+  return cy.clonarUsuarioKeycloak({ usuarioOrigem, novoUsername, novaSenha }).then((criado) => {
     usuarioClonado = criado;
   });
 });
 
 Then('o novo usuário está criado em homologação com as mesmas roles, grupos e atributos do usuário de origem', () => {
+  if (clonagemUnicaPulada) {
+    cy.log('usuarioOrigem/novoUsername/novaSenha não informados via --env — nenhuma clonagem executada, nada a verificar.');
+    return;
+  }
+
   expect(usuarioClonado, 'usuário clonado').to.not.be.null;
   expect(usuarioClonado.username).to.equal(normalizarUsername(Cypress.env('novoUsername')));
   cy.log(`Usuário "${usuarioClonado.username}" clonado com sucesso para HML (id: ${usuarioClonado.id}).`);
