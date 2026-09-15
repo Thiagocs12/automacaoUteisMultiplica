@@ -7,6 +7,7 @@ import {
   extrairRolesPorCliente,
   extrairNomesGrupos,
   clonarUsuariosEmLote,
+  removerUsuariosClonadosComSucesso,
   normalizarUsername,
 } from '../clonagemUsuarioKeycloak.js';
 
@@ -216,4 +217,41 @@ test('clonarUsuariosEmLote devolve lista vazia para um mapa vazio, sem chamar cl
   const resultados = await clonarUsuariosEmLote({}, clonarUmUsuario);
 
   assert.deepEqual(resultados, []);
+});
+
+test('removerUsuariosClonadosComSucesso remove só quem teve ok: true, mantém quem falhou', () => {
+  const mapaUsuarios = { 'joao.silva': 'joao.silva.hml', 'usuario.inexistente': 'usuario.inexistente.hml' };
+  const resultados = [
+    { usuarioProd: 'joao.silva', usuarioHml: 'joao.silva.hml', ok: true, valor: { id: 'uuid-hml-1', username: 'joao.silva.hml' } },
+    { usuarioProd: 'usuario.inexistente', usuarioHml: 'usuario.inexistente.hml', ok: false, motivo: 'não encontrado' },
+  ];
+
+  const restante = removerUsuariosClonadosComSucesso(mapaUsuarios, resultados);
+
+  assert.deepEqual(restante, { 'usuario.inexistente': 'usuario.inexistente.hml' });
+});
+
+test('removerUsuariosClonadosComSucesso não remove nada quando todo o lote falhou', () => {
+  const mapaUsuarios = { 'a.prod': 'a.hml', 'b.prod': 'b.hml' };
+  const resultados = [
+    { usuarioProd: 'a.prod', usuarioHml: 'a.hml', ok: false, motivo: 'x' },
+    { usuarioProd: 'b.prod', usuarioHml: 'b.hml', ok: false, motivo: 'y' },
+  ];
+
+  assert.deepEqual(removerUsuariosClonadosComSucesso(mapaUsuarios, resultados), mapaUsuarios);
+});
+
+test('removerUsuariosClonadosComSucesso remove tudo quando o lote inteiro teve sucesso', () => {
+  const mapaUsuarios = { 'a.prod': 'a.hml', 'b.prod': 'b.hml' };
+  const resultados = [
+    { usuarioProd: 'a.prod', usuarioHml: 'a.hml', ok: true, valor: {} },
+    { usuarioProd: 'b.prod', usuarioHml: 'b.hml', ok: true, valor: {} },
+  ];
+
+  assert.deepEqual(removerUsuariosClonadosComSucesso(mapaUsuarios, resultados), {});
+});
+
+test('removerUsuariosClonadosComSucesso trata mapa/resultados vazios ou ausentes sem lançar erro', () => {
+  assert.deepEqual(removerUsuariosClonadosComSucesso({}, []), {});
+  assert.deepEqual(removerUsuariosClonadosComSucesso(undefined, undefined), {});
 });

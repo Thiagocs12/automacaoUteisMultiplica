@@ -36,6 +36,7 @@ import {
   extrairRolesPorCliente,
   extrairNomesGrupos,
   clonarUsuariosEmLote,
+  removerUsuariosClonadosComSucesso,
   normalizarUsername,
 } from '../shared/clonagemUsuarioKeycloak';
 
@@ -52,6 +53,14 @@ const MAX_REGISTROS = 1000;
  * única (`--env`), que continua recebendo `novaSenha` explicitamente.
  */
 const SENHA_TEMPORARIA_LOTE = 'Automacao@123';
+
+/**
+ * Caminho do fixture de usuários pendentes de clonagem em lote — usuários clonados
+ * com sucesso são removidos daqui ao final de cada execução (ver
+ * `cy.clonarUsuariosKeycloakEmLote`), para não tentar cloná-los de novo numa
+ * próxima execução.
+ */
+const CAMINHO_FIXTURE_USUARIOS_PARA_CLONAR = 'cypress/fixtures/usuariosParaClonar.json';
 
 /**
  * @description Busca um usuário pelo username exato. Diferente de grupos/roles (que
@@ -400,6 +409,12 @@ Cypress.Commands.add('clonarUsuarioKeycloak', ({ usuarioOrigem, novoUsername, no
  * role/grupo sem correspondente em HML, conflito de username em HML) **não**
  * interrompe o lote — vira um resultado `{ ok: false, motivo }` na lista final e o
  * processamento segue para o próximo item.
+ *
+ * Ao final, os usuários clonados com sucesso (`ok: true`) são removidos do fixture
+ * (`removerUsuariosClonadosComSucesso`) — para não tentar cloná-los de novo numa
+ * próxima execução; os que ficaram com dúvida bloqueante permanecem, para permitir
+ * nova tentativa depois de corrigido o motivo. Mapa/fixture vazio não é mais erro —
+ * é o estado normal de "nada pendente de clonar" (loga e retorna lista vazia).
  * @param {Object<string,string>} mapaUsuarios - Mapa `usuarioProd: usuarioHml` a clonar.
  * @returns {Cypress.Chainable<Array<{usuarioProd: string, usuarioHml: string, ok: boolean, motivo?: string, valor?: {id: string, username: string}}>>}
  */
@@ -407,9 +422,9 @@ Cypress.Commands.add('clonarUsuariosKeycloakEmLote', (mapaUsuarios) => {
   const itens = Object.keys(mapaUsuarios ?? {});
 
   if (!itens.length) {
-    throw new Error(
-      '[clonarUsuariosKeycloakEmLote] Fixture de usuários para clonar em lote está vazia — popule cypress/fixtures/usuariosParaClonar.json antes de rodar.',
-    );
+    return cy
+      .logExecucao('[clonarUsuariosKeycloakEmLote] Nenhum usuário pendente de clonagem na fixture — nada a fazer.')
+      .then(() => []);
   }
 
   return clonarUsuariosEmLote(
@@ -429,10 +444,21 @@ Cypress.Commands.add('clonarUsuariosKeycloakEmLote', (mapaUsuarios) => {
       .map(({ usuarioProd, usuarioHml, motivo }) => `  - "${usuarioProd}" -> "${usuarioHml}": ${motivo}`)
       .join('\n');
 
-    return cy
-      .logExecucao(
-        `[clonarUsuariosKeycloakEmLote] ${sucesso.length}/${resultados.length} usuário(s) clonado(s) com sucesso.` +
-          (bloqueados.length ? `\n${bloqueados.length} com dúvida bloqueante:\n${detalheBloqueados}` : ''),
+    const atualizarFixture = sucesso.length
+      ? cy.writeFile(
+          CAMINHO_FIXTURE_USUARIOS_PARA_CLONAR,
+          removerUsuariosClonadosComSucesso(mapaUsuarios, resultados),
+          { log: false },
+        )
+      : cy.wrap(null, { log: false });
+
+    return atualizarFixture
+      .then(() =>
+        cy.logExecucao(
+          `[clonarUsuariosKeycloakEmLote] ${sucesso.length}/${resultados.length} usuário(s) clonado(s) com sucesso.` +
+            (sucesso.length ? ` ${sucesso.length} removido(s) do fixture (já clonado(s)).` : '') +
+            (bloqueados.length ? `\n${bloqueados.length} com dúvida bloqueante:\n${detalheBloqueados}` : ''),
+        ),
       )
       .then(() => resultados);
   });

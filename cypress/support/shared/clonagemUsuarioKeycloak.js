@@ -123,3 +123,23 @@ export const clonarUsuariosEmLote = (mapaUsuarios, clonarUmUsuario, valorInicial
       ),
     valorInicial,
   );
+
+/**
+ * @description Remove de `mapaUsuarios` (mapa `usuarioProd: usuarioHml`) as entradas
+ * cujo `usuarioProd` teve `ok: true` em `resultados` (saída de `clonarUsuariosEmLote`)
+ * — para que uma próxima execução do lote não tente clonar de novo o mesmo usuário.
+ * Usuários que falharam (`ok: false`, dúvida bloqueante) permanecem no mapa devolvido,
+ * para permitir nova tentativa depois que o motivo for corrigido. Pura, sem
+ * dependência do global `Cypress` — quem chama (`commands/usuariosKeycloak.js`)
+ * decide se/quando persistir o resultado de volta no fixture.
+ * @param {Object<string,string>} mapaUsuarios - Mapa `usuarioProd: usuarioHml` original.
+ * @param {Array<{usuarioProd: string, ok: boolean}>} resultados - Resultado de `clonarUsuariosEmLote` para esse mesmo mapa.
+ * @returns {Object<string,string>} Novo mapa, sem os usuários clonados com sucesso.
+ */
+export const removerUsuariosClonadosComSucesso = (mapaUsuarios, resultados) => {
+  const usuariosProdClonados = new Set((resultados ?? []).filter((resultado) => resultado.ok).map((resultado) => resultado.usuarioProd));
+
+  return Object.fromEntries(
+    Object.entries(mapaUsuarios ?? {}).filter(([usuarioProd]) => !usuariosProdClonados.has(usuarioProd)),
+  );
+};
