@@ -13,7 +13,10 @@ import {
   normalizarDocumento,
   documentosCoincidem,
   decidirEstrategiaClonagemCedente,
+  construirGrafoEstrutural,
+  ordenarTabelasPorDependenciaEstrutural,
 } from '../clonagemCedente.js';
+import MAPEAMENTO_CEDENTE_PROSPECT from '../../../utils/mapeamentoCedente.js';
 
 test('classificarTabelaCedente reconhece as tabelas-âncora de cada fase', () => {
   assert.deepEqual(classificarTabelaCedente('MC_PRT_PROSPECT'), { fase: FASE_PROSPECT, entra: true });
@@ -161,4 +164,94 @@ test('decidirEstrategiaClonagemCedente decide criar quando não existe em HML ai
   });
 
   assert.deepEqual(resultado, { estrategia: ESTRATEGIA_CRIAR });
+});
+
+test('construirGrafoEstrutural mantém só arestas tipo "estrutural", ignorando "catalogo"', () => {
+  const grafo = construirGrafoEstrutural({
+    PAI: { dependeDe: [] },
+    FILHO: {
+      dependeDe: [
+        { campo: 'idPai', tabela: 'PAI', tipo: 'estrutural' },
+        { campo: 'idCatalogo', tabela: 'ALGUM_CAD', tipo: 'catalogo' },
+      ],
+    },
+  });
+
+  assert.deepEqual(grafo, { PAI: [], FILHO: ['PAI'] });
+});
+
+test('construirGrafoEstrutural deduplica tabela-pai referenciada por mais de uma coluna', () => {
+  const grafo = construirGrafoEstrutural({
+    PAI: { dependeDe: [] },
+    FILHO: {
+      dependeDe: [
+        { campo: 'idPaiA', tabela: 'PAI', tipo: 'estrutural' },
+        { campo: 'idPaiB', tabela: 'PAI', tipo: 'estrutural' },
+      ],
+    },
+  });
+
+  assert.deepEqual(grafo.FILHO, ['PAI']);
+});
+
+test('ordenarTabelasPorDependenciaEstrutural coloca pai antes do filho numa cadeia simples', () => {
+  const ordem = ordenarTabelasPorDependenciaEstrutural({ A: [], B: ['A'], C: ['B'] });
+
+  assert.deepEqual(ordem, ['A', 'B', 'C']);
+});
+
+test('ordenarTabelasPorDependenciaEstrutural resolve dependência em diamante sem duplicar tabela', () => {
+  const ordem = ordenarTabelasPorDependenciaEstrutural({
+    RAIZ: [],
+    RAMO_A: ['RAIZ'],
+    RAMO_B: ['RAIZ'],
+    FOLHA: ['RAMO_A', 'RAMO_B'],
+  });
+
+  assert.equal(ordem.indexOf('RAIZ') < ordem.indexOf('RAMO_A'), true);
+  assert.equal(ordem.indexOf('RAIZ') < ordem.indexOf('RAMO_B'), true);
+  assert.equal(ordem.indexOf('RAMO_A') < ordem.indexOf('FOLHA'), true);
+  assert.equal(ordem.indexOf('RAMO_B') < ordem.indexOf('FOLHA'), true);
+  assert.equal(new Set(ordem).size, ordem.length);
+});
+
+test('ordenarTabelasPorDependenciaEstrutural trata tabela-pai ainda não mapeada como folha (não quebra)', () => {
+  const ordem = ordenarTabelasPorDependenciaEstrutural({
+    FILHO: ['PAI_AINDA_NAO_MAPEADO'],
+  });
+
+  assert.deepEqual(ordem, ['PAI_AINDA_NAO_MAPEADO', 'FILHO']);
+});
+
+test('ordenarTabelasPorDependenciaEstrutural lança erro descritivo diante de um ciclo', () => {
+  assert.throws(
+    () => ordenarTabelasPorDependenciaEstrutural({ A: ['B'], B: ['A'] }),
+    /Ciclo de dependência detectado/,
+  );
+});
+
+test('grafo estrutural real da fase prospect (mapeamentoCedente.js) não tem ciclo e respeita a ordem pai->filho', () => {
+  const grafo = construirGrafoEstrutural(MAPEAMENTO_CEDENTE_PROSPECT);
+  const ordem = ordenarTabelasPorDependenciaEstrutural(grafo);
+
+  // Autoteste de consistência dos dados transcritos à mão em mapeamentoCedente.js:
+  // se qualquer aresta estiver errada a ponto de formar um ciclo, o teste acima já
+  // falharia (ordenarTabelasPorDependenciaEstrutural lança erro). Aqui confirmamos
+  // casos específicos que motivaram a descoberta registrada em
+  // docs/documentacao.md: MC_PRT_PLEITO* depende de MC_POC_PROPOSTA (cross-fase),
+  // não de MC_PRT_PROSPECT diretamente.
+  assert.equal(ordem.includes('MC_PRT_PROSPECT'), true);
+  assert.equal(ordem.includes('MC_POC_PROPOSTA'), true);
+  assert.equal(
+    ordem.indexOf('MC_POC_PROPOSTA') < ordem.indexOf('MC_PRT_PLEITO'),
+    true,
+    'MC_POC_PROPOSTA (tabela-pai real) deve vir antes de MC_PRT_PLEITO na ordem de inserção',
+  );
+  assert.equal(ordem.indexOf('MC_PRT_PROSPECT') < ordem.indexOf('MC_PRT_LEAD'), true);
+  assert.equal(ordem.indexOf('MC_PRT_PROSPECT') < ordem.indexOf('MC_AGE_ACOMPANHAMENTO'), true);
+  assert.equal(ordem.indexOf('MC_AGE_ACOMPANHAMENTO') < ordem.indexOf('MC_AGE_AGENDA_VISITA'), true);
+  assert.equal(ordem.indexOf('MC_AGE_AGENDA_VISITA') < ordem.indexOf('MC_AGE_AGENDA_VISITA_RELATORIO'), true);
+  assert.equal(ordem.indexOf('MC_PRT_PLEITO_PRODUTO') < ordem.indexOf('MC_PRT_PRODUTO_GARANTIA'), true);
+  assert.equal(ordem.indexOf('MC_PRT_PLEITO_PRODUTO') < ordem.indexOf('MC_PRT_PLEITO_PRODUTO_CONC'), true);
+  assert.equal(new Set(ordem).size, ordem.length, 'nenhuma tabela duplicada na ordem final');
 });

@@ -313,3 +313,66 @@ export const decidirEstrategiaClonagemCedente = ({
 
   return { estrategia: cedenteHmlExistente ? ESTRATEGIA_APAGAR_E_RECRIAR : ESTRATEGIA_CRIAR };
 };
+
+/**
+ * @description Constrói o grafo de dependência ESTRUTURAL (tabela -> tabelas-pai
+ * dentro do próprio grafo de clonagem do cedente) a partir de um mapeamento no
+ * formato de `cypress/utils/mapeamentoCedente.js` (`{ [tabela]: { dependeDe: [{
+ * campo, tabela, tipo }] } }`). Só considera arestas `tipo: 'estrutural'` —
+ * dependências de catálogo (`tipo: 'catalogo'`) são resolvidas à parte, pelo
+ * padrão já existente em `commands/dependencias.js`/`estoque.js`, e nunca
+ * participam da ordem de inserção/exclusão entre as tabelas do próprio cedente.
+ * Uma tabela-pai referenciada mas ainda não presente como chave do mapeamento
+ * (ex.: uma tabela de outra fase ainda não investigada) é tratada como uma folha
+ * sem dependências — não é erro, permite montar o mapeamento fase por fase ao
+ * longo de vários ciclos sem quebrar a ordenação do que já existe.
+ * @param {Object} mapeamento
+ * @returns {Object<string, string[]>} grafo pronto para `ordenarTabelasPorDependenciaEstrutural`.
+ */
+export const construirGrafoEstrutural = (mapeamento) => {
+  const grafo = {};
+
+  for (const [tabela, config] of Object.entries(mapeamento)) {
+    const paisEstruturais = (config?.dependeDe ?? [])
+      .filter((dependencia) => dependencia.tipo === 'estrutural')
+      .map((dependencia) => dependencia.tabela);
+
+    grafo[tabela] = [...new Set(paisEstruturais)];
+  }
+
+  return grafo;
+};
+
+/**
+ * @description Ordena topologicamente as tabelas de um grafo de dependência
+ * estrutural (ver `construirGrafoEstrutural`), garantindo que toda tabela-pai
+ * apareça antes de suas tabelas-filhas no resultado — a ordem correta para
+ * INSERT em HML na clonagem do cedente. Para a ordem de DELETE (regra 12 do
+ * `AGENTE.md`: filhas antes de pais), basta inverter o array retornado.
+ * @param {Object<string, string[]>} grafo - `{ [tabela]: tabelasDasQuaisDepende[] }`.
+ * @returns {string[]} tabelas em ordem de inserção (pais antes de filhas).
+ * @throws {Error} se o grafo tiver um ciclo de dependência estrutural.
+ */
+export const ordenarTabelasPorDependenciaEstrutural = (grafo) => {
+  const estadoPorTabela = new Map();
+  const ordem = [];
+
+  const visitar = (tabela, caminho) => {
+    const estado = estadoPorTabela.get(tabela);
+    if (estado === 'concluido') return;
+    if (estado === 'visitando') {
+      throw new Error(
+        `[ordenarTabelasPorDependenciaEstrutural] Ciclo de dependência detectado envolvendo "${tabela}": ${[...caminho, tabela].join(' -> ')}`,
+      );
+    }
+
+    estadoPorTabela.set(tabela, 'visitando');
+    (grafo[tabela] ?? []).forEach((tabelaPai) => visitar(tabelaPai, [...caminho, tabela]));
+    estadoPorTabela.set(tabela, 'concluido');
+    ordem.push(tabela);
+  };
+
+  Object.keys(grafo).forEach((tabela) => visitar(tabela, []));
+
+  return ordem;
+};
