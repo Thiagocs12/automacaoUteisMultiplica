@@ -5,6 +5,18 @@
 // node:test puro em `__tests__/`, sem precisar rodar o Cypress.
 
 /**
+ * @description Normaliza um username para minúsculas. O Keycloak sempre grava o
+ * username já normalizado para minúsculas na criação (`Fulano.Automacao` vira
+ * `fulano.automacao`) — qualquer busca, criação ou comparação feita com o valor
+ * original (com maiúsculas) diverge do valor real gravado/retornado pelo Keycloak
+ * só por causa do case, sem ser uma divergência de dado de verdade. Usada em todo
+ * ponto do módulo que recebe um username como entrada.
+ * @param {string} username
+ * @returns {string}
+ */
+export const normalizarUsername = (username) => (username ?? '').toLowerCase();
+
+/**
  * @description Gera um email inválido/não-real e único para o novo usuário em HML,
  * a partir do `novoUsername` (já exigido único em HML) combinado com um sufixo
  * aleatório e um domínio claramente não real. Nunca copiar o email do usuário de
@@ -31,17 +43,21 @@ export const gerarEmailInvalidoUnico = (novoUsername) => `${novoUsername}.${cryp
  * (`--env`) nunca passa `true` aqui, preservando o comportamento original.
  * @returns {object} Corpo de criação (`POST /users`) do novo usuário em HML.
  */
-export const montarPayloadNovoUsuario = (usuarioOrigem, novoUsername, novaSenha, temporary = false) => ({
-  username: novoUsername,
-  enabled: usuarioOrigem.enabled,
-  emailVerified: usuarioOrigem.emailVerified,
-  firstName: usuarioOrigem.firstName,
-  lastName: usuarioOrigem.lastName,
-  email: gerarEmailInvalidoUnico(novoUsername),
-  attributes: usuarioOrigem.attributes ?? {},
-  requiredActions: usuarioOrigem.requiredActions ?? [],
-  credentials: [{ type: 'password', value: novaSenha, temporary }],
-});
+export const montarPayloadNovoUsuario = (usuarioOrigem, novoUsername, novaSenha, temporary = false) => {
+  const novoUsernameNormalizado = normalizarUsername(novoUsername);
+
+  return {
+    username: novoUsernameNormalizado,
+    enabled: usuarioOrigem.enabled,
+    emailVerified: usuarioOrigem.emailVerified,
+    firstName: usuarioOrigem.firstName,
+    lastName: usuarioOrigem.lastName,
+    email: gerarEmailInvalidoUnico(novoUsernameNormalizado),
+    attributes: usuarioOrigem.attributes ?? {},
+    requiredActions: usuarioOrigem.requiredActions ?? [],
+    credentials: [{ type: 'password', value: novaSenha, temporary }],
+  };
+};
 
 /**
  * @description Extrai os nomes das realm roles atribuídas a um usuário, a partir da

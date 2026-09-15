@@ -7,6 +7,7 @@ import {
   extrairRolesPorCliente,
   extrairNomesGrupos,
   clonarUsuariosEmLote,
+  normalizarUsername,
 } from '../clonagemUsuarioKeycloak.js';
 
 const usuarioOrigem = {
@@ -20,6 +21,31 @@ const usuarioOrigem = {
   attributes: { idAnalista: ['123'], cargoPrincipal: ['ANALISTA'] },
   requiredActions: [],
 };
+
+test('normalizarUsername sempre normaliza para minúsculas, qualquer combinação de case', () => {
+  assert.equal(normalizarUsername('formalizacao.Automacao'), 'formalizacao.automacao');
+  assert.equal(normalizarUsername('AUTOMACAO'), 'automacao');
+  assert.equal(normalizarUsername('Automacao'), 'automacao');
+  assert.equal(normalizarUsername('automacao'), 'automacao');
+});
+
+test('normalizarUsername trata entrada vazia/ausente sem lançar erro', () => {
+  assert.equal(normalizarUsername(''), '');
+  assert.equal(normalizarUsername(undefined), '');
+  assert.equal(normalizarUsername(null), '');
+});
+
+test('montarPayloadNovoUsuario normaliza o username informado com maiúsculas para minúsculas', () => {
+  const payload = montarPayloadNovoUsuario(usuarioOrigem, 'formalizacao.Automacao', 'SenhaForte123!');
+
+  assert.equal(payload.username, 'formalizacao.automacao');
+});
+
+test('montarPayloadNovoUsuario gera o email a partir do username já normalizado (minúsculas)', () => {
+  const payload = montarPayloadNovoUsuario(usuarioOrigem, 'Formalizacao.AUTOMACAO', 'SenhaForte123!');
+
+  assert.match(payload.email, /^formalizacao\.automacao\.[0-9a-f]{8}@invalido\.multiplica\.local$/);
+});
 
 test('montarPayloadNovoUsuario usa o novo username/senha, nunca os do usuário de origem', () => {
   const payload = montarPayloadNovoUsuario(usuarioOrigem, 'fulano.hml', 'SenhaForte123!');

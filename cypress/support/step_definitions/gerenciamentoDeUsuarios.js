@@ -15,6 +15,7 @@
 //     npx cypress run --env tags=@clonarUsuariosEmLote
 
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import { normalizarUsername } from '../shared/clonagemUsuarioKeycloak';
 
 let usuarioClonado = null;
 let resultadosLote = [];
@@ -48,7 +49,7 @@ When('clono o usuário de produção informado via parâmetros de execução par
 
 Then('o novo usuário está criado em homologação com as mesmas roles, grupos e atributos do usuário de origem', () => {
   expect(usuarioClonado, 'usuário clonado').to.not.be.null;
-  expect(usuarioClonado.username).to.equal(Cypress.env('novoUsername'));
+  expect(usuarioClonado.username).to.equal(normalizarUsername(Cypress.env('novoUsername')));
   cy.log(`Usuário "${usuarioClonado.username}" clonado com sucesso para HML (id: ${usuarioClonado.id}).`);
 });
 
