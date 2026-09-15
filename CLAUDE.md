@@ -117,8 +117,59 @@ Peculiaridades da API do Keycloak que moldam esse pipeline:
 
 GRUPOS/ROLES_REALM/ROLES_CLIENTE têm id estável em PROD (UUID do Keycloak) e por isso participam normalmente do estoque de ids (`cy.preencherIdsHmlPeloEstoque`/`cy.atualizarEstoqueIds`) — ao contrário dos grupos OPERADORES/OBSERVADORES/GESTORES do fluxo de Esteiras.
 
+### Clonagem de Usuário (Keycloak) — ação pontual sob demanda, sem estoque
+
+Diferente de todos os domínios acima (sincronização em lote, recorrente, com cache de ids em `estoqueIds.json`), o domínio **Usuários** (`cypress/utils/mapeamentoUsuarios.js` + `cypress/support/commands/usuariosKeycloak.js`) clona usuários do Keycloak de PRODUÇÃO para HML, em dois modos, ambos reaproveitando a mesma lógica de clonagem (`executarClonagem`, interna a `usuariosKeycloak.js`) sem duplicá-la:
+
+- **Único** (feature `@keycloakUsuario`): clona um único usuário por execução, com novo `username`/senha informados via `--env` (`usuarioOrigem`, `novoUsername`, `novaSenha`) — não uma lista fixa nem um script de uso único.
+- **Em lote** (feature `@clonarUsuariosEmLote`): clona, numa única execução, todos os usuários de um mapa `usuarioProd: usuarioHml` lido do fixture `cypress/fixtures/usuariosParaClonar.json` (populado antes de rodar — versionado como template vazio `{}`, nunca com usuários reais de PROD, já que decidir "qual usuário copiar" não é algo que a automação decide sozinha). Todo usuário criado pelo lote recebe a senha temporária fixa `SENHA_TEMPORARIA_LOTE` (`Automacao@123`, em `usuariosKeycloak.js`), com `temporary: true` (mecanismo nativo do Keycloak — força troca no primeiro login); o modo único continua usando a `novaSenha` informada, sem `temporary`.
+  - **Fixture "consumido" a cada execução bem-sucedida**: ao final do lote, `cy.clonarUsuariosKeycloakEmLote` remove do fixture (via `cy.writeFile`) os usuários que tiveram `ok: true` — usando a função pura `removerUsuariosClonadosComSucesso` (`clonagemUsuarioKeycloak.js`), que recebe o mapa original e a lista de resultados e devolve um novo mapa sem os `usuarioProd` clonados com sucesso. Usuários que ficaram com `ok: false` (dúvida bloqueante) **permanecem** no fixture, para permitir nova tentativa depois que o motivo for corrigido — sem exigir repopular o arquivo manualmente. Isso evita reclonar o mesmo usuário numa próxima execução do cenário.
+  - **Fixture vazio (`{}`) é o estado normal de "nada pendente de clonar", não mais um erro**: `cy.clonarUsuariosKeycloakEmLote` loga uma mensagem informativa e retorna lista vazia sem lançar erro (antes lançava `Error`, tratando fixture vazio como guard-rail — mudou porque, com a remoção automática acima, esvaziar o fixture é o resultado esperado de um lote bem-sucedido, não uma configuração incompleta). O step `Then` de `@clonarUsuariosEmLote` (`gerenciamentoDeUsuarios.js`) também trata lista de resultados vazia como sucesso do cenário, sem assertar nada além do log.
+
+Nenhum dos dois modos participa do estoque de ids (não há um "próximo usuário" a sincronizar depois).
+
+Tudo do usuário de origem é copiado para o novo usuário, **exceto** `username`, senha e email: realm roles, client roles (de **todos** os clients em que o usuário tiver role atribuída — resolvido via `GET /users/{id}/role-mappings`, que já devolve `realmMappings`/`clientMappings` agrupados por client sem precisar iterar client por client, ao contrário do client fixo `KEYCLOAK_CLIENT_ID` usado pela sincronização de Grupos e Permissões), grupos (por nome exato, reaproveitando `encontrarPorNomeExato`/a busca textual de `GRUPOS.urlGrupos` já usada por Grupos e Permissões) e atributos/nome/`enabled`/`emailVerified`/`requiredActions`.
+
+**O email do novo usuário nunca é copiado do usuário de origem** — é sempre gerado, inválido/não-real e único (`gerarEmailInvalidoUnico`, `cypress/support/shared/clonagemUsuarioKeycloak.js`): combina o `novoUsername` (já exigido único em HML) com um sufixo aleatório e um domínio não real, no formato `{novoUsername}.{sufixo}@invalido.multiplica.local`. Isso existe porque copiar o email do usuário de origem causava conflito de criação sempre que o mesmo email já existisse em HML — era uma "dúvida bloqueante" da versão anterior deste recurso, removida junto com essa mudança: como o email nunca mais vem do usuário original, não há mais como colidir com o dele.
+
+Peculiaridades que diferenciam este pipeline do de Grupos e Permissões:
+- **A API de usuários do Keycloak suporta busca por correspondência exata nativamente** (`?username=...&exact=true`) — diferente de grupos/roles, não é preciso filtrar o resultado da busca depois.
+- **Nunca decide sozinho diante de ambiguidade**: usuário de origem não encontrado em PROD, uma role/grupo do usuário de origem sem correspondente em HML (nunca cria o que falta — diferente de Grupos e Permissões, que cria grupos/roles faltantes), ou o novo `username` já existente em HML são a "dúvida bloqueante" deste recurso — a checagem é a mesma (`executarClonagem`) nos dois modos, mas cada modo reage diferente:
+  - **Modo único** (`cy.clonarUsuarioKeycloak`): lança erro descritivo imediatamente, interrompendo a clonagem. Como este modo é sempre executado sob demanda por um humano, o erro lançado É a forma de sinalizar a "dúvida" a quem estiver rodando.
+  - **Modo em lote** (`cy.clonarUsuariosKeycloakEmLote`): **não** lança erro — o item problemático vira um resultado `{ ok: false, motivo }` (junto com `usuarioProd`/`usuarioHml` daquele item específico) na lista final, e o processamento segue normalmente para o próximo usuário do mapa. Isso só é possível porque `executarClonagem` e os resolvers internos (`resolverRolesRealmEmHml`, `resolverRolesClienteEmHml`, `resolverGruposEmHml`) devolvem `{ ok, motivo? , valor? }` em vez de lançar — decisão tomada justamente para viabilizar essa continuação (Cypress não permite `try/catch`/`.catch()` ao redor de uma cadeia de comandos que falha: uma vez que um comando lança erro dentro dela, a fila de comandos do teste é interrompida, então "continuar após uma falha" só funciona se o próprio código nunca lançar erro para os casos esperados). A orquestração do lote em si (`clonarUsuariosEmLote`, em `cypress/support/shared/clonagemUsuarioKeycloak.js`) é pura — recebe a função de clonagem por injeção — para poder ser coberta por `node:test` sem depender do Cypress.
+- **A criação do usuário não é seguida de nova busca "às cegas"**: o `username` já foi conferido como livre em HML antes de criar (passo anterior do fluxo), então a busca por `username` logo após o `POST` serve só para obter o `id` do novo usuário (necessário para os `POST`/`PUT` de role-mappings/grupos seguintes), não para tratar `409` como sucesso — um `POST` de criação que falhar aqui é sempre um erro real, não uma corrida esperada.
+
 ## Segurança / não commitar
 
 - Nunca commitar `.env` ou `cypress/temp/tokens.json` (ambos no `.gitignore`).
 - `package-lock.json` está no `.gitignore` — instalações podem resolver versões diferentes entre execuções/máquinas.
 - `cypress/output/**` contém snapshots de dados sincronizados (gitignored) — trate como potencialmente sensível.
+
+## Collaboration workflow
+
+Este repositório é mantido por agentes automatizados (Claude Code). Fluxo atual (mudou em
+2026-09-14, pedido explícito do responsável pelo projeto — mesmo padrão adotado por outra
+automação irmã):
+
+- Cada tarefa é implementada por um subAgent numa branch nova a partir de `reviewAgents`; o
+  subAgent commita e publica (push) essa branch quando a tarefa termina e o autoteste passa.
+- Um Agent Master valida a branch — merge de teste local contra `reviewAgents` para achar
+  conflito (resolvido com a skill `/resolve-conflicts`, `.claude/skills/resolve-conflicts/`,
+  commitado na própria branch da feature) e roda os testes — e, se passar, **mescla e dá push
+  direto na `reviewAgents`** (sem Pull Request por tarefa, sem aprovação humana por tarefa). O
+  Agent Master **nunca** mescla nem dá push direto na `main`/`master`.
+- O único ponto de revisão manual é um **Pull Request único e contínuo `reviewAgents → main`**,
+  que o Agent Master garante que existe (cria uma vez se faltar; nunca recria) e que reflete
+  sozinho, via GitHub, cada commit novo pusheado na `reviewAgents`. Um humano mescla esse PR na
+  `main` quando quiser fazer um release, normalmente depois de validar manualmente a
+  `reviewAgents`.
+- `main`/`master` só recebe merge vindo de `reviewAgents`, em momentos de release — nunca commit
+  direto.
+- Um hook de projeto (`.claude/settings.json`, `SessionStart`) busca `origin/reviewAgents` ao
+  iniciar uma sessão e só dá pull automático se a branch atual for `reviewAgents` com working tree
+  limpa; caso contrário, só avisa em vez de trocar de branch ou sobrescrever trabalho local.
+- Cada instância de agente (subAgent ou Agent Master) fixa sua própria conta do Claude Code via
+  `CLAUDE_CONFIG_DIR`, setada antes do `claude` iniciar — isso é configurado centralmente na pasta
+  de automação do Supervisor (fora deste repositório), não por clone aqui. O Agent Master também
+  autentica o `gh` CLI via uma variável de ambiente `GH_TOKEN`, setada da mesma forma (usado só
+  para garantir o PR único `reviewAgents → main`, não para PR por tarefa).

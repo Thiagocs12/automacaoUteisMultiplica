@@ -18,7 +18,7 @@ Automação para sincronizar dados de **Produção (PROD)** para **Homologação
 cypress/
 ├── e2e/features/              # Cenários BDD (.feature)
 ├── support/
-│   ├── step_definitions/      # Steps de cada domínio (Produtos, Esteiras, Vínculos, Grupos e Permissões)
+│   ├── step_definitions/      # Steps de cada domínio (Produtos, Esteiras, Vínculos, Grupos e Permissões, Usuários)
 │   ├── commands/               # Comandos customizados, por responsabilidade
 │   │   (ambiente, arquivos, urls, dependencias, sincronizacaoNivel, estoque, vinculos, gruposPermissoes, log)
 │   ├── shared/                 # Lógica pura testável fora do Cypress (node:test)
@@ -28,7 +28,7 @@ cypress/
 │   ├── utils.js                # Login via UI, verificação/renovação de token
 │   └── e2e.js
 ├── utils/                      # Mapeamento de entidades por domínio
-│   (mapeamentoProdutos, mapeamentoEsteiras, mapeamentoVinculos, mapeamentoGruposPermissoes)
+│   (mapeamentoProdutos, mapeamentoEsteiras, mapeamentoVinculos, mapeamentoGruposPermissoes, mapeamentoUsuarios)
 ├── output/                     # JSONs intermediários + estoqueIds.json (gitignored)
 └── temp/tokens.json            # Tokens de sessão (gitignored)
 ```
@@ -46,6 +46,13 @@ Os domínios Produtos, Esteiras e Vínculos têm cada um seu arquivo de mapeamen
 
 O domínio **Grupos e Permissões** (grupos, realm roles, client roles e o vínculo grupo→role do Keycloak) tem um pipeline próprio, fora desse fluxo genérico — grupos/roles são localizados em HML por busca textual (`?search=`, filtrando o resultado pelo nome exato), a criação não devolve o `id` no corpo da resposta (repete-se a busca em seguida) e o vínculo grupo→role vem embutido na representação completa do grupo (`GET /groups/{id}`), não de um endpoint de role-mappings à parte. A lógica vive em `commands/gruposPermissoes.js` + `utils/mapeamentoGruposPermissoes.js`.
 
+O domínio **Usuários** não sincroniza uma lista de registros — é uma ação pontual sob demanda que **clona usuário(s) do Keycloak de Produção para Homologação**, mantendo o resto igual (realm roles, client roles de todos os clients, grupos e atributos), em dois modos. O email do novo usuário **nunca é copiado do usuário de origem** — é sempre gerado, inválido/não-real e único (`{novoUsername}.{sufixo}@invalido.multiplica.local`), justamente para nunca colidir com um email já existente em HML.
+
+- **Único** (`@keycloakUsuario`): um usuário por execução, com novo username/senha informados via `--env` (`usuarioOrigem`, `novoUsername`, `novaSenha`).
+- **Em lote** (`@clonarUsuariosEmLote`): todos os usuários de um mapa `usuarioProd: usuarioHml` lido do fixture `cypress/fixtures/usuariosParaClonar.json` (populado antes de rodar), numa única execução — cada usuário criado recebe a senha temporária fixa `Automacao@123`, com troca obrigatória no primeiro login. Um item problemático (usuário de origem não encontrado, role/grupo sem correspondente em HML, conflito de username em HML) não interrompe o lote — vira uma dúvida bloqueante só daquele item, e o processamento segue para o próximo. Ao final, os usuários clonados com sucesso são removidos do fixture (quem falhou permanece, para nova tentativa depois de corrigido) — fixture vazia (`{}`) é o estado normal de "nada pendente", não um erro.
+
+A lógica vive em `commands/usuariosKeycloak.js` + `utils/mapeamentoUsuarios.js`; ver detalhes em `CLAUDE.md`.
+
 ## Configuração
 
 ```bash
@@ -62,7 +69,19 @@ npm run cypress:open   # interface do Cypress, escolha o .feature desejado
 npm run cypress:run    # roda todos os cenários (specPattern: **/*.feature)
 ```
 
-Cenários são marcados por tag de domínio: `@produto`, `@esteira`, `@vinculos`, `@keycloak`.
+Cenários são marcados por tag de domínio: `@produto`, `@esteira`, `@vinculos`, `@keycloak`, `@keycloakUsuario`, `@clonarUsuariosEmLote`.
+
+A clonagem de usuário única (`@keycloakUsuario`) é parametrizada a cada execução via `--env`:
+
+```bash
+npx cypress run --env tags=@keycloakUsuario,usuarioOrigem=fulano,novoUsername=fulano.hml,novaSenha=SenhaForte123!
+```
+
+A clonagem em lote (`@clonarUsuariosEmLote`) lê o mapa `usuarioProd: usuarioHml` de `cypress/fixtures/usuariosParaClonar.json` — popule esse arquivo antes de rodar:
+
+```bash
+npx cypress run --env tags=@clonarUsuariosEmLote
+```
 
 ## Autenticação
 
