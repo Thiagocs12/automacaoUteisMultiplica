@@ -143,3 +143,28 @@ export const removerUsuariosClonadosComSucesso = (mapaUsuarios, resultados) => {
     Object.entries(mapaUsuarios ?? {}).filter(([usuarioProd]) => !usuariosProdClonados.has(usuarioProd)),
   );
 };
+
+/**
+ * @description Mensagem orientativa exibida quando os parâmetros do modo de
+ * clonagem única (`usuarioOrigem`, `novoUsername`, `novaSenha`) não são informados
+ * via `--env` — usada tanto para o log informativo (comportamento atual) quanto,
+ * antes desta mudança, para o erro lançado (ver `parametrosClonagemUnicaCompletos`).
+ */
+export const MENSAGEM_PARAMETROS_CLONAGEM_UNICA_AUSENTES =
+  '[gerenciamentoDeUsuarios] Informe usuarioOrigem, novoUsername e novaSenha via --env, ex.: ' +
+  'cypress run --env tags=@keycloakUsuario,usuarioOrigem=fulano,novoUsername=fulano.hml,novaSenha=SenhaForte123!';
+
+/**
+ * @description Verifica se os três parâmetros exigidos pelo modo de clonagem única
+ * (`usuarioOrigem`, `novoUsername`, `novaSenha`) foram todos informados. Faltando
+ * qualquer um deles (nenhum, ou só parte) o cenário `@keycloakUsuario` não deve
+ * quebrar — relevante principalmente quando se roda a suíte completa sem
+ * `tags=@keycloakUsuario`, caso em que esses parâmetros nunca são passados de
+ * propósito (ver uso em `commands`/step definition, que loga
+ * `MENSAGEM_PARAMETROS_CLONAGEM_UNICA_AUSENTES` e segue sem clonar, em vez de
+ * lançar erro).
+ * @param {{usuarioOrigem?: string, novoUsername?: string, novaSenha?: string}} parametros
+ * @returns {boolean}
+ */
+export const parametrosClonagemUnicaCompletos = ({ usuarioOrigem, novoUsername, novaSenha } = {}) =>
+  Boolean(usuarioOrigem && novoUsername && novaSenha);

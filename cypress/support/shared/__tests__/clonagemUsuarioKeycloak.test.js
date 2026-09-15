@@ -9,6 +9,7 @@ import {
   clonarUsuariosEmLote,
   removerUsuariosClonadosComSucesso,
   normalizarUsername,
+  parametrosClonagemUnicaCompletos,
 } from '../clonagemUsuarioKeycloak.js';
 
 const usuarioOrigem = {
@@ -254,4 +255,22 @@ test('removerUsuariosClonadosComSucesso remove tudo quando o lote inteiro teve s
 test('removerUsuariosClonadosComSucesso trata mapa/resultados vazios ou ausentes sem lançar erro', () => {
   assert.deepEqual(removerUsuariosClonadosComSucesso({}, []), {});
   assert.deepEqual(removerUsuariosClonadosComSucesso(undefined, undefined), {});
+});
+
+test('parametrosClonagemUnicaCompletos é true só quando os 3 parâmetros estão presentes', () => {
+  assert.equal(
+    parametrosClonagemUnicaCompletos({ usuarioOrigem: 'fulano', novoUsername: 'fulano.hml', novaSenha: 'SenhaForte123!' }),
+    true,
+  );
+});
+
+test('parametrosClonagemUnicaCompletos é false quando nenhum parâmetro é informado', () => {
+  assert.equal(parametrosClonagemUnicaCompletos({}), false);
+  assert.equal(parametrosClonagemUnicaCompletos(undefined), false);
+});
+
+test('parametrosClonagemUnicaCompletos é false quando só parte dos parâmetros é informada', () => {
+  assert.equal(parametrosClonagemUnicaCompletos({ usuarioOrigem: 'fulano' }), false);
+  assert.equal(parametrosClonagemUnicaCompletos({ usuarioOrigem: 'fulano', novoUsername: 'fulano.hml' }), false);
+  assert.equal(parametrosClonagemUnicaCompletos({ novaSenha: 'SenhaForte123!' }), false);
 });
