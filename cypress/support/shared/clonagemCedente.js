@@ -222,6 +222,18 @@ const PADROES_FORA_DE_ESCOPO = [
   /BKP/i,
 ];
 
+// Tabelas de catálogo fora do padrão `MC_CAD_*` (confirmado pelo Thiago em duvidas.md,
+// tarefa 20260915130215): referenciadas por `MC_POC_RATING_INDICADOR_RESULTADO`
+// (indicador/item de rating, dado compartilhado entre propostas, não pertencente a uma
+// proposta específica), mas com prefixo `MC_RAT_`. Resolvidas pelo mesmo padrão de
+// dependência de catálogo das `MC_CAD_*` (busca por chave natural em HML, cria se
+// faltar) — só listadas explicitamente aqui porque `MC_RAT_` não é, em si, um prefixo
+// genérico de catálogo (decisão vale só para estas duas tabelas confirmadas).
+export const TABELAS_CATALOGO_FORA_DO_PADRAO_MC_CAD = [
+  'MC_RAT_RATING_INDICADOR',
+  'MC_RAT_RATING_INDICADOR_ITEM',
+];
+
 const estaExplicitamenteForaDeEscopo = (nomeTabela) =>
   TABELAS_FORA_DE_ESCOPO.includes(nomeTabela) || PADROES_FORA_DE_ESCOPO.some((padrao) => padrao.test(nomeTabela));
 
@@ -233,7 +245,9 @@ const estaExplicitamenteForaDeEscopo = (nomeTabela) =>
  * como não pertencente ao escopo desta automação. Ordem de decisão: (1) exclusão
  * explícita sempre vence, mesmo sobre um nome que sugira pertencer a uma fase ou ser
  * catálogo; (2) lista fechada por fase; (3) família POC citada só por prefixo na
- * tarefa; (4) fallback de catálogo genérico `MC_CAD_*`; (5) não classificado.
+ * tarefa; (4) fallback de catálogo genérico `MC_CAD_*`; (5) catálogo fora do padrão
+ * `MC_CAD_*`, confirmado caso a caso com o Thiago (`TABELAS_CATALOGO_FORA_DO_PADRAO_MC_CAD`);
+ * (6) não classificado.
  * @param {string} nomeTabela - Nome da tabela no schema (ex.: `MC_PRT_PROSPECT`).
  * @returns {{fase: string|null, entra: boolean}} `entra: false` com `fase: null`
  * cobre tanto exclusão explícita quanto tabela desconhecida (fora do escopo mapeado) —
@@ -252,6 +266,8 @@ export const classificarTabelaCedente = (nomeTabela) => {
   if (PREFIXOS_POC.some((padrao) => padrao.test(nomeTabela))) return { fase: FASE_POC, entra: true };
 
   if (nomeTabela.startsWith('MC_CAD_')) return { fase: FASE_CATALOGO, entra: true };
+
+  if (TABELAS_CATALOGO_FORA_DO_PADRAO_MC_CAD.includes(nomeTabela)) return { fase: FASE_CATALOGO, entra: true };
 
   return { fase: null, entra: false };
 };

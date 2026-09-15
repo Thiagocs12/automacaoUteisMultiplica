@@ -79,6 +79,15 @@ test('classificarTabelaCedente exclui MC_CAD_ARQUIVO mesmo sendo prefixo MC_CAD_
   assert.deepEqual(classificarTabelaCedente('MC_CAD_ARQUIVO'), { fase: null, entra: false });
 });
 
+test('classificarTabelaCedente trata MC_RAT_RATING_INDICADOR(_ITEM) como catálogo, fora do padrão MC_CAD_ (confirmado pelo Thiago)', () => {
+  assert.deepEqual(classificarTabelaCedente('MC_RAT_RATING_INDICADOR'), { fase: FASE_CATALOGO, entra: true });
+  assert.deepEqual(classificarTabelaCedente('MC_RAT_RATING_INDICADOR_ITEM'), { fase: FASE_CATALOGO, entra: true });
+});
+
+test('classificarTabelaCedente não trata qualquer MC_RAT_* como catálogo (só as duas tabelas confirmadas)', () => {
+  assert.deepEqual(classificarTabelaCedente('MC_RAT_OUTRA_TABELA_NAO_CONFIRMADA'), { fase: null, entra: false });
+});
+
 test('classificarTabelaCedente devolve não classificado para tabela desconhecida/fora do mapeamento', () => {
   assert.deepEqual(classificarTabelaCedente('MC_TABELA_INEXISTENTE_QUALQUER'), { fase: null, entra: false });
 });

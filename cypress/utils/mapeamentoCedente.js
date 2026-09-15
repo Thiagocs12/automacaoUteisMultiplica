@@ -577,22 +577,19 @@ export const MAPEAMENTO_CEDENTE_POC = {
     ],
   },
 
-  // --- Família MC_POC_RATING_* --- ATENÇÃO: idRatingIndicador (NOT NULL) e
+  // --- Família MC_POC_RATING_* --- idRatingIndicador (NOT NULL) e
   // idRatingIndicadorItem (nullable) de MC_POC_RATING_INDICADOR_RESULTADO apontam
-  // pra MC_RAT_RATING_INDICADOR(_ITEM) — tabelas de catálogo aparentes, mas com
-  // prefixo `MC_RAT_`, fora do padrão `MC_CAD_*` que `classificarTabelaCedente`
-  // sabe resolver como catálogo. Como NENHUMA das duas apareceu em lugar nenhum da
-  // tarefa original, classificar essas duas tabelas é uma decisão nova de escopo —
-  // registrada como dúvida bloqueante em duvidas.md (regra 8 do AGENTE.md), não
-  // decidida sozinho aqui. Por isso as arestas pra essas duas tabelas ficam DE FORA
-  // deste mapeamento por enquanto (não resolvidas), e a tabela toda fica sem poder
-  // ser inserida em HML até a resposta chegar (idRatingIndicador é NOT NULL).
+  // pra MC_RAT_RATING_INDICADOR(_ITEM) — tabelas de catálogo com prefixo `MC_RAT_`,
+  // fora do padrão `MC_CAD_*` genérico. Thiago confirmou (duvidas.md,
+  // 20260915130215) tratá-las como catálogo, mesmo padrão de resolução por chave
+  // natural das `MC_CAD_*` — ver `TABELAS_CATALOGO_FORA_DO_PADRAO_MC_CAD` em
+  // `clonagemCedente.js`.
   MC_POC_RATING_INDICADOR_RESULTADO: {
     dependeDe: [
       { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
       { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
-      // idRatingIndicador / idRatingIndicadorItem -> MC_RAT_RATING_INDICADOR(_ITEM):
-      // pendente, ver duvidas.md.
+      { campo: 'idRatingIndicador', tabela: 'MC_RAT_RATING_INDICADOR', tipo: 'catalogo' },
+      { campo: 'idRatingIndicadorItem', tabela: 'MC_RAT_RATING_INDICADOR_ITEM', tipo: 'catalogo' },
     ],
   },
 
