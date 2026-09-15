@@ -200,7 +200,11 @@ export const TABELAS_FORA_DE_ESCOPO = [
   'MC_PORTAL_FORNECEDOR_ARQUIVO',
   'MC_PORTAL_FORNECEDOR_ARQUIVO_RETORNO',
   'MC_PORTAL_FORNECEDOR_ARQUIVO_PRE_CADASTRO',
-  // MC_CAD_ARQUIVO só é referenciado por tabelas de documento, que já estão fora.
+  // MC_CAD_ARQUIVO: referenciado por tabelas de documento (já fora) e também por
+  // MC_POC_PROPOSTA.idArquivo (dentro do escopo, descoberto ao mapear a fase POC em
+  // 2026-09-15) — mesmo assim fica fora do mapeamento: é sempre referência a
+  // arquivo/documento, tratada como não resolvida/null onde aparecer (mesmo
+  // critério de MC_CED_CEDENTE.idArquivoLogo), nunca uma tabela copiada.
   'MC_CAD_ARQUIVO',
 ];
 

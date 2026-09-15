@@ -16,7 +16,7 @@ import {
   construirGrafoEstrutural,
   ordenarTabelasPorDependenciaEstrutural,
 } from '../clonagemCedente.js';
-import MAPEAMENTO_CEDENTE_PROSPECT from '../../../utils/mapeamentoCedente.js';
+import MAPEAMENTO_CEDENTE_PROSPECT, { MAPEAMENTO_CEDENTE_POC } from '../../../utils/mapeamentoCedente.js';
 
 test('classificarTabelaCedente reconhece as tabelas-âncora de cada fase', () => {
   assert.deepEqual(classificarTabelaCedente('MC_PRT_PROSPECT'), { fase: FASE_PROSPECT, entra: true });
@@ -254,4 +254,72 @@ test('grafo estrutural real da fase prospect (mapeamentoCedente.js) não tem cic
   assert.equal(ordem.indexOf('MC_PRT_PLEITO_PRODUTO') < ordem.indexOf('MC_PRT_PRODUTO_GARANTIA'), true);
   assert.equal(ordem.indexOf('MC_PRT_PLEITO_PRODUTO') < ordem.indexOf('MC_PRT_PLEITO_PRODUTO_CONC'), true);
   assert.equal(new Set(ordem).size, ordem.length, 'nenhuma tabela duplicada na ordem final');
+});
+
+test('classificarTabelaCedente reconhece as tabelas reais das famílias POC por prefixo (INCORP/RATING/RESTRIT)', () => {
+  const tabelasDeFamilia = [
+    'MC_POC_INCORP_OBRA_ANDAMENTO',
+    'MC_POC_INCORP_OBRA_CONCLUIDA',
+    'MC_POC_INCORP_RESUMO',
+    'MC_POC_INCORP_RESUMO_RESULTADO',
+    'MC_POC_RATING_INDICADOR_RESULTADO',
+    'MC_POC_RATING_RESULTADO',
+    'MC_POC_RESTRIT',
+    'MC_POC_RESTRIT_ACAO_JUDICIAL',
+    'MC_POC_RESTRIT_DIV_VENCIDA',
+    'MC_POC_RESTRIT_FALENCIA',
+    'MC_POC_RESTRIT_PEFIN',
+    'MC_POC_RESTRIT_PROTESTO',
+    'MC_POC_RESTRIT_RECHEQUE',
+    'MC_POC_RESTRIT_REFIN',
+    'MC_POC_RESTRIT_TRIBUTO_DIVIDA',
+    'MC_POC_RESTRIT_ULTIMAS_CONSULTAS',
+    'MC_POC_RESTRITIVO_EVOL_PROTESTO_ANO',
+    'MC_POC_RESTRITIVO_EVOL_PROTESTO_MES',
+    'MC_POC_RESTRITIVO_PROTESTO',
+    'MC_POC_RESTRITIVO_PROTESTO_ESTADO',
+    'MC_POC_RESTRITIVO_TRAB_ESCRAVO',
+    'MC_POC_RESTRITIVO_TRIBUTO_DIVIDA',
+  ];
+
+  tabelasDeFamilia.forEach((tabela) => {
+    assert.deepEqual(classificarTabelaCedente(tabela), { fase: FASE_POC, entra: true }, tabela);
+  });
+
+  // Todas as tabelas reais da família também precisam ter entrada no mapeamento de
+  // dependências (mapeamentoCedente.js) — senão ficariam classificadas como "entra"
+  // mas sem grafo de FK pra ordenar o INSERT/DELETE.
+  tabelasDeFamilia.forEach((tabela) => {
+    assert.ok(MAPEAMENTO_CEDENTE_POC[tabela], `${tabela} deveria ter entrada em MAPEAMENTO_CEDENTE_POC`);
+  });
+});
+
+test('grafo estrutural real da fase POC (mapeamentoCedente.js) não tem ciclo e respeita a ordem pai->filho', () => {
+  const grafo = construirGrafoEstrutural(MAPEAMENTO_CEDENTE_POC);
+  const ordem = ordenarTabelasPorDependenciaEstrutural(grafo);
+
+  assert.equal(new Set(ordem).size, ordem.length, 'nenhuma tabela duplicada na ordem final');
+  assert.equal(ordem.indexOf('MC_POC_PROPOSTA') < ordem.indexOf('MC_POC_ALAVANCAGEM'), true);
+  assert.equal(ordem.indexOf('MC_POC_ENDIVIDAMENTO') < ordem.indexOf('MC_POC_ENDIVIDAMENTO_LANCAMENTO'), true);
+  assert.equal(ordem.indexOf('MC_POC_INCORP_RESUMO') < ordem.indexOf('MC_POC_INCORP_RESUMO_RESULTADO'), true);
+  assert.equal(ordem.indexOf('MC_POC_RESTRIT') < ordem.indexOf('MC_POC_RESTRIT_PROTESTO'), true);
+  assert.equal(
+    ordem.indexOf('MC_POC_PROPOSTA') < ordem.indexOf('MC_POC_PROPOSTA_HIST'),
+    true,
+    'MC_POC_PROPOSTA_HIST referencia a própria MC_POC_PROPOSTA duas vezes (anterior/nova) sem formar ciclo',
+  );
+  // MC_CAD_COMITE/MC_POC_COMITE/MC_POC_COMITE_LIMITE_PRODUTO (fase comitê) ainda não
+  // mapeados neste arquivo: construirGrafoEstrutural trata como folha, não quebra.
+  assert.equal(ordem.includes('MC_CAD_COMITE'), true);
+  assert.equal(ordem.includes('MC_POC_COMITE'), true);
+  assert.equal(ordem.includes('MC_POC_COMITE_LIMITE_PRODUTO'), true);
+});
+
+test('grafo estrutural combinado (prospect + POC) resolve o cruzamento MC_PRT_PLEITO* -> MC_POC_PROPOSTA sem ciclo', () => {
+  const grafo = construirGrafoEstrutural({ ...MAPEAMENTO_CEDENTE_PROSPECT, ...MAPEAMENTO_CEDENTE_POC });
+  const ordem = ordenarTabelasPorDependenciaEstrutural(grafo);
+
+  assert.equal(new Set(ordem).size, ordem.length, 'nenhuma tabela duplicada na ordem final');
+  assert.equal(ordem.indexOf('MC_POC_PROPOSTA') < ordem.indexOf('MC_PRT_PLEITO'), true);
+  assert.equal(ordem.indexOf('MC_PRT_PROSPECT') < ordem.indexOf('MC_POC_ALAVANCAGEM'), true);
 });
