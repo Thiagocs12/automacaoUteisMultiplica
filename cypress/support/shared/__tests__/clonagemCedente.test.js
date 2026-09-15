@@ -15,8 +15,9 @@ import {
   decidirEstrategiaClonagemCedente,
   construirGrafoEstrutural,
   ordenarTabelasPorDependenciaEstrutural,
+  TABELAS_POR_FASE,
 } from '../clonagemCedente.js';
-import MAPEAMENTO_CEDENTE_PROSPECT, { MAPEAMENTO_CEDENTE_POC } from '../../../utils/mapeamentoCedente.js';
+import MAPEAMENTO_CEDENTE_PROSPECT, { MAPEAMENTO_CEDENTE_POC, MAPEAMENTO_CEDENTE_COMITE } from '../../../utils/mapeamentoCedente.js';
 
 test('classificarTabelaCedente reconhece as tabelas-âncora de cada fase', () => {
   assert.deepEqual(classificarTabelaCedente('MC_PRT_PROSPECT'), { fase: FASE_PROSPECT, entra: true });
@@ -331,4 +332,38 @@ test('grafo estrutural combinado (prospect + POC) resolve o cruzamento MC_PRT_PL
   assert.equal(new Set(ordem).size, ordem.length, 'nenhuma tabela duplicada na ordem final');
   assert.equal(ordem.indexOf('MC_POC_PROPOSTA') < ordem.indexOf('MC_PRT_PLEITO'), true);
   assert.equal(ordem.indexOf('MC_PRT_PROSPECT') < ordem.indexOf('MC_POC_ALAVANCAGEM'), true);
+});
+
+test('todas as 18 tabelas da fase comitê estão classificadas e têm entrada em MAPEAMENTO_CEDENTE_COMITE', () => {
+  TABELAS_POR_FASE[FASE_COMITE].forEach((tabela) => {
+    assert.deepEqual(classificarTabelaCedente(tabela), { fase: FASE_COMITE, entra: true }, tabela);
+    assert.ok(MAPEAMENTO_CEDENTE_COMITE[tabela], `${tabela} deveria ter entrada em MAPEAMENTO_CEDENTE_COMITE`);
+  });
+});
+
+test('grafo estrutural real da fase comitê (mapeamentoCedente.js) não tem ciclo e respeita a ordem pai->filho', () => {
+  const grafo = construirGrafoEstrutural(MAPEAMENTO_CEDENTE_COMITE);
+  const ordem = ordenarTabelasPorDependenciaEstrutural(grafo);
+
+  assert.equal(new Set(ordem).size, ordem.length, 'nenhuma tabela duplicada na ordem final');
+  assert.equal(ordem.indexOf('MC_CAD_COMITE') < ordem.indexOf('MC_CAD_COMITE_PROPOSTA'), true);
+  assert.equal(ordem.indexOf('MC_POC_COMITE') < ordem.indexOf('MC_POC_COMITE_ATA'), true);
+  assert.equal(ordem.indexOf('MC_POC_COMITE') < ordem.indexOf('MC_POC_COMITE_LIMITE_PRODUTO'), true);
+  assert.equal(ordem.indexOf('MC_POC_COMITE_LIMITE_PRODUTO') < ordem.indexOf('MC_POC_COMITE_PRODUTO_CONC'), true);
+  assert.equal(ordem.indexOf('MC_POC_COMITE_VOTACAO') < ordem.indexOf('MC_POC_COMITE_VOTACAO_PRODUTO'), true);
+  // MC_POC_PROPOSTA (fase POC) ainda não está neste grafo isolado: tratada como
+  // folha, não quebra — o cruzamento real só é resolvido no grafo combinado abaixo.
+  assert.equal(ordem.includes('MC_POC_PROPOSTA'), true);
+  // MC_CED_PORTAL_CONVENIO (fase cedente, ainda não mapeada) idem.
+  assert.equal(ordem.includes('MC_CED_PORTAL_CONVENIO'), true);
+});
+
+test('grafo estrutural combinado (POC + comitê) resolve o cruzamento MC_POC_PROPOSTA <-> MC_CAD_COMITE/MC_POC_COMITE sem ciclo', () => {
+  const grafo = construirGrafoEstrutural({ ...MAPEAMENTO_CEDENTE_POC, ...MAPEAMENTO_CEDENTE_COMITE });
+  const ordem = ordenarTabelasPorDependenciaEstrutural(grafo);
+
+  assert.equal(new Set(ordem).size, ordem.length, 'nenhuma tabela duplicada na ordem final');
+  assert.equal(ordem.indexOf('MC_CAD_COMITE') < ordem.indexOf('MC_POC_PROPOSTA'), true);
+  assert.equal(ordem.indexOf('MC_POC_PROPOSTA') < ordem.indexOf('MC_POC_COMITE'), true);
+  assert.equal(ordem.indexOf('MC_POC_COMITE_LIMITE_PRODUTO') < ordem.indexOf('MC_POC_PRODUTO_GARANTIA_REGRA'), true);
 });
