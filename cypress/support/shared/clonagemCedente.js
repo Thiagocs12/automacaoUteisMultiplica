@@ -105,6 +105,13 @@ export const TABELAS_POR_FASE = {
     'MC_POC_COMITE_VOTACAO_PRODUTO',
     'MC_PORTAL_COMITE_VOTACAO',
   ],
+  // NOTA (Ciclo 9, investigação real INFORMATION_SCHEMA.TABLES contra PROD): três
+  // tabelas citadas na tarefa original não existem de fato no schema —
+  // `MC_CED_GERENTE_FOCO_HIST`, `MC_CED_GERENTE_FOCO_LOG` e
+  // `MC_CED_FIRMAS_PODERES_REGRA_VALIDADE` (a tarefa assumia que existiam como
+  // satélites de `MC_CED_GERENTE_FOCO`/`MC_CED_FIRMAS_PODERES_REGRA`, mas
+  // `INFORMATION_SCHEMA.TABLES` não retorna nenhuma delas). Não é uma decisão de
+  // escopo — simplesmente não há nada para copiar, removidas da lista.
   [FASE_CEDENTE]: [
     'MC_CED_CEDENTE',
     'MC_CED_FILIAL',
@@ -114,8 +121,6 @@ export const TABELAS_POR_FASE = {
     'MC_CED_PRODUTO',
     'MC_CED_CEDENTE_VINCULADO',
     'MC_CED_GERENTE_FOCO',
-    'MC_CED_GERENTE_FOCO_HIST',
-    'MC_CED_GERENTE_FOCO_LOG',
     'MC_CED_GARANTIA',
     'MC_CED_GARANTIA_HIST',
     'MC_CED_GARANTIA_REGRA',
@@ -127,13 +132,21 @@ export const TABELAS_POR_FASE = {
     'MC_CAD_CONVENIO_PORTAL',
     'MC_CAD_CLASSIFICACAO_PORTAL',
     'MC_CED_FIRMAS_PODERES_REGRA',
-    'MC_CED_FIRMAS_PODERES_REGRA_VALIDADE',
     'MC_CED_PARAMETRO_OPERACAO',
     'MC_CED_SETUP',
     'MC_CED_SETUP_EXC',
     'MC_CED_COMPLIANCE',
     'MC_CED_OBSERVACAO',
     'MC_CED_LOCAL_COBRANCA_NN',
+    // `MC_CED_ATA_VOTACAO` (existe de fato no schema, `idParticipante` NOT NULL já
+    // teria a mesma resolução `participante-fixo` das votações de comitê, conforme
+    // Resposta-4/duvidas.md) fica **fora** desta lista por enquanto: seu único
+    // vínculo estrutural, `idCedenteAta` (NOT NULL), aponta para `MC_CED_ATA` —
+    // tabela de documentação/formalização explicitamente excluída
+    // (`TABELAS_FORA_DE_ESCOPO`). Incluir a tabela sem resolver essa FK deixaria a
+    // linha impossível de inserir; excluir a tabela definitivamente sem confirmar
+    // com o Thiago seria uma decisão de escopo nova, não autônoma (regra 8 do
+    // `AGENTE.md`) — dúvida bloqueante registrada em duvidas.md (Ciclo 9).
   ],
 };
 

@@ -19,7 +19,11 @@ import {
   NOME_ANALISTA_RESPONSAVEL_CLONAGEM_CEDENTE,
   aplicarValoresFixos,
 } from '../clonagemCedente.js';
-import MAPEAMENTO_CEDENTE_PROSPECT, { MAPEAMENTO_CEDENTE_POC, MAPEAMENTO_CEDENTE_COMITE } from '../../../utils/mapeamentoCedente.js';
+import MAPEAMENTO_CEDENTE_PROSPECT, {
+  MAPEAMENTO_CEDENTE_POC,
+  MAPEAMENTO_CEDENTE_COMITE,
+  MAPEAMENTO_CEDENTE_CEDENTE,
+} from '../../../utils/mapeamentoCedente.js';
 
 test('classificarTabelaCedente reconhece as tabelas-âncora de cada fase', () => {
   assert.deepEqual(classificarTabelaCedente('MC_PRT_PROSPECT'), { fase: FASE_PROSPECT, entra: true });
@@ -423,4 +427,57 @@ test('aplicarValoresFixos devolve a linha original intacta para uma tabela sem v
 
   assert.deepEqual(linhaClonada, linhaOrigem);
   assert.notEqual(linhaClonada, linhaOrigem, 'deve retornar um novo objeto, mesmo sem alteração');
+});
+
+test('todas as tabelas da fase cedente (TABELAS_POR_FASE) estão classificadas e têm entrada em MAPEAMENTO_CEDENTE_CEDENTE', () => {
+  TABELAS_POR_FASE[FASE_CEDENTE].forEach((tabela) => {
+    assert.deepEqual(classificarTabelaCedente(tabela), { fase: FASE_CEDENTE, entra: true }, tabela);
+    assert.ok(MAPEAMENTO_CEDENTE_CEDENTE[tabela], `${tabela} deveria ter entrada em MAPEAMENTO_CEDENTE_CEDENTE`);
+  });
+});
+
+test('MC_CED_ATA_VOTACAO fica fora de TABELAS_POR_FASE/MAPEAMENTO_CEDENTE_CEDENTE até a dúvida do idCedenteAta ser respondida', () => {
+  assert.deepEqual(classificarTabelaCedente('MC_CED_ATA_VOTACAO'), { fase: null, entra: false });
+  assert.equal(MAPEAMENTO_CEDENTE_CEDENTE.MC_CED_ATA_VOTACAO, undefined);
+});
+
+test('grafo estrutural real da fase cedente (mapeamentoCedente.js) não tem ciclo e respeita a ordem pai->filho', () => {
+  const grafo = construirGrafoEstrutural(MAPEAMENTO_CEDENTE_CEDENTE);
+  const ordem = ordenarTabelasPorDependenciaEstrutural(grafo);
+
+  assert.equal(new Set(ordem).size, ordem.length, 'nenhuma tabela duplicada na ordem final');
+  assert.equal(ordem.indexOf('MC_CED_CEDENTE') < ordem.indexOf('MC_CED_FILIAL'), true);
+  assert.equal(ordem.indexOf('MC_CAD_CONVENIO_PORTAL') < ordem.indexOf('MC_CED_PORTAL_CONVENIO'), true);
+  assert.equal(ordem.indexOf('MC_CED_PORTAL_CONVENIO') < ordem.indexOf('MC_CED_CEDENTE_CONVENIO'), true);
+  assert.equal(ordem.indexOf('MC_CAD_CONVENIO_PORTAL') < ordem.indexOf('MC_CED_CEDENTE_CONVENIO'), true);
+  assert.equal(ordem.indexOf('MC_CED_GARANTIA') < ordem.indexOf('MC_CED_GARANTIA_HIST'), true);
+  // MC_PRT_PROSPECT/MC_POC_PROPOSTA (fases anteriores, já mapeadas em outros
+  // arquivos deste módulo) ainda não estão neste grafo isolado: tratadas como
+  // folha, não quebra — o cruzamento real só é resolvido no grafo combinado.
+  assert.equal(ordem.includes('MC_PRT_PROSPECT'), true);
+  assert.equal(ordem.includes('MC_POC_PROPOSTA'), true);
+});
+
+test('grafo estrutural combinado (todas as 4 fases) resolve os cruzamentos MC_CED_CEDENTE <-> MC_PRT_PROSPECT/MC_POC_PROPOSTA sem ciclo', () => {
+  const grafo = construirGrafoEstrutural({
+    ...MAPEAMENTO_CEDENTE_PROSPECT,
+    ...MAPEAMENTO_CEDENTE_POC,
+    ...MAPEAMENTO_CEDENTE_COMITE,
+    ...MAPEAMENTO_CEDENTE_CEDENTE,
+  });
+  const ordem = ordenarTabelasPorDependenciaEstrutural(grafo);
+
+  assert.equal(new Set(ordem).size, ordem.length, 'nenhuma tabela duplicada na ordem final');
+  assert.equal(ordem.indexOf('MC_PRT_PROSPECT') < ordem.indexOf('MC_CED_CEDENTE'), true);
+  assert.equal(ordem.indexOf('MC_POC_PROPOSTA') < ordem.indexOf('MC_CED_CEDENTE'), true);
+  assert.equal(ordem.indexOf('MC_POC_PROPOSTA') < ordem.indexOf('MC_CED_SETUP'), true);
+  assert.equal(ordem.indexOf('MC_PORTAL_COMITE_VOTACAO') < ordem.length, true);
+});
+
+test('colunas NOT NULL sem resolução na fase cedente ficam sem dependeDe explícito (dúvida bloqueante, Ciclo 9)', () => {
+  const semDependencia = (tabela, campo) =>
+    !MAPEAMENTO_CEDENTE_CEDENTE[tabela].dependeDe.some((d) => d.campo === campo);
+
+  assert.equal(semDependencia('MC_CED_CEDENTE_VINCULADO', 'idCedenteVinculado'), true);
+  assert.equal(semDependencia('MC_CED_LOGIN', 'idLogin'), true);
 });

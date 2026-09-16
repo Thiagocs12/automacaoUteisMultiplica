@@ -941,4 +941,328 @@ export const MAPEAMENTO_CEDENTE_COMITE = {
   },
 };
 
+// Ciclo 9 (2026-09-15): grafo de FK real da fase `cedente` (última fase), investigado
+// contra PROD (INFORMATION_SCHEMA.COLUMNS + sys.foreign_keys, mesmo template dos
+// ciclos anteriores). `MC_CED_ATA_VOTACAO` fica de fora deste mapeamento por enquanto
+// (dúvida bloqueante, ver `TABELAS_POR_FASE[FASE_CEDENTE]` em `clonagemCedente.js`).
+// Duas outras dependências NOT NULL também ficaram sem resolução (dúvida bloqueante
+// registrada em duvidas.md, Ciclo 9, mesmo bloco `## <id>` já existente):
+// `MC_CED_CEDENTE_VINCULADO.idCedenteVinculado` (aponta pra OUTRO cedente, não o que
+// está sendo clonado — a regra da tarefa é "um cedente por execução", não está claro
+// como/se resolver um cedente relacionado que talvez ainda não exista em HML) e
+// `MC_CED_LOGIN.idLogin` (aponta pra `MC_LOGIN`, tabela fora do padrão `MC_CAD_*` e
+// possivelmente com dado de autenticação/credencial — mesma categoria do precedente
+// `MC_RAT_RATING_INDICADOR`, mas potencialmente mais sensível). As tabelas abaixo estão
+// com as demais dependências (catálogo/estrutural) já resolvidas; só essas duas colunas
+// específicas ficam sem `dependeDe` até a resposta chegar.
+export const MAPEAMENTO_CEDENTE_CEDENTE = {
+  MC_CAD_CLASSIFICACAO_PORTAL: {
+    // Prefixo `MC_CAD_` mas estrutural desta fase (mesmo padrão já aplicado a
+    // MC_CAD_COMITE/MC_CAD_COMITE_PROPOSTA/MC_CAD_MODELO_ATA_COMITE na fase comitê —
+    // checado por TABELAS_POR_FASE antes do fallback de catálogo genérico).
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_CAD_CONVENIO_PORTAL: {
+    // Mesmo caso de MC_CAD_CLASSIFICACAO_PORTAL acima (prefixo MC_CAD_, mas
+    // estrutural desta fase).
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idFundo', tabela: 'MC_CAD_FUNDO', tipo: 'catalogo' },
+      // idKitDocumento (nullable) -> MC_CAD_KIT_DOCUMENTO: referência a
+      // documento/kit, mesmo critério já aplicado a idArquivoLogo/idArquivo (fora de
+      // escopo, não resolvida).
+    ],
+  },
+
+  MC_CED_CEDENTE: {
+    // Tabela-âncora da fase (TABELA_ANCORA_POR_FASE). idPessoa é também a chave de
+    // match PROD<->HML (decidirEstrategiaClonagemCedente), mas resolvida aqui como
+    // qualquer outra dependência de catálogo (mesmo padrão de MC_PRT_PROSPECT.idPessoa
+    // na fase prospect).
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idPessoa', tabela: 'MC_CAD_PESSOA', tipo: 'catalogo' },
+      { campo: 'idPessoaRelacionada', tabela: 'MC_CAD_PESSOA', tipo: 'catalogo' },
+      { campo: 'idGerenteComercial', tabela: 'MC_CAD_GERENTE_COMERCIAL', tipo: 'catalogo' },
+      { campo: 'idGrupoEconomico', tabela: 'MC_CAD_GRUPO_ECONOMICO', tipo: 'catalogo' },
+      { campo: 'idIndicador', tabela: 'MC_CAD_INDICADOR', tipo: 'catalogo' },
+      { campo: 'idConsultor', tabela: 'MC_CAD_CONSULTOR', tipo: 'catalogo' },
+      { campo: 'idConsultoria', tabela: 'MC_CAD_CONSULTORIA', tipo: 'catalogo' },
+      { campo: 'idSituacao', tabela: 'MC_CAD_SITUACAO', tipo: 'catalogo' },
+      { campo: 'idAnalistaChecagem', tabela: 'MC_CAD_ANALISTA', tipo: 'catalogo' },
+      { campo: 'idAnalistaCobranca', tabela: 'MC_CAD_ANALISTA', tipo: 'catalogo' },
+      { campo: 'idBloqueio', tabela: 'MC_CAD_BLOQUEIO', tipo: 'catalogo' },
+      { campo: 'idSegmentoTarifador', tabela: 'MC_CAD_SEGMENTO_TARIFADOR', tipo: 'catalogo' },
+      // idProspect/idProposta/idProximaProposta (todas nullable): cruzam pra fases
+      // anteriores já mapeadas (mesmo padrão "ordem vem do grafo real, não da
+      // suposição de fase" já registrado pra MC_PRT_PLEITO*/MC_POC_PROPOSTA.idComite).
+      { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      { campo: 'idProximaProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      // idCedenteObservacao (nullable) -> MC_CED_OBSERVACAO: referência circular
+      // (MC_CED_OBSERVACAO.idCedente é NOT NULL, aponta de volta pra cá) — cedente
+      // precisa existir antes da observação, então este campo não pode ser resolvido
+      // na mesma inserção; nullable, fica sem resolução (mesmo critério de campo
+      // circular/tardio já usado para outras colunas nullable sem alvo imediato).
+      // idArquivoLogo (nullable) -> MC_CAD_ARQUIVO: documento, fora de escopo, não
+      // resolvida (precedente já estabelecido).
+      // idAtaReferencial (nullable, sem FK física): não presumida (mesmo critério das
+      // colunas sem FK física já registradas nas fases anteriores).
+    ],
+  },
+
+  MC_CED_CEDENTE_CONVENIO: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idPortalConvenio', tabela: 'MC_CAD_CONVENIO_PORTAL', tipo: 'estrutural' },
+      { campo: 'idConvenioVigente', tabela: 'MC_CED_PORTAL_CONVENIO', tipo: 'estrutural' },
+    ],
+  },
+
+  // idCedenteVinculado (NOT NULL) aponta pra OUTRO cedente (não o que está sendo
+  // clonado) — dúvida bloqueante registrada em duvidas.md (Ciclo 9): não está claro
+  // como resolver quando o cedente vinculado ainda não existe em HML, dado que a regra
+  // da tarefa é "um cedente por execução" (não decide sozinho clonar um segundo
+  // cedente em cascata, nem pular a linha silenciosamente).
+  MC_CED_CEDENTE_VINCULADO: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      // idCedenteVinculado: ver comentário acima do objeto, dúvida bloqueante.
+    ],
+  },
+
+  MC_CED_COMPLIANCE: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idAnalista', tabela: 'MC_CAD_ANALISTA', tipo: 'catalogo' },
+      { campo: 'idSituacao', tabela: 'MC_CAD_SITUACAO', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_CED_FILIAL: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idPessoa', tabela: 'MC_CAD_PESSOA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_CED_FIRMAS_PODERES_REGRA: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      // idDocumento (nullable) -> MC_CAD_DOCUMENTO: referência a documento, fora de
+      // escopo, não resolvida (mesmo precedente de idArquivoLogo/idArquivo).
+      // Diferente das demais tabelas da fase, não tem coluna idConsultoriaEspecializada
+      // no schema real (confirmado via INFORMATION_SCHEMA.COLUMNS).
+    ],
+  },
+
+  MC_CED_FORMULARIO_GARANTIA: {
+    // idConsultoriaEspecializada/idGarantiaCategoria (NOT NULL) e idFormulario/
+    // idFormularioCampo (nullable) não têm constraint de FK física no schema real,
+    // mas são exatamente o mesmo nome+semântica usado com FK física de verdade em
+    // dezenas de outras tabelas desta automação (ex. MC_CED_GARANTIA.idGarantiaCategoria
+    // -> MC_CAD_GARANTIA_CATEGORIA, MC_POC_COMITE_GARANTIA.idFormulario/idFormularioCampo)
+    // — diferente das colunas "sem FK física, não presumidas" já registradas em ciclos
+    // anteriores (ex. idCedente/idSacado, MC_POC_COMITE_FUNDO.idPorteEmpresaAdm), aqui
+    // não há ambiguidade sobre o alvo (um único candidato, usado de forma consistente
+    // em todo o resto do schema) — resolvido por esse precedente forte, sem necessidade
+    // de dúvida nova.
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idGarantiaCategoria', tabela: 'MC_CAD_GARANTIA_CATEGORIA', tipo: 'catalogo' },
+      { campo: 'idFormulario', tabela: 'MC_CAD_FORMULARIO', tipo: 'catalogo' },
+      { campo: 'idFormularioCampo', tabela: 'MC_CAD_FORMULARIO_CAMPO', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_CED_FUNDO: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idFundo', tabela: 'MC_CAD_FUNDO', tipo: 'catalogo' },
+      { campo: 'IdPorteEmpresaAdm', tabela: 'MC_CAD_CLASSIFICACAO_EMPRESA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_CED_GARANTIA: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idPessoa', tabela: 'MC_CAD_PESSOA', tipo: 'catalogo' },
+      { campo: 'idEmpresaMonitoramento', tabela: 'MC_CAD_PESSOA', tipo: 'catalogo' },
+      { campo: 'idFundo', tabela: 'MC_CAD_FUNDO', tipo: 'catalogo' },
+      { campo: 'idGarantiaAcondicionamento', tabela: 'MC_CAD_GARANTIA_ACONDICIONAMENTO', tipo: 'catalogo' },
+      { campo: 'idGarantiaCategoria', tabela: 'MC_CAD_GARANTIA_CATEGORIA', tipo: 'catalogo' },
+      { campo: 'idGrupoProduto', tabela: 'MC_CAD_GRUPO_PRODUTO', tipo: 'catalogo' },
+      { campo: 'idMoeda', tabela: 'MC_CAD_MOEDA', tipo: 'catalogo' },
+      { campo: 'idSituacao', tabela: 'MC_CAD_SITUACAO', tipo: 'catalogo' },
+      { campo: 'idUnidadeMedida', tabela: 'MC_CAD_UNIDADE_MEDIDA', tipo: 'catalogo' },
+      // idOperacao (nullable) -> MC_MOP_OPERACAO: domínio de operação, explicitamente
+      // fora de escopo — não resolvida (precedente de referência a domínio excluído).
+      // idCedenteProduto/idGarantiaVinculada (nullable, sem FK física): não
+      // presumidas (mesmo critério de colunas sem FK física já registrado).
+    ],
+  },
+
+  MC_CED_GARANTIA_HIST: {
+    dependeDe: [
+      { campo: 'idGarantia', tabela: 'MC_CED_GARANTIA', tipo: 'estrutural' },
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idPessoa', tabela: 'MC_CAD_PESSOA', tipo: 'catalogo' },
+      { campo: 'idEmpresaMonitoramento', tabela: 'MC_CAD_PESSOA', tipo: 'catalogo' },
+      { campo: 'idFundo', tabela: 'MC_CAD_FUNDO', tipo: 'catalogo' },
+      { campo: 'idGarantiaAcondicionamento', tabela: 'MC_CAD_GARANTIA_ACONDICIONAMENTO', tipo: 'catalogo' },
+      { campo: 'idGarantiaCategoria', tabela: 'MC_CAD_GARANTIA_CATEGORIA', tipo: 'catalogo' },
+      { campo: 'idGrupoProduto', tabela: 'MC_CAD_GRUPO_PRODUTO', tipo: 'catalogo' },
+      { campo: 'idMoeda', tabela: 'MC_CAD_MOEDA', tipo: 'catalogo' },
+      { campo: 'idSituacao', tabela: 'MC_CAD_SITUACAO', tipo: 'catalogo' },
+      { campo: 'idUnidadeMedida', tabela: 'MC_CAD_UNIDADE_MEDIDA', tipo: 'catalogo' },
+      // idOperacao/idCedenteProduto/idGarantiaVinculada: mesmo tratamento de
+      // MC_CED_GARANTIA acima.
+    ],
+  },
+
+  MC_CED_GARANTIA_REGRA: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idGarantiaCategoria', tabela: 'MC_CAD_GARANTIA_CATEGORIA', tipo: 'catalogo' },
+      { campo: 'idFocoNegocio', tabela: 'MC_CAD_FOCO_NEGOCIO', tipo: 'catalogo' },
+      { campo: 'idFundo', tabela: 'MC_CAD_FUNDO', tipo: 'catalogo' },
+      { campo: 'idGrupoProduto', tabela: 'MC_CAD_GRUPO_PRODUTO', tipo: 'catalogo' },
+      // idCededenteProdutoOperacao (nullable, sic — nome com typo no schema real) ->
+      // MC_CED_PRODUTO_OPERACAO: tabela do domínio de operação, fora de escopo
+      // (mesmo precedente de referência a domínio excluído) — não resolvida.
+    ],
+  },
+
+  MC_CED_GERENTE_FOCO: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idFocoNegocio', tabela: 'MC_CAD_FOCO_NEGOCIO', tipo: 'catalogo' },
+      { campo: 'idGerenteComercial', tabela: 'MC_CAD_GERENTE_COMERCIAL', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_CED_LOCAL_COBRANCA_NN: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idFundo', tabela: 'MC_CAD_FUNDO', tipo: 'catalogo' },
+      { campo: 'idLocalCobranca', tabela: 'MC_CAD_LOCAL_COBRANCA', tipo: 'catalogo' },
+    ],
+  },
+
+  // idLogin (NOT NULL) aponta pra MC_LOGIN — tabela fora do padrão MC_CAD_*,
+  // possivelmente contendo dado de autenticação/credencial (login do cedente no
+  // portal). Dúvida bloqueante registrada em duvidas.md (Ciclo 9): mesma categoria do
+  // precedente MC_RAT_RATING_INDICADOR (tabela nova fora do padrão, decisão explícita
+  // necessária), mas potencialmente mais sensível por não ser só "dado de referência".
+  MC_CED_LOGIN: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      // idLogin: ver comentário acima do objeto, dúvida bloqueante.
+    ],
+  },
+
+  MC_CED_OBSERVACAO: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      { campo: 'idTipoRiscoCedente', tabela: 'MC_CAD_TIPO_RISCO_CEDENTE', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_CED_PARAMETRO_OPERACAO: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_CED_PORTAL: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      // idGrupoProduto (nullable, sem FK física): não presumida.
+    ],
+  },
+
+  MC_CED_PORTAL_CONVENIO: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idPortalConvenio', tabela: 'MC_CAD_CONVENIO_PORTAL', tipo: 'estrutural' },
+      { campo: 'idTipoProposta', tabela: 'MC_CAD_TIPO_PROPOSTA', tipo: 'catalogo' },
+      // idArquivoAssinado/idArquivoAssinadoGestora (nullable) -> MC_CAD_ARQUIVO:
+      // documento, fora de escopo, não resolvida (precedente já estabelecido).
+      // idAta/idAtaGestora (nullable, sem FK física, mas pelo nome apontam pra
+      // MC_CED_ATA — documentação, fora de escopo): não resolvida, mesmo critério.
+      // Tem campos de votação próprios (situacaoVotacao/indFinalizada/indRejeitada),
+      // mas a decisão de "marcar como aprovado" (Resposta-5) foi específica da fase
+      // comitê (MC_POC_COMITE/MC_POC_COMITE_VOTACAO/MC_PORTAL_COMITE_VOTACAO) — sem
+      // pedido explícito para estender a este campo, copiado como vier de PROD (sem
+      // valoresFixos), já que nenhuma coluna aqui é NOT NULL sem resolução.
+    ],
+  },
+
+  MC_CED_PRODUTO: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProduto', tabela: 'MC_CAD_PRODUTO', tipo: 'catalogo' },
+      { campo: 'idIndicadorEconomico', tabela: 'MC_CAD_INDICADOR_ECONOMICO', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_CED_SEGMENTO: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idSegmento', tabela: 'MC_CAD_SEGMENTO_CEDENTE', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_CED_SETUP: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      // idSolicitacao (nullable) -> MC_BEYOND_SOLICITACAO: integração Beyond,
+      // domínio explicitamente fora de escopo — não resolvida.
+      // idGarantia/idCedenteAditamento (nullable, sem FK física): não presumidas.
+    ],
+  },
+
+  MC_CED_SETUP_EXC: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      // idSolicitacao/idGarantia/idCedenteAditamento (nullable, sem FK física): não
+      // presumidas — mesmo critério de MC_CED_SETUP acima.
+    ],
+  },
+
+  MC_CED_SITUACAO: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idSituacao', tabela: 'MC_CAD_SITUACAO', tipo: 'catalogo' },
+    ],
+  },
+};
+
 export default MAPEAMENTO_CEDENTE_PROSPECT;
