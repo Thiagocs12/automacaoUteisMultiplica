@@ -438,9 +438,32 @@ test('todas as tabelas da fase cedente (TABELAS_POR_FASE) estão classificadas e
   });
 });
 
-test('MC_CED_ATA_VOTACAO fica fora de TABELAS_POR_FASE/MAPEAMENTO_CEDENTE_CEDENTE até a dúvida do idCedenteAta ser respondida', () => {
-  assert.deepEqual(classificarTabelaCedente('MC_CED_ATA_VOTACAO'), { fase: null, entra: false });
-  assert.equal(MAPEAMENTO_CEDENTE_CEDENTE.MC_CED_ATA_VOTACAO, undefined);
+test('MC_CED_ATA/MC_CED_ATA_VOTACAO entram na fase cedente como exceção pontual à exclusão de documentação (Resposta-8)', () => {
+  assert.deepEqual(classificarTabelaCedente('MC_CED_ATA'), { fase: FASE_CEDENTE, entra: true });
+  assert.deepEqual(classificarTabelaCedente('MC_CED_ATA_VOTACAO'), { fase: FASE_CEDENTE, entra: true });
+  assert.equal(TABELAS_FORA_DE_ESCOPO.includes('MC_CED_ATA'), false);
+
+  const dependenciaIdCedenteAta = MAPEAMENTO_CEDENTE_CEDENTE.MC_CED_ATA_VOTACAO.dependeDe.find(
+    (d) => d.campo === 'idCedenteAta',
+  );
+  assert.ok(dependenciaIdCedenteAta, 'idCedenteAta deveria ter uma dependência declarada');
+  assert.equal(dependenciaIdCedenteAta.tabela, 'MC_CED_ATA');
+  assert.equal(dependenciaIdCedenteAta.tipo, 'estrutural');
+
+  const dependenciaIdParticipante = MAPEAMENTO_CEDENTE_CEDENTE.MC_CED_ATA_VOTACAO.dependeDe.find(
+    (d) => d.campo === 'idParticipante',
+  );
+  assert.ok(dependenciaIdParticipante, 'idParticipante deveria ter uma dependência declarada');
+  assert.equal(dependenciaIdParticipante.tabela, 'MC_CAD_ANALISTA');
+  assert.equal(dependenciaIdParticipante.tipo, 'participante-fixo');
+});
+
+test('MC_CED_ATA/MC_CED_ATA_VOTACAO declaram os mesmos valoresFixos de "votado e aprovado" já usados na fase comitê (Resposta-8)', () => {
+  assert.deepEqual(MAPEAMENTO_CEDENTE_CEDENTE.MC_CED_ATA.valoresFixos, { situacaoVotacao: 'FINALIZADA' });
+  assert.deepEqual(
+    MAPEAMENTO_CEDENTE_CEDENTE.MC_CED_ATA_VOTACAO.valoresFixos,
+    { situacaoVoto: 'CONCLUIDO', voto: 'FAVORAVEL' },
+  );
 });
 
 test('grafo estrutural real da fase cedente (mapeamentoCedente.js) não tem ciclo e respeita a ordem pai->filho', () => {
@@ -453,6 +476,8 @@ test('grafo estrutural real da fase cedente (mapeamentoCedente.js) não tem cicl
   assert.equal(ordem.indexOf('MC_CED_PORTAL_CONVENIO') < ordem.indexOf('MC_CED_CEDENTE_CONVENIO'), true);
   assert.equal(ordem.indexOf('MC_CAD_CONVENIO_PORTAL') < ordem.indexOf('MC_CED_CEDENTE_CONVENIO'), true);
   assert.equal(ordem.indexOf('MC_CED_GARANTIA') < ordem.indexOf('MC_CED_GARANTIA_HIST'), true);
+  assert.equal(ordem.indexOf('MC_CED_CEDENTE') < ordem.indexOf('MC_CED_ATA'), true);
+  assert.equal(ordem.indexOf('MC_CED_ATA') < ordem.indexOf('MC_CED_ATA_VOTACAO'), true);
   // MC_PRT_PROSPECT/MC_POC_PROPOSTA (fases anteriores, já mapeadas em outros
   // arquivos deste módulo) ainda não estão neste grafo isolado: tratadas como
   // folha, não quebra — o cruzamento real só é resolvido no grafo combinado.

@@ -1016,6 +1016,43 @@ export const MAPEAMENTO_CEDENTE_CEDENTE = {
     ],
   },
 
+  // MC_CED_ATA/MC_CED_ATA_VOTACAO: exceção pontual ao escopo de documentação (Resposta-8,
+  // duvidas.md, tarefa 20260915130215, 2026-09-16) — só para viabilizar
+  // MC_CED_ATA_VOTACAO.idCedenteAta (NOT NULL). Investigação real (INFORMATION_SCHEMA.COLUMNS
+  // + sys.foreign_keys contra PROD) confirmou o mesmo padrão já visto na fase comitê:
+  // MC_CED_ATA.situacaoVotacao (nullable, valores reais em PROD incluem 'FINALIZADA') é o
+  // campo de "votado"; MC_CED_ATA_VOTACAO.idParticipante (NOT NULL) não tem FK física, mesma
+  // situação de MC_POC_COMITE_VOTACAO/MC_PORTAL_COMITE_VOTACAO.
+  MC_CED_ATA: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      // idArquivo (nullable, sem FK física) -> MC_CAD_ARQUIVO: referência a
+      // arquivo/documento, mesmo precedente de idArquivoLogo/idArquivo (não
+      // resolvida/fica null na cópia). textoAtaComite (nullable) é copiado como
+      // está (texto/HTML, pode conter imagem embutida em base64) — não é uma FK,
+      // não entra em dependeDe.
+    ],
+    // Resposta-8: mesmo tratamento de "votado" já aplicado a MC_POC_COMITE
+    // (Resposta-5) — situacaoVotacao = 'FINALIZADA' em vez do valor original de PROD.
+    valoresFixos: { situacaoVotacao: 'FINALIZADA' },
+  },
+
+  MC_CED_ATA_VOTACAO: {
+    dependeDe: [
+      { campo: 'idCedenteAta', tabela: 'MC_CED_ATA', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      // idParticipante (NOT NULL, sem FK física): mesma resolução já confirmada
+      // pelo Thiago para MC_POC_COMITE_VOTACAO/MC_PORTAL_COMITE_VOTACAO
+      // (Resposta-4) — participante fixo (o próprio Thiago), não o votante real
+      // de PROD.
+      { campo: 'idParticipante', tabela: 'MC_CAD_ANALISTA', tipo: 'participante-fixo' },
+    ],
+    // Resposta-8: mesmo tratamento de voto individual já aplicado a
+    // MC_POC_COMITE_VOTACAO/MC_PORTAL_COMITE_VOTACAO (Resposta-5).
+    valoresFixos: { situacaoVoto: 'CONCLUIDO', voto: 'FAVORAVEL' },
+  },
+
   MC_CED_CEDENTE_CONVENIO: {
     dependeDe: [
       { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },

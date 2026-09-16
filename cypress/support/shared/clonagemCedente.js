@@ -137,22 +137,18 @@ export const TABELAS_POR_FASE = {
     'MC_CED_COMPLIANCE',
     'MC_CED_OBSERVACAO',
     'MC_CED_LOCAL_COBRANCA_NN',
-    // `MC_CED_ATA_VOTACAO` (existe de fato no schema, `idParticipante` NOT NULL já
-    // teria a mesma resolução `participante-fixo` das votações de comitê, conforme
-    // Resposta-4/duvidas.md) fica **fora** desta lista por enquanto: seu único
-    // vínculo estrutural, `idCedenteAta` (NOT NULL), aponta para `MC_CED_ATA` —
-    // tabela de documentação/formalização explicitamente excluída
-    // (`TABELAS_FORA_DE_ESCOPO`). Investigação real (Ciclo 10, INFORMATION_SCHEMA.COLUMNS
-    // contra PROD) mostrou que `MC_CED_ATA` não guarda um documento externo — o
-    // conteúdo da ata vive inline na própria linha (`textoAtaComite`, texto/HTML com
-    // imagem embutida em base64) — ou seja, a premissa de "baixar um documento" da
-    // Resposta-7/item 1 não se aplica; o que existiria para copiar é o campo de texto
-    // em si, potencialmente contendo a ata completa (incl. imagem/assinatura
-    // embutida). Isso muda a natureza da decisão (não é mais "é viável baixar o
-    // documento", é "devemos copiar o conteúdo inteiro da ata, que é documentação
-    // formal, como texto inline") — registrada nova dúvida específica em duvidas.md
-    // em vez de decidir sozinho (regra 8 do AGENTE.md), já que segue sendo uma
-    // exceção à exclusão explícita de documentação do escopo original da tarefa.
+    // `MC_CED_ATA`/`MC_CED_ATA_VOTACAO`: exceção pontual confirmada pelo Thiago
+    // (duvidas.md, tarefa 20260915130215, Resposta-8, 2026-09-16) à exclusão de
+    // documentação/formalização do escopo original — só para viabilizar
+    // `MC_CED_ATA_VOTACAO` (cujo único vínculo estrutural, `idCedenteAta` NOT NULL,
+    // aponta para `MC_CED_ATA`). `MC_CED_ATA` não guarda um documento externo — o
+    // conteúdo da ata vive inline na própria linha (`textoAtaComite`, texto/HTML,
+    // pode conter imagem embutida em base64); copiado como está. `idArquivo`
+    // (nullable, sem FK física) segue não resolvido/null, mesmo precedente de
+    // `idArquivoLogo`. Não abre precedente para as demais tabelas de documentação/
+    // formalização, que continuam fora de escopo.
+    'MC_CED_ATA',
+    'MC_CED_ATA_VOTACAO',
   ],
 };
 
@@ -175,7 +171,9 @@ export const TABELAS_FORA_DE_ESCOPO = [
   'MC_CED_CEDENTE_DOCUMENTO_SECAO',
   'MC_CED_CEDENTE_DOCUMENTO_SECAO_HIST',
   'MC_CED_ANEXO',
-  'MC_CED_ATA',
+  // MC_CED_ATA: removida daqui (Resposta-8, 2026-09-16) — exceção pontual, ver
+  // TABELAS_POR_FASE[FASE_CEDENTE] acima. As demais tabelas de documentação/
+  // formalização continuam fora de escopo.
   'MC_ENT_DOCUMENTO_KIT',
   'MC_CED_CEDENTE_CONTRATO',
   'MC_CED_CEDENTE_CONTRATO_HISTORICO',
