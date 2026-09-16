@@ -125,7 +125,6 @@ export const TABELAS_POR_FASE = {
     'MC_CED_GARANTIA_HIST',
     'MC_CED_GARANTIA_REGRA',
     'MC_CED_FORMULARIO_GARANTIA',
-    'MC_CED_LOGIN',
     'MC_CED_PORTAL',
     'MC_CED_PORTAL_CONVENIO',
     'MC_CED_CEDENTE_CONVENIO',
@@ -143,10 +142,17 @@ export const TABELAS_POR_FASE = {
     // Resposta-4/duvidas.md) fica **fora** desta lista por enquanto: seu único
     // vínculo estrutural, `idCedenteAta` (NOT NULL), aponta para `MC_CED_ATA` —
     // tabela de documentação/formalização explicitamente excluída
-    // (`TABELAS_FORA_DE_ESCOPO`). Incluir a tabela sem resolver essa FK deixaria a
-    // linha impossível de inserir; excluir a tabela definitivamente sem confirmar
-    // com o Thiago seria uma decisão de escopo nova, não autônoma (regra 8 do
-    // `AGENTE.md`) — dúvida bloqueante registrada em duvidas.md (Ciclo 9).
+    // (`TABELAS_FORA_DE_ESCOPO`). Investigação real (Ciclo 10, INFORMATION_SCHEMA.COLUMNS
+    // contra PROD) mostrou que `MC_CED_ATA` não guarda um documento externo — o
+    // conteúdo da ata vive inline na própria linha (`textoAtaComite`, texto/HTML com
+    // imagem embutida em base64) — ou seja, a premissa de "baixar um documento" da
+    // Resposta-7/item 1 não se aplica; o que existiria para copiar é o campo de texto
+    // em si, potencialmente contendo a ata completa (incl. imagem/assinatura
+    // embutida). Isso muda a natureza da decisão (não é mais "é viável baixar o
+    // documento", é "devemos copiar o conteúdo inteiro da ata, que é documentação
+    // formal, como texto inline") — registrada nova dúvida específica em duvidas.md
+    // em vez de decidir sozinho (regra 8 do AGENTE.md), já que segue sendo uma
+    // exceção à exclusão explícita de documentação do escopo original da tarefa.
   ],
 };
 
@@ -176,6 +182,10 @@ export const TABELAS_FORA_DE_ESCOPO = [
   'MC_CADASTRO_CEDENTE_FORMALIZACAO',
   'MC_CED_FORMALIZACAO_IA',
   'MC_CED_FORMALIZACAO_IA_DOCS',
+  // MC_CED_LOGIN: decidido pelo Thiago (Resposta-7/duvidas.md, item 3, 2026-09-15)
+  // — dado sensível/credencial (login do cedente no portal, idLogin -> MC_LOGIN).
+  // Excluída inteira, não só a coluna sem resolução.
+  'MC_CED_LOGIN',
   // KYC do prospect
   'MC_PRT_KYC',
   'MC_CAD_PERGUNTAS_KYC',
@@ -257,6 +267,25 @@ export const TABELAS_CATALOGO_FORA_DO_PADRAO_MC_CAD = [
 // registro ativo com este nome em `MC_CAD_ANALISTA` (id 29 no momento da checagem —
 // não hardcoded aqui, resolvido em tempo de execução pela busca por nome).
 export const NOME_ANALISTA_RESPONSAVEL_CLONAGEM_CEDENTE = 'THIAGO DA COSTA SANTOS';
+
+// `MC_CED_CEDENTE_VINCULADO.idCedenteVinculado` (NOT NULL) aponta pra OUTRO
+// MC_CED_CEDENTE (cedente relacionado, não o que está sendo clonado). Decidido
+// pelo Thiago (duvidas.md, tarefa 20260915130215, Resposta-7, item 2, 2026-09-15):
+// clonar em cascata — se o cedente vinculado não existir em HML, acionar a
+// clonagem dele também (mesmo fluxo desta tarefa, recursivamente), ciente do risco
+// de efeito cascata. Tipo de dependência novo, `cascata`, distinto de `estrutural`
+// (não é uma FK dentro do grafo de tabelas *deste* cedente — aponta pra um cedente
+// *diferente*, cuja própria clonagem é uma execução separada, não uma ordem de
+// INSERT dentro da mesma árvore) e de `catalogo` (não é dado de referência
+// compartilhado, é uma entidade completa do mesmo tipo). `construirGrafoEstrutural`
+// ignora esta aresta (só considera `tipo: 'estrutural'`), mesmo comportamento já
+// coberto por teste para `participante-fixo`. A lógica de execução da cascata
+// (buscar o vinculado em HML por CNPJ/CPF, disparar a clonagem recursiva se
+// ausente, detectar ciclo A-vinculado-a-B-vinculado-a-A) ainda não foi
+// implementada — só a declaração no grafo, mesmo estágio dos demais ciclos de
+// mapeamento; a implementação real acontece quando os comandos de leitura/INSERT
+// forem escritos.
+export const TIPO_DEPENDENCIA_CASCATA = 'cascata';
 
 /**
  * @description Aplica os valores fixos declarados para uma tabela em

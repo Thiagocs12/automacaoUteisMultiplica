@@ -16,7 +16,9 @@ import {
   construirGrafoEstrutural,
   ordenarTabelasPorDependenciaEstrutural,
   TABELAS_POR_FASE,
+  TABELAS_FORA_DE_ESCOPO,
   NOME_ANALISTA_RESPONSAVEL_CLONAGEM_CEDENTE,
+  TIPO_DEPENDENCIA_CASCATA,
   aplicarValoresFixos,
 } from '../clonagemCedente.js';
 import MAPEAMENTO_CEDENTE_PROSPECT, {
@@ -474,10 +476,18 @@ test('grafo estrutural combinado (todas as 4 fases) resolve os cruzamentos MC_CE
   assert.equal(ordem.indexOf('MC_PORTAL_COMITE_VOTACAO') < ordem.length, true);
 });
 
-test('colunas NOT NULL sem resolução na fase cedente ficam sem dependeDe explícito (dúvida bloqueante, Ciclo 9)', () => {
-  const semDependencia = (tabela, campo) =>
-    !MAPEAMENTO_CEDENTE_CEDENTE[tabela].dependeDe.some((d) => d.campo === campo);
+test('MC_CED_CEDENTE_VINCULADO.idCedenteVinculado resolvido como dependência tipo cascata (Resposta-7, item 2)', () => {
+  const dependencia = MAPEAMENTO_CEDENTE_CEDENTE.MC_CED_CEDENTE_VINCULADO.dependeDe.find(
+    (d) => d.campo === 'idCedenteVinculado',
+  );
 
-  assert.equal(semDependencia('MC_CED_CEDENTE_VINCULADO', 'idCedenteVinculado'), true);
-  assert.equal(semDependencia('MC_CED_LOGIN', 'idLogin'), true);
+  assert.ok(dependencia, 'idCedenteVinculado deveria ter uma dependência declarada');
+  assert.equal(dependencia.tabela, 'MC_CED_CEDENTE');
+  assert.equal(dependencia.tipo, TIPO_DEPENDENCIA_CASCATA);
+});
+
+test('MC_CED_LOGIN excluída inteira do escopo (Resposta-7, item 3 — dado sensível/credencial)', () => {
+  assert.deepEqual(classificarTabelaCedente('MC_CED_LOGIN'), { fase: null, entra: false });
+  assert.equal(MAPEAMENTO_CEDENTE_CEDENTE.MC_CED_LOGIN, undefined);
+  assert.equal(TABELAS_FORA_DE_ESCOPO.includes('MC_CED_LOGIN'), true);
 });

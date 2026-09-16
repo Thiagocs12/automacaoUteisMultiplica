@@ -1026,15 +1026,13 @@ export const MAPEAMENTO_CEDENTE_CEDENTE = {
   },
 
   // idCedenteVinculado (NOT NULL) aponta pra OUTRO cedente (não o que está sendo
-  // clonado) — dúvida bloqueante registrada em duvidas.md (Ciclo 9): não está claro
-  // como resolver quando o cedente vinculado ainda não existe em HML, dado que a regra
-  // da tarefa é "um cedente por execução" (não decide sozinho clonar um segundo
-  // cedente em cascata, nem pular a linha silenciosamente).
+  // clonado). Decidido pelo Thiago (Resposta-7, item 2, 2026-09-15): clonar em
+  // cascata — ver `TIPO_DEPENDENCIA_CASCATA` em `clonagemCedente.js`.
   MC_CED_CEDENTE_VINCULADO: {
     dependeDe: [
       { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
       { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
-      // idCedenteVinculado: ver comentário acima do objeto, dúvida bloqueante.
+      { campo: 'idCedenteVinculado', tabela: 'MC_CED_CEDENTE', tipo: 'cascata' },
     ],
   },
 
@@ -1165,18 +1163,10 @@ export const MAPEAMENTO_CEDENTE_CEDENTE = {
     ],
   },
 
-  // idLogin (NOT NULL) aponta pra MC_LOGIN — tabela fora do padrão MC_CAD_*,
-  // possivelmente contendo dado de autenticação/credencial (login do cedente no
-  // portal). Dúvida bloqueante registrada em duvidas.md (Ciclo 9): mesma categoria do
-  // precedente MC_RAT_RATING_INDICADOR (tabela nova fora do padrão, decisão explícita
-  // necessária), mas potencialmente mais sensível por não ser só "dado de referência".
-  MC_CED_LOGIN: {
-    dependeDe: [
-      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
-      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
-      // idLogin: ver comentário acima do objeto, dúvida bloqueante.
-    ],
-  },
+  // MC_CED_LOGIN: removida deste mapeamento (Resposta-7, item 3, 2026-09-15) — o
+  // Thiago decidiu excluir a tabela inteira (dado sensível/credencial, idLogin ->
+  // MC_LOGIN), não só deixar a coluna sem resolução. Ver TABELAS_FORA_DE_ESCOPO em
+  // clonagemCedente.js.
 
   MC_CED_OBSERVACAO: {
     dependeDe: [
