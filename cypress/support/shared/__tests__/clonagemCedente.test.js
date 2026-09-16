@@ -16,6 +16,7 @@ import {
   construirGrafoEstrutural,
   ordenarTabelasPorDependenciaEstrutural,
   TABELAS_POR_FASE,
+  NOME_ANALISTA_RESPONSAVEL_CLONAGEM_CEDENTE,
 } from '../clonagemCedente.js';
 import MAPEAMENTO_CEDENTE_PROSPECT, { MAPEAMENTO_CEDENTE_POC, MAPEAMENTO_CEDENTE_COMITE } from '../../../utils/mapeamentoCedente.js';
 
@@ -190,6 +191,20 @@ test('construirGrafoEstrutural mantém só arestas tipo "estrutural", ignorando 
   assert.deepEqual(grafo, { PAI: [], FILHO: ['PAI'] });
 });
 
+test('construirGrafoEstrutural também ignora arestas tipo "participante-fixo" (idParticipante não é dependência estrutural)', () => {
+  const grafo = construirGrafoEstrutural({
+    MC_POC_COMITE: { dependeDe: [] },
+    MC_POC_COMITE_VOTACAO: {
+      dependeDe: [
+        { campo: 'idComiteProposta', tabela: 'MC_POC_COMITE', tipo: 'estrutural' },
+        { campo: 'idParticipante', tabela: 'MC_CAD_ANALISTA', tipo: 'participante-fixo' },
+      ],
+    },
+  });
+
+  assert.deepEqual(grafo, { MC_POC_COMITE: [], MC_POC_COMITE_VOTACAO: ['MC_POC_COMITE'] });
+});
+
 test('construirGrafoEstrutural deduplica tabela-pai referenciada por mais de uma coluna', () => {
   const grafo = construirGrafoEstrutural({
     PAI: { dependeDe: [] },
@@ -356,6 +371,16 @@ test('grafo estrutural real da fase comitê (mapeamentoCedente.js) não tem cicl
   assert.equal(ordem.includes('MC_POC_PROPOSTA'), true);
   // MC_CED_PORTAL_CONVENIO (fase cedente, ainda não mapeada) idem.
   assert.equal(ordem.includes('MC_CED_PORTAL_CONVENIO'), true);
+});
+
+test('MC_POC_COMITE_VOTACAO/MC_PORTAL_COMITE_VOTACAO resolvem idParticipante como participante-fixo (Resposta-4, não votante real de PROD)', () => {
+  ['MC_POC_COMITE_VOTACAO', 'MC_PORTAL_COMITE_VOTACAO'].forEach((tabela) => {
+    const dependencia = MAPEAMENTO_CEDENTE_COMITE[tabela].dependeDe.find((d) => d.campo === 'idParticipante');
+    assert.deepEqual(dependencia, { campo: 'idParticipante', tabela: 'MC_CAD_ANALISTA', tipo: 'participante-fixo' }, tabela);
+  });
+
+  assert.equal(typeof NOME_ANALISTA_RESPONSAVEL_CLONAGEM_CEDENTE, 'string');
+  assert.ok(NOME_ANALISTA_RESPONSAVEL_CLONAGEM_CEDENTE.length > 0);
 });
 
 test('grafo estrutural combinado (POC + comitê) resolve o cruzamento MC_POC_PROPOSTA <-> MC_CAD_COMITE/MC_POC_COMITE sem ciclo', () => {

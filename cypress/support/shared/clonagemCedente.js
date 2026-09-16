@@ -234,6 +234,17 @@ export const TABELAS_CATALOGO_FORA_DO_PADRAO_MC_CAD = [
   'MC_RAT_RATING_INDICADOR_ITEM',
 ];
 
+// `idParticipante` (votante do comitê) em `MC_POC_COMITE_VOTACAO`/`MC_PORTAL_COMITE_VOTACAO`
+// (e futuramente `MC_CED_ATA_VOTACAO`, fase cedente) não tem FK física e, confirmado
+// pelo Thiago em duvidas.md (tarefa 20260915130215, Resposta-4), nunca deve copiar o
+// votante real de PROD — toda linha de votação clonada usa este participante fixo,
+// localizado por nome (chave natural) em `MC_CAD_ANALISTA` de HML, mesmo padrão de
+// busca das dependências de catálogo (ver `mapeamentoCedente.js`, tipo
+// `participante-fixo`). Confirmado contra HML (2026-09-15): existe exatamente um
+// registro ativo com este nome em `MC_CAD_ANALISTA` (id 29 no momento da checagem —
+// não hardcoded aqui, resolvido em tempo de execução pela busca por nome).
+export const NOME_ANALISTA_RESPONSAVEL_CLONAGEM_CEDENTE = 'THIAGO DA COSTA SANTOS';
+
 const estaExplicitamenteForaDeEscopo = (nomeTabela) =>
   TABELAS_FORA_DE_ESCOPO.includes(nomeTabela) || PADROES_FORA_DE_ESCOPO.some((padrao) => padrao.test(nomeTabela));
 

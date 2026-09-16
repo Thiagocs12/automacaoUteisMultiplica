@@ -885,18 +885,20 @@ export const MAPEAMENTO_CEDENTE_COMITE = {
     ],
   },
 
-  // idParticipante (NOT NULL, sem constraint de FK física) — dúvida bloqueante
-  // registrada em duvidas.md (tarefa 20260915130215): não há tabela `PARTICIPANTE`
-  // no schema, e o range de valores de amostra (39-49) bate com MC_CAD_ANALISTA
-  // (id 1-86), mas isso não é uma FK verificável, só uma hipótese. Como a coluna é
-  // NOT NULL, não pode ficar sem resolução (diferente das colunas nullable sem FK
-  // física já tratadas acima) — aguardando confirmação do Thiago antes de adicionar
-  // ao `dependeDe`. Mesma coluna existe em MC_PORTAL_COMITE_VOTACAO (abaixo) e em
-  // MC_CED_ATA_VOTACAO (fase cedente, ainda não mapeada) — resposta vale pras três.
+  // idParticipante (NOT NULL, sem constraint de FK física) — dúvida respondida pelo
+  // Thiago em duvidas.md (tarefa 20260915130215, Resposta-4): não copiar/traduzir o
+  // votante real de PROD (dado sensível/pessoal) — usar sempre o próprio Thiago como
+  // participante em toda linha de votação clonada, localizado por nome (chave
+  // natural) em `MC_CAD_ANALISTA` de HML, mesmo padrão de busca das dependências de
+  // catálogo. Tipo `participante-fixo` (não `catalogo`) porque o valor nunca varia
+  // conforme a linha de origem em PROD — ver `NOME_ANALISTA_RESPONSAVEL_CLONAGEM_CEDENTE`
+  // em `clonagemCedente.js`. Mesma coluna existe em MC_PORTAL_COMITE_VOTACAO (abaixo)
+  // e em MC_CED_ATA_VOTACAO (fase cedente, ainda não mapeada) — resposta vale pras três.
   MC_POC_COMITE_VOTACAO: {
     dependeDe: [
       { campo: 'idComiteProposta', tabela: 'MC_POC_COMITE', tipo: 'estrutural' },
       { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idParticipante', tabela: 'MC_CAD_ANALISTA', tipo: 'participante-fixo' },
     ],
   },
 
@@ -909,10 +911,11 @@ export const MAPEAMENTO_CEDENTE_COMITE = {
   },
 
   MC_PORTAL_COMITE_VOTACAO: {
-    // idParticipante (NOT NULL, sem FK física): mesma dúvida bloqueante de
-    // MC_POC_COMITE_VOTACAO acima, não repetida aqui.
+    // idParticipante (NOT NULL, sem FK física): mesma resolução de
+    // MC_POC_COMITE_VOTACAO acima (tipo `participante-fixo`, não repetida aqui).
     dependeDe: [
       { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idParticipante', tabela: 'MC_CAD_ANALISTA', tipo: 'participante-fixo' },
       // idPortalConvenio -> MC_CED_PORTAL_CONVENIO (NOT NULL): cruza pra fase
       // cedente (ainda não mapeada neste arquivo), mesmo padrão já registrado pra
       // MC_PRT_PLEITO*.idProposta -> MC_POC_PROPOSTA e MC_POC_PROPOSTA.idComite ->
