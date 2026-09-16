@@ -779,6 +779,14 @@ export const MAPEAMENTO_CEDENTE_COMITE = {
       { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
       { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
     ],
+    // Resposta-5 (duvidas.md, tarefa 20260915130215): todo comitê clonado deve ficar
+    // marcado como votado e aprovado, não com o valor original de PROD.
+    // `situacaoVotacao = 'FINALIZADA'` é claramente o campo de "votado" (valor real
+    // mais frequente em PROD). `resultadoVotacao` (nullable) fica de fora de
+    // propósito — investigação real mostrou que nunca é preenchido em PROD (null em
+    // 6408/6408 linhas da amostra), então não há um valor de "aprovado" observável
+    // pra replicar; o Thiago decidiu não inventar um.
+    valoresFixos: { situacaoVotacao: 'FINALIZADA' },
   },
 
   MC_POC_COMITE_ATA: {
@@ -900,6 +908,11 @@ export const MAPEAMENTO_CEDENTE_COMITE = {
       { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
       { campo: 'idParticipante', tabela: 'MC_CAD_ANALISTA', tipo: 'participante-fixo' },
     ],
+    // Resposta-5 (duvidas.md, tarefa 20260915130215): a linha de voto do participante
+    // fixo (o próprio Thiago, ver `idParticipante` acima) fica marcada como concluída
+    // e favorável — reflete o voto individual "aprovado", complementando
+    // `MC_POC_COMITE.situacaoVotacao` (comitê como um todo).
+    valoresFixos: { situacaoVoto: 'CONCLUIDO', voto: 'FAVORAVEL' },
   },
 
   MC_POC_COMITE_VOTACAO_PRODUTO: {
@@ -922,6 +935,9 @@ export const MAPEAMENTO_CEDENTE_COMITE = {
       // MC_CAD_COMITE — a ordem real vem do grafo de FK, nunca da suposição de fase.
       { campo: 'idPortalConvenio', tabela: 'MC_CED_PORTAL_CONVENIO', tipo: 'estrutural' },
     ],
+    // Resposta-5 (duvidas.md, tarefa 20260915130215): mesmo tratamento de
+    // MC_POC_COMITE_VOTACAO acima (voto do participante fixo, concluído e favorável).
+    valoresFixos: { situacaoVoto: 'CONCLUIDO', voto: 'FAVORAVEL' },
   },
 };
 

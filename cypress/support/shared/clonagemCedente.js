@@ -245,6 +245,25 @@ export const TABELAS_CATALOGO_FORA_DO_PADRAO_MC_CAD = [
 // não hardcoded aqui, resolvido em tempo de execução pela busca por nome).
 export const NOME_ANALISTA_RESPONSAVEL_CLONAGEM_CEDENTE = 'THIAGO DA COSTA SANTOS';
 
+/**
+ * @description Aplica os valores fixos declarados para uma tabela em
+ * `mapeamentoCedente.js` (chave `valoresFixos`, ex.: `MC_POC_COMITE.situacaoVotacao`)
+ * sobre uma linha vinda de PROD, sobrescrevendo o valor original pelo valor confirmado
+ * pelo Thiago (ex.: marcar todo comitê/voto clonado como votado e aprovado — ver
+ * duvidas.md, tarefa 20260915130215, Resposta-5) — em vez de copiar o valor real de
+ * PROD. Só sobrescreve as colunas listadas em `valoresFixos`; qualquer outra coluna da
+ * linha original passa intacta. Uma tabela sem `valoresFixos` declarado devolve a
+ * linha original sem alteração. Nunca muta `linha` (retorna um novo objeto).
+ * @param {string} nomeTabela
+ * @param {Object} linha - linha de origem (PROD), já lida via SELECT/INFORMATION_SCHEMA.
+ * @param {Object} mapeamento - mesmo formato de `MAPEAMENTO_CEDENTE_COMITE` etc.
+ * @returns {Object}
+ */
+export const aplicarValoresFixos = (nomeTabela, linha, mapeamento) => ({
+  ...linha,
+  ...(mapeamento?.[nomeTabela]?.valoresFixos ?? {}),
+});
+
 const estaExplicitamenteForaDeEscopo = (nomeTabela) =>
   TABELAS_FORA_DE_ESCOPO.includes(nomeTabela) || PADROES_FORA_DE_ESCOPO.some((padrao) => padrao.test(nomeTabela));
 

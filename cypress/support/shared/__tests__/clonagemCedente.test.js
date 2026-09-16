@@ -17,6 +17,7 @@ import {
   ordenarTabelasPorDependenciaEstrutural,
   TABELAS_POR_FASE,
   NOME_ANALISTA_RESPONSAVEL_CLONAGEM_CEDENTE,
+  aplicarValoresFixos,
 } from '../clonagemCedente.js';
 import MAPEAMENTO_CEDENTE_PROSPECT, { MAPEAMENTO_CEDENTE_POC, MAPEAMENTO_CEDENTE_COMITE } from '../../../utils/mapeamentoCedente.js';
 
@@ -391,4 +392,35 @@ test('grafo estrutural combinado (POC + comitê) resolve o cruzamento MC_POC_PRO
   assert.equal(ordem.indexOf('MC_CAD_COMITE') < ordem.indexOf('MC_POC_PROPOSTA'), true);
   assert.equal(ordem.indexOf('MC_POC_PROPOSTA') < ordem.indexOf('MC_POC_COMITE'), true);
   assert.equal(ordem.indexOf('MC_POC_COMITE_LIMITE_PRODUTO') < ordem.indexOf('MC_POC_PRODUTO_GARANTIA_REGRA'), true);
+});
+
+test('MC_POC_COMITE/MC_POC_COMITE_VOTACAO/MC_PORTAL_COMITE_VOTACAO declaram os valoresFixos de "votado e aprovado" (Resposta-5)', () => {
+  assert.deepEqual(MAPEAMENTO_CEDENTE_COMITE.MC_POC_COMITE.valoresFixos, { situacaoVotacao: 'FINALIZADA' });
+  // resultadoVotacao propositalmente ausente: sem precedente de uso real em PROD
+  // (null em toda a amostra investigada), o Thiago decidiu não inventar um valor.
+  assert.equal('resultadoVotacao' in MAPEAMENTO_CEDENTE_COMITE.MC_POC_COMITE.valoresFixos, false);
+
+  ['MC_POC_COMITE_VOTACAO', 'MC_PORTAL_COMITE_VOTACAO'].forEach((tabela) => {
+    assert.deepEqual(
+      MAPEAMENTO_CEDENTE_COMITE[tabela].valoresFixos,
+      { situacaoVoto: 'CONCLUIDO', voto: 'FAVORAVEL' },
+      tabela,
+    );
+  });
+});
+
+test('aplicarValoresFixos sobrescreve só as colunas declaradas, sem mutar a linha original', () => {
+  const linhaOrigem = { id: 1, situacaoVotacao: 'NAO_INICIADA', resultadoVotacao: null, idProposta: 42 };
+  const linhaClonada = aplicarValoresFixos('MC_POC_COMITE', linhaOrigem, MAPEAMENTO_CEDENTE_COMITE);
+
+  assert.deepEqual(linhaClonada, { id: 1, situacaoVotacao: 'FINALIZADA', resultadoVotacao: null, idProposta: 42 });
+  assert.equal(linhaOrigem.situacaoVotacao, 'NAO_INICIADA', 'linha original não deve ser mutada');
+});
+
+test('aplicarValoresFixos devolve a linha original intacta para uma tabela sem valoresFixos declarado', () => {
+  const linhaOrigem = { id: 7, idProposta: 42 };
+  const linhaClonada = aplicarValoresFixos('MC_CAD_COMITE', linhaOrigem, MAPEAMENTO_CEDENTE_COMITE);
+
+  assert.deepEqual(linhaClonada, linhaOrigem);
+  assert.notEqual(linhaClonada, linhaOrigem, 'deve retornar um novo objeto, mesmo sem alteração');
 });
