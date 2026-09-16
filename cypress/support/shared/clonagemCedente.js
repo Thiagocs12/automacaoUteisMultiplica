@@ -481,13 +481,17 @@ export const ordenarTabelasPorDependenciaEstrutural = (grafo) => {
 export const ordenarTabelasParaExclusaoEstrutural = (grafo) =>
   [...ordenarTabelasPorDependenciaEstrutural(grafo)].reverse();
 
-// Colunas de auditoria/identidade nunca copiadas de PROD para HML ao criar um
-// registro novo — o `id` é sempre gerado por HML (não é estável entre
-// ambientes, mesmo critério já usado para o match de cedente/pessoa), e as
-// colunas de auditoria devem refletir a criação em HML, não a origem em PROD.
-// Mesmo conjunto já usado em `commands/sincronizacaoNivel.js`
-// (`criarItensInexistentesPorNivel`) para as entidades de Produtos/Esteiras/
-// Vínculos — reaproveitado aqui para não divergir do padrão do repo.
+// Colunas de auditoria/identidade nunca copiadas *como vieram* de PROD ao
+// criar um registro novo em HML — o `id` é sempre gerado por HML (não é
+// estável entre ambientes, mesmo critério já usado para o match de
+// cedente/pessoa) e nunca reaparece no INSERT (usa-se `OUTPUT INSERTED.id`
+// pra obtê-lo). As 4 colunas de auditoria, por sua vez, **são** inseridas,
+// mas com valor fixo (`gerarValoresAuditoriaCedente`) em vez do valor de
+// origem — ver Resposta-9 (`duvidas.md`): diferente dos domínios baseados em
+// API REST (Produtos/Esteiras/Vínculos), que só *omitem* essas colunas do
+// corpo do POST porque o servidor as preenche sozinho, aqui o INSERT é SQL
+// direto contra HML — omitir sem fornecer valor quebra o INSERT, já que são
+// NOT NULL em praticamente todo o schema do domínio cedente.
 export const COLUNAS_AUDITORIA_CEDENTE = [
   'id',
   'dataCadastro',
@@ -495,6 +499,30 @@ export const COLUNAS_AUDITORIA_CEDENTE = [
   'usuarioCadastro',
   'usuarioUltimaAlteracao',
 ];
+
+// Valor fixo de "usuário" gravado em `usuarioCadastro`/`usuarioUltimaAlteracao`
+// para todo registro que este domínio criar em HML via SQL direto — decidido
+// pelo Thiago (Resposta-9, 2026-09-16): reaproveita o mesmo literal já usado
+// hoje em PROD para registros gerados automaticamente (ex.: `MC_CAD_SITUACAO`),
+// em vez de um valor inventado sem precedente.
+export const USUARIO_AUDITORIA_CEDENTE = 'sistema';
+
+/**
+ * @description Gera os valores fixos de auditoria (Resposta-9) para um
+ * registro novo criado por este domínio em HML: `dataCadastro`/
+ * `dataUltimaAlteracao` = mesmo timestamp (o momento da inserção — não há
+ * distinção sensata entre "cadastro" e "última alteração" para um registro
+ * recém-criado) e `usuarioCadastro`/`usuarioUltimaAlteracao` =
+ * `USUARIO_AUDITORIA_CEDENTE`.
+ * @param {Date} [agora] - injetável para teste; em produção usa o momento real.
+ * @returns {{dataCadastro: Date, dataUltimaAlteracao: Date, usuarioCadastro: string, usuarioUltimaAlteracao: string}}
+ */
+export const gerarValoresAuditoriaCedente = (agora = new Date()) => ({
+  dataCadastro: agora,
+  dataUltimaAlteracao: agora,
+  usuarioCadastro: USUARIO_AUDITORIA_CEDENTE,
+  usuarioUltimaAlteracao: USUARIO_AUDITORIA_CEDENTE,
+});
 
 /**
  * @description Formata um valor JS como literal SQL (T-SQL) seguro para uso
@@ -519,19 +547,31 @@ export const formatarValorSql = (valor) => {
 
 /**
  * @description Monta o `INSERT` (T-SQL) que copia uma linha de catálogo
- * (já lida de PROD) para HML, excluindo as colunas de auditoria/identidade
- * (`COLUNAS_AUDITORIA_CEDENTE`) — o restante das colunas da linha é copiado
- * como está. Usa `OUTPUT INSERTED.id` para devolver o novo id gerado por HML
- * na mesma instrução, sem precisar de um `SELECT` de acompanhamento.
+ * (já lida de PROD) para HML: exclui `id` (gerado por HML via
+ * `OUTPUT INSERTED.id`) e substitui as 4 colunas de auditoria pelos valores
+ * fixos de `gerarValoresAuditoriaCedente` (Resposta-9) — só para as colunas
+ * de auditoria que de fato existem na linha de origem, para não forçar essas
+ * colunas em uma tabela que não as tenha. O restante das colunas é copiado
+ * como está.
  * @param {string} tabela
  * @param {Object} linha - linha de origem (PROD), já lida via `SELECT *`.
  * @param {string[]} [colunasIgnoradas]
+ * @param {Date} [agora] - injetável para teste; em produção usa o momento real.
  * @returns {string}
  */
-export const montarInsertCatalogo = (tabela, linha, colunasIgnoradas = COLUNAS_AUDITORIA_CEDENTE) => {
-  const colunas = Object.keys(linha).filter((coluna) => !colunasIgnoradas.includes(coluna));
+export const montarInsertCatalogo = (
+  tabela,
+  linha,
+  colunasIgnoradas = COLUNAS_AUDITORIA_CEDENTE,
+  agora = new Date(),
+) => {
+  const colunasBase = Object.keys(linha).filter((coluna) => !colunasIgnoradas.includes(coluna));
+  const valoresAuditoria = gerarValoresAuditoriaCedente(agora);
+  const colunasAuditoriaAplicaveis = Object.keys(valoresAuditoria).filter((coluna) => coluna in linha);
+  const colunas = [...colunasBase, ...colunasAuditoriaAplicaveis];
+  const linhaFinal = { ...linha, ...valoresAuditoria };
   const listaColunas = colunas.join(', ');
-  const listaValores = colunas.map((coluna) => formatarValorSql(linha[coluna])).join(', ');
+  const listaValores = colunas.map((coluna) => formatarValorSql(linhaFinal[coluna])).join(', ');
 
   return `INSERT INTO ${tabela} (${listaColunas}) OUTPUT INSERTED.id VALUES (${listaValores})`;
 };

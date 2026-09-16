@@ -21,7 +21,8 @@ import {
   NOME_ANALISTA_RESPONSAVEL_CLONAGEM_CEDENTE,
   TIPO_DEPENDENCIA_CASCATA,
   aplicarValoresFixos,
-  COLUNAS_AUDITORIA_CEDENTE,
+  USUARIO_AUDITORIA_CEDENTE,
+  gerarValoresAuditoriaCedente,
   formatarValorSql,
   montarInsertCatalogo,
 } from '../clonagemCedente.js';
@@ -592,22 +593,43 @@ test('formatarValorSql formata cada tipo de valor como literal T-SQL', () => {
   assert.equal(formatarValorSql("O'Brien"), "'O''Brien'");
 });
 
-test('montarInsertCatalogo exclui colunas de auditoria e escapa os valores restantes', () => {
+test('gerarValoresAuditoriaCedente usa USUARIO_AUDITORIA_CEDENTE e o mesmo timestamp para cadastro/última alteração (Resposta-9)', () => {
+  assert.equal(USUARIO_AUDITORIA_CEDENTE, 'sistema');
+
+  const agora = new Date('2026-09-16T18:00:00.000Z');
+  assert.deepEqual(gerarValoresAuditoriaCedente(agora), {
+    dataCadastro: agora,
+    dataUltimaAlteracao: agora,
+    usuarioCadastro: 'sistema',
+    usuarioUltimaAlteracao: 'sistema',
+  });
+});
+
+test('montarInsertCatalogo exclui id (gerado por HML) e substitui as colunas de auditoria por valores fixos (Resposta-9)', () => {
+  const agora = new Date('2026-09-16T18:00:00.000Z');
   const linha = {
     id: 999,
     descricao: "Ativo's",
     valor: 10,
     ativo: true,
     dataCadastro: new Date('2020-01-01T00:00:00.000Z'),
+    dataUltimaAlteracao: new Date('2020-01-01T00:00:00.000Z'),
     usuarioCadastro: 'joao',
+    usuarioUltimaAlteracao: 'joao',
   };
 
-  const sql = montarInsertCatalogo('MC_CAD_SITUACAO', linha);
+  const sql = montarInsertCatalogo('MC_CAD_SITUACAO', linha, undefined, agora);
 
-  assert.equal(sql, "INSERT INTO MC_CAD_SITUACAO (descricao, valor, ativo) OUTPUT INSERTED.id VALUES ('Ativo''s', 10, 1)");
-  COLUNAS_AUDITORIA_CEDENTE.forEach((coluna) => {
-    assert.equal(sql.includes(`(${coluna}`) || sql.includes(`, ${coluna},`) || sql.includes(`, ${coluna})`), false);
-  });
+  assert.equal(
+    sql,
+    "INSERT INTO MC_CAD_SITUACAO (descricao, valor, ativo, dataCadastro, dataUltimaAlteracao, usuarioCadastro, usuarioUltimaAlteracao) OUTPUT INSERTED.id VALUES ('Ativo''s', 10, 1, '2026-09-16T18:00:00.000Z', '2026-09-16T18:00:00.000Z', 'sistema', 'sistema')",
+  );
+  assert.equal(sql.includes('999'), false, 'id de PROD não deve aparecer no INSERT — HML gera o próprio id');
+});
+
+test('montarInsertCatalogo não força colunas de auditoria numa tabela que não as tem', () => {
+  const sql = montarInsertCatalogo('MC_CAD_TESTE', { id: 1, descricao: 'X' });
+  assert.equal(sql, "INSERT INTO MC_CAD_TESTE (descricao) OUTPUT INSERTED.id VALUES ('X')");
 });
 
 test('montarInsertCatalogo aceita uma lista de colunas ignoradas customizada', () => {
