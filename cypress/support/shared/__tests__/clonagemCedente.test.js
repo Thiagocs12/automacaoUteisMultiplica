@@ -15,6 +15,7 @@ import {
   decidirEstrategiaClonagemCedente,
   construirGrafoEstrutural,
   ordenarTabelasPorDependenciaEstrutural,
+  ordenarTabelasParaExclusaoEstrutural,
   TABELAS_POR_FASE,
   TABELAS_FORA_DE_ESCOPO,
   NOME_ANALISTA_RESPONSAVEL_CLONAGEM_CEDENTE,
@@ -25,7 +26,20 @@ import MAPEAMENTO_CEDENTE_PROSPECT, {
   MAPEAMENTO_CEDENTE_POC,
   MAPEAMENTO_CEDENTE_COMITE,
   MAPEAMENTO_CEDENTE_CEDENTE,
+  MAPEAMENTO_CEDENTE_UNIFICADO,
+  METADADOS_CATALOGO_CEDENTE,
 } from '../../../utils/mapeamentoCedente.js';
+
+// Tabelas de catálogo referenciadas em `dependeDe` (tipo 'catalogo') que
+// propositalmente NÃO têm entrada em `METADADOS_CATALOGO_CEDENTE` — não têm uma
+// coluna `descricao`/`nome` única e óbvia como chave natural (ver comentário de
+// `METADADOS_CATALOGO_CEDENTE` em `mapeamentoCedente.js` para o motivo de cada uma).
+const CATALOGOS_SEM_CHAVE_NATURAL_DOCUMENTADOS = [
+  'MC_CAD_PESSOA',
+  'MC_CAD_BLOQUEIO',
+  'MC_CAD_FORMULARIO_CAMPO',
+  'MC_CAD_PESSOA_SOCIO',
+];
 
 test('classificarTabelaCedente reconhece as tabelas-âncora de cada fase', () => {
   assert.deepEqual(classificarTabelaCedente('MC_PRT_PROSPECT'), { fase: FASE_PROSPECT, entra: true });
@@ -486,12 +500,7 @@ test('grafo estrutural real da fase cedente (mapeamentoCedente.js) não tem cicl
 });
 
 test('grafo estrutural combinado (todas as 4 fases) resolve os cruzamentos MC_CED_CEDENTE <-> MC_PRT_PROSPECT/MC_POC_PROPOSTA sem ciclo', () => {
-  const grafo = construirGrafoEstrutural({
-    ...MAPEAMENTO_CEDENTE_PROSPECT,
-    ...MAPEAMENTO_CEDENTE_POC,
-    ...MAPEAMENTO_CEDENTE_COMITE,
-    ...MAPEAMENTO_CEDENTE_CEDENTE,
-  });
+  const grafo = construirGrafoEstrutural(MAPEAMENTO_CEDENTE_UNIFICADO);
   const ordem = ordenarTabelasPorDependenciaEstrutural(grafo);
 
   assert.equal(new Set(ordem).size, ordem.length, 'nenhuma tabela duplicada na ordem final');
@@ -499,6 +508,56 @@ test('grafo estrutural combinado (todas as 4 fases) resolve os cruzamentos MC_CE
   assert.equal(ordem.indexOf('MC_POC_PROPOSTA') < ordem.indexOf('MC_CED_CEDENTE'), true);
   assert.equal(ordem.indexOf('MC_POC_PROPOSTA') < ordem.indexOf('MC_CED_SETUP'), true);
   assert.equal(ordem.indexOf('MC_PORTAL_COMITE_VOTACAO') < ordem.length, true);
+});
+
+test('MAPEAMENTO_CEDENTE_UNIFICADO reúne as 4 fases sem perder/duplicar nenhuma tabela', () => {
+  const totalPorFase =
+    Object.keys(MAPEAMENTO_CEDENTE_PROSPECT).length +
+    Object.keys(MAPEAMENTO_CEDENTE_POC).length +
+    Object.keys(MAPEAMENTO_CEDENTE_COMITE).length +
+    Object.keys(MAPEAMENTO_CEDENTE_CEDENTE).length;
+
+  assert.equal(Object.keys(MAPEAMENTO_CEDENTE_UNIFICADO).length, totalPorFase);
+  assert.equal(MAPEAMENTO_CEDENTE_UNIFICADO.MC_PRT_PROSPECT, MAPEAMENTO_CEDENTE_PROSPECT.MC_PRT_PROSPECT);
+  assert.equal(MAPEAMENTO_CEDENTE_UNIFICADO.MC_POC_PROPOSTA, MAPEAMENTO_CEDENTE_POC.MC_POC_PROPOSTA);
+  assert.equal(MAPEAMENTO_CEDENTE_UNIFICADO.MC_CAD_COMITE, MAPEAMENTO_CEDENTE_COMITE.MC_CAD_COMITE);
+  assert.equal(MAPEAMENTO_CEDENTE_UNIFICADO.MC_CED_CEDENTE, MAPEAMENTO_CEDENTE_CEDENTE.MC_CED_CEDENTE);
+});
+
+test('ordenarTabelasParaExclusaoEstrutural é sempre o inverso exato da ordem de inserção', () => {
+  const grafo = construirGrafoEstrutural(MAPEAMENTO_CEDENTE_UNIFICADO);
+  const ordemInsercao = ordenarTabelasPorDependenciaEstrutural(grafo);
+  const ordemExclusao = ordenarTabelasParaExclusaoEstrutural(grafo);
+
+  assert.deepEqual(ordemExclusao, [...ordemInsercao].reverse());
+  // Uma tabela-filha (MC_CED_FILIAL depende de MC_CED_CEDENTE) precisa ser excluída
+  // antes da tabela-pai — o oposto da ordem de inserção.
+  assert.equal(ordemExclusao.indexOf('MC_CED_FILIAL') < ordemExclusao.indexOf('MC_CED_CEDENTE'), true);
+});
+
+test('METADADOS_CATALOGO_CEDENTE cobre toda tabela de catálogo referenciada, exceto as exceções documentadas', () => {
+  const tabelasCatalogoReferenciadas = new Set();
+
+  for (const config of Object.values(MAPEAMENTO_CEDENTE_UNIFICADO)) {
+    for (const dependencia of config?.dependeDe ?? []) {
+      if (dependencia.tipo === 'catalogo') tabelasCatalogoReferenciadas.add(dependencia.tabela);
+    }
+  }
+
+  for (const tabela of tabelasCatalogoReferenciadas) {
+    const temMetadado = Boolean(METADADOS_CATALOGO_CEDENTE[tabela]);
+    const ehExcecaoDocumentada = CATALOGOS_SEM_CHAVE_NATURAL_DOCUMENTADOS.includes(tabela);
+
+    assert.equal(
+      temMetadado || ehExcecaoDocumentada,
+      true,
+      `"${tabela}" é referenciada como catálogo mas não tem METADADOS_CATALOGO_CEDENTE nem está na lista de exceções documentadas`,
+    );
+  }
+
+  for (const [tabela, metadado] of Object.entries(METADADOS_CATALOGO_CEDENTE)) {
+    assert.equal(['descricao', 'nome'].includes(metadado.campoChaveNatural), true, `campoChaveNatural inesperado para "${tabela}"`);
+  }
 });
 
 test('MC_CED_CEDENTE_VINCULADO.idCedenteVinculado resolvido como dependência tipo cascata (Resposta-7, item 2)', () => {

@@ -466,3 +466,17 @@ export const ordenarTabelasPorDependenciaEstrutural = (grafo) => {
 
   return ordem;
 };
+
+/**
+ * @description Ordem de EXCLUSÃO das tabelas de um grafo de dependência estrutural
+ * (regra 12 do `AGENTE.md`: filhas antes de pais, no "apaga e refaz" de um cedente já
+ * existente em HML) — sempre o inverso exato da ordem de inserção
+ * (`ordenarTabelasPorDependenciaEstrutural`), nunca uma ordenação calculada à parte
+ * (evita as duas ordens divergirem se o grafo mudar e só uma delas for atualizada).
+ * @param {Object<string, string[]>} grafo - mesmo formato de `construirGrafoEstrutural`.
+ * @returns {string[]} tabelas em ordem de exclusão (filhas antes de pais).
+ * @throws {Error} se o grafo tiver um ciclo de dependência estrutural (mesma checagem
+ * de `ordenarTabelasPorDependenciaEstrutural`).
+ */
+export const ordenarTabelasParaExclusaoEstrutural = (grafo) =>
+  [...ordenarTabelasPorDependenciaEstrutural(grafo)].reverse();

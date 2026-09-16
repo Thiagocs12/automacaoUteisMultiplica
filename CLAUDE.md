@@ -187,9 +187,24 @@ de verdade.
   estratégia (`decidirEstrategiaClonagemCedente`: `bloqueado-sem-origem` se faltar pessoa/prospect de
   origem, `criar` ou `apagar-e-recriar` conforme o cedente já exista em HML). Nenhum INSERT/DELETE é
   executado por este comando.
-- **Ainda não implementado**: os comandos de INSERT (criação em HML, na ordem do grafo de FK) e
-  DELETE (para o caso "já existe → apaga e refaz", ordem inversa do grafo — filhas antes de pais, um
-  cedente por execução).
+- **Grafo unificado e metadados de catálogo** (`mapeamentoCedente.js`): `MAPEAMENTO_CEDENTE_UNIFICADO`
+  une as 4 constantes `MAPEAMENTO_CEDENTE_*` por fase num único grafo (122 tabelas, sem colisão de
+  chave), base para `construirGrafoEstrutural`/`ordenarTabelasPorDependenciaEstrutural` calcularem a
+  ordem de INSERT considerando também as arestas que cruzam fase (`clonagemCedente.js` também ganhou
+  `ordenarTabelasParaExclusaoEstrutural`, sempre o inverso exato da ordem de inserção, para a ordem de
+  DELETE do "apaga e refaz"). `METADADOS_CATALOGO_CEDENTE` declara, para cada tabela de catálogo
+  referenciada, o nome da coluna usada como chave natural (`descricao` ou `nome`, mesma convenção já
+  usada em `commands/sincronizacaoNivel.js`) — levantado via `INFORMATION_SCHEMA.COLUMNS` real contra
+  PROD; 4 tabelas (`MC_CAD_PESSOA`, `MC_CAD_BLOQUEIO`, `MC_CAD_FORMULARIO_CAMPO`,
+  `MC_CAD_PESSOA_SOCIO`) ficam de fora de propósito, por não terem uma coluna única e óbvia de chave
+  natural — resolver quando a tabela que as referencia for implementada.
+- **Ainda não implementado**: o resolvedor genérico de dependência de catálogo (busca em HML pela
+  chave natural declarada em `METADADOS_CATALOGO_CEDENTE`, cria copiando a linha de PROD se não
+  existir), os comandos de INSERT das tabelas estruturais (na ordem de
+  `ordenarTabelasPorDependenciaEstrutural` sobre `MAPEAMENTO_CEDENTE_UNIFICADO`, com resolução
+  dinâmica de colunas via `INFORMATION_SCHEMA.COLUMNS` menos as colunas de auditoria) e DELETE (para o
+  caso "já existe → apaga e refaz", ordem de `ordenarTabelasParaExclusaoEstrutural`, um cedente por
+  execução).
 
 ## Segurança / não commitar
 

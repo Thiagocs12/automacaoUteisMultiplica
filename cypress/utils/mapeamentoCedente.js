@@ -1292,4 +1292,98 @@ export const MAPEAMENTO_CEDENTE_CEDENTE = {
   },
 };
 
+// --- Grafo unificado das 4 fases ---
+//
+// Une os 4 mapeamentos por fase num único objeto `{ [tabela]: { dependeDe } }`,
+// necessário para `construirGrafoEstrutural`/`ordenarTabelasPorDependenciaEstrutural`
+// (`clonagemCedente.js`) calcularem a ordem real de INSERT/DELETE considerando
+// arestas que cruzam fases (ex.: MC_PRT_PLEITO -> MC_POC_PROPOSTA, MC_POC_PROPOSTA ->
+// MC_CAD_COMITE — ver notas espalhadas pelos mapeamentos acima). Nenhuma chave se
+// repete entre as 4 fases (confirmado: 122 tabelas únicas ao todo), então um merge
+// simples por spread é suficiente — não precisa de lógica de conflito.
+export const MAPEAMENTO_CEDENTE_UNIFICADO = {
+  ...MAPEAMENTO_CEDENTE_PROSPECT,
+  ...MAPEAMENTO_CEDENTE_POC,
+  ...MAPEAMENTO_CEDENTE_COMITE,
+  ...MAPEAMENTO_CEDENTE_CEDENTE,
+};
+
+// --- Metadados de chave natural das tabelas de catálogo ---
+//
+// Para cada tabela de catálogo referenciada em algum `dependeDe` (`tipo: 'catalogo'`)
+// acima, declara o nome da coluna usada como chave natural para localizar o
+// equivalente em HML — mesma convenção já usada em `commands/sincronizacaoNivel.js`
+// (`campoDescricao = entidade.campoDescricao || 'descricao'`) e explicitamente
+// pedida pela tarefa ("busca em HML por chave natural — descrição/nome —, cria se
+// não existir"). Levantado via `INFORMATION_SCHEMA.COLUMNS` real contra PROD
+// (2026-09-16, script de investigação temporário, removido antes do commit — mesmo
+// padrão de investigação pontual já documentado em docs/conhecimento-geral.md): a
+// grande maioria das 42 tabelas de catálogo referenciadas tem uma coluna `descricao`
+// única e óbvia; um pequeno grupo usa `nome` no lugar (mesma convenção, coluna
+// diferente — nenhuma das duas é uma escolha ambígua por tabela, cada uma só tem um
+// candidato real). Ainda não é usado por nenhum comando (o resolvedor genérico de
+// catálogo, que vai consumir este mapa para localizar/criar em HML, é o próximo
+// passo pendente) — só a declaração dos dados desta vez.
+//
+// EXCEÇÕES (sem uma coluna única e óbvia — não presumidas aqui, resolver quando a
+// tabela que referencia cada uma for de fato implementada, registrando dúvida
+// bloqueante se a ambiguidade não se resolver por investigação adicional):
+// - `MC_CAD_PESSOA`: já tem resolução própria por CNPJ/CPF para a chave de match do
+//   cedente (`buscarPessoaCedentePorDocumento`, `commands/cedente.js`) — mas quando
+//   referenciada como catálogo comum por outra tabela (ex.:
+//   `MC_PRT_PROSPECT.idPessoaRelacionada`), o mesmo critério de documento deve valer
+//   (nome/razão social não é confiável como chave única), não o genérico
+//   descricao/nome. Fica fora deste mapa de propósito — resolver com uma função
+//   dedicada reaproveitando a mesma busca por documento, não com o resolvedor
+//   genérico de catálogo.
+// - `MC_CAD_BLOQUEIO`: não tem `descricao`/`nome` — tem `motivo` (mas a tabela
+//   parece guardar ocorrências de bloqueio por entidade, não um catálogo de
+//   tipos/categorias de bloqueio) — natureza da tabela ainda não totalmente
+//   entendida, não presumir.
+// - `MC_CAD_FORMULARIO_CAMPO`: não tem `descricao`/`nome` — tem `label` (nullable) e
+//   é referenciada por par (`idFormulario`+`idCampo` em algumas tabelas) — chave
+//   natural não é um único campo óbvio.
+// - `MC_CAD_PESSOA_SOCIO`: tabela de associação (`idPessoa`+`idSocio`), não tem
+//   `descricao`/`nome` — não é um catálogo de valor único, é um vínculo.
+export const METADADOS_CATALOGO_CEDENTE = {
+  MC_CAD_ANALISTA: { campoChaveNatural: 'nome' },
+  MC_CAD_CANAL: { campoChaveNatural: 'descricao' },
+  MC_CAD_CLASSIFICACAO_EMPRESA: { campoChaveNatural: 'descricao' },
+  MC_CAD_CONSULTA_EXTERNA: { campoChaveNatural: 'descricao' },
+  MC_CAD_CONSULTOR: { campoChaveNatural: 'descricao' },
+  MC_CAD_CONSULTORIA: { campoChaveNatural: 'descricao' },
+  MC_CAD_CONSULTORIA_ESPECIALIZADA: { campoChaveNatural: 'descricao' },
+  MC_CAD_FOCO_NEGOCIO: { campoChaveNatural: 'descricao' },
+  MC_CAD_FORMULARIO: { campoChaveNatural: 'nome' },
+  MC_CAD_FUNDO: { campoChaveNatural: 'nome' },
+  MC_CAD_GARANTIA_ACONDICIONAMENTO: { campoChaveNatural: 'descricao' },
+  MC_CAD_GARANTIA_CATEGORIA: { campoChaveNatural: 'descricao' },
+  MC_CAD_GERENTE_COMERCIAL: { campoChaveNatural: 'nome' },
+  MC_CAD_GRUPO_ECONOMICO: { campoChaveNatural: 'descricao' },
+  MC_CAD_GRUPO_PRODUTO: { campoChaveNatural: 'descricao' },
+  MC_CAD_INDICADOR: { campoChaveNatural: 'nome' },
+  MC_CAD_INDICADOR_ECONOMICO: { campoChaveNatural: 'descricao' },
+  MC_CAD_INSTITUICAO: { campoChaveNatural: 'nome' },
+  MC_CAD_LOCAL_COBRANCA: { campoChaveNatural: 'descricao' },
+  MC_CAD_MODALIDADE: { campoChaveNatural: 'descricao' },
+  MC_CAD_MODELO_CONTRATO: { campoChaveNatural: 'descricao' },
+  MC_CAD_MOEDA: { campoChaveNatural: 'descricao' },
+  MC_CAD_PRODUTO: { campoChaveNatural: 'descricao' },
+  MC_CAD_RAMO_ATIVIDADE: { campoChaveNatural: 'descricao' },
+  MC_CAD_SEGMENTO_CEDENTE: { campoChaveNatural: 'descricao' },
+  MC_CAD_SEGMENTO_TARIFADOR: { campoChaveNatural: 'descricao' },
+  MC_CAD_SETOR: { campoChaveNatural: 'descricao' },
+  MC_CAD_SITUACAO: { campoChaveNatural: 'descricao' },
+  MC_CAD_SOCIO: { campoChaveNatural: 'nome' },
+  MC_CAD_TIPO_CONTATO: { campoChaveNatural: 'descricao' },
+  MC_CAD_TIPO_INSTALACAO: { campoChaveNatural: 'descricao' },
+  MC_CAD_TIPO_INVESTIMENTO: { campoChaveNatural: 'descricao' },
+  MC_CAD_TIPO_PROPOSTA: { campoChaveNatural: 'descricao' },
+  MC_CAD_TIPO_PROSPECT: { campoChaveNatural: 'descricao' },
+  MC_CAD_TIPO_RISCO_CEDENTE: { campoChaveNatural: 'descricao' },
+  MC_CAD_UNIDADE_MEDIDA: { campoChaveNatural: 'descricao' },
+  MC_RAT_RATING_INDICADOR: { campoChaveNatural: 'descricao' },
+  MC_RAT_RATING_INDICADOR_ITEM: { campoChaveNatural: 'descricao' },
+};
+
 export default MAPEAMENTO_CEDENTE_PROSPECT;
