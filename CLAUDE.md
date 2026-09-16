@@ -139,6 +139,58 @@ Peculiaridades que diferenciam este pipeline do de Grupos e Permissões:
   - **Modo em lote** (`cy.clonarUsuariosKeycloakEmLote`): **não** lança erro — o item problemático vira um resultado `{ ok: false, motivo }` (junto com `usuarioProd`/`usuarioHml` daquele item específico) na lista final, e o processamento segue normalmente para o próximo usuário do mapa. Isso só é possível porque `executarClonagem` e os resolvers internos (`resolverRolesRealmEmHml`, `resolverRolesClienteEmHml`, `resolverGruposEmHml`) devolvem `{ ok, motivo? , valor? }` em vez de lançar — decisão tomada justamente para viabilizar essa continuação (Cypress não permite `try/catch`/`.catch()` ao redor de uma cadeia de comandos que falha: uma vez que um comando lança erro dentro dela, a fila de comandos do teste é interrompida, então "continuar após uma falha" só funciona se o próprio código nunca lançar erro para os casos esperados). A orquestração do lote em si (`clonarUsuariosEmLote`, em `cypress/support/shared/clonagemUsuarioKeycloak.js`) é pura — recebe a função de clonagem por injeção — para poder ser coberta por `node:test` sem depender do Cypress.
 - **A criação do usuário não é seguida de nova busca "às cegas"**: o `username` já foi conferido como livre em HML antes de criar (passo anterior do fluxo), então a busca por `username` logo após o `POST` serve só para obter o `id` do novo usuário (necessário para os `POST`/`PUT` de role-mappings/grupos seguintes), não para tratar `409` como sucesso — um `POST` de criação que falhar aqui é sempre um erro real, não uma corrida esperada.
 
+### Clonagem de Cedente — ciclo prospect → POC → comitê → cedente (em implementação)
+
+Diferente de todos os domínios acima, o domínio **Cedente** (`cypress/utils/mapeamentoCedente.js` +
+`cypress/support/shared/clonagemCedente.js` + `cypress/support/commands/cedente.js`, feature
+`@cedente`) clona um cedente **inteiro** de PROD para HML, percorrendo o ciclo de vida completo do
+banco — prospect → pleito → proposta (POC) → comitê → cedente — e recriando em HML tudo que for
+necessário para esse cadastro existir e funcionar lá, exceto documentação/formalização (com uma
+exceção pontual, ver abaixo), KYC, log/auditoria, backups, compliance por CNPJ (`CPL_CEDENTE_*`) e
+todo o domínio de operação/liquidação/câmbio. Escopo completo (o que entra/fica de fora por fase, a
+regra de match por CNPJ/CPF, e "já existe em HML → apaga e refaz") está documentado inline em
+`clonagemCedente.js` e na tarefa de origem — não repetido aqui para não divergir de uma única fonte
+de verdade.
+
+- **Classificação de tabela por fase** (`classificarTabelaCedente`, `clonagemCedente.js`): dado o
+  nome de uma tabela, devolve em qual fase ela entra (`prospect`/`poc`/`comite`/`cedente`/`catalogo`)
+  ou `entra: false` se estiver fora de escopo — fonte única de verdade, nenhum outro arquivo deve
+  duplicar essa lista.
+- **Grafo de dependência estrutural** (`construirGrafoEstrutural` +
+  `ordenarTabelasPorDependenciaEstrutural`, `clonagemCedente.js`, alimentado pelas constantes
+  `MAPEAMENTO_CEDENTE_*` de `mapeamentoCedente.js`): a ordem real de INSERT/DELETE entre as tabelas
+  do cedente vem **sempre** deste grafo (calculado a partir de FKs reais investigadas contra PROD via
+  `INFORMATION_SCHEMA.COLUMNS`/`sys.foreign_keys`), nunca da suposição "uma fase termina antes da
+  próxima começar" — várias tabelas cruzam fases (ex.: `MC_PRT_PLEITO*`, com prefixo de prospect, na
+  verdade depende estruturalmente de `MC_POC_PROPOSTA`, fase POC).
+- **Dependências de catálogo** (`MC_CAD_*` genéricas, mais duas exceções fora desse padrão —
+  `MC_RAT_RATING_INDICADOR(_ITEM)`, confirmadas com o responsável do projeto — ver
+  `TABELAS_CATALOGO_FORA_DO_PADRAO_MC_CAD`) são resolvidas pelo mesmo padrão já usado em
+  Produtos/Esteiras/Vínculos (busca por chave natural em HML, cria se faltar via
+  `commands/dependencias.js`/`estoque.js`), não por cópia profunda tabela a tabela.
+- **Dois tipos de dependência específicos deste domínio**, distintos de `estrutural`/`catalogo`:
+  `participante-fixo` (o votante real de um comitê/ata em PROD nunca é copiado — toda linha de
+  votação clonada usa um participante fixo pré-acordado, localizado por nome em `MC_CAD_ANALISTA`
+  em HML) e `cascata` (`MC_CED_CEDENTE_VINCULADO.idCedenteVinculado` aponta para outro cedente — se
+  ausente em HML, a clonagem deve ser disparada recursivamente para ele também).
+- **`aplicarValoresFixos`** (`clonagemCedente.js`): sobrescreve, sobre uma linha vinda de PROD, as
+  colunas declaradas em `valoresFixos` no mapeamento de uma tabela (ex.: marcar todo comitê/ata
+  clonado como votado e aprovado) — não é uma FK a resolver, é uma sobrescrita direta de valor.
+- **Exceção pontual à exclusão de documentação**: `MC_CED_ATA`/`MC_CED_ATA_VOTACAO` entram no escopo
+  (`TABELAS_POR_FASE[FASE_CEDENTE]`) só para viabilizar a votação da ata do cedente — `MC_CED_ATA`
+  guarda o conteúdo da ata inline (`textoAtaComite`, texto/HTML), não como arquivo externo; não abre
+  precedente para as demais tabelas de documentação/formalização, que continuam fora de escopo.
+- **Etapa implementada até aqui — só LEITURA**: `cy.resolverEstrategiaClonagemCedente(documento)`
+  (`commands/cedente.js`) localiza pessoa (`MC_CAD_PESSOA`, por `cnpjCpf` ignorando máscara) e
+  prospect de origem em PROD, checa se já existe cedente com o mesmo documento em HML (join
+  `MC_CED_CEDENTE.idPessoa = MC_CAD_PESSOA.id` — o cedente não guarda CNPJ/CPF próprio), e devolve a
+  estratégia (`decidirEstrategiaClonagemCedente`: `bloqueado-sem-origem` se faltar pessoa/prospect de
+  origem, `criar` ou `apagar-e-recriar` conforme o cedente já exista em HML). Nenhum INSERT/DELETE é
+  executado por este comando.
+- **Ainda não implementado**: os comandos de INSERT (criação em HML, na ordem do grafo de FK) e
+  DELETE (para o caso "já existe → apaga e refaz", ordem inversa do grafo — filhas antes de pais, um
+  cedente por execução).
+
 ## Segurança / não commitar
 
 - Nunca commitar `.env` ou `cypress/temp/tokens.json` (ambos no `.gitignore`).

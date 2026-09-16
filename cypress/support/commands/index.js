@@ -15,3 +15,4 @@ import './estoque';
 import './vinculos';
 import './gruposPermissoes';
 import './usuariosKeycloak';
+import './cedente';
