@@ -480,3 +480,58 @@ export const ordenarTabelasPorDependenciaEstrutural = (grafo) => {
  */
 export const ordenarTabelasParaExclusaoEstrutural = (grafo) =>
   [...ordenarTabelasPorDependenciaEstrutural(grafo)].reverse();
+
+// Colunas de auditoria/identidade nunca copiadas de PROD para HML ao criar um
+// registro novo — o `id` é sempre gerado por HML (não é estável entre
+// ambientes, mesmo critério já usado para o match de cedente/pessoa), e as
+// colunas de auditoria devem refletir a criação em HML, não a origem em PROD.
+// Mesmo conjunto já usado em `commands/sincronizacaoNivel.js`
+// (`criarItensInexistentesPorNivel`) para as entidades de Produtos/Esteiras/
+// Vínculos — reaproveitado aqui para não divergir do padrão do repo.
+export const COLUNAS_AUDITORIA_CEDENTE = [
+  'id',
+  'dataCadastro',
+  'dataUltimaAlteracao',
+  'usuarioCadastro',
+  'usuarioUltimaAlteracao',
+];
+
+/**
+ * @description Formata um valor JS como literal SQL (T-SQL) seguro para uso
+ * dentro de um `INSERT`/`WHERE` montado por concatenação de string — mesmo
+ * padrão de escaping já usado em `commands/cedente.js`
+ * (`condicaoDocumentoIgual`), sem depender de query parametrizada (não
+ * suportada hoje por `cy.executarQuery`/`dbTasks.cjs`, que só recebem a query
+ * já pronta). Aspas simples embutidas em string são escapadas dobrando-as
+ * (`'` -> `''`, sintaxe padrão do T-SQL) — suficiente para o conteúdo de
+ * catálogo/domínio (não é o `textoAtaComite` da fase cedente, que exige um
+ * tratamento próprio quando o INSERT estrutural for implementado).
+ * @param {*} valor
+ * @returns {string}
+ */
+export const formatarValorSql = (valor) => {
+  if (valor === null || valor === undefined) return 'NULL';
+  if (typeof valor === 'number') return Number.isFinite(valor) ? String(valor) : 'NULL';
+  if (typeof valor === 'boolean') return valor ? '1' : '0';
+  if (valor instanceof Date) return `'${valor.toISOString()}'`;
+  return `'${String(valor).replace(/'/g, "''")}'`;
+};
+
+/**
+ * @description Monta o `INSERT` (T-SQL) que copia uma linha de catálogo
+ * (já lida de PROD) para HML, excluindo as colunas de auditoria/identidade
+ * (`COLUNAS_AUDITORIA_CEDENTE`) — o restante das colunas da linha é copiado
+ * como está. Usa `OUTPUT INSERTED.id` para devolver o novo id gerado por HML
+ * na mesma instrução, sem precisar de um `SELECT` de acompanhamento.
+ * @param {string} tabela
+ * @param {Object} linha - linha de origem (PROD), já lida via `SELECT *`.
+ * @param {string[]} [colunasIgnoradas]
+ * @returns {string}
+ */
+export const montarInsertCatalogo = (tabela, linha, colunasIgnoradas = COLUNAS_AUDITORIA_CEDENTE) => {
+  const colunas = Object.keys(linha).filter((coluna) => !colunasIgnoradas.includes(coluna));
+  const listaColunas = colunas.join(', ');
+  const listaValores = colunas.map((coluna) => formatarValorSql(linha[coluna])).join(', ');
+
+  return `INSERT INTO ${tabela} (${listaColunas}) OUTPUT INSERTED.id VALUES (${listaValores})`;
+};

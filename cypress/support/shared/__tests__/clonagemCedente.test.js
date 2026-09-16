@@ -21,6 +21,9 @@ import {
   NOME_ANALISTA_RESPONSAVEL_CLONAGEM_CEDENTE,
   TIPO_DEPENDENCIA_CASCATA,
   aplicarValoresFixos,
+  COLUNAS_AUDITORIA_CEDENTE,
+  formatarValorSql,
+  montarInsertCatalogo,
 } from '../clonagemCedente.js';
 import MAPEAMENTO_CEDENTE_PROSPECT, {
   MAPEAMENTO_CEDENTE_POC,
@@ -574,4 +577,40 @@ test('MC_CED_LOGIN excluída inteira do escopo (Resposta-7, item 3 — dado sens
   assert.deepEqual(classificarTabelaCedente('MC_CED_LOGIN'), { fase: null, entra: false });
   assert.equal(MAPEAMENTO_CEDENTE_CEDENTE.MC_CED_LOGIN, undefined);
   assert.equal(TABELAS_FORA_DE_ESCOPO.includes('MC_CED_LOGIN'), true);
+});
+
+test('formatarValorSql formata cada tipo de valor como literal T-SQL', () => {
+  assert.equal(formatarValorSql(null), 'NULL');
+  assert.equal(formatarValorSql(undefined), 'NULL');
+  assert.equal(formatarValorSql(42), '42');
+  assert.equal(formatarValorSql(3.14), '3.14');
+  assert.equal(formatarValorSql(Number.NaN), 'NULL');
+  assert.equal(formatarValorSql(true), '1');
+  assert.equal(formatarValorSql(false), '0');
+  assert.equal(formatarValorSql(new Date('2026-09-16T12:00:00.000Z')), "'2026-09-16T12:00:00.000Z'");
+  assert.equal(formatarValorSql('Situação Ativa'), "'Situação Ativa'");
+  assert.equal(formatarValorSql("O'Brien"), "'O''Brien'");
+});
+
+test('montarInsertCatalogo exclui colunas de auditoria e escapa os valores restantes', () => {
+  const linha = {
+    id: 999,
+    descricao: "Ativo's",
+    valor: 10,
+    ativo: true,
+    dataCadastro: new Date('2020-01-01T00:00:00.000Z'),
+    usuarioCadastro: 'joao',
+  };
+
+  const sql = montarInsertCatalogo('MC_CAD_SITUACAO', linha);
+
+  assert.equal(sql, "INSERT INTO MC_CAD_SITUACAO (descricao, valor, ativo) OUTPUT INSERTED.id VALUES ('Ativo''s', 10, 1)");
+  COLUNAS_AUDITORIA_CEDENTE.forEach((coluna) => {
+    assert.equal(sql.includes(`(${coluna}`) || sql.includes(`, ${coluna},`) || sql.includes(`, ${coluna})`), false);
+  });
+});
+
+test('montarInsertCatalogo aceita uma lista de colunas ignoradas customizada', () => {
+  const sql = montarInsertCatalogo('MC_CAD_TESTE', { id: 1, descricao: 'X', extra: 'Y' }, ['id', 'extra']);
+  assert.equal(sql, "INSERT INTO MC_CAD_TESTE (descricao) OUTPUT INSERTED.id VALUES ('X')");
 });

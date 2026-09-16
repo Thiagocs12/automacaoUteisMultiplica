@@ -50,3 +50,45 @@ Then('a estratégia resolvida é exibida no log com os dados de origem encontrad
       ` — pessoa em PROD: ${resultado.pessoaOrigem ? 'encontrada' : 'não encontrada'}, prospect em PROD: ${resultado.prospectOrigem ? 'encontrado' : 'não encontrado'}, cedente já existente em HML: ${resultado.cedenteHmlExistente ? 'sim' : 'não'}.`,
   );
 });
+
+// Resolvedor genérico de dependência de catálogo (ver docs/documentacao.md,
+// Ciclo 13/14 — `cy.resolverIdCatalogoEmHml`, `commands/catalogoCedente.js`).
+// Parametrizado via `--env catalogoTabela=...,catalogoIdProducao=...` — mesmo
+// padrão de "parâmetro ausente não quebra o cenário" já usado acima.
+//
+//   npx cypress run --env tags=@cedente,catalogoTabela=MC_CAD_SITUACAO,catalogoIdProducao=1
+
+let idHmlResolvido;
+let execucaoCatalogoPulada = false;
+
+When('resolvo o id equivalente em HML da dependência de catálogo informada via parâmetros de execução', () => {
+  const catalogoTabela = Cypress.env('catalogoTabela');
+  const catalogoIdProducao = Cypress.env('catalogoIdProducao');
+
+  if (!catalogoTabela || !catalogoIdProducao) {
+    execucaoCatalogoPulada = true;
+    idHmlResolvido = undefined;
+    return cy.logExecucao(
+      '[gerenciamentoDoCedente] Parâmetros "catalogoTabela"/"catalogoIdProducao" não informados via --env — nenhuma resolução de catálogo executada.',
+    );
+  }
+
+  execucaoCatalogoPulada = false;
+
+  return cy.resolverIdCatalogoEmHml(catalogoTabela, catalogoIdProducao).then((valor) => {
+    idHmlResolvido = valor;
+  });
+});
+
+Then('o id equivalente em HML é exibido no log', () => {
+  if (execucaoCatalogoPulada) {
+    cy.log('catalogoTabela/catalogoIdProducao não informados via --env — nada a verificar.');
+    return;
+  }
+
+  expect(idHmlResolvido, 'id equivalente em HML resolvido').to.not.be.undefined;
+
+  return cy.logExecucao(
+    `[gerenciamentoDoCedente] "${Cypress.env('catalogoTabela')}" id ${Cypress.env('catalogoIdProducao')} (PROD) -> id ${idHmlResolvido} (HML).`,
+  );
+});
