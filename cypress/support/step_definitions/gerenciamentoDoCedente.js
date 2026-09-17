@@ -92,3 +92,45 @@ Then('o id equivalente em HML é exibido no log', () => {
     `[gerenciamentoDoCedente] "${Cypress.env('catalogoTabela')}" id ${Cypress.env('catalogoIdProducao')} (PROD) -> id ${idHmlResolvido} (HML).`,
   );
 });
+
+// Orquestrador completo (ver docs/documentacao.md, Ciclo 18 —
+// `cy.clonarCedenteCompleto`, `commands/cedente.js`). Mesmo parâmetro
+// `documentoOrigem` já usado acima; parâmetro ausente não quebra o cenário,
+// mesmo padrão dos demais steps deste arquivo.
+//
+//   npx cypress run --env tags=@cedente,documentoOrigem=12345678000190
+
+let resultadoClonagemCompleta = null;
+let execucaoClonagemCompletaPulada = false;
+
+When('clono o cedente completo informado via parâmetros de execução', () => {
+  const documentoOrigem = Cypress.env('documentoOrigem');
+
+  if (!documentoOrigem) {
+    execucaoClonagemCompletaPulada = true;
+    resultadoClonagemCompleta = null;
+    return cy.logExecucao(
+      '[gerenciamentoDoCedente] Parâmetro "documentoOrigem" (CNPJ/CPF) não informado via --env — nenhuma clonagem completa executada.',
+    );
+  }
+
+  execucaoClonagemCompletaPulada = false;
+
+  return cy.clonarCedenteCompleto(documentoOrigem).then((valor) => {
+    resultadoClonagemCompleta = valor;
+  });
+});
+
+Then('o resultado da clonagem completa é exibido no log', () => {
+  if (execucaoClonagemCompletaPulada) {
+    cy.log('documentoOrigem não informado via --env — nada a verificar.');
+    return;
+  }
+
+  expect(resultadoClonagemCompleta, 'resultado da clonagem completa').to.not.be.null;
+  expect(resultadoClonagemCompleta.acao, 'ação executada').to.be.a('string');
+
+  return cy.logExecucao(
+    `[gerenciamentoDoCedente] Clonagem completa para "${Cypress.env('documentoOrigem')}": estratégia = "${resultadoClonagemCompleta.estrategia}", ação = "${resultadoClonagemCompleta.acao}".`,
+  );
+});

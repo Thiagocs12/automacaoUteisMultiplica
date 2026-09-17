@@ -14,7 +14,18 @@
 // `ordenarTabelasPorDependenciaEstrutural`) são a próxima etapa, ainda não
 // implementada.
 
-import { normalizarDocumento, decidirEstrategiaClonagemCedente } from '../shared/clonagemCedente';
+import {
+  normalizarDocumento,
+  decidirEstrategiaClonagemCedente,
+  decidirAcaoOrquestracaoCedente,
+  construirGrafoEstrutural,
+  ordenarTabelasPorDependenciaEstrutural,
+  TABELA_ANCORA_POR_FASE,
+  FASE_PROSPECT,
+  ACAO_CLONAGEM_BLOQUEADO,
+  ACAO_CLONAGEM_APAGAR_E_RECRIAR_PENDENTE,
+} from '../shared/clonagemCedente';
+import { MAPEAMENTO_CEDENTE_UNIFICADO } from '../../utils/mapeamentoCedente';
 
 /**
  * @description Monta a condição SQL que compara uma coluna `cnpjCpf`
@@ -113,5 +124,56 @@ Cypress.Commands.add('resolverEstrategiaClonagemCedente', (documento) =>
         return { estrategia, motivo, pessoaOrigem, prospectOrigem, cedenteHmlExistente };
       }),
     );
+  }),
+);
+
+/**
+ * @description Orquestra a clonagem completa de um cedente de PROD para HML
+ * a partir do CNPJ/CPF informado: resolve a estratégia
+ * (`cy.resolverEstrategiaClonagemCedente`) e, conforme a ação decidida
+ * (`decidirAcaoOrquestracaoCedente`, `shared/clonagemCedente.js`):
+ *
+ * - **bloqueado** (falta pessoa/prospect de origem em PROD): só loga o
+ *   motivo, nenhuma escrita em HML.
+ * - **apagar-e-recriar-pendente** (cedente já existe em HML): o DELETE
+ *   (apaga-e-refaz, `ordenarTabelasParaExclusaoEstrutural`) ainda não foi
+ *   implementado — só loga a situação, **nunca insere** (inserir sem apagar
+ *   primeiro duplicaria o cadastro/quebraria por violação de chave).
+ * - **inserir** (não existe em HML ainda): clona o grafo estrutural inteiro
+ *   (`cy.clonarGrafoEstruturalCedente`) a partir da tabela-âncora do prospect
+ *   (`TABELA_ANCORA_POR_FASE[FASE_PROSPECT]`) já resolvida, na ordem de
+ *   `ordenarTabelasPorDependenciaEstrutural(construirGrafoEstrutural(
+ *   MAPEAMENTO_CEDENTE_UNIFICADO))`.
+ * @param {string} documento - CNPJ/CPF de origem, com ou sem máscara.
+ * @returns {Cypress.Chainable<{estrategia: string, acao: string, motivo?: string, pessoaOrigem: object|null, prospectOrigem: object|null, cedenteHmlExistente: object|null, idsHmlPorTabela?: Object<string, Map<number, number>>, idsProdPorTabela?: Object<string, Set<number>>}>}
+ */
+Cypress.Commands.add('clonarCedenteCompleto', (documento) =>
+  cy.resolverEstrategiaClonagemCedente(documento).then((resultadoEstrategia) => {
+    const acao = decidirAcaoOrquestracaoCedente(resultadoEstrategia.estrategia);
+
+    if (acao === ACAO_CLONAGEM_BLOQUEADO) {
+      return cy
+        .logExecucao(`[clonarCedenteCompleto] Bloqueado para "${documento}": ${resultadoEstrategia.motivo}`)
+        .then(() => ({ ...resultadoEstrategia, acao }));
+    }
+
+    if (acao === ACAO_CLONAGEM_APAGAR_E_RECRIAR_PENDENTE) {
+      return cy
+        .logExecucao(
+          `[clonarCedenteCompleto] Já existe um cedente em HML para "${documento}" — estratégia "apagar-e-recriar" ainda não implementada (DELETE pendente). Nenhuma alteração foi feita em HML.`,
+        )
+        .then(() => ({ ...resultadoEstrategia, acao }));
+    }
+
+    const ordemTabelas = ordenarTabelasPorDependenciaEstrutural(construirGrafoEstrutural(MAPEAMENTO_CEDENTE_UNIFICADO));
+
+    return cy
+      .clonarGrafoEstruturalCedente(
+        ordemTabelas,
+        TABELA_ANCORA_POR_FASE[FASE_PROSPECT],
+        resultadoEstrategia.prospectOrigem,
+        MAPEAMENTO_CEDENTE_UNIFICADO,
+      )
+      .then((resultadoClonagem) => ({ ...resultadoEstrategia, acao, ...resultadoClonagem }));
   }),
 );

@@ -672,3 +672,35 @@ export const montarCondicaoBuscaSatelite = (tabela, mapeamento, tabelasJaProcess
     })
     .join(' AND ');
 };
+
+// Ações possíveis do orquestrador completo (`cy.clonarCedenteCompleto`,
+// `commands/cedente.js`) a partir da estratégia já resolvida por
+// `decidirEstrategiaClonagemCedente`. `apagar-e-recriar-pendente` existe
+// porque o DELETE (apaga-e-refaz) ainda não foi implementado (ver
+// docs/documentacao.md, "próximo passo pendente") — inserir de novo um
+// cedente que já existe em HML sem apagar primeiro duplicaria/quebraria por
+// violação de chave, então o orquestrador não tenta inserir nesse caso
+// enquanto o DELETE não existir; só registra a situação no log, sem alterar
+// HML.
+export const ACAO_CLONAGEM_BLOQUEADO = 'bloqueado';
+export const ACAO_CLONAGEM_INSERIR = 'inserir';
+export const ACAO_CLONAGEM_APAGAR_E_RECRIAR_PENDENTE = 'apagar-e-recriar-pendente';
+
+/**
+ * @description Traduz a estratégia já resolvida por
+ * `decidirEstrategiaClonagemCedente` na ação que o orquestrador completo
+ * (`cy.clonarCedenteCompleto`) deve tomar. Separada como função pura (em vez
+ * de um `if`/`else` embutido no comando Cypress) só para poder ser coberta
+ * por `node:test` sem depender do Cypress, mesmo padrão já usado no restante
+ * deste arquivo.
+ * @param {string} estrategia - um dos valores de `ESTRATEGIA_*` acima.
+ * @returns {string} um dos valores de `ACAO_CLONAGEM_*` acima.
+ * @throws {Error} se `estrategia` não for um valor reconhecido.
+ */
+export const decidirAcaoOrquestracaoCedente = (estrategia) => {
+  if (estrategia === ESTRATEGIA_BLOQUEADO_SEM_ORIGEM) return ACAO_CLONAGEM_BLOQUEADO;
+  if (estrategia === ESTRATEGIA_CRIAR) return ACAO_CLONAGEM_INSERIR;
+  if (estrategia === ESTRATEGIA_APAGAR_E_RECRIAR) return ACAO_CLONAGEM_APAGAR_E_RECRIAR_PENDENTE;
+
+  throw new Error(`[decidirAcaoOrquestracaoCedente] Estratégia desconhecida: "${estrategia}".`);
+};

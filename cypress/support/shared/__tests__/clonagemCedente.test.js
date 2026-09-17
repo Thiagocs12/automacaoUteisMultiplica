@@ -29,6 +29,10 @@ import {
   montarInsertEstrutural,
   dependenciasEstruturaisResolviveis,
   montarCondicaoBuscaSatelite,
+  decidirAcaoOrquestracaoCedente,
+  ACAO_CLONAGEM_BLOQUEADO,
+  ACAO_CLONAGEM_INSERIR,
+  ACAO_CLONAGEM_APAGAR_E_RECRIAR_PENDENTE,
 } from '../clonagemCedente.js';
 import MAPEAMENTO_CEDENTE_PROSPECT, {
   MAPEAMENTO_CEDENTE_POC,
@@ -803,4 +807,20 @@ test('montarCondicaoBuscaSatelite devolve "1 = 0" para a parte de um pai já pro
   });
 
   assert.equal(condicao, '1 = 0');
+});
+
+test('decidirAcaoOrquestracaoCedente devolve "bloqueado" para a estratégia bloqueado-sem-origem', () => {
+  assert.equal(decidirAcaoOrquestracaoCedente(ESTRATEGIA_BLOQUEADO_SEM_ORIGEM), ACAO_CLONAGEM_BLOQUEADO);
+});
+
+test('decidirAcaoOrquestracaoCedente devolve "inserir" para a estratégia criar', () => {
+  assert.equal(decidirAcaoOrquestracaoCedente(ESTRATEGIA_CRIAR), ACAO_CLONAGEM_INSERIR);
+});
+
+test('decidirAcaoOrquestracaoCedente devolve "apagar-e-recriar-pendente" para a estratégia apagar-e-recriar (DELETE ainda não implementado)', () => {
+  assert.equal(decidirAcaoOrquestracaoCedente(ESTRATEGIA_APAGAR_E_RECRIAR), ACAO_CLONAGEM_APAGAR_E_RECRIAR_PENDENTE);
+});
+
+test('decidirAcaoOrquestracaoCedente lança erro para uma estratégia desconhecida', () => {
+  assert.throws(() => decidirAcaoOrquestracaoCedente('estrategia-inexistente'), /Estratégia desconhecida/);
 });
