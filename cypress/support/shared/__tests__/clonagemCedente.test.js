@@ -20,6 +20,8 @@ import {
   TABELAS_FORA_DE_ESCOPO,
   NOME_ANALISTA_RESPONSAVEL_CLONAGEM_CEDENTE,
   TIPO_DEPENDENCIA_CASCATA,
+  cicloCascataCedenteDetectado,
+  montarMensagemCicloCascataCedente,
   aplicarValoresFixos,
   USUARIO_AUDITORIA_CEDENTE,
   gerarValoresAuditoriaCedente,
@@ -582,6 +584,23 @@ test('MC_CED_CEDENTE_VINCULADO.idCedenteVinculado resolvido como dependência ti
   assert.ok(dependencia, 'idCedenteVinculado deveria ter uma dependência declarada');
   assert.equal(dependencia.tabela, 'MC_CED_CEDENTE');
   assert.equal(dependencia.tipo, TIPO_DEPENDENCIA_CASCATA);
+});
+
+test('cicloCascataCedenteDetectado detecta documento já em processamento na cadeia', () => {
+  assert.equal(cicloCascataCedenteDetectado(['11111111000191', '22222222000172'], '11111111000191'), true);
+  assert.equal(cicloCascataCedenteDetectado(['11111111000191'], '22222222000172'), false);
+});
+
+test('cicloCascataCedenteDetectado nunca detecta ciclo quando a cadeia está vazia/ausente', () => {
+  assert.equal(cicloCascataCedenteDetectado([], '11111111000191'), false);
+  assert.equal(cicloCascataCedenteDetectado(undefined, '11111111000191'), false);
+});
+
+test('montarMensagemCicloCascataCedente lista a cadeia completa até o documento que fechou o ciclo', () => {
+  const mensagem = montarMensagemCicloCascataCedente(['11111111000191', '22222222000172'], '11111111000191');
+
+  assert.match(mensagem, /11111111000191 -> 22222222000172 -> 11111111000191/);
+  assert.match(mensagem, /MC_CED_CEDENTE_VINCULADO\.idCedenteVinculado/);
 });
 
 test('MC_CED_LOGIN excluída inteira do escopo (Resposta-7, item 3 — dado sensível/credencial)', () => {

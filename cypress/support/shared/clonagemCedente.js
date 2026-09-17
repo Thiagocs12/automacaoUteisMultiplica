@@ -279,11 +279,45 @@ export const NOME_ANALISTA_RESPONSAVEL_CLONAGEM_CEDENTE = 'THIAGO DA COSTA SANTO
 // ignora esta aresta (só considera `tipo: 'estrutural'`), mesmo comportamento já
 // coberto por teste para `participante-fixo`. A lógica de execução da cascata
 // (buscar o vinculado em HML por CNPJ/CPF, disparar a clonagem recursiva se
-// ausente, detectar ciclo A-vinculado-a-B-vinculado-a-A) ainda não foi
-// implementada — só a declaração no grafo, mesmo estágio dos demais ciclos de
-// mapeamento; a implementação real acontece quando os comandos de leitura/INSERT
-// forem escritos.
+// ausente, detectar ciclo A-vinculado-a-B-vinculado-a-A) vive em
+// `commands/cedente.js` (`cy.resolverIdCedenteCascataEmHml` — precisa de
+// `cy.executarQuery`, não pode ser pura) — este arquivo só expõe as duas peças
+// puras/testáveis que essa lógica precisa, abaixo.
 export const TIPO_DEPENDENCIA_CASCATA = 'cascata';
+
+/**
+ * @description Detecta se um documento (CNPJ/CPF já normalizado por
+ * `normalizarDocumento`) já está na cadeia de cedentes sendo clonados nesta
+ * mesma execução (`cadeiaDocumentos`, do mais externo para o mais interno) —
+ * usado pela dependência `cascata` (`cy.resolverIdCedenteCascataEmHml`,
+ * `commands/cedente.js`) para nunca entrar em loop infinito quando um cedente
+ * vinculado aponta, direta ou indiretamente, de volta para um cedente já em
+ * processamento (ex.: A vinculado a B vinculado a A). Detectado, é sempre um
+ * erro lançado em tempo de execução (ver `montarMensagemCicloCascataCedente`)
+ * — nunca decidido/ignorado silenciosamente pela automação (duvidas.md,
+ * tarefa 20260915130215, Resposta-7 item 2: "se a cascata... encontrar um
+ * ciclo, registrar nova dúvida antes de continuar"; como não há canal de
+ * dúvida em tempo de execução, o equivalente é interromper com um erro
+ * descritivo, mesmo padrão já usado no modo único de clonagem de usuário
+ * Keycloak).
+ * @param {string[]|undefined} cadeiaDocumentos
+ * @param {string} documentoNormalizado
+ * @returns {boolean}
+ */
+export const cicloCascataCedenteDetectado = (cadeiaDocumentos, documentoNormalizado) =>
+  (cadeiaDocumentos ?? []).includes(documentoNormalizado);
+
+/**
+ * @description Mensagem descritiva do ciclo detectado por
+ * `cicloCascataCedenteDetectado` — lista a cadeia completa de documentos (A ->
+ * B -> ... -> A) para facilitar o diagnóstico de qual vínculo causou o ciclo.
+ * @param {string[]|undefined} cadeiaDocumentos
+ * @param {string} documentoNormalizado
+ * @returns {string}
+ */
+export const montarMensagemCicloCascataCedente = (cadeiaDocumentos, documentoNormalizado) =>
+  `[resolverIdCedenteCascataEmHml] Ciclo de cedentes vinculados detectado: ${[...(cadeiaDocumentos ?? []), documentoNormalizado].join(' -> ')}. ` +
+  'Clonagem em cascata (MC_CED_CEDENTE_VINCULADO.idCedenteVinculado) interrompida para evitar loop infinito.';
 
 /**
  * @description Aplica os valores fixos declarados para uma tabela em

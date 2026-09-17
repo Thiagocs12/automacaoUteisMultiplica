@@ -216,9 +216,17 @@ de verdade.
   `ordenarTabelasParaExclusaoEstrutural` (filhas antes de pais). `cy.clonarCedenteCompleto`
   (`commands/cedente.js`) encadeia apagar -> inserir de novo (`cy.inserirGrafoCompletoCedenteEmHml`,
   compartilhado entre as ações `inserir` e `apagar-e-recriar`) quando o cedente já existe em HML.
-- **Ainda não implementado**: a execução da dependência `cascata`
-  (`MC_CED_CEDENTE_VINCULADO.idCedenteVinculado` — clonagem recursiva do cedente vinculado se ausente
-  em HML, quando referenciado tanto pelo INSERT quanto pelo DELETE).
+- **Execução da dependência `cascata`** (`MC_CED_CEDENTE_VINCULADO.idCedenteVinculado`,
+  `cy.resolverIdCedenteCascataEmHml`, `commands/cedente.js`): localiza o cedente vinculado em HML
+  pelo mesmo documento/CNPJ-CPF do cedente principal — se já existir, usa o id existente sem tocar
+  nele (nunca aciona `apagar-e-recriar` como efeito colateral de resolver uma FK de um cedente
+  diferente do que está sendo clonado); se não existir, clona-o em cascata
+  (`cy.inserirGrafoCompletoCedenteEmHml`, sempre pelo caminho de INSERT puro, nunca
+  `apagar-e-recriar`). `cadeiaDocumentos` (documentos normalizados já em processamento nesta
+  execução, propagado por todo o pipeline de INSERT estrutural desde `cy.clonarCedenteCompleto`)
+  detecta ciclo (A vinculado a B vinculado a A) e interrompe com erro descritivo em vez de recursão
+  infinita — não há canal de dúvida bloqueante em tempo de execução do Cypress, então um ciclo real
+  vira erro imediato, mesmo padrão do modo único de clonagem de usuário Keycloak.
 
 ## Segurança / não commitar
 

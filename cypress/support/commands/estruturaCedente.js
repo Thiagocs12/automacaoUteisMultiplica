@@ -15,11 +15,15 @@
 //   (`idsHmlPorTabela`, mapa por tabela de `idProducao -> idHml`) — a
 //   tabela-pai precisa ter sido inserida antes, respeitando a ordem de
 //   `ordenarTabelasPorDependenciaEstrutural`.
-// - `cascata` (`MC_CED_CEDENTE_VINCULADO.idCedenteVinculado`): AINDA NÃO
-//   resolvida aqui — fica sem entrada em `valoresResolvidos`, mesmo
-//   tratamento de uma coluna nullable sem valor (a execução da cascata em
-//   si, disparar a clonagem recursiva do cedente vinculado, é um passo
-//   futuro, ver `TIPO_DEPENDENCIA_CASCATA` em `shared/clonagemCedente.js`).
+// - `cascata` (`MC_CED_CEDENTE_VINCULADO.idCedenteVinculado`): resolvida por
+//   `cy.resolverIdCedenteCascataEmHml` (`commands/cedente.js`) — busca o
+//   cedente vinculado em HML pelo mesmo documento/CNPJ-CPF usado no cedente
+//   principal e, se ausente, dispara a clonagem em cascata dele
+//   (`cy.inserirGrafoCompletoCedenteEmHml`, nunca `apagar-e-recriar`).
+//   `cadeiaDocumentos` (documentos normalizados já em processamento nesta
+//   execução) detecta ciclo (A vinculado a B vinculado a A) e interrompe com
+//   erro, ver `TIPO_DEPENDENCIA_CASCATA`/`cicloCascataCedenteDetectado` em
+//   `shared/clonagemCedente.js`.
 
 import {
   NOME_ANALISTA_RESPONSAVEL_CLONAGEM_CEDENTE,
@@ -28,6 +32,7 @@ import {
   montarDeleteEmLote,
   classificarTabelaCedente,
   FASE_CATALOGO,
+  TIPO_DEPENDENCIA_CASCATA,
 } from '../shared/clonagemCedente';
 
 const TABELA_JUNCAO_PROSPECT_PROPOSTA = 'MC_POC_PROSPECT';
@@ -75,8 +80,8 @@ Cypress.Commands.add('resolverIdParticipanteFixoEmHml', () =>
  * (coluna opcional) ou cujo id de origem ainda não tenha sido resolvido em
  * `idsHmlPorTabela` (tabela-pai fora de escopo desta execução, ou ainda não
  * processada) não entra no mapa — a coluna final mantém o valor original.
- * Mesmo critério para `cascata`/qualquer tipo futuro ainda sem resolução
- * automática aqui.
+ * Mesmo critério para qualquer tipo futuro ainda sem resolução automática
+ * aqui — hoje só `cascata` (abaixo) e os três já citados são conhecidos.
  *
  * Encadeia os comandos `cy.*` de resolução via `Array.prototype.reduce`
  * sobre um acumulador `cy.wrap({})` (nunca uma Promise nativa) — mesmo
@@ -87,42 +92,57 @@ Cypress.Commands.add('resolverIdParticipanteFixoEmHml', () =>
  * @param {Object} mapeamento - mesmo formato de `MAPEAMENTO_CEDENTE_UNIFICADO`.
  * @param {Object<string, Map<number, number>>} idsHmlPorTabela - por tabela
  * estrutural já processada nesta execução, mapa `idProducao -> idHml`.
+ * @param {string[]} cadeiaDocumentos - documentos normalizados já em
+ * processamento nesta execução (ver `cy.resolverIdCedenteCascataEmHml`).
  * @returns {Cypress.Chainable<Object<string, *>>}
  */
-Cypress.Commands.add('resolverValoresDependenciasLinhaEstrutural', (tabela, linhaOrigem, mapeamento, idsHmlPorTabela) => {
-  const dependencias = mapeamento?.[tabela]?.dependeDe ?? [];
+Cypress.Commands.add(
+  'resolverValoresDependenciasLinhaEstrutural',
+  (tabela, linhaOrigem, mapeamento, idsHmlPorTabela, cadeiaDocumentos) => {
+    const dependencias = mapeamento?.[tabela]?.dependeDe ?? [];
 
-  return dependencias.reduce(
-    (acumulado, dependencia) =>
-      acumulado.then((valoresResolvidos) => {
-        const valorOrigem = linhaOrigem[dependencia.campo];
+    return dependencias.reduce(
+      (acumulado, dependencia) =>
+        acumulado.then((valoresResolvidos) => {
+          const valorOrigem = linhaOrigem[dependencia.campo];
 
-        if (dependencia.tipo === 'catalogo') {
-          return cy.resolverIdCatalogoEmHml(dependencia.tabela, valorOrigem).then((valorHml) =>
-            valorHml != null ? { ...valoresResolvidos, [dependencia.campo]: valorHml } : valoresResolvidos,
-          );
-        }
+          if (dependencia.tipo === 'catalogo') {
+            return cy.resolverIdCatalogoEmHml(dependencia.tabela, valorOrigem).then((valorHml) =>
+              valorHml != null ? { ...valoresResolvidos, [dependencia.campo]: valorHml } : valoresResolvidos,
+            );
+          }
 
-        if (dependencia.tipo === 'participante-fixo') {
-          return cy
-            .resolverIdParticipanteFixoEmHml()
-            .then((valorHml) => ({ ...valoresResolvidos, [dependencia.campo]: valorHml }));
-        }
+          if (dependencia.tipo === 'participante-fixo') {
+            return cy
+              .resolverIdParticipanteFixoEmHml()
+              .then((valorHml) => ({ ...valoresResolvidos, [dependencia.campo]: valorHml }));
+          }
 
-        if (dependencia.tipo === 'estrutural') {
-          const valorHml = valorOrigem != null ? idsHmlPorTabela?.[dependencia.tabela]?.get(valorOrigem) : undefined;
+          if (dependencia.tipo === 'estrutural') {
+            const valorHml = valorOrigem != null ? idsHmlPorTabela?.[dependencia.tabela]?.get(valorOrigem) : undefined;
 
-          return cy.wrap(
-            valorHml != null ? { ...valoresResolvidos, [dependencia.campo]: valorHml } : valoresResolvidos,
-            { log: false },
-          );
-        }
+            return cy.wrap(
+              valorHml != null ? { ...valoresResolvidos, [dependencia.campo]: valorHml } : valoresResolvidos,
+              { log: false },
+            );
+          }
 
-        return cy.wrap(valoresResolvidos, { log: false });
-      }),
-    cy.wrap({}, { log: false }),
-  );
-});
+          if (dependencia.tipo === TIPO_DEPENDENCIA_CASCATA) {
+            if (valorOrigem == null) {
+              return cy.wrap(valoresResolvidos, { log: false });
+            }
+
+            return cy
+              .resolverIdCedenteCascataEmHml(valorOrigem, cadeiaDocumentos)
+              .then((valorHml) => ({ ...valoresResolvidos, [dependencia.campo]: valorHml }));
+          }
+
+          return cy.wrap(valoresResolvidos, { log: false });
+        }),
+      cy.wrap({}, { log: false }),
+    );
+  },
+);
 
 /**
  * @description Insere em HML uma linha ESTRUTURAL clonada de PROD: resolve
@@ -134,11 +154,12 @@ Cypress.Commands.add('resolverValoresDependenciasLinhaEstrutural', (tabela, linh
  * @param {Object} linhaOrigem
  * @param {Object} mapeamento
  * @param {Object<string, Map<number, number>>} idsHmlPorTabela
+ * @param {string[]} cadeiaDocumentos - repassado a `cy.resolverValoresDependenciasLinhaEstrutural`.
  * @returns {Cypress.Chainable<number>}
  */
-Cypress.Commands.add('inserirLinhaEstruturalEmHml', (tabela, linhaOrigem, mapeamento, idsHmlPorTabela) =>
+Cypress.Commands.add('inserirLinhaEstruturalEmHml', (tabela, linhaOrigem, mapeamento, idsHmlPorTabela, cadeiaDocumentos) =>
   cy
-    .resolverValoresDependenciasLinhaEstrutural(tabela, linhaOrigem, mapeamento, idsHmlPorTabela)
+    .resolverValoresDependenciasLinhaEstrutural(tabela, linhaOrigem, mapeamento, idsHmlPorTabela, cadeiaDocumentos)
     .then((valoresResolvidos) =>
       cy
         .executarQuery('hml', montarInsertEstrutural(tabela, linhaOrigem, mapeamento, valoresResolvidos))
@@ -252,16 +273,19 @@ Cypress.Commands.add('buscarComitesRelacionadosEmAmbiente', (ambiente, propostas
  * `docs/conhecimento-geral.md` — tanto para percorrer as tabelas em ordem
  * quanto, dentro de cada tabela, para suas várias linhas uma a uma).
  *
- * A dependência `cascata` (`MC_CED_CEDENTE_VINCULADO.idCedenteVinculado`)
- * nunca é resolvida aqui — mesmo comportamento já existente em
- * `cy.resolverValoresDependenciasLinhaEstrutural` (coluna fica sem entrada em
- * `valoresResolvidos`, execução da cascata em si ainda não implementada).
+ * A dependência `cascata` (`MC_CED_CEDENTE_VINCULADO.idCedenteVinculado`) é
+ * resolvida linha a linha por `cy.resolverValoresDependenciasLinhaEstrutural`
+ * (via `cy.resolverIdCedenteCascataEmHml`, `commands/cedente.js`) — este
+ * comando só repassa `cadeiaDocumentos` adiante, sem lógica própria de
+ * cascata.
  * @param {string[]} ordemTabelas
  * @param {Object<string, Object[]>} sementes - `{ [tabela]: linhas[] }`, ver `construirSementesGrafoEstrutural`.
  * @param {Object} mapeamento - mesmo formato de `MAPEAMENTO_CEDENTE_UNIFICADO`.
+ * @param {string[]} cadeiaDocumentos - documentos normalizados já em
+ * processamento nesta execução (ver `cy.resolverIdCedenteCascataEmHml`).
  * @returns {Cypress.Chainable<{idsHmlPorTabela: Object<string, Map<number, number>>, idsProdPorTabela: Object<string, Set<number>>}>}
  */
-Cypress.Commands.add('clonarGrafoEstruturalCedente', (ordemTabelas, sementes, mapeamento) => {
+Cypress.Commands.add('clonarGrafoEstruturalCedente', (ordemTabelas, sementes, mapeamento, cadeiaDocumentos) => {
   const idsHmlPorTabela = {};
   const idsProdPorTabela = {};
   const tabelasJaProcessadas = new Set();
@@ -274,7 +298,7 @@ Cypress.Commands.add('clonarGrafoEstruturalCedente', (ordemTabelas, sementes, ma
       .reduce(
         (acc, linha) =>
           acc.then(() =>
-            cy.inserirLinhaEstruturalEmHml(tabela, linha, mapeamento, idsHmlPorTabela).then((idHml) => {
+            cy.inserirLinhaEstruturalEmHml(tabela, linha, mapeamento, idsHmlPorTabela, cadeiaDocumentos).then((idHml) => {
               idsHmlPorTabela[tabela].set(linha.id, idHml);
               idsProdPorTabela[tabela].add(linha.id);
             }),
