@@ -20,13 +20,15 @@ import {
   decidirAcaoOrquestracaoCedente,
   construirGrafoEstrutural,
   ordenarTabelasPorDependenciaEstrutural,
+  ordenarTabelasParaExclusaoEstrutural,
   construirSementesGrafoEstrutural,
   TABELA_ANCORA_POR_FASE,
   FASE_PROSPECT,
   FASE_POC,
   FASE_COMITE,
+  FASE_CEDENTE,
   ACAO_CLONAGEM_BLOQUEADO,
-  ACAO_CLONAGEM_APAGAR_E_RECRIAR_PENDENTE,
+  ACAO_CLONAGEM_APAGAR_E_RECRIAR,
 } from '../shared/clonagemCedente';
 import { MAPEAMENTO_CEDENTE_UNIFICADO } from '../../utils/mapeamentoCedente';
 
@@ -131,6 +133,95 @@ Cypress.Commands.add('resolverEstrategiaClonagemCedente', (documento) =>
 );
 
 /**
+ * @description Apaga em HML, na ordem de exclusão estrutural
+ * (`ordenarTabelasParaExclusaoEstrutural`, filhas antes de pais, regra 12 do
+ * `AGENTE.md`), o cadastro completo de um cedente já existente ("apaga e
+ * refaz") — usado só pela ação `ACAO_CLONAGEM_APAGAR_E_RECRIAR`
+ * (`cy.clonarCedenteCompleto`), nunca isoladamente por outro fluxo. As raízes
+ * de prospect/POC/comitê a apagar são descobertas a partir das colunas
+ * próprias de `cedenteHmlExistente` (`idProspect`/`idProposta`, nullable —
+ * ver `docs/documentacao.md`, Ciclo 19, "O DELETE... tem o mesmo problema de
+ * raiz única"), seguindo o mesmo raciocínio de "todas as propostas/comitês
+ * relacionados" já usado do lado do INSERT
+ * (`cy.buscarPropostasRelacionadasAoProspectEmAmbiente`/
+ * `cy.buscarComitesRelacionadosEmAmbiente`), mas lendo de HML em vez de PROD.
+ * Um `idProspect`/`idProposta` nulo em `cedenteHmlExistente` (coluna
+ * opcional) simplesmente não semeia aquela fase — não é erro, só significa
+ * que este cedente em HML não tem prospect/proposta própria vinculada.
+ *
+ * Tabelas de catálogo nunca são apagadas (`cy.executarExclusaoEstruturalEmHml`
+ * já filtra isso) — são compartilhadas entre cedentes.
+ * @param {Object} cedenteHmlExistente - linha de `MC_CED_CEDENTE` em HML (ver
+ * `cy.buscarCedenteExistenteEmHmlPorDocumento`).
+ * @returns {Cypress.Chainable<Object<string, Set<number>>>} ids apagados por tabela.
+ */
+Cypress.Commands.add('apagarCedenteEmHml', (cedenteHmlExistente) => {
+  const buscarPropostas =
+    cedenteHmlExistente.idProspect != null
+      ? cy.buscarPropostasRelacionadasAoProspectEmAmbiente('hml', cedenteHmlExistente.idProspect)
+      : cy.wrap([], { log: false });
+
+  return buscarPropostas.then((propostas) =>
+    cy.buscarComitesRelacionadosEmAmbiente('hml', propostas).then((comites) => {
+      const sementes = {
+        [TABELA_ANCORA_POR_FASE[FASE_CEDENTE]]: [cedenteHmlExistente],
+        ...(cedenteHmlExistente.idProspect != null
+          ? { [TABELA_ANCORA_POR_FASE[FASE_PROSPECT]]: [{ id: cedenteHmlExistente.idProspect }] }
+          : {}),
+        ...(propostas.length ? { [TABELA_ANCORA_POR_FASE[FASE_POC]]: propostas } : {}),
+        ...(comites.length ? { [TABELA_ANCORA_POR_FASE[FASE_COMITE]]: comites } : {}),
+      };
+
+      const grafo = construirGrafoEstrutural(MAPEAMENTO_CEDENTE_UNIFICADO);
+      const ordemInsercao = ordenarTabelasPorDependenciaEstrutural(grafo);
+      const ordemExclusao = ordenarTabelasParaExclusaoEstrutural(grafo);
+
+      return cy
+        .descobrirGrafoEstruturalCedenteEmHml(ordemInsercao, sementes, MAPEAMENTO_CEDENTE_UNIFICADO)
+        .then((idsPorTabela) => cy.executarExclusaoEstruturalEmHml(ordemExclusao, idsPorTabela));
+    }),
+  );
+});
+
+/**
+ * @description Insere em HML o grafo estrutural completo de um cedente a
+ * partir do prospect de origem já resolvido em PROD (`resultadoEstrategia`,
+ * ver `cy.resolverEstrategiaClonagemCedente`): descobre em PROD todas as
+ * propostas (POC) relacionadas ao prospect (via `MC_POC_PROSPECT`,
+ * `cy.buscarPropostasRelacionadasAoProspectEmAmbiente`) e todos os comitês
+ * relacionados a essas propostas (`cy.buscarComitesRelacionadosEmAmbiente`) —
+ * ver `construirSementesGrafoEstrutural`/`shared/clonagemCedente.js` para o
+ * porquê disso ser necessário (as âncoras de fase POC/comitê não são
+ * descobríveis só a partir do prospect pela busca de satélite genérica) — e
+ * então clona o grafo estrutural inteiro (`cy.clonarGrafoEstruturalCedente`)
+ * a partir dessas raízes. Compartilhado pelas duas ações que terminam
+ * inserindo (`inserir` e `apagar-e-recriar`, depois do DELETE) — nunca
+ * duplicado entre elas.
+ * @param {{prospectOrigem: object}} resultadoEstrategia
+ * @returns {Cypress.Chainable<{idsHmlPorTabela: Object<string, Map<number, number>>, idsProdPorTabela: Object<string, Set<number>>}>}
+ */
+Cypress.Commands.add('inserirGrafoCompletoCedenteEmHml', (resultadoEstrategia) =>
+  cy
+    .buscarPropostasRelacionadasAoProspectEmAmbiente('prod', resultadoEstrategia.prospectOrigem.id)
+    .then((propostas) =>
+      cy.buscarComitesRelacionadosEmAmbiente('prod', propostas).then((comites) => {
+        const sementes = construirSementesGrafoEstrutural({
+          tabelaProspect: TABELA_ANCORA_POR_FASE[FASE_PROSPECT],
+          prospectOrigem: resultadoEstrategia.prospectOrigem,
+          tabelaProposta: TABELA_ANCORA_POR_FASE[FASE_POC],
+          propostas,
+          tabelaComite: TABELA_ANCORA_POR_FASE[FASE_COMITE],
+          comites,
+        });
+
+        const ordemTabelas = ordenarTabelasPorDependenciaEstrutural(construirGrafoEstrutural(MAPEAMENTO_CEDENTE_UNIFICADO));
+
+        return cy.clonarGrafoEstruturalCedente(ordemTabelas, sementes, MAPEAMENTO_CEDENTE_UNIFICADO);
+      }),
+    ),
+);
+
+/**
  * @description Orquestra a clonagem completa de um cedente de PROD para HML
  * a partir do CNPJ/CPF informado: resolve a estratégia
  * (`cy.resolverEstrategiaClonagemCedente`) e, conforme a ação decidida
@@ -138,23 +229,15 @@ Cypress.Commands.add('resolverEstrategiaClonagemCedente', (documento) =>
  *
  * - **bloqueado** (falta pessoa/prospect de origem em PROD): só loga o
  *   motivo, nenhuma escrita em HML.
- * - **apagar-e-recriar-pendente** (cedente já existe em HML): o DELETE
- *   (apaga-e-refaz, `ordenarTabelasParaExclusaoEstrutural`) ainda não foi
- *   implementado — só loga a situação, **nunca insere** (inserir sem apagar
- *   primeiro duplicaria o cadastro/quebraria por violação de chave).
- * - **inserir** (não existe em HML ainda): descobre em PROD todas as
- *   propostas (POC) relacionadas ao prospect (via `MC_POC_PROSPECT`,
- *   `cy.buscarPropostasRelacionadasAoProspectEmProd`) e todos os comitês
- *   relacionados a essas propostas (`cy.buscarComitesRelacionadosEmProd`) —
- *   ver `construirSementesGrafoEstrutural`/`shared/clonagemCedente.js` para o
- *   porquê disso ser necessário (as âncoras de fase POC/comitê não são
- *   descobríveis só a partir do prospect pela busca de satélite genérica) —
- *   e então clona o grafo estrutural inteiro (`cy.clonarGrafoEstruturalCedente`)
- *   a partir dessas raízes, na ordem de
- *   `ordenarTabelasPorDependenciaEstrutural(construirGrafoEstrutural(
- *   MAPEAMENTO_CEDENTE_UNIFICADO))`.
+ * - **apagar-e-recriar** (cedente já existe em HML): apaga o cadastro
+ *   completo em HML (`cy.apagarCedenteEmHml`, ordem de
+ *   `ordenarTabelasParaExclusaoEstrutural`) e então insere de novo a partir
+ *   de PROD (`cy.inserirGrafoCompletoCedenteEmHml`) — nunca insere sem apagar
+ *   primeiro (duplicaria o cadastro/quebraria por violação de chave).
+ * - **inserir** (não existe em HML ainda): insere direto
+ *   (`cy.inserirGrafoCompletoCedenteEmHml`), sem apagar nada antes.
  * @param {string} documento - CNPJ/CPF de origem, com ou sem máscara.
- * @returns {Cypress.Chainable<{estrategia: string, acao: string, motivo?: string, pessoaOrigem: object|null, prospectOrigem: object|null, cedenteHmlExistente: object|null, idsHmlPorTabela?: Object<string, Map<number, number>>, idsProdPorTabela?: Object<string, Set<number>>}>}
+ * @returns {Cypress.Chainable<{estrategia: string, acao: string, motivo?: string, pessoaOrigem: object|null, prospectOrigem: object|null, cedenteHmlExistente: object|null, idsApagadosPorTabela?: Object<string, Set<number>>, idsHmlPorTabela?: Object<string, Map<number, number>>, idsProdPorTabela?: Object<string, Set<number>>}>}
  */
 Cypress.Commands.add('clonarCedenteCompleto', (documento) =>
   cy.resolverEstrategiaClonagemCedente(documento).then((resultadoEstrategia) => {
@@ -166,33 +249,21 @@ Cypress.Commands.add('clonarCedenteCompleto', (documento) =>
         .then(() => ({ ...resultadoEstrategia, acao }));
     }
 
-    if (acao === ACAO_CLONAGEM_APAGAR_E_RECRIAR_PENDENTE) {
+    if (acao === ACAO_CLONAGEM_APAGAR_E_RECRIAR) {
       return cy
         .logExecucao(
-          `[clonarCedenteCompleto] Já existe um cedente em HML para "${documento}" — estratégia "apagar-e-recriar" ainda não implementada (DELETE pendente). Nenhuma alteração foi feita em HML.`,
+          `[clonarCedenteCompleto] Já existe um cedente em HML para "${documento}" — apagando cadastro completo em HML antes de recriar a partir de PROD.`,
         )
-        .then(() => ({ ...resultadoEstrategia, acao }));
+        .then(() => cy.apagarCedenteEmHml(resultadoEstrategia.cedenteHmlExistente))
+        .then((idsApagadosPorTabela) =>
+          cy
+            .inserirGrafoCompletoCedenteEmHml(resultadoEstrategia)
+            .then((resultadoClonagem) => ({ ...resultadoEstrategia, acao, idsApagadosPorTabela, ...resultadoClonagem })),
+        );
     }
 
     return cy
-      .buscarPropostasRelacionadasAoProspectEmProd(resultadoEstrategia.prospectOrigem.id)
-      .then((propostas) =>
-        cy.buscarComitesRelacionadosEmProd(propostas).then((comites) => {
-          const sementes = construirSementesGrafoEstrutural({
-            tabelaProspect: TABELA_ANCORA_POR_FASE[FASE_PROSPECT],
-            prospectOrigem: resultadoEstrategia.prospectOrigem,
-            tabelaProposta: TABELA_ANCORA_POR_FASE[FASE_POC],
-            propostas,
-            tabelaComite: TABELA_ANCORA_POR_FASE[FASE_COMITE],
-            comites,
-          });
-
-          const ordemTabelas = ordenarTabelasPorDependenciaEstrutural(construirGrafoEstrutural(MAPEAMENTO_CEDENTE_UNIFICADO));
-
-          return cy
-            .clonarGrafoEstruturalCedente(ordemTabelas, sementes, MAPEAMENTO_CEDENTE_UNIFICADO)
-            .then((resultadoClonagem) => ({ ...resultadoEstrategia, acao, ...resultadoClonagem }));
-        }),
-      );
+      .inserirGrafoCompletoCedenteEmHml(resultadoEstrategia)
+      .then((resultadoClonagem) => ({ ...resultadoEstrategia, acao, ...resultadoClonagem }));
   }),
 );

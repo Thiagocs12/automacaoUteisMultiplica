@@ -25,6 +25,7 @@ import {
   NOME_ANALISTA_RESPONSAVEL_CLONAGEM_CEDENTE,
   montarInsertEstrutural,
   montarCondicaoBuscaSatelite,
+  montarDeleteEmLote,
   classificarTabelaCedente,
   FASE_CATALOGO,
 } from '../shared/clonagemCedente';
@@ -146,34 +147,44 @@ Cypress.Commands.add('inserirLinhaEstruturalEmHml', (tabela, linhaOrigem, mapeam
 );
 
 /**
- * @description Busca em PROD as linhas satélite de uma tabela ESTRUTURAL já
- * localizadas por `montarCondicaoBuscaSatelite` (lógica pura,
- * `shared/clonagemCedente.js`) — um `SELECT *` simples com a condição já
- * pronta, sem lógica adicional aqui (a decisão de qual condição usar já foi
- * tomada antes de chamar este comando).
+ * @description Busca, no ambiente informado (`prod`/`hml`), as linhas
+ * satélite de uma tabela ESTRUTURAL já localizadas por
+ * `montarCondicaoBuscaSatelite` (lógica pura, `shared/clonagemCedente.js`) —
+ * um `SELECT *` simples com a condição já pronta, sem lógica adicional aqui
+ * (a decisão de qual condição usar já foi tomada antes de chamar este
+ * comando). Parametrizado por ambiente (Ciclo 20) para ser reaproveitado
+ * tanto pela descoberta do grafo a INSERIR em HML a partir de PROD
+ * (`cy.clonarGrafoEstruturalCedente`) quanto pela descoberta do grafo a
+ * EXCLUIR de HML no "apaga e refaz" (`cy.descobrirGrafoEstruturalCedenteEmHml`)
+ * — mesma query, ambiente diferente, nunca duplicar a lógica de busca.
+ * @param {'prod'|'hml'} ambiente
  * @param {string} tabela
  * @param {string} condicaoWhere
  * @returns {Cypress.Chainable<Array<Object>>}
  */
-Cypress.Commands.add('buscarLinhasSatelitesEmProd', (tabela, condicaoWhere) =>
-  cy.executarQuery('prod', `SELECT * FROM ${tabela} WHERE ${condicaoWhere}`).then((registros) => registros ?? []),
+Cypress.Commands.add('buscarLinhasSatelitesEmAmbiente', (ambiente, tabela, condicaoWhere) =>
+  cy.executarQuery(ambiente, `SELECT * FROM ${tabela} WHERE ${condicaoWhere}`).then((registros) => registros ?? []),
 );
 
 /**
- * @description Busca em PROD, via a tabela de junção `MC_POC_PROSPECT`
- * (`idProspect`/`idProposta`, ambas colunas estruturais já mapeadas), TODAS
- * as propostas (`MC_POC_PROPOSTA`) relacionadas a um prospect — não só a mais
- * recente (ver `construirSementesGrafoEstrutural`, `shared/clonagemCedente.js`,
- * para o porquê disso não ser uma decisão de negócio nova). Nenhuma proposta
+ * @description Busca, no ambiente informado (`prod`/`hml`), via a tabela de
+ * junção `MC_POC_PROSPECT` (`idProspect`/`idProposta`, ambas colunas
+ * estruturais já mapeadas), TODAS as propostas (`MC_POC_PROPOSTA`)
+ * relacionadas a um prospect — não só a mais recente (ver
+ * `construirSementesGrafoEstrutural`, `shared/clonagemCedente.js`, para o
+ * porquê disso não ser uma decisão de negócio nova). Nenhuma proposta
  * relacionada devolve array vazio (prospect que nunca avançou para POC), não
- * um erro.
+ * um erro. Parametrizado por ambiente (Ciclo 20) pelo mesmo motivo de
+ * `cy.buscarLinhasSatelitesEmAmbiente` — a descoberta do grafo a EXCLUIR em
+ * HML precisa da mesma busca, mas contra HML em vez de PROD.
+ * @param {'prod'|'hml'} ambiente
  * @param {number} idProspect
  * @returns {Cypress.Chainable<Object[]>}
  */
-Cypress.Commands.add('buscarPropostasRelacionadasAoProspectEmProd', (idProspect) =>
+Cypress.Commands.add('buscarPropostasRelacionadasAoProspectEmAmbiente', (ambiente, idProspect) =>
   cy
     .executarQuery(
-      'prod',
+      ambiente,
       `SELECT DISTINCT idProposta FROM ${TABELA_JUNCAO_PROSPECT_PROPOSTA} WHERE idProspect = ${Number(idProspect)}`,
     )
     .then((registros) => (registros ?? []).map((registro) => Number(registro.idProposta)))
@@ -181,21 +192,23 @@ Cypress.Commands.add('buscarPropostasRelacionadasAoProspectEmProd', (idProspect)
       idsProposta.length === 0
         ? cy.wrap([], { log: false })
         : cy
-            .executarQuery('prod', `SELECT * FROM ${TABELA_PROPOSTA} WHERE id IN (${idsProposta.join(', ')})`)
+            .executarQuery(ambiente, `SELECT * FROM ${TABELA_PROPOSTA} WHERE id IN (${idsProposta.join(', ')})`)
             .then((registros) => registros ?? []),
     ),
 );
 
 /**
- * @description Busca em PROD os comitês (`MC_CAD_COMITE`) referenciados por
- * `idComite` (nullable) num conjunto de propostas já localizadas — mesmo
- * raciocínio de "tudo relacionado, não só o mais recente" de
- * `cy.buscarPropostasRelacionadasAoProspectEmProd`. Devolve array vazio se
- * nenhuma proposta tiver `idComite` preenchido.
- * @param {Object[]} propostas - linhas de `MC_POC_PROPOSTA` (PROD).
+ * @description Busca, no ambiente informado (`prod`/`hml`), os comitês
+ * (`MC_CAD_COMITE`) referenciados por `idComite` (nullable) num conjunto de
+ * propostas já localizadas — mesmo raciocínio de "tudo relacionado, não só o
+ * mais recente" de `cy.buscarPropostasRelacionadasAoProspectEmAmbiente`.
+ * Devolve array vazio se nenhuma proposta tiver `idComite` preenchido.
+ * Parametrizado por ambiente pelo mesmo motivo dos dois comandos acima.
+ * @param {'prod'|'hml'} ambiente
+ * @param {Object[]} propostas - linhas de `MC_POC_PROPOSTA` no mesmo ambiente.
  * @returns {Cypress.Chainable<Object[]>}
  */
-Cypress.Commands.add('buscarComitesRelacionadosEmProd', (propostas) => {
+Cypress.Commands.add('buscarComitesRelacionadosEmAmbiente', (ambiente, propostas) => {
   const idsComite = [...new Set((propostas ?? []).map((proposta) => proposta.idComite).filter((id) => id != null))];
 
   if (idsComite.length === 0) {
@@ -203,7 +216,7 @@ Cypress.Commands.add('buscarComitesRelacionadosEmProd', (propostas) => {
   }
 
   return cy
-    .executarQuery('prod', `SELECT * FROM ${TABELA_COMITE} WHERE id IN (${idsComite.join(', ')})`)
+    .executarQuery(ambiente, `SELECT * FROM ${TABELA_COMITE} WHERE id IN (${idsComite.join(', ')})`)
     .then((registros) => registros ?? []);
 });
 
@@ -230,7 +243,7 @@ Cypress.Commands.add('buscarComitesRelacionadosEmProd', (propostas) => {
  *    processadas (`montarCondicaoBuscaSatelite` — `null` significa "não é
  *    satélite de nada já processado", ex.: um template compartilhado como
  *    `MC_CAD_MODELO_ATA_COMITE`, pulado sem inserir nada) e busca as linhas
- *    em PROD (`cy.buscarLinhasSatelitesEmProd`).
+ *    em PROD (`cy.buscarLinhasSatelitesEmAmbiente('prod', ...)`).
  *
  * Em ambos os casos, cada linha encontrada é inserida em HML
  * (`cy.inserirLinhaEstruturalEmHml`), acumulando o novo id em
@@ -290,8 +303,100 @@ Cypress.Commands.add('clonarGrafoEstruturalCedente', (ordemTabelas, sementes, ma
           return cy.wrap(null, { log: false });
         }
 
-        return cy.buscarLinhasSatelitesEmProd(tabela, condicao).then((linhas) => inserirLinhasDaTabela(tabela, linhas));
+        return cy
+          .buscarLinhasSatelitesEmAmbiente('prod', tabela, condicao)
+          .then((linhas) => inserirLinhasDaTabela(tabela, linhas));
       });
     }, cy.wrap(null, { log: false }))
     .then(() => ({ idsHmlPorTabela, idsProdPorTabela }));
 });
+
+/**
+ * @description Descobre, em HML, o grafo estrutural completo (só ids — não
+ * insere/apaga nada) de um cedente já existente, a partir de um mapa de
+ * "sementes" (`sementes`, `{ [tabela]: linhas[] }` — mesmo formato de
+ * `cy.clonarGrafoEstruturalCedente`, mas as linhas já lidas de HML em vez de
+ * PROD) e da ordem de dependência (`ordemTabelas`, mesma ordem de INSERÇÃO
+ * usada pelo comando irmão — a ordem topológica é a mesma independente do
+ * ambiente, já que reflete a estrutura do grafo, não os dados). Usado como
+ * primeiro passo do "apaga e refaz" (`cy.apagarCedenteEmHml`,
+ * `commands/cedente.js`): descobre TUDO que existe em HML para este cedente
+ * antes de decidir a ordem de exclusão (`ordenarTabelasParaExclusaoEstrutural`,
+ * regra 12 do `AGENTE.md`).
+ *
+ * Mesma estrutura de travessia de `cy.clonarGrafoEstruturalCedente`
+ * (semente conhecida vs. busca de satélite via `montarCondicaoBuscaSatelite`),
+ * mas sem inserir nada — só acumula os ids já existentes em HML por tabela
+ * (`idsPorTabela`, `{ [tabela]: Set<idEmHml> }`), reaproveitados diretamente
+ * como condição de busca de satélite da tabela seguinte (em HML, o id do pai
+ * já É o id usado pelas FKs das tabelas filhas, ao contrário do INSERT, que
+ * precisa de dois mapas separados — `idsHmlPorTabela`/`idsProdPorTabela` —
+ * porque ali os ids de origem, em PROD, são diferentes dos ids gerados em
+ * HML).
+ * @param {string[]} ordemTabelas
+ * @param {Object<string, Object[]>} sementes
+ * @param {Object} mapeamento
+ * @returns {Cypress.Chainable<Object<string, Set<number>>>}
+ */
+Cypress.Commands.add('descobrirGrafoEstruturalCedenteEmHml', (ordemTabelas, sementes, mapeamento) => {
+  const idsPorTabela = {};
+  const tabelasJaProcessadas = new Set();
+
+  const registrarLinhas = (tabela, linhas) => {
+    idsPorTabela[tabela] = idsPorTabela[tabela] ?? new Set();
+    linhas.forEach((linha) => idsPorTabela[tabela].add(Number(linha.id)));
+    tabelasJaProcessadas.add(tabela);
+  };
+
+  return ordemTabelas
+    .filter((tabela) => classificarTabelaCedente(tabela).fase !== FASE_CATALOGO)
+    .reduce((acumulado, tabela) => {
+      const linhasSemente = sementes[tabela];
+
+      return acumulado.then(() => {
+        if (linhasSemente) {
+          registrarLinhas(tabela, linhasSemente);
+          return cy.wrap(null, { log: false });
+        }
+
+        const condicao = montarCondicaoBuscaSatelite(tabela, mapeamento, tabelasJaProcessadas, idsPorTabela);
+
+        if (!condicao) {
+          tabelasJaProcessadas.add(tabela);
+          return cy.wrap(null, { log: false });
+        }
+
+        return cy
+          .buscarLinhasSatelitesEmAmbiente('hml', tabela, condicao)
+          .then((linhas) => registrarLinhas(tabela, linhas));
+      });
+    }, cy.wrap(null, { log: false }))
+    .then(() => idsPorTabela);
+});
+
+/**
+ * @description Executa em HML, na ordem informada (`ordemExclusao` —
+ * sempre `ordenarTabelasParaExclusaoEstrutural`, filhas antes de pais, regra
+ * 12 do `AGENTE.md`), o `DELETE` em lote (`montarDeleteEmLote`, lógica pura)
+ * de cada tabela com ids descobertos por `cy.descobrirGrafoEstruturalCedenteEmHml`
+ * — uma tabela sem nenhum id descoberto (não fazia parte do grafo deste
+ * cedente em HML) é pulada, nunca um `DELETE` sem `WHERE`. Tabelas de
+ * catálogo nunca são apagadas por este comando (são compartilhadas entre
+ * cedentes — apagar quebraria outros registros que dependem delas).
+ * @param {string[]} ordemExclusao
+ * @param {Object<string, Set<number>>} idsPorTabela
+ * @returns {Cypress.Chainable<Object<string, Set<number>>>}
+ */
+Cypress.Commands.add('executarExclusaoEstruturalEmHml', (ordemExclusao, idsPorTabela) =>
+  ordemExclusao
+    .filter((tabela) => classificarTabelaCedente(tabela).fase !== FASE_CATALOGO)
+    .reduce((acumulado, tabela) => {
+      const deleteSql = montarDeleteEmLote(tabela, idsPorTabela[tabela]);
+
+      return acumulado.then(() => {
+        if (!deleteSql) return cy.wrap(null, { log: false });
+        return cy.executarQuery('hml', deleteSql);
+      });
+    }, cy.wrap(null, { log: false }))
+    .then(() => idsPorTabela),
+);

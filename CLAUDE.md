@@ -180,17 +180,16 @@ de verdade.
   (`TABELAS_POR_FASE[FASE_CEDENTE]`) só para viabilizar a votação da ata do cedente — `MC_CED_ATA`
   guarda o conteúdo da ata inline (`textoAtaComite`, texto/HTML), não como arquivo externo; não abre
   precedente para as demais tabelas de documentação/formalização, que continuam fora de escopo.
-- **Etapa implementada até aqui — só LEITURA**: `cy.resolverEstrategiaClonagemCedente(documento)`
-  (`commands/cedente.js`) localiza pessoa (`MC_CAD_PESSOA`, por `cnpjCpf` ignorando máscara) e
-  prospect de origem em PROD, checa se já existe cedente com o mesmo documento em HML (join
-  `MC_CED_CEDENTE.idPessoa = MC_CAD_PESSOA.id` — o cedente não guarda CNPJ/CPF próprio), e devolve a
-  estratégia (`decidirEstrategiaClonagemCedente`: `bloqueado-sem-origem` se faltar pessoa/prospect de
-  origem, `criar` ou `apagar-e-recriar` conforme o cedente já exista em HML). Nenhum INSERT/DELETE é
-  executado por este comando.
+- **`cy.resolverEstrategiaClonagemCedente(documento)`** (`commands/cedente.js`, só LEITURA): localiza
+  pessoa (`MC_CAD_PESSOA`, por `cnpjCpf` ignorando máscara) e prospect de origem em PROD, checa se já
+  existe cedente com o mesmo documento em HML (join `MC_CED_CEDENTE.idPessoa = MC_CAD_PESSOA.id` — o
+  cedente não guarda CNPJ/CPF próprio), e devolve a estratégia (`decidirEstrategiaClonagemCedente`:
+  `bloqueado-sem-origem` se faltar pessoa/prospect de origem, `criar` ou `apagar-e-recriar` conforme o
+  cedente já exista em HML).
 - **Grafo unificado e metadados de catálogo** (`mapeamentoCedente.js`): `MAPEAMENTO_CEDENTE_UNIFICADO`
   une as 4 constantes `MAPEAMENTO_CEDENTE_*` por fase num único grafo (122 tabelas, sem colisão de
   chave), base para `construirGrafoEstrutural`/`ordenarTabelasPorDependenciaEstrutural` calcularem a
-  ordem de INSERT considerando também as arestas que cruzam fase (`clonagemCedente.js` também ganhou
+  ordem de INSERT considerando também as arestas que cruzam fase (`clonagemCedente.js` também tem
   `ordenarTabelasParaExclusaoEstrutural`, sempre o inverso exato da ordem de inserção, para a ordem de
   DELETE do "apaga e refaz"). `METADADOS_CATALOGO_CEDENTE` declara, para cada tabela de catálogo
   referenciada, o nome da coluna usada como chave natural (`descricao` ou `nome`, mesma convenção já
@@ -198,13 +197,28 @@ de verdade.
   PROD; 4 tabelas (`MC_CAD_PESSOA`, `MC_CAD_BLOQUEIO`, `MC_CAD_FORMULARIO_CAMPO`,
   `MC_CAD_PESSOA_SOCIO`) ficam de fora de propósito, por não terem uma coluna única e óbvia de chave
   natural — resolver quando a tabela que as referencia for implementada.
-- **Ainda não implementado**: o resolvedor genérico de dependência de catálogo (busca em HML pela
-  chave natural declarada em `METADADOS_CATALOGO_CEDENTE`, cria copiando a linha de PROD se não
-  existir), os comandos de INSERT das tabelas estruturais (na ordem de
-  `ordenarTabelasPorDependenciaEstrutural` sobre `MAPEAMENTO_CEDENTE_UNIFICADO`, com resolução
-  dinâmica de colunas via `INFORMATION_SCHEMA.COLUMNS` menos as colunas de auditoria) e DELETE (para o
-  caso "já existe → apaga e refaz", ordem de `ordenarTabelasParaExclusaoEstrutural`, um cedente por
-  execução).
+- **Resolvedor de catálogo** (`commands/catalogoCedente.js`, `cy.resolverIdCatalogoEmHml`): busca em
+  HML pela chave natural declarada em `METADADOS_CATALOGO_CEDENTE`, cria copiando a linha de PROD
+  (menos colunas de auditoria/identidade, `montarInsertCatalogo`) se não existir.
+- **INSERT estrutural** (`commands/estruturaCedente.js`): `cy.clonarGrafoEstruturalCedente` percorre
+  `ordenarTabelasPorDependenciaEstrutural(construirGrafoEstrutural(MAPEAMENTO_CEDENTE_UNIFICADO))` a
+  partir de um mapa de "sementes" (uma raiz por fase — prospect/POC/comitê não são descobríveis só a
+  partir do prospect pela busca de satélite genérica, ver `construirSementesGrafoEstrutural`),
+  resolvendo cada linha via `cy.inserirLinhaEstruturalEmHml`/`montarInsertEstrutural` (dependências
+  `catalogo`, `participante-fixo` e `estrutural` já resolvidas linha a linha; `cascata`
+  ainda não).
+- **DELETE estrutural ("apaga e refaz")** (`commands/estruturaCedente.js`/`commands/cedente.js`):
+  `cy.apagarCedenteEmHml(cedenteHmlExistente)` descobre em HML, a partir das colunas próprias do
+  cedente já existente (`idProspect`/`idProposta`, nullable) e do mesmo raciocínio de múltiplas raízes
+  usado no INSERT, todo o grafo estrutural já existente
+  (`cy.descobrirGrafoEstruturalCedenteEmHml`, só leitura de ids) e então apaga em lote
+  (`cy.executarExclusaoEstruturalEmHml`/`montarDeleteEmLote`) na ordem de
+  `ordenarTabelasParaExclusaoEstrutural` (filhas antes de pais). `cy.clonarCedenteCompleto`
+  (`commands/cedente.js`) encadeia apagar -> inserir de novo (`cy.inserirGrafoCompletoCedenteEmHml`,
+  compartilhado entre as ações `inserir` e `apagar-e-recriar`) quando o cedente já existe em HML.
+- **Ainda não implementado**: a execução da dependência `cascata`
+  (`MC_CED_CEDENTE_VINCULADO.idCedenteVinculado` — clonagem recursiva do cedente vinculado se ausente
+  em HML, quando referenciado tanto pelo INSERT quanto pelo DELETE).
 
 ## Segurança / não commitar
 

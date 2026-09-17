@@ -32,8 +32,9 @@ import {
   decidirAcaoOrquestracaoCedente,
   ACAO_CLONAGEM_BLOQUEADO,
   ACAO_CLONAGEM_INSERIR,
-  ACAO_CLONAGEM_APAGAR_E_RECRIAR_PENDENTE,
+  ACAO_CLONAGEM_APAGAR_E_RECRIAR,
   construirSementesGrafoEstrutural,
+  montarDeleteEmLote,
 } from '../clonagemCedente.js';
 import MAPEAMENTO_CEDENTE_PROSPECT, {
   MAPEAMENTO_CEDENTE_POC,
@@ -818,8 +819,8 @@ test('decidirAcaoOrquestracaoCedente devolve "inserir" para a estratégia criar'
   assert.equal(decidirAcaoOrquestracaoCedente(ESTRATEGIA_CRIAR), ACAO_CLONAGEM_INSERIR);
 });
 
-test('decidirAcaoOrquestracaoCedente devolve "apagar-e-recriar-pendente" para a estratégia apagar-e-recriar (DELETE ainda não implementado)', () => {
-  assert.equal(decidirAcaoOrquestracaoCedente(ESTRATEGIA_APAGAR_E_RECRIAR), ACAO_CLONAGEM_APAGAR_E_RECRIAR_PENDENTE);
+test('decidirAcaoOrquestracaoCedente devolve "apagar-e-recriar" para a estratégia apagar-e-recriar', () => {
+  assert.equal(decidirAcaoOrquestracaoCedente(ESTRATEGIA_APAGAR_E_RECRIAR), ACAO_CLONAGEM_APAGAR_E_RECRIAR);
 });
 
 test('decidirAcaoOrquestracaoCedente lança erro para uma estratégia desconhecida', () => {
@@ -882,4 +883,20 @@ test('construirSementesGrafoEstrutural inclui propostas sem comitê (idComite nu
       MC_POC_PROPOSTA: propostas,
     },
   );
+});
+
+test('montarDeleteEmLote devolve null para lista de ids vazia (nada a apagar)', () => {
+  assert.equal(montarDeleteEmLote('MC_CED_CEDENTE', []), null);
+  assert.equal(montarDeleteEmLote('MC_CED_CEDENTE', undefined), null);
+});
+
+test('montarDeleteEmLote monta um DELETE com IN dos ids, sem duplicar', () => {
+  assert.equal(
+    montarDeleteEmLote('MC_CED_FILIAL', [3, 1, 2, 1]),
+    'DELETE FROM MC_CED_FILIAL WHERE id IN (3, 1, 2)',
+  );
+});
+
+test('montarDeleteEmLote aceita um Set de ids (mesma forma usada pelo orquestrador de exclusão)', () => {
+  assert.equal(montarDeleteEmLote('MC_CED_FILIAL', new Set([5, 6])), 'DELETE FROM MC_CED_FILIAL WHERE id IN (5, 6)');
 });

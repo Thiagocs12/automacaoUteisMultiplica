@@ -481,6 +481,27 @@ export const ordenarTabelasPorDependenciaEstrutural = (grafo) => {
 export const ordenarTabelasParaExclusaoEstrutural = (grafo) =>
   [...ordenarTabelasPorDependenciaEstrutural(grafo)].reverse();
 
+/**
+ * @description Monta o `DELETE` (T-SQL) que apaga em lote, por `id`, todas as
+ * linhas descobertas para uma tabela na exclusão estrutural de um cedente já
+ * existente em HML ("apaga e refaz") — usado por
+ * `cy.executarExclusaoEstruturalEmHml` (`commands/estruturaCedente.js`) na
+ * ordem de `ordenarTabelasParaExclusaoEstrutural` (filhas antes de pais,
+ * regra 12 do `AGENTE.md`). Aceita tanto um array quanto um `Set` de ids
+ * (mesma estrutura devolvida por `cy.descobrirGrafoEstruturalCedenteEmHml`).
+ * @param {string} tabela
+ * @param {Iterable<number|string>|null|undefined} ids
+ * @returns {string|null} `null` quando não há nenhum id a apagar (tabela não
+ * fazia parte do grafo descoberto para este cedente em HML) — o chamador não
+ * deve rodar um `DELETE` sem `WHERE` nesse caso.
+ */
+export const montarDeleteEmLote = (tabela, ids) => {
+  const idsUnicos = [...new Set([...(ids ?? [])].map((id) => Number(id)))];
+  if (idsUnicos.length === 0) return null;
+
+  return `DELETE FROM ${tabela} WHERE id IN (${idsUnicos.join(', ')})`;
+};
+
 // Colunas de auditoria/identidade nunca copiadas *como vieram* de PROD ao
 // criar um registro novo em HML — o `id` é sempre gerado por HML (não é
 // estável entre ambientes, mesmo critério já usado para o match de
@@ -725,16 +746,14 @@ export const montarCondicaoBuscaSatelite = (tabela, mapeamento, tabelasJaProcess
 
 // Ações possíveis do orquestrador completo (`cy.clonarCedenteCompleto`,
 // `commands/cedente.js`) a partir da estratégia já resolvida por
-// `decidirEstrategiaClonagemCedente`. `apagar-e-recriar-pendente` existe
-// porque o DELETE (apaga-e-refaz) ainda não foi implementado (ver
-// docs/documentacao.md, "próximo passo pendente") — inserir de novo um
-// cedente que já existe em HML sem apagar primeiro duplicaria/quebraria por
-// violação de chave, então o orquestrador não tenta inserir nesse caso
-// enquanto o DELETE não existir; só registra a situação no log, sem alterar
-// HML.
+// `decidirEstrategiaClonagemCedente`. `apagar-e-recriar` (Ciclo 20): apaga em
+// HML o grafo estrutural do cedente já existente (`cy.apagarCedenteEmHml`,
+// ordem de `ordenarTabelasParaExclusaoEstrutural`) e então insere de novo a
+// partir de PROD, mesmo fluxo de `inserir` — nunca insere sem apagar primeiro
+// (duplicaria/quebraria por violação de chave).
 export const ACAO_CLONAGEM_BLOQUEADO = 'bloqueado';
 export const ACAO_CLONAGEM_INSERIR = 'inserir';
-export const ACAO_CLONAGEM_APAGAR_E_RECRIAR_PENDENTE = 'apagar-e-recriar-pendente';
+export const ACAO_CLONAGEM_APAGAR_E_RECRIAR = 'apagar-e-recriar-pendente';
 
 /**
  * @description Traduz a estratégia já resolvida por
@@ -750,7 +769,7 @@ export const ACAO_CLONAGEM_APAGAR_E_RECRIAR_PENDENTE = 'apagar-e-recriar-pendent
 export const decidirAcaoOrquestracaoCedente = (estrategia) => {
   if (estrategia === ESTRATEGIA_BLOQUEADO_SEM_ORIGEM) return ACAO_CLONAGEM_BLOQUEADO;
   if (estrategia === ESTRATEGIA_CRIAR) return ACAO_CLONAGEM_INSERIR;
-  if (estrategia === ESTRATEGIA_APAGAR_E_RECRIAR) return ACAO_CLONAGEM_APAGAR_E_RECRIAR_PENDENTE;
+  if (estrategia === ESTRATEGIA_APAGAR_E_RECRIAR) return ACAO_CLONAGEM_APAGAR_E_RECRIAR;
 
   throw new Error(`[decidirAcaoOrquestracaoCedente] Estratégia desconhecida: "${estrategia}".`);
 };
