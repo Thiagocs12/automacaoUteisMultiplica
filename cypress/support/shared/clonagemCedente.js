@@ -621,6 +621,56 @@ export const montarInsertEstrutural = (tabela, linhaOrigem, mapeamento, valoresR
   );
 
 /**
+ * @description Monta o mapa de "sementes" (raízes conhecidas de antemão, uma
+ * por tabela-âncora de fase) usado por `cy.clonarGrafoEstruturalCedente` —
+ * substitui o antigo parâmetro único `tabelaRaiz`/`linhaRaiz` (só prospect).
+ *
+ * **Por que isso existe (achado real, Ciclo 19)**: o orquestrador (busca de
+ * satélite, `dependenciasEstruturaisResolviveis`/`montarCondicaoBuscaSatelite`)
+ * só encontra uma tabela a partir de uma tabela-PAI já processada — mas
+ * `MC_POC_PROPOSTA` (âncora da fase POC) e `MC_CAD_COMITE` (âncora da fase
+ * comitê) não têm, em si, nenhuma dependência estrutural que aponte de volta
+ * para `MC_PRT_PROSPECT` (`MC_POC_PROPOSTA.dependeDe` só tem catálogo +
+ * `idComite`; `MC_CAD_COMITE.dependeDe` só tem catálogo) — ou seja, partindo
+ * só da raiz prospect (Ciclos 16-18), essas duas âncoras (e tudo que depende
+ * delas: toda a fase POC/comitê/cedente) nunca eram descobertas pela busca de
+ * satélite — ficavam silenciosamente "processadas sem nenhuma linha", porque
+ * só foram exercitadas até agora pelo caminho de skip (sem `documentoOrigem`
+ * real, ver Ciclo 18). O vínculo real prospect -> proposta é a tabela de
+ * junção `MC_POC_PROSPECT` (`idProspect` + `idProposta`, ambas colunas
+ * estruturais já mapeadas) — não uma FK direta entre as duas âncoras.
+ *
+ * A tarefa original ("tudo o que tiver da POC, tudo o que tiver de comitê")
+ * já confirma que TODAS as propostas/comitês relacionados devem ser
+ * clonados, não só o mais recente — por isso a resolução abaixo não precisa
+ * de uma decisão de negócio nova (regra 8 do `AGENTE.md`): é só descobrir,
+ * via os vínculos já mapeados, o conjunto completo a semear.
+ * @param {Object} params
+ * @param {string} params.tabelaProspect - `TABELA_ANCORA_POR_FASE[FASE_PROSPECT]`.
+ * @param {Object} params.prospectOrigem - linha do prospect de origem (PROD).
+ * @param {string} params.tabelaProposta - `TABELA_ANCORA_POR_FASE[FASE_POC]`.
+ * @param {Object[]} params.propostas - propostas relacionadas ao prospect (PROD), via `MC_POC_PROSPECT`.
+ * @param {string} params.tabelaComite - `TABELA_ANCORA_POR_FASE[FASE_COMITE]`.
+ * @param {Object[]} params.comites - comitês relacionados às propostas acima (PROD).
+ * @returns {Object<string, Object[]>} `{ [tabela]: linhas[] }` — só inclui uma
+ * chave de tabela quando há pelo menos uma linha (fase inexistente pra este
+ * prospect não aparece no mapa, tratada como "nada a semear", não uma tabela
+ * com array vazio).
+ */
+export const construirSementesGrafoEstrutural = ({
+  tabelaProspect,
+  prospectOrigem,
+  tabelaProposta,
+  propostas,
+  tabelaComite,
+  comites,
+}) => ({
+  [tabelaProspect]: [prospectOrigem],
+  ...(propostas?.length ? { [tabelaProposta]: propostas } : {}),
+  ...(comites?.length ? { [tabelaComite]: comites } : {}),
+});
+
+/**
  * @description Filtra, das dependências declaradas para uma tabela em
  * `mapeamento[tabela].dependeDe`, apenas as `estrutural` cuja tabela-pai já
  * teve alguma linha processada nesta execução (`tabelasJaProcessadas`, um

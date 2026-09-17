@@ -33,6 +33,7 @@ import {
   ACAO_CLONAGEM_BLOQUEADO,
   ACAO_CLONAGEM_INSERIR,
   ACAO_CLONAGEM_APAGAR_E_RECRIAR_PENDENTE,
+  construirSementesGrafoEstrutural,
 } from '../clonagemCedente.js';
 import MAPEAMENTO_CEDENTE_PROSPECT, {
   MAPEAMENTO_CEDENTE_POC,
@@ -823,4 +824,62 @@ test('decidirAcaoOrquestracaoCedente devolve "apagar-e-recriar-pendente" para a 
 
 test('decidirAcaoOrquestracaoCedente lança erro para uma estratégia desconhecida', () => {
   assert.throws(() => decidirAcaoOrquestracaoCedente('estrategia-inexistente'), /Estratégia desconhecida/);
+});
+
+test('construirSementesGrafoEstrutural sempre inclui o prospect, mesmo sem propostas/comitês relacionados', () => {
+  const prospectOrigem = { id: 10 };
+
+  assert.deepEqual(
+    construirSementesGrafoEstrutural({
+      tabelaProspect: 'MC_PRT_PROSPECT',
+      prospectOrigem,
+      tabelaProposta: 'MC_POC_PROPOSTA',
+      propostas: [],
+      tabelaComite: 'MC_CAD_COMITE',
+      comites: [],
+    }),
+    { MC_PRT_PROSPECT: [prospectOrigem] },
+  );
+});
+
+test('construirSementesGrafoEstrutural inclui propostas e comitês relacionados quando existem', () => {
+  const prospectOrigem = { id: 10 };
+  const propostas = [{ id: 20, idComite: 30 }];
+  const comites = [{ id: 30 }];
+
+  assert.deepEqual(
+    construirSementesGrafoEstrutural({
+      tabelaProspect: 'MC_PRT_PROSPECT',
+      prospectOrigem,
+      tabelaProposta: 'MC_POC_PROPOSTA',
+      propostas,
+      tabelaComite: 'MC_CAD_COMITE',
+      comites,
+    }),
+    {
+      MC_PRT_PROSPECT: [prospectOrigem],
+      MC_POC_PROPOSTA: propostas,
+      MC_CAD_COMITE: comites,
+    },
+  );
+});
+
+test('construirSementesGrafoEstrutural inclui propostas sem comitê (idComite nulo em todas)', () => {
+  const prospectOrigem = { id: 10 };
+  const propostas = [{ id: 20, idComite: null }];
+
+  assert.deepEqual(
+    construirSementesGrafoEstrutural({
+      tabelaProspect: 'MC_PRT_PROSPECT',
+      prospectOrigem,
+      tabelaProposta: 'MC_POC_PROPOSTA',
+      propostas,
+      tabelaComite: 'MC_CAD_COMITE',
+      comites: [],
+    }),
+    {
+      MC_PRT_PROSPECT: [prospectOrigem],
+      MC_POC_PROPOSTA: propostas,
+    },
+  );
 });

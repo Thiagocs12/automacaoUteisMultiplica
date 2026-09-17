@@ -29,6 +29,10 @@ import {
   FASE_CATALOGO,
 } from '../shared/clonagemCedente';
 
+const TABELA_JUNCAO_PROSPECT_PROPOSTA = 'MC_POC_PROSPECT';
+const TABELA_PROPOSTA = 'MC_POC_PROPOSTA';
+const TABELA_COMITE = 'MC_CAD_COMITE';
+
 const TABELA_PARTICIPANTE_FIXO = 'MC_CAD_ANALISTA';
 
 /**
@@ -156,89 +160,138 @@ Cypress.Commands.add('buscarLinhasSatelitesEmProd', (tabela, condicaoWhere) =>
 );
 
 /**
+ * @description Busca em PROD, via a tabela de junção `MC_POC_PROSPECT`
+ * (`idProspect`/`idProposta`, ambas colunas estruturais já mapeadas), TODAS
+ * as propostas (`MC_POC_PROPOSTA`) relacionadas a um prospect — não só a mais
+ * recente (ver `construirSementesGrafoEstrutural`, `shared/clonagemCedente.js`,
+ * para o porquê disso não ser uma decisão de negócio nova). Nenhuma proposta
+ * relacionada devolve array vazio (prospect que nunca avançou para POC), não
+ * um erro.
+ * @param {number} idProspect
+ * @returns {Cypress.Chainable<Object[]>}
+ */
+Cypress.Commands.add('buscarPropostasRelacionadasAoProspectEmProd', (idProspect) =>
+  cy
+    .executarQuery(
+      'prod',
+      `SELECT DISTINCT idProposta FROM ${TABELA_JUNCAO_PROSPECT_PROPOSTA} WHERE idProspect = ${Number(idProspect)}`,
+    )
+    .then((registros) => (registros ?? []).map((registro) => Number(registro.idProposta)))
+    .then((idsProposta) =>
+      idsProposta.length === 0
+        ? cy.wrap([], { log: false })
+        : cy
+            .executarQuery('prod', `SELECT * FROM ${TABELA_PROPOSTA} WHERE id IN (${idsProposta.join(', ')})`)
+            .then((registros) => registros ?? []),
+    ),
+);
+
+/**
+ * @description Busca em PROD os comitês (`MC_CAD_COMITE`) referenciados por
+ * `idComite` (nullable) num conjunto de propostas já localizadas — mesmo
+ * raciocínio de "tudo relacionado, não só o mais recente" de
+ * `cy.buscarPropostasRelacionadasAoProspectEmProd`. Devolve array vazio se
+ * nenhuma proposta tiver `idComite` preenchido.
+ * @param {Object[]} propostas - linhas de `MC_POC_PROPOSTA` (PROD).
+ * @returns {Cypress.Chainable<Object[]>}
+ */
+Cypress.Commands.add('buscarComitesRelacionadosEmProd', (propostas) => {
+  const idsComite = [...new Set((propostas ?? []).map((proposta) => proposta.idComite).filter((id) => id != null))];
+
+  if (idsComite.length === 0) {
+    return cy.wrap([], { log: false });
+  }
+
+  return cy
+    .executarQuery('prod', `SELECT * FROM ${TABELA_COMITE} WHERE id IN (${idsComite.join(', ')})`)
+    .then((registros) => registros ?? []);
+});
+
+/**
  * @description Orquestra a clonagem ESTRUTURAL completa (INSERT) de um
- * cedente em HML, a partir da tabela-âncora já localizada em PROD
- * (`tabelaRaiz`/`linhaRaiz` — ex.: o prospect de origem resolvido por
- * `cy.resolverEstrategiaClonagemCedente`) e da ordem de dependência já
- * calculada (`ordemTabelas`, `ordenarTabelasPorDependenciaEstrutural(
- * construirGrafoEstrutural(mapeamento))`, `shared/clonagemCedente.js`):
+ * cedente em HML, a partir de um mapa de "sementes" — raízes de cada fase já
+ * localizadas em PROD (`sementes`, `{ [tabela]: linhas[] }`, ver
+ * `construirSementesGrafoEstrutural` em `shared/clonagemCedente.js` para o
+ * porquê de precisar de mais de uma raiz, não só o prospect) — e da ordem de
+ * dependência já calculada (`ordemTabelas`,
+ * `ordenarTabelasPorDependenciaEstrutural(construirGrafoEstrutural(mapeamento))`).
  *
- * 1. Insere a linha-raiz (`cy.inserirLinhaEstruturalEmHml`), inicia
- *    `idsHmlPorTabela`/`idsProdPorTabela` (por tabela, o mapa/conjunto dos ids
- *    processados nesta execução) com essa primeira linha.
- * 2. Para cada tabela seguinte de `ordemTabelas` (pulando tabelas de catálogo,
- *    resolvidas à parte pelo padrão já existente — nunca por este orquestrador):
- *    monta a condição de busca satélite contra as tabelas-pai já processadas
- *    (`montarCondicaoBuscaSatelite` — `null` significa "não é satélite de
- *    nada já processado", ex.: um template compartilhado como
- *    `MC_CAD_MODELO_ATA_COMITE`, pulado sem inserir nada), busca as linhas em
- *    PROD (`cy.buscarLinhasSatelitesEmProd`) e insere cada uma em HML
- *    (`cy.inserirLinhaEstruturalEmHml`), acumulando o novo id.
+ * Um único `Array.prototype.reduce` percorre `ordemTabelas` (que já inclui
+ * toda tabela-âncora de fase, com dependência estrutural vazia — a ordem
+ * topológica cuida de colocá-las antes de suas satélites, e antes de
+ * qualquer outra âncora que dependa delas, ex.: `MC_CAD_COMITE` antes de
+ * `MC_POC_PROPOSTA.idComite`), pulando tabelas de catálogo (resolvidas à
+ * parte pelo padrão já existente — nunca por este orquestrador). Para cada
+ * tabela:
  *
- * Encadeado inteiramente via `Array.prototype.reduce` sobre `cy.wrap(...)`
- * (nunca Promise nativa misturada com comandos `cy.` — mesma armadilha já
- * documentada em `docs/conhecimento-geral.md`), tanto para percorrer as
- * tabelas em ordem quanto, dentro de cada tabela, para inserir suas linhas
- * satélite uma a uma (uma tabela pode ter várias linhas para o mesmo cedente,
- * ex.: vários `MC_PRT_LEAD` para o mesmo prospect).
+ * 1. Se já há linhas semeadas para ela em `sementes[tabela]`, usa essas
+ *    linhas diretamente — é uma raiz, não uma satélite a descobrir.
+ * 2. Senão, monta a condição de busca satélite contra as tabelas-pai já
+ *    processadas (`montarCondicaoBuscaSatelite` — `null` significa "não é
+ *    satélite de nada já processado", ex.: um template compartilhado como
+ *    `MC_CAD_MODELO_ATA_COMITE`, pulado sem inserir nada) e busca as linhas
+ *    em PROD (`cy.buscarLinhasSatelitesEmProd`).
+ *
+ * Em ambos os casos, cada linha encontrada é inserida em HML
+ * (`cy.inserirLinhaEstruturalEmHml`), acumulando o novo id em
+ * `idsHmlPorTabela`/`idsProdPorTabela` (nunca Promise nativa misturada com
+ * comandos `cy.` — mesma armadilha já documentada em
+ * `docs/conhecimento-geral.md` — tanto para percorrer as tabelas em ordem
+ * quanto, dentro de cada tabela, para suas várias linhas uma a uma).
  *
  * A dependência `cascata` (`MC_CED_CEDENTE_VINCULADO.idCedenteVinculado`)
  * nunca é resolvida aqui — mesmo comportamento já existente em
  * `cy.resolverValoresDependenciasLinhaEstrutural` (coluna fica sem entrada em
  * `valoresResolvidos`, execução da cascata em si ainda não implementada).
  * @param {string[]} ordemTabelas
- * @param {string} tabelaRaiz
- * @param {Object} linhaRaiz - linha de origem (PROD) da tabela-âncora, já lida.
+ * @param {Object<string, Object[]>} sementes - `{ [tabela]: linhas[] }`, ver `construirSementesGrafoEstrutural`.
  * @param {Object} mapeamento - mesmo formato de `MAPEAMENTO_CEDENTE_UNIFICADO`.
  * @returns {Cypress.Chainable<{idsHmlPorTabela: Object<string, Map<number, number>>, idsProdPorTabela: Object<string, Set<number>>}>}
  */
-Cypress.Commands.add('clonarGrafoEstruturalCedente', (ordemTabelas, tabelaRaiz, linhaRaiz, mapeamento) => {
+Cypress.Commands.add('clonarGrafoEstruturalCedente', (ordemTabelas, sementes, mapeamento) => {
   const idsHmlPorTabela = {};
   const idsProdPorTabela = {};
   const tabelasJaProcessadas = new Set();
 
-  return cy.inserirLinhaEstruturalEmHml(tabelaRaiz, linhaRaiz, mapeamento, idsHmlPorTabela).then((idHmlRaiz) => {
-    idsHmlPorTabela[tabelaRaiz] = new Map([[linhaRaiz.id, idHmlRaiz]]);
-    idsProdPorTabela[tabelaRaiz] = new Set([linhaRaiz.id]);
-    tabelasJaProcessadas.add(tabelaRaiz);
+  const inserirLinhasDaTabela = (tabela, linhas) => {
+    idsHmlPorTabela[tabela] = idsHmlPorTabela[tabela] ?? new Map();
+    idsProdPorTabela[tabela] = idsProdPorTabela[tabela] ?? new Set();
 
-    const tabelasRestantes = ordemTabelas.filter(
-      (tabela) => tabela !== tabelaRaiz && classificarTabelaCedente(tabela).fase !== FASE_CATALOGO,
-    );
-
-    return tabelasRestantes
+    return linhas
       .reduce(
-        (acumulado, tabela) =>
-          acumulado.then(() => {
-            const condicao = montarCondicaoBuscaSatelite(tabela, mapeamento, tabelasJaProcessadas, idsProdPorTabela);
-
-            if (!condicao) {
-              tabelasJaProcessadas.add(tabela);
-              return cy.wrap(null, { log: false });
-            }
-
-            return cy.buscarLinhasSatelitesEmProd(tabela, condicao).then((linhas) => {
-              idsHmlPorTabela[tabela] = new Map();
-              idsProdPorTabela[tabela] = new Set();
-
-              return linhas
-                .reduce(
-                  (acc, linha) =>
-                    acc.then(() =>
-                      cy.inserirLinhaEstruturalEmHml(tabela, linha, mapeamento, idsHmlPorTabela).then((idHml) => {
-                        idsHmlPorTabela[tabela].set(linha.id, idHml);
-                        idsProdPorTabela[tabela].add(linha.id);
-                      }),
-                    ),
-                  cy.wrap(null, { log: false }),
-                )
-                .then(() => {
-                  tabelasJaProcessadas.add(tabela);
-                });
-            });
-          }),
+        (acc, linha) =>
+          acc.then(() =>
+            cy.inserirLinhaEstruturalEmHml(tabela, linha, mapeamento, idsHmlPorTabela).then((idHml) => {
+              idsHmlPorTabela[tabela].set(linha.id, idHml);
+              idsProdPorTabela[tabela].add(linha.id);
+            }),
+          ),
         cy.wrap(null, { log: false }),
       )
-      .then(() => ({ idsHmlPorTabela, idsProdPorTabela }));
-  });
+      .then(() => {
+        tabelasJaProcessadas.add(tabela);
+      });
+  };
+
+  return ordemTabelas
+    .filter((tabela) => classificarTabelaCedente(tabela).fase !== FASE_CATALOGO)
+    .reduce((acumulado, tabela) => {
+      const linhasSemente = sementes[tabela];
+
+      return acumulado.then(() => {
+        if (linhasSemente) {
+          return inserirLinhasDaTabela(tabela, linhasSemente);
+        }
+
+        const condicao = montarCondicaoBuscaSatelite(tabela, mapeamento, tabelasJaProcessadas, idsProdPorTabela);
+
+        if (!condicao) {
+          tabelasJaProcessadas.add(tabela);
+          return cy.wrap(null, { log: false });
+        }
+
+        return cy.buscarLinhasSatelitesEmProd(tabela, condicao).then((linhas) => inserirLinhasDaTabela(tabela, linhas));
+      });
+    }, cy.wrap(null, { log: false }))
+    .then(() => ({ idsHmlPorTabela, idsProdPorTabela }));
 });

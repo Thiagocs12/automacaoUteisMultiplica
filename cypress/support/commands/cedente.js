@@ -20,8 +20,11 @@ import {
   decidirAcaoOrquestracaoCedente,
   construirGrafoEstrutural,
   ordenarTabelasPorDependenciaEstrutural,
+  construirSementesGrafoEstrutural,
   TABELA_ANCORA_POR_FASE,
   FASE_PROSPECT,
+  FASE_POC,
+  FASE_COMITE,
   ACAO_CLONAGEM_BLOQUEADO,
   ACAO_CLONAGEM_APAGAR_E_RECRIAR_PENDENTE,
 } from '../shared/clonagemCedente';
@@ -139,9 +142,15 @@ Cypress.Commands.add('resolverEstrategiaClonagemCedente', (documento) =>
  *   (apaga-e-refaz, `ordenarTabelasParaExclusaoEstrutural`) ainda não foi
  *   implementado — só loga a situação, **nunca insere** (inserir sem apagar
  *   primeiro duplicaria o cadastro/quebraria por violação de chave).
- * - **inserir** (não existe em HML ainda): clona o grafo estrutural inteiro
- *   (`cy.clonarGrafoEstruturalCedente`) a partir da tabela-âncora do prospect
- *   (`TABELA_ANCORA_POR_FASE[FASE_PROSPECT]`) já resolvida, na ordem de
+ * - **inserir** (não existe em HML ainda): descobre em PROD todas as
+ *   propostas (POC) relacionadas ao prospect (via `MC_POC_PROSPECT`,
+ *   `cy.buscarPropostasRelacionadasAoProspectEmProd`) e todos os comitês
+ *   relacionados a essas propostas (`cy.buscarComitesRelacionadosEmProd`) —
+ *   ver `construirSementesGrafoEstrutural`/`shared/clonagemCedente.js` para o
+ *   porquê disso ser necessário (as âncoras de fase POC/comitê não são
+ *   descobríveis só a partir do prospect pela busca de satélite genérica) —
+ *   e então clona o grafo estrutural inteiro (`cy.clonarGrafoEstruturalCedente`)
+ *   a partir dessas raízes, na ordem de
  *   `ordenarTabelasPorDependenciaEstrutural(construirGrafoEstrutural(
  *   MAPEAMENTO_CEDENTE_UNIFICADO))`.
  * @param {string} documento - CNPJ/CPF de origem, com ou sem máscara.
@@ -165,15 +174,25 @@ Cypress.Commands.add('clonarCedenteCompleto', (documento) =>
         .then(() => ({ ...resultadoEstrategia, acao }));
     }
 
-    const ordemTabelas = ordenarTabelasPorDependenciaEstrutural(construirGrafoEstrutural(MAPEAMENTO_CEDENTE_UNIFICADO));
-
     return cy
-      .clonarGrafoEstruturalCedente(
-        ordemTabelas,
-        TABELA_ANCORA_POR_FASE[FASE_PROSPECT],
-        resultadoEstrategia.prospectOrigem,
-        MAPEAMENTO_CEDENTE_UNIFICADO,
-      )
-      .then((resultadoClonagem) => ({ ...resultadoEstrategia, acao, ...resultadoClonagem }));
+      .buscarPropostasRelacionadasAoProspectEmProd(resultadoEstrategia.prospectOrigem.id)
+      .then((propostas) =>
+        cy.buscarComitesRelacionadosEmProd(propostas).then((comites) => {
+          const sementes = construirSementesGrafoEstrutural({
+            tabelaProspect: TABELA_ANCORA_POR_FASE[FASE_PROSPECT],
+            prospectOrigem: resultadoEstrategia.prospectOrigem,
+            tabelaProposta: TABELA_ANCORA_POR_FASE[FASE_POC],
+            propostas,
+            tabelaComite: TABELA_ANCORA_POR_FASE[FASE_COMITE],
+            comites,
+          });
+
+          const ordemTabelas = ordenarTabelasPorDependenciaEstrutural(construirGrafoEstrutural(MAPEAMENTO_CEDENTE_UNIFICADO));
+
+          return cy
+            .clonarGrafoEstruturalCedente(ordemTabelas, sementes, MAPEAMENTO_CEDENTE_UNIFICADO)
+            .then((resultadoClonagem) => ({ ...resultadoEstrategia, acao, ...resultadoClonagem }));
+        }),
+      );
   }),
 );
