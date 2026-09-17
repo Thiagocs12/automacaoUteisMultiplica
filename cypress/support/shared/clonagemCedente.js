@@ -575,3 +575,47 @@ export const montarInsertCatalogo = (
 
   return `INSERT INTO ${tabela} (${listaColunas}) OUTPUT INSERTED.id VALUES (${listaValores})`;
 };
+
+/**
+ * @description Aplica, sobre uma linha de origem (PROD) de uma tabela
+ * ESTRUTURAL (não-catálogo) do grafo de clonagem do cedente, os valores já
+ * resolvidos em HML para as colunas de dependência (`valoresResolvidos`,
+ * mapa `{ [campo]: valorEmHml }` — só as colunas de fato resolvidas nesta
+ * execução; a resolução em si, contra PROD/HML reais, é responsabilidade do
+ * chamador — comando Cypress, não lógica pura, ver
+ * `commands/estruturaCedente.js`) e, por fim, os `valoresFixos` declarados
+ * para a tabela (`aplicarValoresFixos`, ex.: marcar comitê/ata como votado e
+ * aprovado). Uma coluna de dependência sem entrada em `valoresResolvidos`
+ * (ex.: nullable sem valor de origem, ou dependência ainda sem resolução
+ * automática — tipo `cascata`) mantém o valor original da linha (já
+ * `null`/`undefined` nesses casos). Nunca muta `linhaOrigem`.
+ * @param {string} tabela
+ * @param {Object} linhaOrigem - linha de origem (PROD), já lida via `SELECT *`.
+ * @param {Object} mapeamento - mesmo formato de `MAPEAMENTO_CEDENTE_UNIFICADO`.
+ * @param {Object<string, *>} valoresResolvidos
+ * @returns {Object}
+ */
+export const resolverDependenciasEstruturais = (tabela, linhaOrigem, mapeamento, valoresResolvidos) =>
+  aplicarValoresFixos(tabela, { ...linhaOrigem, ...valoresResolvidos }, mapeamento);
+
+/**
+ * @description Monta o `INSERT` (T-SQL) de uma linha ESTRUTURAL (tabela
+ * não-catálogo do grafo de clonagem do cedente) para HML: resolve as
+ * colunas de dependência já traduzidas para HML
+ * (`resolverDependenciasEstruturais`) e aplica o mesmo tratamento de `id`/
+ * colunas de auditoria já usado para catálogo (`montarInsertCatalogo`,
+ * Resposta-9 — mesmo valor fixo de auditoria, não um tratamento novo).
+ * @param {string} tabela
+ * @param {Object} linhaOrigem
+ * @param {Object} mapeamento
+ * @param {Object<string, *>} valoresResolvidos
+ * @param {Date} [agora] - injetável para teste; em produção usa o momento real.
+ * @returns {string}
+ */
+export const montarInsertEstrutural = (tabela, linhaOrigem, mapeamento, valoresResolvidos, agora = new Date()) =>
+  montarInsertCatalogo(
+    tabela,
+    resolverDependenciasEstruturais(tabela, linhaOrigem, mapeamento, valoresResolvidos),
+    COLUNAS_AUDITORIA_CEDENTE,
+    agora,
+  );

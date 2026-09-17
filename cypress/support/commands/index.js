@@ -17,3 +17,4 @@ import './gruposPermissoes';
 import './usuariosKeycloak';
 import './cedente';
 import './catalogoCedente';
+import './estruturaCedente';

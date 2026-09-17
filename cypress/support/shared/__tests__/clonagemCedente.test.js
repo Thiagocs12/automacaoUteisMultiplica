@@ -25,6 +25,8 @@ import {
   gerarValoresAuditoriaCedente,
   formatarValorSql,
   montarInsertCatalogo,
+  resolverDependenciasEstruturais,
+  montarInsertEstrutural,
 } from '../clonagemCedente.js';
 import MAPEAMENTO_CEDENTE_PROSPECT, {
   MAPEAMENTO_CEDENTE_POC,
@@ -635,4 +637,84 @@ test('montarInsertCatalogo não força colunas de auditoria numa tabela que não
 test('montarInsertCatalogo aceita uma lista de colunas ignoradas customizada', () => {
   const sql = montarInsertCatalogo('MC_CAD_TESTE', { id: 1, descricao: 'X', extra: 'Y' }, ['id', 'extra']);
   assert.equal(sql, "INSERT INTO MC_CAD_TESTE (descricao) OUTPUT INSERTED.id VALUES ('X')");
+});
+
+test('resolverDependenciasEstruturais sobrescreve só as colunas resolvidas, mantendo o restante da linha original', () => {
+  const linhaOrigem = { id: 10, idProspect: 5, idConsultoriaEspecializada: 3, descricao: 'Sem alteração' };
+  const linhaResolvida = resolverDependenciasEstruturais(
+    'MC_PRT_LEAD',
+    linhaOrigem,
+    { MC_PRT_LEAD: { dependeDe: [] } },
+    { idProspect: 55, idConsultoriaEspecializada: 33 },
+  );
+
+  assert.deepEqual(linhaResolvida, { id: 10, idProspect: 55, idConsultoriaEspecializada: 33, descricao: 'Sem alteração' });
+  assert.equal(linhaOrigem.idProspect, 5, 'linha original não deve ser mutada');
+});
+
+test('resolverDependenciasEstruturais mantém o valor original de uma coluna sem entrada em valoresResolvidos (ex.: nullable sem valor)', () => {
+  const linhaOrigem = { id: 1, idProspect: 5, idCedenteObservacao: null };
+  const linhaResolvida = resolverDependenciasEstruturais('MC_PRT_LEAD', linhaOrigem, { MC_PRT_LEAD: { dependeDe: [] } }, {
+    idProspect: 55,
+  });
+
+  assert.equal(linhaResolvida.idCedenteObservacao, null);
+});
+
+test('resolverDependenciasEstruturais também aplica valoresFixos da tabela (ex.: comitê marcado como votado)', () => {
+  const linhaOrigem = { id: 1, idProposta: 42, situacaoVotacao: 'NAO_INICIADA' };
+  const linhaResolvida = resolverDependenciasEstruturais(
+    'MC_POC_COMITE',
+    linhaOrigem,
+    MAPEAMENTO_CEDENTE_COMITE,
+    { idProposta: 999 },
+  );
+
+  assert.deepEqual(linhaResolvida, { id: 1, idProposta: 999, situacaoVotacao: 'FINALIZADA' });
+});
+
+test('montarInsertEstrutural resolve dependências e exclui id/aplica auditoria fixa, igual montarInsertCatalogo', () => {
+  const agora = new Date('2026-09-17T10:00:00.000Z');
+  const linhaOrigem = {
+    id: 500,
+    idProspect: 5,
+    idConsultoriaEspecializada: 3,
+    idPessoa: 7,
+    idGerenteComercial: null,
+    dataCadastro: new Date('2020-01-01T00:00:00.000Z'),
+    dataUltimaAlteracao: new Date('2020-01-01T00:00:00.000Z'),
+    usuarioCadastro: 'henrique',
+    usuarioUltimaAlteracao: 'henrique',
+  };
+
+  const sql = montarInsertEstrutural(
+    'MC_PRT_LEAD',
+    linhaOrigem,
+    { MC_PRT_LEAD: { dependeDe: [] } },
+    { idProspect: 55, idConsultoriaEspecializada: 33, idPessoa: 77 },
+    agora,
+  );
+
+  assert.equal(
+    sql,
+    'INSERT INTO MC_PRT_LEAD (idProspect, idConsultoriaEspecializada, idPessoa, idGerenteComercial, dataCadastro, dataUltimaAlteracao, usuarioCadastro, usuarioUltimaAlteracao) ' +
+      "OUTPUT INSERTED.id VALUES (55, 33, 77, NULL, '2026-09-17T10:00:00.000Z', '2026-09-17T10:00:00.000Z', 'sistema', 'sistema')",
+  );
+  assert.equal(sql.includes('500'), false, 'id de PROD não deve aparecer no INSERT — HML gera o próprio id');
+});
+
+test('montarInsertEstrutural aplica valoresFixos depois de resolver as dependências (ordem importa: fixo sempre vence)', () => {
+  const agora = new Date('2026-09-17T10:00:00.000Z');
+  const linhaOrigem = { id: 1, idComiteProposta: 10, idParticipante: 999, situacaoVoto: 'PENDENTE', voto: null };
+
+  const sql = montarInsertEstrutural(
+    'MC_POC_COMITE_VOTACAO',
+    linhaOrigem,
+    MAPEAMENTO_CEDENTE_COMITE,
+    { idComiteProposta: 100, idParticipante: 29 },
+    agora,
+  );
+
+  assert.match(sql, /idParticipante.*29/s);
+  assert.match(sql, /'CONCLUIDO'.*'FAVORAVEL'/s);
 });
