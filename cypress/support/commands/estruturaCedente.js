@@ -21,7 +21,13 @@
 //   si, disparar a clonagem recursiva do cedente vinculado, é um passo
 //   futuro, ver `TIPO_DEPENDENCIA_CASCATA` em `shared/clonagemCedente.js`).
 
-import { NOME_ANALISTA_RESPONSAVEL_CLONAGEM_CEDENTE, montarInsertEstrutural } from '../shared/clonagemCedente';
+import {
+  NOME_ANALISTA_RESPONSAVEL_CLONAGEM_CEDENTE,
+  montarInsertEstrutural,
+  montarCondicaoBuscaSatelite,
+  classificarTabelaCedente,
+  FASE_CATALOGO,
+} from '../shared/clonagemCedente';
 
 const TABELA_PARTICIPANTE_FIXO = 'MC_CAD_ANALISTA';
 
@@ -134,3 +140,105 @@ Cypress.Commands.add('inserirLinhaEstruturalEmHml', (tabela, linhaOrigem, mapeam
         .then((registros) => (registros ?? [])[0]?.id),
     ),
 );
+
+/**
+ * @description Busca em PROD as linhas satélite de uma tabela ESTRUTURAL já
+ * localizadas por `montarCondicaoBuscaSatelite` (lógica pura,
+ * `shared/clonagemCedente.js`) — um `SELECT *` simples com a condição já
+ * pronta, sem lógica adicional aqui (a decisão de qual condição usar já foi
+ * tomada antes de chamar este comando).
+ * @param {string} tabela
+ * @param {string} condicaoWhere
+ * @returns {Cypress.Chainable<Array<Object>>}
+ */
+Cypress.Commands.add('buscarLinhasSatelitesEmProd', (tabela, condicaoWhere) =>
+  cy.executarQuery('prod', `SELECT * FROM ${tabela} WHERE ${condicaoWhere}`).then((registros) => registros ?? []),
+);
+
+/**
+ * @description Orquestra a clonagem ESTRUTURAL completa (INSERT) de um
+ * cedente em HML, a partir da tabela-âncora já localizada em PROD
+ * (`tabelaRaiz`/`linhaRaiz` — ex.: o prospect de origem resolvido por
+ * `cy.resolverEstrategiaClonagemCedente`) e da ordem de dependência já
+ * calculada (`ordemTabelas`, `ordenarTabelasPorDependenciaEstrutural(
+ * construirGrafoEstrutural(mapeamento))`, `shared/clonagemCedente.js`):
+ *
+ * 1. Insere a linha-raiz (`cy.inserirLinhaEstruturalEmHml`), inicia
+ *    `idsHmlPorTabela`/`idsProdPorTabela` (por tabela, o mapa/conjunto dos ids
+ *    processados nesta execução) com essa primeira linha.
+ * 2. Para cada tabela seguinte de `ordemTabelas` (pulando tabelas de catálogo,
+ *    resolvidas à parte pelo padrão já existente — nunca por este orquestrador):
+ *    monta a condição de busca satélite contra as tabelas-pai já processadas
+ *    (`montarCondicaoBuscaSatelite` — `null` significa "não é satélite de
+ *    nada já processado", ex.: um template compartilhado como
+ *    `MC_CAD_MODELO_ATA_COMITE`, pulado sem inserir nada), busca as linhas em
+ *    PROD (`cy.buscarLinhasSatelitesEmProd`) e insere cada uma em HML
+ *    (`cy.inserirLinhaEstruturalEmHml`), acumulando o novo id.
+ *
+ * Encadeado inteiramente via `Array.prototype.reduce` sobre `cy.wrap(...)`
+ * (nunca Promise nativa misturada com comandos `cy.` — mesma armadilha já
+ * documentada em `docs/conhecimento-geral.md`), tanto para percorrer as
+ * tabelas em ordem quanto, dentro de cada tabela, para inserir suas linhas
+ * satélite uma a uma (uma tabela pode ter várias linhas para o mesmo cedente,
+ * ex.: vários `MC_PRT_LEAD` para o mesmo prospect).
+ *
+ * A dependência `cascata` (`MC_CED_CEDENTE_VINCULADO.idCedenteVinculado`)
+ * nunca é resolvida aqui — mesmo comportamento já existente em
+ * `cy.resolverValoresDependenciasLinhaEstrutural` (coluna fica sem entrada em
+ * `valoresResolvidos`, execução da cascata em si ainda não implementada).
+ * @param {string[]} ordemTabelas
+ * @param {string} tabelaRaiz
+ * @param {Object} linhaRaiz - linha de origem (PROD) da tabela-âncora, já lida.
+ * @param {Object} mapeamento - mesmo formato de `MAPEAMENTO_CEDENTE_UNIFICADO`.
+ * @returns {Cypress.Chainable<{idsHmlPorTabela: Object<string, Map<number, number>>, idsProdPorTabela: Object<string, Set<number>>}>}
+ */
+Cypress.Commands.add('clonarGrafoEstruturalCedente', (ordemTabelas, tabelaRaiz, linhaRaiz, mapeamento) => {
+  const idsHmlPorTabela = {};
+  const idsProdPorTabela = {};
+  const tabelasJaProcessadas = new Set();
+
+  return cy.inserirLinhaEstruturalEmHml(tabelaRaiz, linhaRaiz, mapeamento, idsHmlPorTabela).then((idHmlRaiz) => {
+    idsHmlPorTabela[tabelaRaiz] = new Map([[linhaRaiz.id, idHmlRaiz]]);
+    idsProdPorTabela[tabelaRaiz] = new Set([linhaRaiz.id]);
+    tabelasJaProcessadas.add(tabelaRaiz);
+
+    const tabelasRestantes = ordemTabelas.filter(
+      (tabela) => tabela !== tabelaRaiz && classificarTabelaCedente(tabela).fase !== FASE_CATALOGO,
+    );
+
+    return tabelasRestantes
+      .reduce(
+        (acumulado, tabela) =>
+          acumulado.then(() => {
+            const condicao = montarCondicaoBuscaSatelite(tabela, mapeamento, tabelasJaProcessadas, idsProdPorTabela);
+
+            if (!condicao) {
+              tabelasJaProcessadas.add(tabela);
+              return cy.wrap(null, { log: false });
+            }
+
+            return cy.buscarLinhasSatelitesEmProd(tabela, condicao).then((linhas) => {
+              idsHmlPorTabela[tabela] = new Map();
+              idsProdPorTabela[tabela] = new Set();
+
+              return linhas
+                .reduce(
+                  (acc, linha) =>
+                    acc.then(() =>
+                      cy.inserirLinhaEstruturalEmHml(tabela, linha, mapeamento, idsHmlPorTabela).then((idHml) => {
+                        idsHmlPorTabela[tabela].set(linha.id, idHml);
+                        idsProdPorTabela[tabela].add(linha.id);
+                      }),
+                    ),
+                  cy.wrap(null, { log: false }),
+                )
+                .then(() => {
+                  tabelasJaProcessadas.add(tabela);
+                });
+            });
+          }),
+        cy.wrap(null, { log: false }),
+      )
+      .then(() => ({ idsHmlPorTabela, idsProdPorTabela }));
+  });
+});

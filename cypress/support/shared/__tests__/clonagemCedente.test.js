@@ -27,6 +27,8 @@ import {
   montarInsertCatalogo,
   resolverDependenciasEstruturais,
   montarInsertEstrutural,
+  dependenciasEstruturaisResolviveis,
+  montarCondicaoBuscaSatelite,
 } from '../clonagemCedente.js';
 import MAPEAMENTO_CEDENTE_PROSPECT, {
   MAPEAMENTO_CEDENTE_POC,
@@ -717,4 +719,88 @@ test('montarInsertEstrutural aplica valoresFixos depois de resolver as dependên
 
   assert.match(sql, /idParticipante.*29/s);
   assert.match(sql, /'CONCLUIDO'.*'FAVORAVEL'/s);
+});
+
+test('dependenciasEstruturaisResolviveis devolve só as dependências estruturais cuja tabela-pai já foi processada', () => {
+  const mapeamento = {
+    MC_PRT_LEAD: {
+      dependeDe: [
+        { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+        { campo: 'idPessoa', tabela: 'MC_CAD_PESSOA', tipo: 'catalogo' },
+      ],
+    },
+  };
+
+  assert.deepEqual(
+    dependenciasEstruturaisResolviveis('MC_PRT_LEAD', mapeamento, new Set(['MC_PRT_PROSPECT'])),
+    [{ campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' }],
+  );
+  assert.deepEqual(dependenciasEstruturaisResolviveis('MC_PRT_LEAD', mapeamento, new Set()), []);
+});
+
+test('dependenciasEstruturaisResolviveis devolve vazio para uma tabela sem dependência estrutural nenhuma (ex.: template compartilhado)', () => {
+  const mapeamento = {
+    MC_CAD_MODELO_ATA_COMITE: {
+      dependeDe: [{ campo: 'idModeloContrato', tabela: 'MC_CAD_MODELO_CONTRATO', tipo: 'catalogo' }],
+    },
+  };
+
+  assert.deepEqual(
+    dependenciasEstruturaisResolviveis('MC_CAD_MODELO_ATA_COMITE', mapeamento, new Set(['MC_PRT_PROSPECT'])),
+    [],
+  );
+});
+
+test('montarCondicaoBuscaSatelite devolve null quando a tabela não é satélite de nada já processado', () => {
+  const mapeamento = {
+    MC_CAD_MODELO_ATA_COMITE: {
+      dependeDe: [{ campo: 'idModeloContrato', tabela: 'MC_CAD_MODELO_CONTRATO', tipo: 'catalogo' }],
+    },
+  };
+
+  assert.equal(
+    montarCondicaoBuscaSatelite('MC_CAD_MODELO_ATA_COMITE', mapeamento, new Set(['MC_PRT_PROSPECT']), {}),
+    null,
+  );
+});
+
+test('montarCondicaoBuscaSatelite monta um IN simples para satélite de um único pai já processado', () => {
+  const mapeamento = {
+    MC_PRT_LEAD: {
+      dependeDe: [{ campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' }],
+    },
+  };
+
+  const condicao = montarCondicaoBuscaSatelite('MC_PRT_LEAD', mapeamento, new Set(['MC_PRT_PROSPECT']), {
+    MC_PRT_PROSPECT: new Set([5]),
+  });
+
+  assert.equal(condicao, 'idProspect IN (5)');
+});
+
+test('montarCondicaoBuscaSatelite une com AND as condições de tabela de junção com dois pais já processados (ex.: MC_CAD_COMITE_PROPOSTA)', () => {
+  const mapeamento = MAPEAMENTO_CEDENTE_COMITE;
+  const tabelasJaProcessadas = new Set(['MC_CAD_COMITE', 'MC_POC_PROPOSTA']);
+  const idsProdPorTabela = {
+    MC_CAD_COMITE: new Set([10]),
+    MC_POC_PROPOSTA: new Set([200]),
+  };
+
+  const condicao = montarCondicaoBuscaSatelite('MC_CAD_COMITE_PROPOSTA', mapeamento, tabelasJaProcessadas, idsProdPorTabela);
+
+  assert.equal(condicao, 'idComite IN (10) AND idProposta IN (200)');
+});
+
+test('montarCondicaoBuscaSatelite devolve "1 = 0" para a parte de um pai já processado mas sem nenhuma linha (nada a buscar)', () => {
+  const mapeamento = {
+    MC_PRT_LEAD: {
+      dependeDe: [{ campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' }],
+    },
+  };
+
+  const condicao = montarCondicaoBuscaSatelite('MC_PRT_LEAD', mapeamento, new Set(['MC_PRT_PROSPECT']), {
+    MC_PRT_PROSPECT: new Set(),
+  });
+
+  assert.equal(condicao, '1 = 0');
 });

@@ -619,3 +619,56 @@ export const montarInsertEstrutural = (tabela, linhaOrigem, mapeamento, valoresR
     COLUNAS_AUDITORIA_CEDENTE,
     agora,
   );
+
+/**
+ * @description Filtra, das dependências declaradas para uma tabela em
+ * `mapeamento[tabela].dependeDe`, apenas as `estrutural` cuja tabela-pai já
+ * teve alguma linha processada nesta execução (`tabelasJaProcessadas`, um
+ * `Set`/objeto com uma entrada por tabela-pai já percorrida, mesmo vazia) —
+ * usada pelo orquestrador (`commands/estruturaCedente.js`) para decidir, ao
+ * chegar em cada tabela na ordem de `ordenarTabelasPorDependenciaEstrutural`,
+ * de quais tabelas-pai já concluídas ela é satélite. Uma tabela com nenhuma
+ * dependência estrutural resolvível aqui (ex.: `MC_CAD_MODELO_ATA_COMITE`, só
+ * catálogo) não é satélite de nada já processado — o chamador deve pular essa
+ * tabela, não inserir nada "sem pai" (evita tratar um template compartilhado
+ * como se pertencesse ao cedente sendo clonado).
+ * @param {string} tabela
+ * @param {Object} mapeamento - mesmo formato de `MAPEAMENTO_CEDENTE_UNIFICADO`.
+ * @param {Set<string>} tabelasJaProcessadas
+ * @returns {Array<{campo: string, tabela: string, tipo: string}>}
+ */
+export const dependenciasEstruturaisResolviveis = (tabela, mapeamento, tabelasJaProcessadas) =>
+  (mapeamento?.[tabela]?.dependeDe ?? []).filter(
+    (dependencia) => dependencia.tipo === 'estrutural' && tabelasJaProcessadas.has(dependencia.tabela),
+  );
+
+/**
+ * @description Monta a condição SQL (`WHERE ...`) que localiza, em PROD, as
+ * linhas satélite de uma tabela ESTRUTURAL para as tabelas-pai já processadas
+ * nesta execução — uma cláusula `campo IN (ids...)` por dependência estrutural
+ * resolvível (`dependenciasEstruturaisResolviveis`), unidas por `AND`. Unir por
+ * `AND` (em vez de considerar só a primeira dependência) é o que garante a
+ * busca correta em tabelas de junção com mais de um pai estrutural já
+ * processado (ex.: `MC_CAD_COMITE_PROPOSTA`, que depende de `MC_CAD_COMITE` E
+ * de `MC_POC_PROPOSTA`) — filtrar só por um dos dois traria linhas de outros
+ * comitês/propostas não relacionados ao cedente sendo clonado.
+ * @param {string} tabela
+ * @param {Object} mapeamento
+ * @param {Set<string>} tabelasJaProcessadas
+ * @param {Object<string, Iterable<number>>} idsProdPorTabela - por tabela-pai
+ * já processada, os ids de PROD de todas as linhas inseridas nesta execução.
+ * @returns {string|null} `null` quando a tabela não é satélite de nenhuma
+ * tabela-pai já processada (nada a buscar, ver `dependenciasEstruturaisResolviveis`).
+ */
+export const montarCondicaoBuscaSatelite = (tabela, mapeamento, tabelasJaProcessadas, idsProdPorTabela) => {
+  const dependencias = dependenciasEstruturaisResolviveis(tabela, mapeamento, tabelasJaProcessadas);
+  if (dependencias.length === 0) return null;
+
+  return dependencias
+    .map((dependencia) => {
+      const idsProd = [...(idsProdPorTabela[dependencia.tabela] ?? [])].map((id) => Number(id));
+      if (idsProd.length === 0) return '1 = 0';
+      return `${dependencia.campo} IN (${idsProd.join(', ')})`;
+    })
+    .join(' AND ');
+};
