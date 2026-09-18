@@ -18,9 +18,9 @@ Automação para sincronizar dados de **Produção (PROD)** para **Homologação
 cypress/
 ├── e2e/features/              # Cenários BDD (.feature)
 ├── support/
-│   ├── step_definitions/      # Steps de cada domínio (Produtos, Esteiras, Vínculos, Grupos e Permissões, Usuários)
+│   ├── step_definitions/      # Steps de cada domínio (Produtos, Esteiras, Vínculos, Grupos e Permissões, Usuários, Cedente)
 │   ├── commands/               # Comandos customizados, por responsabilidade
-│   │   (ambiente, arquivos, urls, dependencias, sincronizacaoNivel, estoque, vinculos, gruposPermissoes, log)
+│   │   (ambiente, arquivos, urls, dependencias, sincronizacaoNivel, estoque, vinculos, gruposPermissoes, usuariosKeycloak, cedente, log)
 │   ├── shared/                 # Lógica pura testável fora do Cypress (node:test)
 │   ├── db/dbClient.cjs         # Pools de conexão SQL Server (prod/hml)
 │   ├── tasks/dbTasks.cjs       # Tasks de banco expostas ao Cypress
@@ -28,7 +28,7 @@ cypress/
 │   ├── utils.js                # Login via UI, verificação/renovação de token
 │   └── e2e.js
 ├── utils/                      # Mapeamento de entidades por domínio
-│   (mapeamentoProdutos, mapeamentoEsteiras, mapeamentoVinculos, mapeamentoGruposPermissoes, mapeamentoUsuarios)
+│   (mapeamentoProdutos, mapeamentoEsteiras, mapeamentoVinculos, mapeamentoGruposPermissoes, mapeamentoUsuarios, mapeamentoCedente)
 ├── output/                     # JSONs intermediários + estoqueIds.json (gitignored)
 └── temp/tokens.json            # Tokens de sessão (gitignored)
 ```
@@ -53,6 +53,12 @@ O domínio **Usuários** não sincroniza uma lista de registros — é uma açã
 
 A lógica vive em `commands/usuariosKeycloak.js` + `utils/mapeamentoUsuarios.js`; ver detalhes em `CLAUDE.md`.
 
+O domínio **Cedente** (`@cedente`) clona um cedente inteiro de PROD para HML, percorrendo o ciclo prospect → proposta (POC) → comitê → cedente. `cy.clonarCedenteCompleto(documento)` (`commands/cedente.js`) resolve a estratégia (`bloqueado-sem-origem` / `criar` / `apagar-e-recriar`) a partir do CNPJ/CPF informado via `--env documentoOrigem=...` e, conforme o caso, apaga o cadastro completo já existente em HML (ordem de exclusão estrutural, filhas antes de pais) e/ou insere o grafo inteiro a partir de PROD (catálogo, participante fixo da votação, e cedentes vinculados clonados em cascata quando ainda não existirem em HML). Ver `CLAUDE.md` para o detalhe completo do escopo e do grafo de dependência.
+
+```bash
+npx cypress run --env tags=@cedente,documentoOrigem=12345678000190
+```
+
 ## Configuração
 
 ```bash
@@ -69,7 +75,7 @@ npm run cypress:open   # interface do Cypress, escolha o .feature desejado
 npm run cypress:run    # roda todos os cenários (specPattern: **/*.feature)
 ```
 
-Cenários são marcados por tag de domínio: `@produto`, `@esteira`, `@vinculos`, `@keycloak`, `@keycloakUsuario`, `@clonarUsuariosEmLote`.
+Cenários são marcados por tag de domínio: `@produto`, `@esteira`, `@vinculos`, `@keycloak`, `@keycloakUsuario`, `@clonarUsuariosEmLote`, `@cedente`.
 
 A clonagem de usuário única (`@keycloakUsuario`) é parametrizada a cada execução via `--env`:
 

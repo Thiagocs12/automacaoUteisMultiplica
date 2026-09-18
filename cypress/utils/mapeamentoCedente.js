@@ -1,0 +1,1389 @@
+// arquivo: mapeamentoCedente.js
+//
+// Grafo de dependência das tabelas do domínio `cedente` (clonagem PROD -> HML),
+// levantado via INFORMATION_SCHEMA.COLUMNS/sys.foreign_keys reais contra PROD (não
+// hardcoded "de memória" — ver `docs/documentacao.md` do módulo para o script de
+// investigação reaproveitável). Cada entrada declara, por tabela, de quais outras
+// tabelas ela depende (`dependeDe`) e o tipo de dependência:
+//
+// - `estrutural`: a tabela-pai também faz parte do grafo de clonagem do cedente (é
+//   uma tabela-âncora ou satélite listada em `clonagemCedente.js` como `entra: true`).
+//   A ordem de inserção em HML (e a ordem inversa para o DELETE de "apaga e refaz",
+//   regra 12 do AGENTE.md) precisa respeitar essas arestas — ver
+//   `ordenarTabelasPorDependenciaEstrutural` em `clonagemCedente.js`.
+// - `catalogo`: a tabela-pai é um catálogo/domínio compartilhado (`MC_CAD_*`
+//   genérico, ou `MC_CAD_PESSOA` especificamente para a chave de match) resolvido
+//   pelo mesmo padrão já usado em Produtos/Esteiras/Vínculos (busca por chave
+//   natural em HML, cria se faltar) — não por cópia profunda, e não participa da
+//   ordenação estrutural abaixo.
+//
+// IMPORTANTE (descoberta real, não presumida): apesar do prefixo `MC_PRT_` (que
+// sugere "prospect") e de a tarefa listar `MC_PRT_PLEITO*` na seção "1. Prospect",
+// a FK real é `MC_PRT_PLEITO(_BOLETO/_GARANTIA/_PRODUTO).idProposta ->
+// MC_POC_PROPOSTA.id` — ou seja, essas tabelas só podem ser criadas em HML depois
+// que a proposta (fase POC) correspondente já existir lá. A classificação por
+// "fase" (`clonagemCedente.js`) define só ENTRA/FICA-DE-FORA (escopo), nunca a
+// ordem de inserção/exclusão — a ordem real vem sempre do grafo de FK calculado
+// aqui, nunca da agrupação por fase. Qualquer código que processar "uma fase de
+// cada vez" precisa continuar respeitando esse grafo cruzado (ex.: só inserir
+// MC_PRT_PLEITO depois que a MC_POC_PROPOSTA de origem já tiver sido criada em
+// HML), não assumir que "fase prospect" termina antes de "fase poc" começar.
+//
+// Tabelas ainda fora deste arquivo (fases comitê/cedente) entram em ciclos futuros,
+// seguindo o mesmo padrão de investigação real documentado abaixo.
+
+export const MAPEAMENTO_CEDENTE_PROSPECT = {
+  // Catálogo especial: não é copiado por este mapeamento (resolvido pela chave de
+  // match CNPJ/CPF, ver `documentosCoincidem`/`decidirEstrategiaClonagemCedente`),
+  // mas aparece como alvo de `dependeDe` de várias tabelas abaixo.
+  MC_CAD_PESSOA: {
+    dependeDe: [],
+  },
+
+  MC_PRT_PROSPECT: {
+    // Tabela-âncora da fase. Sem dependência estrutural (é a raiz do grafo desta
+    // fase) — só dependências de catálogo.
+    dependeDe: [
+      { campo: 'idPessoa', tabela: 'MC_CAD_PESSOA', tipo: 'catalogo' },
+      { campo: 'idPessoaRelacionada', tabela: 'MC_CAD_PESSOA', tipo: 'catalogo' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idGerenteComercial', tabela: 'MC_CAD_GERENTE_COMERCIAL', tipo: 'catalogo' },
+      { campo: 'idConsultoria', tabela: 'MC_CAD_CONSULTORIA', tipo: 'catalogo' },
+      { campo: 'idConsultor', tabela: 'MC_CAD_CONSULTOR', tipo: 'catalogo' },
+      { campo: 'idIndicador', tabela: 'MC_CAD_INDICADOR', tipo: 'catalogo' },
+      { campo: 'idSituacao', tabela: 'MC_CAD_SITUACAO', tipo: 'catalogo' },
+      { campo: 'idGrupoEconomico', tabela: 'MC_CAD_GRUPO_ECONOMICO', tipo: 'catalogo' },
+      { campo: 'idTipoProspect', tabela: 'MC_CAD_TIPO_PROSPECT', tipo: 'catalogo' },
+      { campo: 'idCanal', tabela: 'MC_CAD_CANAL', tipo: 'catalogo' },
+      // idCedenteVinculado -> MC_CED_CEDENTE: aponta pra um cedente (fase posterior
+      // no ciclo de vida). Fora de escopo desta etapa — avaliar junto da fase
+      // `cedente` (mesmo tipo de pendência já registrada pra idProximaProposta em
+      // docs/documentacao.md); até lá, coluna não resolvida/deixada como está.
+    ],
+  },
+
+  MC_PRT_LEAD: {
+    dependeDe: [
+      { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+      { campo: 'idPessoa', tabela: 'MC_CAD_PESSOA', tipo: 'catalogo' },
+      { campo: 'idGerenteComercial', tabela: 'MC_CAD_GERENTE_COMERCIAL', tipo: 'catalogo' },
+      { campo: 'idCanal', tabela: 'MC_CAD_CANAL', tipo: 'catalogo' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idSituacao', tabela: 'MC_CAD_SITUACAO', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_PRT_DADOS_MERCADO: {
+    dependeDe: [
+      { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_PRT_DADOS_OPERACIONAIS: {
+    dependeDe: [
+      { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+      { campo: 'idPessoa', tabela: 'MC_CAD_PESSOA', tipo: 'catalogo' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_PRT_DADOS_INSTALACAO: {
+    dependeDe: [
+      { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+      { campo: 'idTipoInstalacao', tabela: 'MC_CAD_TIPO_INSTALACAO', tipo: 'catalogo' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_PRT_CONCORRENTES: {
+    dependeDe: [
+      { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_PRT_CAPEX: {
+    dependeDe: [
+      { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+      { campo: 'idTipoInvestimento', tabela: 'MC_CAD_TIPO_INVESTIMENTO', tipo: 'catalogo' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_PRT_FILIAL: {
+    dependeDe: [
+      { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+      { campo: 'idPessoa', tabela: 'MC_CAD_PESSOA', tipo: 'catalogo' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_PRT_FORNECEDORES: {
+    dependeDe: [
+      { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_PRT_IMPORTACAO: {
+    dependeDe: [
+      { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_PRT_PRINCIPAIS_CLIENTES: {
+    dependeDe: [
+      { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_PRT_PRINCIPAIS_PAISES: {
+    dependeDe: [
+      { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_PRT_PRODUTO_GARANTIA: {
+    dependeDe: [
+      { campo: 'idPleitoProduto', tabela: 'MC_PRT_PLEITO_PRODUTO', tipo: 'estrutural' },
+      { campo: 'idGarantiaCategoria', tabela: 'MC_CAD_GARANTIA_CATEGORIA', tipo: 'catalogo' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_PRT_PROSPECT_REJEITADO: {
+    dependeDe: [
+      { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+      { campo: 'idSituacao', tabela: 'MC_CAD_SITUACAO', tipo: 'catalogo' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  // --- Família MC_PRT_PLEITO*: apesar do prefixo, depende estruturalmente de
+  // MC_POC_PROPOSTA (fase POC), não de MC_PRT_PROSPECT — ver nota no topo do
+  // arquivo. MC_POC_PROPOSTA ainda não está mapeada neste arquivo (fica pra quando
+  // a fase POC for investigada); a aresta abaixo já referencia o nome correto para
+  // quando essa entrada existir, mas até lá `construirGrafoEstrutural` trata
+  // qualquer tabela-pai ainda não presente como uma folha sem dependências
+  // (comportamento coberto por teste em `__tests__/clonagemCedente.test.js`).
+  MC_PRT_PLEITO: {
+    dependeDe: [
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_PRT_PLEITO_BOLETO: {
+    dependeDe: [
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_PRT_PLEITO_GARANTIA: {
+    dependeDe: [
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      { campo: 'idGarantiaCategoria', tabela: 'MC_CAD_GARANTIA_CATEGORIA', tipo: 'catalogo' },
+      { campo: 'idFormulario', tabela: 'MC_CAD_FORMULARIO', tipo: 'catalogo' },
+      { campo: 'idFormularioCampo', tabela: 'MC_CAD_FORMULARIO_CAMPO', tipo: 'catalogo' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_PRT_PLEITO_PRODUTO: {
+    dependeDe: [
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      { campo: 'idProduto', tabela: 'MC_CAD_PRODUTO', tipo: 'catalogo' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_PRT_PLEITO_PRODUTO_CONC: {
+    dependeDe: [
+      { campo: 'idPleitoProduto', tabela: 'MC_PRT_PLEITO_PRODUTO', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_PRT_PLEITO_PRODUTO_FLUXO: {
+    dependeDe: [
+      { campo: 'idPleitoProduto', tabela: 'MC_PRT_PLEITO_PRODUTO', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_PRT_PLEITO_PRODUTO_OPERACAO: {
+    dependeDe: [
+      { campo: 'idPleitoProduto', tabela: 'MC_PRT_PLEITO_PRODUTO', tipo: 'estrutural' },
+      { campo: 'idFundo', tabela: 'MC_CAD_FUNDO', tipo: 'catalogo' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_PRT_PRIORIZACAO_PROPOSTA: {
+    dependeDe: [
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  // --- Família MC_AGE_* (agenda/acompanhamento comercial do prospect) ---
+  MC_AGE_ACOMPANHAMENTO: {
+    dependeDe: [
+      { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+      { campo: 'idGerenteComercial', tabela: 'MC_CAD_GERENTE_COMERCIAL', tipo: 'catalogo' },
+      { campo: 'idTipoContato', tabela: 'MC_CAD_TIPO_CONTATO', tipo: 'catalogo' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      // idCedente/idSacado (colunas existem na tabela) NÃO têm constraint de FK
+      // física no schema real (não apareceram em sys.foreign_keys) — referência
+      // por convenção de nome, não verificável estruturalmente. Não resolvidas
+      // aqui; se um valor vier preenchido em PROD, decidir tratamento quando a
+      // fase que cobre a tabela referenciada (cedente/MC_CAD_SACADO) for
+      // implementada — não presumir/format a coluna sozinho.
+    ],
+  },
+
+  MC_AGE_AGENDA_VISITA: {
+    dependeDe: [
+      { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+      { campo: 'idAcompanhamentoVisita', tabela: 'MC_AGE_ACOMPANHAMENTO', tipo: 'estrutural' },
+      { campo: 'idGerenteComercialAgenda', tabela: 'MC_CAD_GERENTE_COMERCIAL', tipo: 'catalogo' },
+      { campo: 'idGerenteComercialRealizado', tabela: 'MC_CAD_GERENTE_COMERCIAL', tipo: 'catalogo' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_AGE_AGENDA_VISITA_RELATORIO: {
+    dependeDe: [
+      { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+      { campo: 'idAgendaVisita', tabela: 'MC_AGE_AGENDA_VISITA', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      // idRelatorioVisitaAnexo -> MC_AGE_AGENDA_VISITA_ANEXO (coluna nullable):
+      // tabela de anexo, fora do escopo desta automação pela mesma razão já
+      // decidida na tarefa para `MC_CED_CEDENTE.idArquivoLogo` (referência a
+      // arquivo/documento) — aplicado por precedente, não uma decisão nova; fica
+      // sem resolver (null) na cópia, não uma dúvida bloqueante.
+    ],
+  },
+
+  MC_CAD_SACADO: {
+    dependeDe: [
+      { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+      { campo: 'idPessoa', tabela: 'MC_CAD_PESSOA', tipo: 'catalogo' },
+      { campo: 'idBloqueio', tabela: 'MC_CAD_BLOQUEIO', tipo: 'catalogo' },
+      { campo: 'idGrupoEconomico', tabela: 'MC_CAD_GRUPO_ECONOMICO', tipo: 'catalogo' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+};
+
+// --- Fase POC (proposta) --- grafo de FK real investigado contra PROD em 2026-09-15
+// (as 28 tabelas explícitas da tarefa + as 22 tabelas reais das 3 famílias citadas só
+// por prefixo — `MC_POC_INCORP_*`, `MC_POC_RATING_*`, `MC_POC_RESTRIT*` — enumeradas
+// via INFORMATION_SCHEMA.TABLES, ver docs/documentacao.md para a lista fechada e o
+// script de investigação reaproveitável).
+export const MAPEAMENTO_CEDENTE_POC = {
+  MC_POC_PROPOSTA: {
+    // Tabela-âncora da fase.
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idTipoProposta', tabela: 'MC_CAD_TIPO_PROPOSTA', tipo: 'catalogo' },
+      // idComite -> MC_CAD_COMITE (nullable): dependência estrutural cruzando pra
+      // fase comitê (ainda não mapeada neste arquivo) — mesmo padrão já registrado
+      // pra MC_PRT_PLEITO*.idProposta -> MC_POC_PROPOSTA: a ordem real vem do grafo
+      // de FK, nunca da suposição "fase termina antes da próxima começar".
+      { campo: 'idComite', tabela: 'MC_CAD_COMITE', tipo: 'estrutural' },
+      // idArquivo -> MC_CAD_ARQUIVO (nullable): referência a arquivo/documento, fora
+      // de escopo pela mesma razão já decidida pra MC_CED_CEDENTE.idArquivoLogo e
+      // MC_AGE_AGENDA_VISITA_RELATORIO.idRelatorioVisitaAnexo — não resolvida/fica
+      // null na cópia (aplicação de precedente, não decisão nova). Isso também
+      // corrige o comentário de MC_CAD_ARQUIVO em `TABELAS_FORA_DE_ESCOPO`
+      // (`clonagemCedente.js`), que dizia ser referenciado só por tabelas de
+      // documento — MC_POC_PROPOSTA (dentro do escopo) também referencia.
+      // idAtaReferencial (nullable): coluna existe mas sem constraint de FK física
+      // no schema real (não aparece em sys.foreign_keys) — mesmo tratamento não
+      // resolvido já aplicado a MC_AGE_ACOMPANHAMENTO.idCedente/idSacado.
+    ],
+  },
+
+  MC_POC_ALAVANCAGEM: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idGrupoEconomico', tabela: 'MC_CAD_GRUPO_ECONOMICO', tipo: 'catalogo' },
+      { campo: 'idSetor', tabela: 'MC_CAD_SETOR', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_BACEN: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_BALANCO: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_BENS_SOCIOS: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      { campo: 'idSocio', tabela: 'MC_CAD_SOCIO', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_POC_COAF: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      { campo: 'idSocio', tabela: 'MC_CAD_PESSOA_SOCIO', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_POC_COMPLIANCE: {
+    dependeDe: [
+      { campo: 'idAnalista', tabela: 'MC_CAD_ANALISTA', tipo: 'catalogo' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      { campo: 'idSituacao', tabela: 'MC_CAD_SITUACAO', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_POC_ENDIVIDAMENTO: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_ENDIVIDAMENTO_LANCAMENTO: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idEndividamento', tabela: 'MC_POC_ENDIVIDAMENTO', tipo: 'estrutural' },
+      { campo: 'idInstituicao', tabela: 'MC_CAD_INSTITUICAO', tipo: 'catalogo' },
+      { campo: 'idModalidade', tabela: 'MC_CAD_MODALIDADE', tipo: 'catalogo' },
+      { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_FATURAMENTO: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_FROTA: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_FUNDO: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idFundo', tabela: 'MC_CAD_FUNDO', tipo: 'catalogo' },
+      { campo: 'IdPorteEmpresaAdm', tabela: 'MC_CAD_CLASSIFICACAO_EMPRESA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_GARANTIA_REGRA: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idFocoNegocio', tabela: 'MC_CAD_FOCO_NEGOCIO', tipo: 'catalogo' },
+      { campo: 'idFundo', tabela: 'MC_CAD_FUNDO', tipo: 'catalogo' },
+      { campo: 'idGarantiaCategoria', tabela: 'MC_CAD_GARANTIA_CATEGORIA', tipo: 'catalogo' },
+      { campo: 'idGrupoProduto', tabela: 'MC_CAD_GRUPO_PRODUTO', tipo: 'catalogo' },
+      // idPocComite -> MC_POC_COMITE (nullable): cruza pra fase comitê, mesmo padrão
+      // do idComite de MC_POC_PROPOSTA acima.
+      { campo: 'idPocComite', tabela: 'MC_POC_COMITE', tipo: 'estrutural' },
+      // idProposta (nullable) e idComiteProdutoOperacao (nullable) existem como
+      // colunas mas não têm constraint de FK física no schema real — mesmo
+      // tratamento não resolvido já aplicado a MC_AGE_ACOMPANHAMENTO.idCedente.
+    ],
+  },
+
+  MC_POC_GRUPO_FATURAMENTO: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idGrupoEconomico', tabela: 'MC_CAD_GRUPO_ECONOMICO', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_GRUPO_FATURAMENTO_INTERCOMPANY: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idGrupoEconomico', tabela: 'MC_CAD_GRUPO_ECONOMICO', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+    ],
+  },
+
+  // --- Família MC_POC_INCORP_* ---
+  MC_POC_INCORP_OBRA_ANDAMENTO: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_INCORP_OBRA_CONCLUIDA: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_INCORP_RESUMO: {
+    // Peculiaridade: não tem idProposta (nem qualquer FK além de catálogo) — só
+    // `descricao`/`descricaoGrupo`, mais próxima de uma lista compartilhada do que
+    // de um dado "pertencente" a uma proposta específica (quem liga à proposta é
+    // MC_POC_INCORP_RESUMO_RESULTADO, abaixo). Registrado em docs/documentacao.md
+    // como ponto de atenção pra quem implementar o INSERT de verdade desta tabela
+    // (cópia ingênua por cedente pode duplicar linhas que deveriam ser
+    // compartilhadas) — não é uma dúvida bloqueante da etapa de mapeamento.
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_POC_INCORP_RESUMO_RESULTADO: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idIncorpResumo', tabela: 'MC_POC_INCORP_RESUMO', tipo: 'estrutural' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_LANDBANK: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_MEIO_CIRCULANTE: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idGrupoEconomico', tabela: 'MC_CAD_GRUPO_ECONOMICO', tipo: 'catalogo' },
+      { campo: 'idSetor', tabela: 'MC_CAD_SETOR', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_PARAMETRO_CLAIM: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      { campo: 'idPropostaAdvogado', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_PARAMETRO_SETOR: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      { campo: 'idRamoAtividade', tabela: 'MC_CAD_RAMO_ATIVIDADE', tipo: 'catalogo' },
+      { campo: 'idSetor', tabela: 'MC_CAD_SETOR', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_POC_PLEITO: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_PLEITO_BOLETO: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_PLEITO_GARANTIA: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idFormulario', tabela: 'MC_CAD_FORMULARIO', tipo: 'catalogo' },
+      { campo: 'idFormularioCampo', tabela: 'MC_CAD_FORMULARIO_CAMPO', tipo: 'catalogo' },
+      { campo: 'idGarantiaCategoria', tabela: 'MC_CAD_GARANTIA_CATEGORIA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_PLEITO_PRODUTO: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProduto', tabela: 'MC_CAD_PRODUTO', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_PRODUTO_GARANTIA_REGRA: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      // idComiteLimiteProduto -> MC_POC_COMITE_LIMITE_PRODUTO (NOT NULL): cruza pra
+      // fase comitê, mesmo padrão do idComite/idPocComite acima.
+      { campo: 'idComiteLimiteProduto', tabela: 'MC_POC_COMITE_LIMITE_PRODUTO', tipo: 'estrutural' },
+      { campo: 'idFundo', tabela: 'MC_CAD_FUNDO', tipo: 'catalogo' },
+      { campo: 'idGarantiaCategoria', tabela: 'MC_CAD_GARANTIA_CATEGORIA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_POC_PROPOSTA_HIST: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idPropostaAnterior', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      { campo: 'idPropostaNova', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_PROSPECT: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_PROSPECT_FATURAMENTO: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_PROSPECT_FATURAMENTO_INTERCOMPANY: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+    ],
+  },
+
+  // --- Família MC_POC_RATING_* --- idRatingIndicador (NOT NULL) e
+  // idRatingIndicadorItem (nullable) de MC_POC_RATING_INDICADOR_RESULTADO apontam
+  // pra MC_RAT_RATING_INDICADOR(_ITEM) — tabelas de catálogo com prefixo `MC_RAT_`,
+  // fora do padrão `MC_CAD_*` genérico. Thiago confirmou (duvidas.md,
+  // 20260915130215) tratá-las como catálogo, mesmo padrão de resolução por chave
+  // natural das `MC_CAD_*` — ver `TABELAS_CATALOGO_FORA_DO_PADRAO_MC_CAD` em
+  // `clonagemCedente.js`.
+  MC_POC_RATING_INDICADOR_RESULTADO: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      { campo: 'idRatingIndicador', tabela: 'MC_RAT_RATING_INDICADOR', tipo: 'catalogo' },
+      { campo: 'idRatingIndicadorItem', tabela: 'MC_RAT_RATING_INDICADOR_ITEM', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_POC_RATING_RESULTADO: {
+    dependeDe: [
+      { campo: 'idClassificacaoEmpresa', tabela: 'MC_CAD_CLASSIFICACAO_EMPRESA', tipo: 'catalogo' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_RENOVACAO: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+    ],
+  },
+
+  // --- Família MC_POC_RESTRIT* / MC_POC_RESTRITIVO_* --- MC_POC_RESTRIT (a tabela
+  // com esse nome exato, sem sufixo) é a âncora da sub-família RESTRIT_*; as
+  // RESTRITIVO_* dependem só de MC_POC_PROPOSTA diretamente (não de MC_POC_RESTRIT).
+  MC_POC_RESTRIT: {
+    dependeDe: [
+      { campo: 'idConsultaExterna', tabela: 'MC_CAD_CONSULTA_EXTERNA', tipo: 'catalogo' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_RESTRIT_ACAO_JUDICIAL: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idPropostaRestritivo', tabela: 'MC_POC_RESTRIT', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_RESTRIT_DIV_VENCIDA: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idPropostaRestritivo', tabela: 'MC_POC_RESTRIT', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_RESTRIT_FALENCIA: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idPropostaRestritivo', tabela: 'MC_POC_RESTRIT', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_RESTRIT_PEFIN: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idPropostaRestritivo', tabela: 'MC_POC_RESTRIT', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_RESTRIT_PROTESTO: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idPropostaRestritivo', tabela: 'MC_POC_RESTRIT', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_RESTRIT_RECHEQUE: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idPropostaRestritivo', tabela: 'MC_POC_RESTRIT', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_RESTRIT_REFIN: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idPropostaRestritivo', tabela: 'MC_POC_RESTRIT', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_RESTRIT_TRIBUTO_DIVIDA: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idPropostaRestritivo', tabela: 'MC_POC_RESTRIT', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_RESTRIT_ULTIMAS_CONSULTAS: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idPropostaRestritivo', tabela: 'MC_POC_RESTRIT', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_RESTRITIVO_EVOL_PROTESTO_ANO: {
+    dependeDe: [
+      { campo: 'idConsultaExterna', tabela: 'MC_CAD_CONSULTA_EXTERNA', tipo: 'catalogo' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_RESTRITIVO_EVOL_PROTESTO_MES: {
+    dependeDe: [
+      { campo: 'idConsultaExterna', tabela: 'MC_CAD_CONSULTA_EXTERNA', tipo: 'catalogo' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_RESTRITIVO_PROTESTO: {
+    dependeDe: [
+      { campo: 'idConsultaExterna', tabela: 'MC_CAD_CONSULTA_EXTERNA', tipo: 'catalogo' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_RESTRITIVO_PROTESTO_ESTADO: {
+    dependeDe: [
+      { campo: 'idConsultaExterna', tabela: 'MC_CAD_CONSULTA_EXTERNA', tipo: 'catalogo' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_RESTRITIVO_TRAB_ESCRAVO: {
+    dependeDe: [
+      { campo: 'idConsultaExterna', tabela: 'MC_CAD_CONSULTA_EXTERNA', tipo: 'catalogo' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+    ],
+  },
+
+  MC_POC_RESTRITIVO_TRIBUTO_DIVIDA: {
+    dependeDe: [
+      { campo: 'idConsultaExterna', tabela: 'MC_CAD_CONSULTA_EXTERNA', tipo: 'catalogo' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+    ],
+  },
+};
+
+// --- Fase Comitê --- grafo de FK real investigado contra PROD em 2026-09-15 (as 18
+// tabelas citadas na tarefa, `investigar-schema-comite.cjs`, ver docs/documentacao.md).
+// `MC_CAD_COMITE`/`MC_CAD_COMITE_PROPOSTA`/`MC_CAD_MODELO_ATA_COMITE` têm prefixo
+// `MC_CAD_` mas são tratadas como estruturais desta fase (não catálogo genérico) —
+// já decidido em `clonagemCedente.js` (`TABELAS_POR_FASE[FASE_COMITE]`, checado antes
+// do fallback `MC_CAD_*` em `classificarTabelaCedente`), não uma decisão nova aqui.
+export const MAPEAMENTO_CEDENTE_COMITE = {
+  MC_CAD_COMITE: {
+    // Tabela-âncora da fase (`TABELA_ANCORA_POR_FASE`, `clonagemCedente.js`). Sem
+    // dependência estrutural dentro do próprio grafo do comitê — só catálogo.
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idSituacao', tabela: 'MC_CAD_SITUACAO', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_CAD_COMITE_PROPOSTA: {
+    dependeDe: [
+      { campo: 'idComite', tabela: 'MC_CAD_COMITE', tipo: 'estrutural' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      { campo: 'idAnalistaCredito', tabela: 'MC_CAD_ANALISTA', tipo: 'catalogo' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_CAD_MODELO_ATA_COMITE: {
+    // Sem dependência estrutural: só catálogo (`idModeloContrato`/`idTipoProposta`/
+    // `idTipoProspect` são todas `MC_CAD_*`). Mais parecida com um template
+    // compartilhado do que um dado "pertencente" a um comitê específico — mesmo
+    // padrão de atenção já registrado para `MC_POC_INCORP_RESUMO`.
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idModeloContrato', tabela: 'MC_CAD_MODELO_CONTRATO', tipo: 'catalogo' },
+      { campo: 'idTipoProposta', tabela: 'MC_CAD_TIPO_PROPOSTA', tipo: 'catalogo' },
+      { campo: 'idTipoProspect', tabela: 'MC_CAD_TIPO_PROSPECT', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_POC_COMITE: {
+    // Segunda âncora de fato da fase (a maioria das satélites abaixo depende desta,
+    // via `idComiteProposta`, não de `MC_CAD_COMITE` diretamente) — o vínculo com
+    // `MC_CAD_COMITE` existe só indiretamente, via `MC_POC_PROPOSTA.idComite`
+    // (aresta já registrada na fase POC acima).
+    dependeDe: [
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+    // Resposta-5 (duvidas.md, tarefa 20260915130215): todo comitê clonado deve ficar
+    // marcado como votado e aprovado, não com o valor original de PROD.
+    // `situacaoVotacao = 'FINALIZADA'` é claramente o campo de "votado" (valor real
+    // mais frequente em PROD). `resultadoVotacao` (nullable) fica de fora de
+    // propósito — investigação real mostrou que nunca é preenchido em PROD (null em
+    // 6408/6408 linhas da amostra), então não há um valor de "aprovado" observável
+    // pra replicar; o Thiago decidiu não inventar um.
+    valoresFixos: { situacaoVotacao: 'FINALIZADA' },
+  },
+
+  MC_POC_COMITE_ATA: {
+    dependeDe: [
+      { campo: 'idComiteProposta', tabela: 'MC_POC_COMITE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      // idArquivo/idArquivoAssinado/idArquivoAssinadoGestora/idArquivoGestora (todas
+      // nullable) -> MC_CAD_ARQUIVO: referência a arquivo/documento, fora de escopo
+      // pelo mesmo critério já aplicado a MC_CED_CEDENTE.idArquivoLogo/
+      // MC_POC_PROPOSTA.idArquivo — não resolvida/fica null na cópia (precedente,
+      // não decisão nova).
+    ],
+  },
+
+  MC_POC_COMITE_ATA_HIST: {
+    dependeDe: [
+      { campo: 'idComiteProposta', tabela: 'MC_POC_COMITE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      // idArquivo (nullable) -> MC_CAD_ARQUIVO: mesmo precedente de referência a
+      // arquivo/documento, não resolvida.
+      // idCedPortalConvenio (nullable) existe como coluna mas sem constraint de FK
+      // física no schema real (não aparece em sys.foreign_keys) — pelo nome, parece
+      // apontar pra MC_CED_PORTAL_CONVENIO (fase cedente, ainda não mapeada); mesmo
+      // tratamento não resolvido já aplicado a MC_AGE_ACOMPANHAMENTO.idCedente/
+      // idSacado (decisão adiada pra quando a tabela referenciada for implementada,
+      // não presumida agora).
+    ],
+  },
+
+  MC_POC_COMITE_FUNDO: {
+    dependeDe: [
+      { campo: 'idComiteProposta', tabela: 'MC_POC_COMITE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idFundo', tabela: 'MC_CAD_FUNDO', tipo: 'catalogo' },
+      // idPorteEmpresaAdm (nullable) existe como coluna mas sem constraint de FK
+      // física no schema real. MC_POC_FUNDO.IdPorteEmpresaAdm (fase POC, mesmo nome)
+      // tem FK física pra MC_CAD_CLASSIFICACAO_EMPRESA — mas aqui, sem constraint
+      // verificável, não presumimos o mesmo alvo por analogia de nome (mesmo
+      // critério das colunas sem FK física já registradas, ex. idCedente/idSacado);
+      // não resolvida.
+    ],
+  },
+
+  MC_POC_COMITE_GARANTIA: {
+    dependeDe: [
+      { campo: 'idComiteProposta', tabela: 'MC_POC_COMITE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idFormulario', tabela: 'MC_CAD_FORMULARIO', tipo: 'catalogo' },
+      { campo: 'idFormularioCampo', tabela: 'MC_CAD_FORMULARIO_CAMPO', tipo: 'catalogo' },
+      { campo: 'idGarantiaCategoria', tabela: 'MC_CAD_GARANTIA_CATEGORIA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_POC_COMITE_LIMITE_BOLETO: {
+    dependeDe: [
+      { campo: 'idComiteProposta', tabela: 'MC_POC_COMITE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_POC_COMITE_LIMITE_GLOBAL: {
+    dependeDe: [
+      { campo: 'idComiteProposta', tabela: 'MC_POC_COMITE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_POC_COMITE_LIMITE_PRODUTO: {
+    dependeDe: [
+      { campo: 'idComiteProposta', tabela: 'MC_POC_COMITE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idIndicadorEconomico', tabela: 'MC_CAD_INDICADOR_ECONOMICO', tipo: 'catalogo' },
+      { campo: 'idProduto', tabela: 'MC_CAD_PRODUTO', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_POC_COMITE_PRODUTO_CONC: {
+    dependeDe: [
+      { campo: 'idComiteLimiteProduto', tabela: 'MC_POC_COMITE_LIMITE_PRODUTO', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_POC_COMITE_PRODUTO_FLUXO: {
+    dependeDe: [
+      { campo: 'idComiteLimiteProduto', tabela: 'MC_POC_COMITE_LIMITE_PRODUTO', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_POC_COMITE_PRODUTO_GARANTIA: {
+    dependeDe: [
+      { campo: 'idComiteLimiteProduto', tabela: 'MC_POC_COMITE_LIMITE_PRODUTO', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idGarantiaCategoria', tabela: 'MC_CAD_GARANTIA_CATEGORIA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_POC_COMITE_PRODUTO_OPERACAO: {
+    dependeDe: [
+      { campo: 'idComiteLimiteProduto', tabela: 'MC_POC_COMITE_LIMITE_PRODUTO', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idFundo', tabela: 'MC_CAD_FUNDO', tipo: 'catalogo' },
+    ],
+  },
+
+  // idParticipante (NOT NULL, sem constraint de FK física) — dúvida respondida pelo
+  // Thiago em duvidas.md (tarefa 20260915130215, Resposta-4): não copiar/traduzir o
+  // votante real de PROD (dado sensível/pessoal) — usar sempre o próprio Thiago como
+  // participante em toda linha de votação clonada, localizado por nome (chave
+  // natural) em `MC_CAD_ANALISTA` de HML, mesmo padrão de busca das dependências de
+  // catálogo. Tipo `participante-fixo` (não `catalogo`) porque o valor nunca varia
+  // conforme a linha de origem em PROD — ver `NOME_ANALISTA_RESPONSAVEL_CLONAGEM_CEDENTE`
+  // em `clonagemCedente.js`. Mesma coluna existe em MC_PORTAL_COMITE_VOTACAO (abaixo)
+  // e em MC_CED_ATA_VOTACAO (fase cedente, ainda não mapeada) — resposta vale pras três.
+  MC_POC_COMITE_VOTACAO: {
+    dependeDe: [
+      { campo: 'idComiteProposta', tabela: 'MC_POC_COMITE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idParticipante', tabela: 'MC_CAD_ANALISTA', tipo: 'participante-fixo' },
+    ],
+    // Resposta-5 (duvidas.md, tarefa 20260915130215): a linha de voto do participante
+    // fixo (o próprio Thiago, ver `idParticipante` acima) fica marcada como concluída
+    // e favorável — reflete o voto individual "aprovado", complementando
+    // `MC_POC_COMITE.situacaoVotacao` (comitê como um todo).
+    valoresFixos: { situacaoVoto: 'CONCLUIDO', voto: 'FAVORAVEL' },
+  },
+
+  MC_POC_COMITE_VOTACAO_PRODUTO: {
+    dependeDe: [
+      { campo: 'idComiteVotacao', tabela: 'MC_POC_COMITE_VOTACAO', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProduto', tabela: 'MC_CAD_PRODUTO', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_PORTAL_COMITE_VOTACAO: {
+    // idParticipante (NOT NULL, sem FK física): mesma resolução de
+    // MC_POC_COMITE_VOTACAO acima (tipo `participante-fixo`, não repetida aqui).
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idParticipante', tabela: 'MC_CAD_ANALISTA', tipo: 'participante-fixo' },
+      // idPortalConvenio -> MC_CED_PORTAL_CONVENIO (NOT NULL): cruza pra fase
+      // cedente (ainda não mapeada neste arquivo), mesmo padrão já registrado pra
+      // MC_PRT_PLEITO*.idProposta -> MC_POC_PROPOSTA e MC_POC_PROPOSTA.idComite ->
+      // MC_CAD_COMITE — a ordem real vem do grafo de FK, nunca da suposição de fase.
+      { campo: 'idPortalConvenio', tabela: 'MC_CED_PORTAL_CONVENIO', tipo: 'estrutural' },
+    ],
+    // Resposta-5 (duvidas.md, tarefa 20260915130215): mesmo tratamento de
+    // MC_POC_COMITE_VOTACAO acima (voto do participante fixo, concluído e favorável).
+    valoresFixos: { situacaoVoto: 'CONCLUIDO', voto: 'FAVORAVEL' },
+  },
+};
+
+// Ciclo 9 (2026-09-15): grafo de FK real da fase `cedente` (última fase), investigado
+// contra PROD (INFORMATION_SCHEMA.COLUMNS + sys.foreign_keys, mesmo template dos
+// ciclos anteriores). `MC_CED_ATA_VOTACAO` fica de fora deste mapeamento por enquanto
+// (dúvida bloqueante, ver `TABELAS_POR_FASE[FASE_CEDENTE]` em `clonagemCedente.js`).
+// Duas outras dependências NOT NULL também ficaram sem resolução (dúvida bloqueante
+// registrada em duvidas.md, Ciclo 9, mesmo bloco `## <id>` já existente):
+// `MC_CED_CEDENTE_VINCULADO.idCedenteVinculado` (aponta pra OUTRO cedente, não o que
+// está sendo clonado — a regra da tarefa é "um cedente por execução", não está claro
+// como/se resolver um cedente relacionado que talvez ainda não exista em HML) e
+// `MC_CED_LOGIN.idLogin` (aponta pra `MC_LOGIN`, tabela fora do padrão `MC_CAD_*` e
+// possivelmente com dado de autenticação/credencial — mesma categoria do precedente
+// `MC_RAT_RATING_INDICADOR`, mas potencialmente mais sensível). As tabelas abaixo estão
+// com as demais dependências (catálogo/estrutural) já resolvidas; só essas duas colunas
+// específicas ficam sem `dependeDe` até a resposta chegar.
+export const MAPEAMENTO_CEDENTE_CEDENTE = {
+  MC_CAD_CLASSIFICACAO_PORTAL: {
+    // Prefixo `MC_CAD_` mas estrutural desta fase (mesmo padrão já aplicado a
+    // MC_CAD_COMITE/MC_CAD_COMITE_PROPOSTA/MC_CAD_MODELO_ATA_COMITE na fase comitê —
+    // checado por TABELAS_POR_FASE antes do fallback de catálogo genérico).
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_CAD_CONVENIO_PORTAL: {
+    // Mesmo caso de MC_CAD_CLASSIFICACAO_PORTAL acima (prefixo MC_CAD_, mas
+    // estrutural desta fase).
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idFundo', tabela: 'MC_CAD_FUNDO', tipo: 'catalogo' },
+      // idKitDocumento (nullable) -> MC_CAD_KIT_DOCUMENTO: referência a
+      // documento/kit, mesmo critério já aplicado a idArquivoLogo/idArquivo (fora de
+      // escopo, não resolvida).
+    ],
+  },
+
+  MC_CED_CEDENTE: {
+    // Tabela-âncora da fase (TABELA_ANCORA_POR_FASE). idPessoa é também a chave de
+    // match PROD<->HML (decidirEstrategiaClonagemCedente), mas resolvida aqui como
+    // qualquer outra dependência de catálogo (mesmo padrão de MC_PRT_PROSPECT.idPessoa
+    // na fase prospect).
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idPessoa', tabela: 'MC_CAD_PESSOA', tipo: 'catalogo' },
+      { campo: 'idPessoaRelacionada', tabela: 'MC_CAD_PESSOA', tipo: 'catalogo' },
+      { campo: 'idGerenteComercial', tabela: 'MC_CAD_GERENTE_COMERCIAL', tipo: 'catalogo' },
+      { campo: 'idGrupoEconomico', tabela: 'MC_CAD_GRUPO_ECONOMICO', tipo: 'catalogo' },
+      { campo: 'idIndicador', tabela: 'MC_CAD_INDICADOR', tipo: 'catalogo' },
+      { campo: 'idConsultor', tabela: 'MC_CAD_CONSULTOR', tipo: 'catalogo' },
+      { campo: 'idConsultoria', tabela: 'MC_CAD_CONSULTORIA', tipo: 'catalogo' },
+      { campo: 'idSituacao', tabela: 'MC_CAD_SITUACAO', tipo: 'catalogo' },
+      { campo: 'idAnalistaChecagem', tabela: 'MC_CAD_ANALISTA', tipo: 'catalogo' },
+      { campo: 'idAnalistaCobranca', tabela: 'MC_CAD_ANALISTA', tipo: 'catalogo' },
+      { campo: 'idBloqueio', tabela: 'MC_CAD_BLOQUEIO', tipo: 'catalogo' },
+      { campo: 'idSegmentoTarifador', tabela: 'MC_CAD_SEGMENTO_TARIFADOR', tipo: 'catalogo' },
+      // idProspect/idProposta/idProximaProposta (todas nullable): cruzam pra fases
+      // anteriores já mapeadas (mesmo padrão "ordem vem do grafo real, não da
+      // suposição de fase" já registrado pra MC_PRT_PLEITO*/MC_POC_PROPOSTA.idComite).
+      { campo: 'idProspect', tabela: 'MC_PRT_PROSPECT', tipo: 'estrutural' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      { campo: 'idProximaProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      // idCedenteObservacao (nullable) -> MC_CED_OBSERVACAO: referência circular
+      // (MC_CED_OBSERVACAO.idCedente é NOT NULL, aponta de volta pra cá) — cedente
+      // precisa existir antes da observação, então este campo não pode ser resolvido
+      // na mesma inserção; nullable, fica sem resolução (mesmo critério de campo
+      // circular/tardio já usado para outras colunas nullable sem alvo imediato).
+      // idArquivoLogo (nullable) -> MC_CAD_ARQUIVO: documento, fora de escopo, não
+      // resolvida (precedente já estabelecido).
+      // idAtaReferencial (nullable, sem FK física): não presumida (mesmo critério das
+      // colunas sem FK física já registradas nas fases anteriores).
+    ],
+  },
+
+  // MC_CED_ATA/MC_CED_ATA_VOTACAO: exceção pontual ao escopo de documentação (Resposta-8,
+  // duvidas.md, tarefa 20260915130215, 2026-09-16) — só para viabilizar
+  // MC_CED_ATA_VOTACAO.idCedenteAta (NOT NULL). Investigação real (INFORMATION_SCHEMA.COLUMNS
+  // + sys.foreign_keys contra PROD) confirmou o mesmo padrão já visto na fase comitê:
+  // MC_CED_ATA.situacaoVotacao (nullable, valores reais em PROD incluem 'FINALIZADA') é o
+  // campo de "votado"; MC_CED_ATA_VOTACAO.idParticipante (NOT NULL) não tem FK física, mesma
+  // situação de MC_POC_COMITE_VOTACAO/MC_PORTAL_COMITE_VOTACAO.
+  MC_CED_ATA: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      // idArquivo (nullable, sem FK física) -> MC_CAD_ARQUIVO: referência a
+      // arquivo/documento, mesmo precedente de idArquivoLogo/idArquivo (não
+      // resolvida/fica null na cópia). textoAtaComite (nullable) é copiado como
+      // está (texto/HTML, pode conter imagem embutida em base64) — não é uma FK,
+      // não entra em dependeDe.
+    ],
+    // Resposta-8: mesmo tratamento de "votado" já aplicado a MC_POC_COMITE
+    // (Resposta-5) — situacaoVotacao = 'FINALIZADA' em vez do valor original de PROD.
+    valoresFixos: { situacaoVotacao: 'FINALIZADA' },
+  },
+
+  MC_CED_ATA_VOTACAO: {
+    dependeDe: [
+      { campo: 'idCedenteAta', tabela: 'MC_CED_ATA', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      // idParticipante (NOT NULL, sem FK física): mesma resolução já confirmada
+      // pelo Thiago para MC_POC_COMITE_VOTACAO/MC_PORTAL_COMITE_VOTACAO
+      // (Resposta-4) — participante fixo (o próprio Thiago), não o votante real
+      // de PROD.
+      { campo: 'idParticipante', tabela: 'MC_CAD_ANALISTA', tipo: 'participante-fixo' },
+    ],
+    // Resposta-8: mesmo tratamento de voto individual já aplicado a
+    // MC_POC_COMITE_VOTACAO/MC_PORTAL_COMITE_VOTACAO (Resposta-5).
+    valoresFixos: { situacaoVoto: 'CONCLUIDO', voto: 'FAVORAVEL' },
+  },
+
+  MC_CED_CEDENTE_CONVENIO: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idPortalConvenio', tabela: 'MC_CAD_CONVENIO_PORTAL', tipo: 'estrutural' },
+      { campo: 'idConvenioVigente', tabela: 'MC_CED_PORTAL_CONVENIO', tipo: 'estrutural' },
+    ],
+  },
+
+  // idCedenteVinculado (NOT NULL) aponta pra OUTRO cedente (não o que está sendo
+  // clonado). Decidido pelo Thiago (Resposta-7, item 2, 2026-09-15): clonar em
+  // cascata — ver `TIPO_DEPENDENCIA_CASCATA` em `clonagemCedente.js`.
+  MC_CED_CEDENTE_VINCULADO: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idCedenteVinculado', tabela: 'MC_CED_CEDENTE', tipo: 'cascata' },
+    ],
+  },
+
+  MC_CED_COMPLIANCE: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idAnalista', tabela: 'MC_CAD_ANALISTA', tipo: 'catalogo' },
+      { campo: 'idSituacao', tabela: 'MC_CAD_SITUACAO', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_CED_FILIAL: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idPessoa', tabela: 'MC_CAD_PESSOA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_CED_FIRMAS_PODERES_REGRA: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      // idDocumento (nullable) -> MC_CAD_DOCUMENTO: referência a documento, fora de
+      // escopo, não resolvida (mesmo precedente de idArquivoLogo/idArquivo).
+      // Diferente das demais tabelas da fase, não tem coluna idConsultoriaEspecializada
+      // no schema real (confirmado via INFORMATION_SCHEMA.COLUMNS).
+    ],
+  },
+
+  MC_CED_FORMULARIO_GARANTIA: {
+    // idConsultoriaEspecializada/idGarantiaCategoria (NOT NULL) e idFormulario/
+    // idFormularioCampo (nullable) não têm constraint de FK física no schema real,
+    // mas são exatamente o mesmo nome+semântica usado com FK física de verdade em
+    // dezenas de outras tabelas desta automação (ex. MC_CED_GARANTIA.idGarantiaCategoria
+    // -> MC_CAD_GARANTIA_CATEGORIA, MC_POC_COMITE_GARANTIA.idFormulario/idFormularioCampo)
+    // — diferente das colunas "sem FK física, não presumidas" já registradas em ciclos
+    // anteriores (ex. idCedente/idSacado, MC_POC_COMITE_FUNDO.idPorteEmpresaAdm), aqui
+    // não há ambiguidade sobre o alvo (um único candidato, usado de forma consistente
+    // em todo o resto do schema) — resolvido por esse precedente forte, sem necessidade
+    // de dúvida nova.
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idGarantiaCategoria', tabela: 'MC_CAD_GARANTIA_CATEGORIA', tipo: 'catalogo' },
+      { campo: 'idFormulario', tabela: 'MC_CAD_FORMULARIO', tipo: 'catalogo' },
+      { campo: 'idFormularioCampo', tabela: 'MC_CAD_FORMULARIO_CAMPO', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_CED_FUNDO: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idFundo', tabela: 'MC_CAD_FUNDO', tipo: 'catalogo' },
+      { campo: 'IdPorteEmpresaAdm', tabela: 'MC_CAD_CLASSIFICACAO_EMPRESA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_CED_GARANTIA: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idPessoa', tabela: 'MC_CAD_PESSOA', tipo: 'catalogo' },
+      { campo: 'idEmpresaMonitoramento', tabela: 'MC_CAD_PESSOA', tipo: 'catalogo' },
+      { campo: 'idFundo', tabela: 'MC_CAD_FUNDO', tipo: 'catalogo' },
+      { campo: 'idGarantiaAcondicionamento', tabela: 'MC_CAD_GARANTIA_ACONDICIONAMENTO', tipo: 'catalogo' },
+      { campo: 'idGarantiaCategoria', tabela: 'MC_CAD_GARANTIA_CATEGORIA', tipo: 'catalogo' },
+      { campo: 'idGrupoProduto', tabela: 'MC_CAD_GRUPO_PRODUTO', tipo: 'catalogo' },
+      { campo: 'idMoeda', tabela: 'MC_CAD_MOEDA', tipo: 'catalogo' },
+      { campo: 'idSituacao', tabela: 'MC_CAD_SITUACAO', tipo: 'catalogo' },
+      { campo: 'idUnidadeMedida', tabela: 'MC_CAD_UNIDADE_MEDIDA', tipo: 'catalogo' },
+      // idOperacao (nullable) -> MC_MOP_OPERACAO: domínio de operação, explicitamente
+      // fora de escopo — não resolvida (precedente de referência a domínio excluído).
+      // idCedenteProduto/idGarantiaVinculada (nullable, sem FK física): não
+      // presumidas (mesmo critério de colunas sem FK física já registrado).
+    ],
+  },
+
+  MC_CED_GARANTIA_HIST: {
+    dependeDe: [
+      { campo: 'idGarantia', tabela: 'MC_CED_GARANTIA', tipo: 'estrutural' },
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idPessoa', tabela: 'MC_CAD_PESSOA', tipo: 'catalogo' },
+      { campo: 'idEmpresaMonitoramento', tabela: 'MC_CAD_PESSOA', tipo: 'catalogo' },
+      { campo: 'idFundo', tabela: 'MC_CAD_FUNDO', tipo: 'catalogo' },
+      { campo: 'idGarantiaAcondicionamento', tabela: 'MC_CAD_GARANTIA_ACONDICIONAMENTO', tipo: 'catalogo' },
+      { campo: 'idGarantiaCategoria', tabela: 'MC_CAD_GARANTIA_CATEGORIA', tipo: 'catalogo' },
+      { campo: 'idGrupoProduto', tabela: 'MC_CAD_GRUPO_PRODUTO', tipo: 'catalogo' },
+      { campo: 'idMoeda', tabela: 'MC_CAD_MOEDA', tipo: 'catalogo' },
+      { campo: 'idSituacao', tabela: 'MC_CAD_SITUACAO', tipo: 'catalogo' },
+      { campo: 'idUnidadeMedida', tabela: 'MC_CAD_UNIDADE_MEDIDA', tipo: 'catalogo' },
+      // idOperacao/idCedenteProduto/idGarantiaVinculada: mesmo tratamento de
+      // MC_CED_GARANTIA acima.
+    ],
+  },
+
+  MC_CED_GARANTIA_REGRA: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idGarantiaCategoria', tabela: 'MC_CAD_GARANTIA_CATEGORIA', tipo: 'catalogo' },
+      { campo: 'idFocoNegocio', tabela: 'MC_CAD_FOCO_NEGOCIO', tipo: 'catalogo' },
+      { campo: 'idFundo', tabela: 'MC_CAD_FUNDO', tipo: 'catalogo' },
+      { campo: 'idGrupoProduto', tabela: 'MC_CAD_GRUPO_PRODUTO', tipo: 'catalogo' },
+      // idCededenteProdutoOperacao (nullable, sic — nome com typo no schema real) ->
+      // MC_CED_PRODUTO_OPERACAO: tabela do domínio de operação, fora de escopo
+      // (mesmo precedente de referência a domínio excluído) — não resolvida.
+    ],
+  },
+
+  MC_CED_GERENTE_FOCO: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idFocoNegocio', tabela: 'MC_CAD_FOCO_NEGOCIO', tipo: 'catalogo' },
+      { campo: 'idGerenteComercial', tabela: 'MC_CAD_GERENTE_COMERCIAL', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_CED_LOCAL_COBRANCA_NN: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idFundo', tabela: 'MC_CAD_FUNDO', tipo: 'catalogo' },
+      { campo: 'idLocalCobranca', tabela: 'MC_CAD_LOCAL_COBRANCA', tipo: 'catalogo' },
+    ],
+  },
+
+  // MC_CED_LOGIN: removida deste mapeamento (Resposta-7, item 3, 2026-09-15) — o
+  // Thiago decidiu excluir a tabela inteira (dado sensível/credencial, idLogin ->
+  // MC_LOGIN), não só deixar a coluna sem resolução. Ver TABELAS_FORA_DE_ESCOPO em
+  // clonagemCedente.js.
+
+  MC_CED_OBSERVACAO: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      { campo: 'idTipoRiscoCedente', tabela: 'MC_CAD_TIPO_RISCO_CEDENTE', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_CED_PARAMETRO_OPERACAO: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_CED_PORTAL: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      // idGrupoProduto (nullable, sem FK física): não presumida.
+    ],
+  },
+
+  MC_CED_PORTAL_CONVENIO: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idPortalConvenio', tabela: 'MC_CAD_CONVENIO_PORTAL', tipo: 'estrutural' },
+      { campo: 'idTipoProposta', tabela: 'MC_CAD_TIPO_PROPOSTA', tipo: 'catalogo' },
+      // idArquivoAssinado/idArquivoAssinadoGestora (nullable) -> MC_CAD_ARQUIVO:
+      // documento, fora de escopo, não resolvida (precedente já estabelecido).
+      // idAta/idAtaGestora (nullable, sem FK física, mas pelo nome apontam pra
+      // MC_CED_ATA — documentação, fora de escopo): não resolvida, mesmo critério.
+      // Tem campos de votação próprios (situacaoVotacao/indFinalizada/indRejeitada),
+      // mas a decisão de "marcar como aprovado" (Resposta-5) foi específica da fase
+      // comitê (MC_POC_COMITE/MC_POC_COMITE_VOTACAO/MC_PORTAL_COMITE_VOTACAO) — sem
+      // pedido explícito para estender a este campo, copiado como vier de PROD (sem
+      // valoresFixos), já que nenhuma coluna aqui é NOT NULL sem resolução.
+    ],
+  },
+
+  MC_CED_PRODUTO: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProduto', tabela: 'MC_CAD_PRODUTO', tipo: 'catalogo' },
+      { campo: 'idIndicadorEconomico', tabela: 'MC_CAD_INDICADOR_ECONOMICO', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_CED_SEGMENTO: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idSegmento', tabela: 'MC_CAD_SEGMENTO_CEDENTE', tipo: 'catalogo' },
+    ],
+  },
+
+  MC_CED_SETUP: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      // idSolicitacao (nullable) -> MC_BEYOND_SOLICITACAO: integração Beyond,
+      // domínio explicitamente fora de escopo — não resolvida.
+      // idGarantia/idCedenteAditamento (nullable, sem FK física): não presumidas.
+    ],
+  },
+
+  MC_CED_SETUP_EXC: {
+    dependeDe: [
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idProposta', tabela: 'MC_POC_PROPOSTA', tipo: 'estrutural' },
+      // idSolicitacao/idGarantia/idCedenteAditamento (nullable, sem FK física): não
+      // presumidas — mesmo critério de MC_CED_SETUP acima.
+    ],
+  },
+
+  MC_CED_SITUACAO: {
+    dependeDe: [
+      { campo: 'idCedente', tabela: 'MC_CED_CEDENTE', tipo: 'estrutural' },
+      { campo: 'idConsultoriaEspecializada', tabela: 'MC_CAD_CONSULTORIA_ESPECIALIZADA', tipo: 'catalogo' },
+      { campo: 'idSituacao', tabela: 'MC_CAD_SITUACAO', tipo: 'catalogo' },
+    ],
+  },
+};
+
+// --- Grafo unificado das 4 fases ---
+//
+// Une os 4 mapeamentos por fase num único objeto `{ [tabela]: { dependeDe } }`,
+// necessário para `construirGrafoEstrutural`/`ordenarTabelasPorDependenciaEstrutural`
+// (`clonagemCedente.js`) calcularem a ordem real de INSERT/DELETE considerando
+// arestas que cruzam fases (ex.: MC_PRT_PLEITO -> MC_POC_PROPOSTA, MC_POC_PROPOSTA ->
+// MC_CAD_COMITE — ver notas espalhadas pelos mapeamentos acima). Nenhuma chave se
+// repete entre as 4 fases (confirmado: 122 tabelas únicas ao todo), então um merge
+// simples por spread é suficiente — não precisa de lógica de conflito.
+export const MAPEAMENTO_CEDENTE_UNIFICADO = {
+  ...MAPEAMENTO_CEDENTE_PROSPECT,
+  ...MAPEAMENTO_CEDENTE_POC,
+  ...MAPEAMENTO_CEDENTE_COMITE,
+  ...MAPEAMENTO_CEDENTE_CEDENTE,
+};
+
+// --- Metadados de chave natural das tabelas de catálogo ---
+//
+// Para cada tabela de catálogo referenciada em algum `dependeDe` (`tipo: 'catalogo'`)
+// acima, declara o nome da coluna usada como chave natural para localizar o
+// equivalente em HML — mesma convenção já usada em `commands/sincronizacaoNivel.js`
+// (`campoDescricao = entidade.campoDescricao || 'descricao'`) e explicitamente
+// pedida pela tarefa ("busca em HML por chave natural — descrição/nome —, cria se
+// não existir"). Levantado via `INFORMATION_SCHEMA.COLUMNS` real contra PROD
+// (2026-09-16, script de investigação temporário, removido antes do commit — mesmo
+// padrão de investigação pontual já documentado em docs/conhecimento-geral.md): a
+// grande maioria das 42 tabelas de catálogo referenciadas tem uma coluna `descricao`
+// única e óbvia; um pequeno grupo usa `nome` no lugar (mesma convenção, coluna
+// diferente — nenhuma das duas é uma escolha ambígua por tabela, cada uma só tem um
+// candidato real). Ainda não é usado por nenhum comando (o resolvedor genérico de
+// catálogo, que vai consumir este mapa para localizar/criar em HML, é o próximo
+// passo pendente) — só a declaração dos dados desta vez.
+//
+// EXCEÇÕES (sem uma coluna única e óbvia — não presumidas aqui, resolver quando a
+// tabela que referencia cada uma for de fato implementada, registrando dúvida
+// bloqueante se a ambiguidade não se resolver por investigação adicional):
+// - `MC_CAD_PESSOA`: já tem resolução própria por CNPJ/CPF para a chave de match do
+//   cedente (`buscarPessoaCedentePorDocumento`, `commands/cedente.js`) — mas quando
+//   referenciada como catálogo comum por outra tabela (ex.:
+//   `MC_PRT_PROSPECT.idPessoaRelacionada`), o mesmo critério de documento deve valer
+//   (nome/razão social não é confiável como chave única), não o genérico
+//   descricao/nome. Fica fora deste mapa de propósito — resolver com uma função
+//   dedicada reaproveitando a mesma busca por documento, não com o resolvedor
+//   genérico de catálogo.
+// - `MC_CAD_BLOQUEIO`: não tem `descricao`/`nome` — tem `motivo` (mas a tabela
+//   parece guardar ocorrências de bloqueio por entidade, não um catálogo de
+//   tipos/categorias de bloqueio) — natureza da tabela ainda não totalmente
+//   entendida, não presumir.
+// - `MC_CAD_FORMULARIO_CAMPO`: não tem `descricao`/`nome` — tem `label` (nullable) e
+//   é referenciada por par (`idFormulario`+`idCampo` em algumas tabelas) — chave
+//   natural não é um único campo óbvio.
+// - `MC_CAD_PESSOA_SOCIO`: tabela de associação (`idPessoa`+`idSocio`), não tem
+//   `descricao`/`nome` — não é um catálogo de valor único, é um vínculo.
+export const METADADOS_CATALOGO_CEDENTE = {
+  MC_CAD_ANALISTA: { campoChaveNatural: 'nome' },
+  MC_CAD_CANAL: { campoChaveNatural: 'descricao' },
+  MC_CAD_CLASSIFICACAO_EMPRESA: { campoChaveNatural: 'descricao' },
+  MC_CAD_CONSULTA_EXTERNA: { campoChaveNatural: 'descricao' },
+  MC_CAD_CONSULTOR: { campoChaveNatural: 'descricao' },
+  MC_CAD_CONSULTORIA: { campoChaveNatural: 'descricao' },
+  MC_CAD_CONSULTORIA_ESPECIALIZADA: { campoChaveNatural: 'descricao' },
+  MC_CAD_FOCO_NEGOCIO: { campoChaveNatural: 'descricao' },
+  MC_CAD_FORMULARIO: { campoChaveNatural: 'nome' },
+  MC_CAD_FUNDO: { campoChaveNatural: 'nome' },
+  MC_CAD_GARANTIA_ACONDICIONAMENTO: { campoChaveNatural: 'descricao' },
+  MC_CAD_GARANTIA_CATEGORIA: { campoChaveNatural: 'descricao' },
+  MC_CAD_GERENTE_COMERCIAL: { campoChaveNatural: 'nome' },
+  MC_CAD_GRUPO_ECONOMICO: { campoChaveNatural: 'descricao' },
+  MC_CAD_GRUPO_PRODUTO: { campoChaveNatural: 'descricao' },
+  MC_CAD_INDICADOR: { campoChaveNatural: 'nome' },
+  MC_CAD_INDICADOR_ECONOMICO: { campoChaveNatural: 'descricao' },
+  MC_CAD_INSTITUICAO: { campoChaveNatural: 'nome' },
+  MC_CAD_LOCAL_COBRANCA: { campoChaveNatural: 'descricao' },
+  MC_CAD_MODALIDADE: { campoChaveNatural: 'descricao' },
+  MC_CAD_MODELO_CONTRATO: { campoChaveNatural: 'descricao' },
+  MC_CAD_MOEDA: { campoChaveNatural: 'descricao' },
+  MC_CAD_PRODUTO: { campoChaveNatural: 'descricao' },
+  MC_CAD_RAMO_ATIVIDADE: { campoChaveNatural: 'descricao' },
+  MC_CAD_SEGMENTO_CEDENTE: { campoChaveNatural: 'descricao' },
+  MC_CAD_SEGMENTO_TARIFADOR: { campoChaveNatural: 'descricao' },
+  MC_CAD_SETOR: { campoChaveNatural: 'descricao' },
+  MC_CAD_SITUACAO: { campoChaveNatural: 'descricao' },
+  MC_CAD_SOCIO: { campoChaveNatural: 'nome' },
+  MC_CAD_TIPO_CONTATO: { campoChaveNatural: 'descricao' },
+  MC_CAD_TIPO_INSTALACAO: { campoChaveNatural: 'descricao' },
+  MC_CAD_TIPO_INVESTIMENTO: { campoChaveNatural: 'descricao' },
+  MC_CAD_TIPO_PROPOSTA: { campoChaveNatural: 'descricao' },
+  MC_CAD_TIPO_PROSPECT: { campoChaveNatural: 'descricao' },
+  MC_CAD_TIPO_RISCO_CEDENTE: { campoChaveNatural: 'descricao' },
+  MC_CAD_UNIDADE_MEDIDA: { campoChaveNatural: 'descricao' },
+  MC_RAT_RATING_INDICADOR: { campoChaveNatural: 'descricao' },
+  MC_RAT_RATING_INDICADOR_ITEM: { campoChaveNatural: 'descricao' },
+};
+
+export default MAPEAMENTO_CEDENTE_PROSPECT;
