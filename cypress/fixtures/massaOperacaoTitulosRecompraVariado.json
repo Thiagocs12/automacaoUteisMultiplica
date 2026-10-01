@@ -1,0 +1,50 @@
+[
+  {
+    "diasVencimento": 33,
+    "valor": 68417.36,
+    "sacado": {
+      "pessoaFisica": false,
+      "documento": "13219556000115",
+      "nome": "SUPERMERCADO PERFIL LTDA",
+      "cep": "38036490",
+      "logradouro": "R BERNARDO BERBER MARTINEZ",
+      "numero": "530",
+      "bairro": "NUCLEO HABITACIONAL",
+      "cidade": "Uberaba",
+      "uf": "MG",
+      "pais": "BRASIL"
+    }
+  },
+  {
+    "diasVencimento": 51,
+    "valor": 41932.08,
+    "sacado": {
+      "pessoaFisica": false,
+      "documento": "45290044000131",
+      "nome": "S STEFANE SOUSA OLIVEIRA MIRANDA LT",
+      "cep": "45280000",
+      "logradouro": "PC LOMANTO JUNIOR",
+      "numero": "79",
+      "bairro": "CENTRO",
+      "cidade": "Iguai",
+      "uf": "BA",
+      "pais": "BRASIL"
+    }
+  },
+  {
+    "diasVencimento": 67,
+    "valor": 77254.91,
+    "sacado": {
+      "pessoaFisica": false,
+      "documento": "38081947000147",
+      "nome": "AGROFOODS BRASIL ALIMENTO S/A",
+      "cep": "14620000",
+      "logradouro": "AVENIDA 7",
+      "numero": "2300",
+      "bairro": "JARDIM TEXEIRA",
+      "cidade": "Orlandia",
+      "uf": "SP",
+      "pais": "BRASIL"
+    }
+  }
+]

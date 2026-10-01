@@ -1,0 +1,66 @@
+[
+  {
+    "diasVencimento": 30,
+    "valor": 250000.0,
+    "sacado": {
+      "pessoaFisica": false,
+      "documento": "05079758000180",
+      "nome": "ARTE SOLUCOES GRAFICAS LTDA",
+      "cep": "89031620",
+      "logradouro": "RUA DR FRITZ MUELLER",
+      "numero": "1270",
+      "bairro": "Do Salto",
+      "cidade": "Blumenau",
+      "uf": "SC",
+      "pais": "BRASIL"
+    }
+  },
+  {
+    "diasVencimento": 45,
+    "valor": 250000.0,
+    "sacado": {
+      "pessoaFisica": false,
+      "documento": "10969504000178",
+      "nome": "A S VELASQUEZ ETIQUETAS",
+      "cep": "79080800",
+      "logradouro": "AV MANOEL DA COSTA LIMA",
+      "numero": "595",
+      "bairro": "Vila Ipiranga",
+      "cidade": "Campo Grande",
+      "uf": "MS",
+      "pais": "BRASIL"
+    }
+  },
+  {
+    "diasVencimento": 60,
+    "valor": 250000.0,
+    "sacado": {
+      "pessoaFisica": false,
+      "documento": "49893528000126",
+      "nome": "R E G PRINT LTDA",
+      "cep": "02110000",
+      "logradouro": "AVENIDA NADIR DIAS DE FIGUEIREDO",
+      "numero": "1920",
+      "bairro": "Vila Maria Baixa",
+      "cidade": "Sao Paulo",
+      "uf": "SP",
+      "pais": "BRASIL"
+    }
+  },
+  {
+    "diasVencimento": 75,
+    "valor": 250000.0,
+    "sacado": {
+      "pessoaFisica": false,
+      "documento": "05079758000180",
+      "nome": "ARTE SOLUCOES GRAFICAS LTDA",
+      "cep": "89031620",
+      "logradouro": "RUA DR FRITZ MUELLER",
+      "numero": "1270",
+      "bairro": "Do Salto",
+      "cidade": "Blumenau",
+      "uf": "SC",
+      "pais": "BRASIL"
+    }
+  }
+]
