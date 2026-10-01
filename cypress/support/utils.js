@@ -35,8 +35,17 @@ Cypress.Commands.add('obterToken', (ambiente) => {
       : { grant_type: 'password', client_id: CLIENT_ID_AUTENTICACAO, username: loginUsername, password: loginPassword };
 
     return cy
-      .request({ method: 'POST', url: urlToken, form: true, body: form })
+      // failOnStatusCode/log desligados: o erro padrão do cy.request imprime o corpo enviado
+      // (senha/client_secret) no log — lança-se abaixo um erro sem credenciais.
+      .request({ method: 'POST', url: urlToken, form: true, body: form, failOnStatusCode: false, log: false })
       .then((resposta) => {
+        if (resposta.status !== 200) {
+          throw new Error(
+            `[obterToken] Falha ao obter token para o ambiente "${ambiente}" (${urlToken}): ` +
+              `HTTP ${resposta.status} — ${JSON.stringify(resposta.body)}`
+          );
+        }
+
         const accessToken = resposta.body?.access_token;
 
         if (!accessToken) {
