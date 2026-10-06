@@ -20,6 +20,7 @@
  *   --localCobranca <id>     local de cobrança quando a operação não tiver um (padrão: 5)
  *   --contaCedente <id>      conta de pagamento do cedente (padrão: conta principal ativa do cadastro)
  *   --qtdRecompra <n>        quantos títulos recomprar quando o item tiver extra R (padrão: 3)
+ *   --recomprarDe <ids>      com extra R, recompra só títulos das operações informadas (separadas por vírgula)
  *   --corrigirPagamento <ids> reabre a etapa de pagamento de esteiras finalizadas sem pagamento e paga a operação
  *   --pagarPendencias <ids>  só grava o valor pago das pendências já vinculadas às operações informadas (sem lote)
  *   --operacao <id>          retoma uma operação já gerada, a partir dos dados da esteira (lote de um item)
@@ -300,7 +301,10 @@ const incluirRecompra = async (chamar, log, rotulo, opcoes, idOperacao, fundo) =
   const taxaMulta = Number(padrao.taxaMulta || padrao.valorPadraoTaxaMulta) || 0
   const pagina = await chamar('GET', `/mc-operacao-backoffice-ms/api/v1/recompra/findTituloAllByCedente/${opcoes.cedente}/0` +
     `?numeroRegistros=50&idFundo=${fundo}&indVencidos=0&idOperacaoOrigem=${idOperacao}&notRecompra=true`, `${rotulo}-titulos-recompra`)
-  const titulos = (pagina.content || []).filter((titulo) => titulo.idOperacao !== idOperacao).slice(0, Number(opcoes.qtdRecompra))
+  const origens = opcoes.recomprarDe ? opcoes.recomprarDe.split(',').map(Number) : null
+  const titulos = (pagina.content || [])
+    .filter((titulo) => titulo.idOperacao !== idOperacao && (!origens || origens.includes(Number(titulo.idOperacao))))
+    .slice(0, Number(opcoes.qtdRecompra))
   if (!titulos.length) throw new Error(`Nenhum título disponível para recompra no fundo ${fundo}`)
   const recompra = await chamar('POST', '/mc-operacao-backoffice-ms/api/v1/recompra/registerRecompra', `${rotulo}-recompra`, {
     ...padrao,
