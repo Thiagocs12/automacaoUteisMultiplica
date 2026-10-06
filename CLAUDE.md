@@ -236,29 +236,13 @@ de verdade.
 
 ## Collaboration workflow
 
-Este repositório é mantido por agentes automatizados (Claude Code). Fluxo atual (mudou em
-2026-09-14, pedido explícito do responsável pelo projeto — mesmo padrão adotado por outra
-automação irmã):
+Este repositório é mantido com agentes do Claude Code governados pelo **automacoes-wrapper**
+(`https://github.com/Thiagocs12/automacoes-wrapper`, clonado em `C:\Multiplica\automacoes-wrapper`),
+que define níveis de autonomia, ações protegidas e o fluxo de spec. Sessões para criar ou alterar
+automação abrem na raiz do wrapper, não neste repositório.
 
-- Cada tarefa é implementada por um subAgent numa branch nova a partir de `reviewAgents`; o
-  subAgent commita e publica (push) essa branch quando a tarefa termina e o autoteste passa.
-- Um Agent Master valida a branch — merge de teste local contra `reviewAgents` para achar
-  conflito (resolvido com a skill `/resolve-conflicts`, `.claude/skills/resolve-conflicts/`,
-  commitado na própria branch da feature) e roda os testes — e, se passar, **mescla e dá push
-  direto na `reviewAgents`** (sem Pull Request por tarefa, sem aprovação humana por tarefa). O
-  Agent Master **nunca** mescla nem dá push direto na `main`/`master`.
-- O único ponto de revisão manual é um **Pull Request único e contínuo `reviewAgents → main`**,
-  que o Agent Master garante que existe (cria uma vez se faltar; nunca recria) e que reflete
-  sozinho, via GitHub, cada commit novo pusheado na `reviewAgents`. Um humano mescla esse PR na
-  `main` quando quiser fazer um release, normalmente depois de validar manualmente a
-  `reviewAgents`.
-- `main`/`master` só recebe merge vindo de `reviewAgents`, em momentos de release — nunca commit
-  direto.
-- Um hook de projeto (`.claude/settings.json`, `SessionStart`) busca `origin/reviewAgents` ao
-  iniciar uma sessão e só dá pull automático se a branch atual for `reviewAgents` com working tree
-  limpa; caso contrário, só avisa em vez de trocar de branch ou sobrescrever trabalho local.
-- Cada instância de agente (subAgent ou Agent Master) fixa sua própria conta do Claude Code via
-  `CLAUDE_CONFIG_DIR`, setada antes do `claude` iniciar — isso é configurado centralmente na pasta
-  de automação do Supervisor (fora deste repositório), não por clone aqui. O Agent Master também
-  autentica o `gh` CLI via uma variável de ambiente `GH_TOKEN`, setada da mesma forma (usado só
-  para garantir o PR único `reviewAgents → main`, não para PR por tarefa).
+- Cada tarefa é feita numa branch `agentic_<nome>` criada a partir de `master`, num git worktree
+  próprio (`automacoes-wrapper\worktrees\`). O clone principal fica sempre na `master` e limpo.
+- A branch abre um Pull Request direto para `master`. Aprovação e merge são sempre humanos, um PR
+  por tarefa. Não existe branch de integração intermediária.
+- Nenhum agente faz merge, rebase ou force push, nem commit direto na `master`.
