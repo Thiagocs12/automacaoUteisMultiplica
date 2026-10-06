@@ -20,7 +20,7 @@
   "license": "ISC",
   "type": "module",
   "devDependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "latest",
+    "@badeball/cypress-cucumber-preprocessor": "26.0.0",
     "@bahmutov/cypress-esbuild-preprocessor": "latest",
     "@eslint/js": "^10.0.1",
     "cypress": "15.14.2",
