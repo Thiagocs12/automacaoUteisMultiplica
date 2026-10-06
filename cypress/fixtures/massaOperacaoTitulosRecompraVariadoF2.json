@@ -1,0 +1,50 @@
+[
+  {
+    "diasVencimento": 29,
+    "valor": 53781.44,
+    "sacado": {
+      "pessoaFisica": false,
+      "documento": "26442623000108",
+      "nome": "LABEL EXPRESS LTDA",
+      "cep": "18105002",
+      "logradouro": "AV PARANA",
+      "numero": "3039",
+      "bairro": "Cajuru do Sul",
+      "cidade": "Sorocaba",
+      "uf": "SP",
+      "pais": "BRASIL"
+    }
+  },
+  {
+    "diasVencimento": 46,
+    "valor": 88205.17,
+    "sacado": {
+      "pessoaFisica": false,
+      "documento": "36878227000181",
+      "nome": "SACOLAO UNIAO LTDA",
+      "cep": "38050060",
+      "logradouro": "R GOIAS",
+      "numero": "1420",
+      "bairro": "SANTA MARIA",
+      "cidade": "Uberaba",
+      "uf": "MG",
+      "pais": "BRASIL"
+    }
+  },
+  {
+    "diasVencimento": 72,
+    "valor": 36649.93,
+    "sacado": {
+      "pessoaFisica": false,
+      "documento": "14543813000132",
+      "nome": "SUPERMERCADO NOSSO LAR LTDA",
+      "cep": "46900000",
+      "logradouro": "R SOUTO SOARES",
+      "numero": "04",
+      "bairro": "CENTRO",
+      "cidade": "Seabra",
+      "uf": "BA",
+      "pais": "BRASIL"
+    }
+  }
+]

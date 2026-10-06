@@ -14,9 +14,12 @@ Set-Location $ProjectRoot
 $logDir = Join-Path $ProjectRoot "cypress\output\logs"
 New-Item -ItemType Directory -Force -Path $logDir | Out-Null
 
-# Remove logs com mais de 30 dias para nao acumular indefinidamente.
-Get-ChildItem -Path $logDir -Filter "sincronizacao_*.log" -ErrorAction SilentlyContinue |
-  Where-Object { $_.LastWriteTime -lt (Get-Date).AddDays(-30) } |
+# Logs ciclicos: mantem so os ultimos 7 dias de todos os artefatos desta rotina
+# (log da execucao, relatorio de diagnostico e saida bruta do Claude Code).
+$diasRetencaoLogs = 7
+Get-ChildItem -Path $logDir -File -ErrorAction SilentlyContinue |
+  Where-Object { $_.Name -match '^(sincronizacao_.*\.log|diagnostico_.*\.md|claude_.*\.json)$' } |
+  Where-Object { $_.LastWriteTime -lt (Get-Date).AddDays(-$diasRetencaoLogs) } |
   Remove-Item -Force -ErrorAction SilentlyContinue
 
 $timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
@@ -107,6 +110,25 @@ $dominios = @(
 )
 
 Escrever-Log "===== Inicio da sincronizacao diaria ====="
+
+# O binario do Cypress vive fora do repositorio (%LOCALAPPDATA%\Cypress\Cache\<versao>) e ja
+# sumiu/ficou incompleto antes, derrubando todos os dominios com "Cypress executable not found".
+# Confere antes e tenta reinstalar a versao fixada no package.json; se ainda assim nao rodar, e
+# problema de ambiente (nao de codigo), entao nem aciona o diagnostico automatico do Claude.
+& npx cypress verify 2>&1 | ForEach-Object { Add-Content -Path $logFile -Value $_ -Encoding utf8 }
+if ($LASTEXITCODE -ne 0) {
+  Escrever-Log "Binario do Cypress ausente ou invalido; tentando 'npx cypress install --force'..."
+  & npx cypress install --force 2>&1 | ForEach-Object { Add-Content -Path $logFile -Value $_ -Encoding utf8 }
+  & npx cypress verify 2>&1 | ForEach-Object { Add-Content -Path $logFile -Value $_ -Encoding utf8 }
+  if ($LASTEXITCODE -ne 0) {
+    Escrever-Log "ERRO: binario do Cypress continua invalido apos reinstalar. Problema de ambiente da maquina, nao de codigo."
+    Escrever-Log "Reinstale manualmente (npx cypress install) com o mesmo usuario da tarefa agendada."
+    Enviar-Notificacao "Sincronizacao PROD -> HML nao rodou" "Binario do Cypress invalido nesta maquina. Veja $logFile"
+    Escrever-Log "===== Fim da sincronizacao diaria ====="
+    exit 1
+  }
+  Escrever-Log "Binario do Cypress reinstalado e verificado."
+}
 
 $resultados = @()
 

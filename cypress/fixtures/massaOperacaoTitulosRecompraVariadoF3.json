@@ -1,0 +1,50 @@
+[
+  {
+    "diasVencimento": 38,
+    "valor": 72318.62,
+    "sacado": {
+      "pessoaFisica": false,
+      "documento": "33057528000156",
+      "nome": "O A COMERCIO VAREJISTA DE PRODUTOS ALIMENTICIOS LTDA",
+      "cep": "45065150",
+      "logradouro": "AV ITABUNA",
+      "numero": "288B",
+      "bairro": "PATAGONIA",
+      "cidade": "Vitoria da Conquista",
+      "uf": "BA",
+      "pais": "BRASIL"
+    }
+  },
+  {
+    "diasVencimento": 55,
+    "valor": 29476.05,
+    "sacado": {
+      "pessoaFisica": false,
+      "documento": "57121403000106",
+      "nome": "MERCADINHO TOCAIA LTDA",
+      "cep": "41635030",
+      "logradouro": "R VILA ROMANA",
+      "numero": "25CS3",
+      "bairro": "ITAPUA",
+      "cidade": "Salvador",
+      "uf": "BA",
+      "pais": "BRASIL"
+    }
+  },
+  {
+    "diasVencimento": 81,
+    "valor": 61093.78,
+    "sacado": {
+      "pessoaFisica": false,
+      "documento": "27885162000100",
+      "nome": "N F BORGES",
+      "cep": "38120000",
+      "logradouro": "AV JOAO NEPOMUCENO PANTALEAO",
+      "numero": "410",
+      "bairro": "FRANCISCO DE PAULA P",
+      "cidade": "Conceicao das Alagoas",
+      "uf": "MG",
+      "pais": "BRASIL"
+    }
+  }
+]
