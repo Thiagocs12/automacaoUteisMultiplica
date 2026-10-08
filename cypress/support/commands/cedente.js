@@ -16,6 +16,7 @@
 
 import {
   normalizarDocumento,
+  montarCondicaoDocumentoIgual,
   decidirEstrategiaClonagemCedente,
   decidirAcaoOrquestracaoCedente,
   construirGrafoEstrutural,
@@ -36,20 +37,6 @@ import {
 import { MAPEAMENTO_CEDENTE_UNIFICADO } from '../../utils/mapeamentoCedente';
 
 /**
- * @description Monta a condição SQL que compara uma coluna `cnpjCpf`
- * (removendo os separadores de máscara usuais de CPF/CNPJ — `.`, `-`, `/`)
- * com um documento já normalizado (só dígitos, ver `normalizarDocumento`).
- * T-SQL não tem suporte nativo a regex; encadear `REPLACE` é suficiente para
- * o conjunto fechado de caracteres de máscara usados nesses dois formatos de
- * documento.
- * @param {string} colunaCnpjCpf - Nome (ou `alias.coluna`) da coluna a comparar.
- * @param {string} documentoNormalizado - Já passado por `normalizarDocumento` (só dígitos).
- * @returns {string}
- */
-const condicaoDocumentoIgual = (colunaCnpjCpf, documentoNormalizado) =>
-  `REPLACE(REPLACE(REPLACE(${colunaCnpjCpf}, '.', ''), '-', ''), '/', '') = '${documentoNormalizado}'`;
-
-/**
  * @description Busca em um ambiente (`prod`/`hml`) a pessoa (`MC_CAD_PESSOA`)
  * cujo `cnpjCpf` (ignorando máscara) bate com o documento informado.
  * @param {'prod'|'hml'} ambiente
@@ -64,7 +51,7 @@ Cypress.Commands.add('buscarPessoaCedentePorDocumento', (ambiente, documento) =>
   }
 
   return cy
-    .executarQuery(ambiente, `SELECT * FROM MC_CAD_PESSOA WHERE ${condicaoDocumentoIgual('cnpjCpf', documentoNormalizado)}`)
+    .executarQuery(ambiente, `SELECT * FROM MC_CAD_PESSOA WHERE ${montarCondicaoDocumentoIgual('cnpjCpf', documentoNormalizado)}`)
     .then((registros) => (registros ?? [])[0] ?? null);
 });
 
@@ -101,7 +88,7 @@ Cypress.Commands.add('buscarCedenteExistenteEmHmlPorDocumento', (documento) => {
   return cy
     .executarQuery(
       'hml',
-      `SELECT c.* FROM MC_CED_CEDENTE c INNER JOIN MC_CAD_PESSOA p ON p.id = c.idPessoa WHERE ${condicaoDocumentoIgual('p.cnpjCpf', documentoNormalizado)}`,
+      `SELECT c.* FROM MC_CED_CEDENTE c INNER JOIN MC_CAD_PESSOA p ON p.id = c.idPessoa WHERE ${montarCondicaoDocumentoIgual('p.cnpjCpf', documentoNormalizado)}`,
     )
     .then((registros) => (registros ?? [])[0] ?? null);
 });

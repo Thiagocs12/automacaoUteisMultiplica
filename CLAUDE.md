@@ -213,7 +213,11 @@ de verdade.
   usado no INSERT, todo o grafo estrutural já existente
   (`cy.descobrirGrafoEstruturalCedenteEmHml`, só leitura de ids) e então apaga em lote
   (`cy.executarExclusaoEstruturalEmHml`/`montarDeleteEmLote`) na ordem de
-  `ordenarTabelasParaExclusaoEstrutural` (filhas antes de pais). `cy.clonarCedenteCompleto`
+  `ordenarTabelasParaExclusaoEstrutural` (filhas antes de pais). Os dois comandos são cascas finas
+  sobre o núcleo puro `cypress/support/shared/exclusaoEstrutural.js` (descoberta como roteiro
+  `roteiroDescobertaGrafoEstrutural`, DELETEs por `montarDeletesDaSelecao`), executado no Cypress por
+  `cy.executarRoteiroSqlEmAmbiente` e no Node por `executarRoteiroSql` — o mesmo núcleo da limpeza
+  de CNPJ (seção abaixo), sem duplicação. `cy.clonarCedenteCompleto`
   (`commands/cedente.js`) encadeia apagar -> inserir de novo (`cy.inserirGrafoCompletoCedenteEmHml`,
   compartilhado entre as ações `inserir` e `apagar-e-recriar`) quando o cedente já existe em HML.
 - **Execução da dependência `cascata`** (`MC_CED_CEDENTE_VINCULADO.idCedenteVinculado`,
@@ -227,6 +231,67 @@ de verdade.
   detecta ciclo (A vinculado a B vinculado a A) e interrompe com erro descritivo em vez de recursão
   infinita — não há canal de dúvida bloqueante em tempo de execução do Cypress, então um ciclo real
   vira erro imediato, mesmo padrão do modo único de clonagem de usuário Keycloak.
+
+### Limpeza de CNPJ em HML — `scripts/limparCnpjHml.cjs`
+
+Script Node (fora do Cypress) que deixa HML no estado "este CNPJ nunca foi cadastrado", para que
+cenários de cadastro (ex.: POC no cypress-e2e) possam reutilizar um CNPJ fixo:
+
+```bash
+node scripts/limparCnpjHml.cjs <cnpj>             # com ou sem máscara
+node scripts/limparCnpjHml.cjs <cnpj> --simular   # só descobre, conta e checa permissões; nada é alterado
+```
+
+- **Só HML.** Usa `HOMOLOG_DB_*` (via `dbClient.cjs`, pool próprio com `requestTimeout` de 540 s) e
+  `HML_API_*` (token `grant_type=password` no client `autenticacao`). Nunca importa `prodConfig`;
+  `--ambiente` diferente de `hml`, CNPJ ausente/inválido (dígitos verificadores) ou `.env` com HML
+  apontando para o mesmo banco/API de PROD encerram com erro antes de qualquer conexão
+  (`validarCnpj`/`validarAlvoHml`, `shared/limpezaCnpj.js`).
+- **Âncora no CNPJ** (`roteiroRaizesPorCnpj`): pessoa(s) em `MC_CAD_PESSOA` (ignorando máscara) →
+  prospects e cedentes da pessoa → propostas via `MC_POC_PROSPECT` e `MC_CED_CEDENTE.idProposta`. Sem
+  pessoa, informa "nada a apagar" e termina com código 0.
+- **Descoberta em duas camadas**: (1) o grafo estrutural mapeado da clonagem
+  (`roteiroDescobertaGrafoEstrutural`, sementes cedente/prospect/propostas); (2) a cascata pelas FKs
+  reais de HML (`roteiroExpansaoPorFk`, lê `sys.foreign_keys`): toda linha que referencia, por
+  qualquer FK (habilitada ou não), uma linha selecionada entra também, até não haver referência
+  nova — só no sentido "quem referencia", nunca sobe para o pai. A pessoa entra aqui (na clonagem
+  ela é catálogo e não é apagada). Tabelas sem coluna `id` (16 em HML) são apagadas por condição
+  `coluna IN (...)`. Num cedente ativo isso alcança operações, títulos e posições (o CNPJ de
+  evidência tinha ~285 mil linhas em 136 tabelas), inclusive títulos de outros cedentes em que o
+  CNPJ é sacado e adesões de fornecedores ao convênio de portal do cedente — decisão do usuário:
+  apagar tudo o que referencia, até as constraints permitirem.
+- **Comitê nunca é semente**: `MC_CAD_COMITE` é compartilhado por propostas de vários CNPJs (e
+  referenciado por configuração, `MC_CAD_TIPO_PROSPECT_PARAMETRO`); só entra na exclusão se nenhuma
+  linha fora da seleção o referenciar (`roteiroIdsSemReferenciaExterna`). Os vínculos da proposta
+  com o comitê (`MC_CAD_COMITE_PROPOSTA`) saem pela cascata da proposta.
+- **Ordem e ciclos** (`planejarExclusaoDaSelecao`): ordem pelas FKs reais habilitadas, reaproveitando
+  `ordenarTabelasParaExclusaoEstrutural`. HML tem ciclos de FK entre tabelas (ex.:
+  `MC_CED_CEDENTE.idCedenteObservacao` ↔ `MC_CED_OBSERVACAO.idCedente`; no CNPJ de evidência também
+  foram anuladas `MC_PRT_PROSPECT.idCedenteVinculado`, `MC_MOP_OPERACAO.idAnaliseMotorCredito`,
+  `MC_MOP_OPERACAO.idPreOperacao`, `MC_LIQ_INSTRUCAO.idPendencia` e
+  `MC_MOP_OPERACAO_TITULO.idTituloChecagem`): cada ciclo é quebrado anulando uma coluna anulável dele, só nas
+  próprias linhas que serão apagadas e na mesma transação; ciclo sem coluna anulável vira erro
+  descritivo, nunca constraint desligada.
+- **Esteiras antes do SQL**: localiza no Multiflow (`POST mc-multiflow-ms/api/v1/esteira/etapa/anyFiltro`
+  por `execAtributos` `idProposta`/`idProspect`/`idCedente`) as esteiras ligadas ao que será apagado;
+  as que têm a última etapa `CRIADO`/`EXECUTANDO` são canceladas com `POST .../finalizaEsteira`
+  (`{ idEsteira }`: esteira `FINALIZADO`, etapas em andamento `CANCELADO`, situação "ESTEIRA
+  CANCELADA" — o mesmo caminho do cancelamento de POC no `mc-poc-ms`) e conferidas por
+  `pesquisarporid`. Esteira não encerrada com a última etapa fora de andamento bloqueia a limpeza
+  (finalizá-la faria o Multiflow abrir a esteira vinculada do modelo). O Multiflow só deixa finalizar
+  quem tem grupo de **gestor do modelo** ou de **operador da subetapa atual** (`AcessoComponent`); o
+  script antecipa essa checagem (`verificarPermissaoFinalizarEsteira`, mesma comparação de
+  `AccessTokenDTO.contemGroup`) para todas as esteiras antes de cancelar qualquer uma. O
+  `anyFiltro` devolve `[]` também quando dá erro interno no serviço (o erro só vai para o log dele).
+- **Exclusão atômica**: todos os UPDATEs de ciclo e DELETEs (lotes de 1000 ids; tabela com
+  autorreferência num DELETE só) vão num único lote `SET XACT_ABORT ON` + transação
+  (`montarLoteTransacionalDeExclusao`) — qualquer erro desfaz tudo. Depois, confere que nenhuma raiz
+  nem linha selecionada sobrou.
+- **Saída**: contagem por tabela antes, esteiras canceladas (ids), linhas apagadas por tabela e a
+  conferência; evidência completa (raízes, ids selecionados por tabela, esteiras, contagens) em
+  `cypress/output/limpezaCnpjHml/<cnpj>-<data>.json`.
+- **Lint**: `scripts/` não tem bloco próprio em `eslint.config.js` (sem globais de Node); o script
+  declara os globais que usa num comentário `/* global ... */`.
 
 ## Segurança / não commitar
 

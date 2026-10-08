@@ -29,11 +29,15 @@ import {
   NOME_ANALISTA_RESPONSAVEL_CLONAGEM_CEDENTE,
   montarInsertEstrutural,
   montarCondicaoBuscaSatelite,
-  montarDeleteEmLote,
   classificarTabelaCedente,
   FASE_CATALOGO,
   TIPO_DEPENDENCIA_CASCATA,
 } from '../shared/clonagemCedente';
+import {
+  roteiroDescobertaGrafoEstrutural,
+  selecaoAPartirDeIdsPorTabela,
+  montarDeletesDaSelecao,
+} from '../shared/exclusaoEstrutural';
 
 const TABELA_JUNCAO_PROSPECT_PROPOSTA = 'MC_POC_PROSPECT';
 const TABELA_PROPOSTA = 'MC_POC_PROPOSTA';
@@ -348,79 +352,63 @@ Cypress.Commands.add('clonarGrafoEstruturalCedente', (ordemTabelas, sementes, ma
  * antes de decidir a ordem de exclusão (`ordenarTabelasParaExclusaoEstrutural`,
  * regra 12 do `AGENTE.md`).
  *
- * Mesma estrutura de travessia de `cy.clonarGrafoEstruturalCedente`
- * (semente conhecida vs. busca de satélite via `montarCondicaoBuscaSatelite`),
- * mas sem inserir nada — só acumula os ids já existentes em HML por tabela
- * (`idsPorTabela`, `{ [tabela]: Set<idEmHml> }`), reaproveitados diretamente
- * como condição de busca de satélite da tabela seguinte (em HML, o id do pai
- * já É o id usado pelas FKs das tabelas filhas, ao contrário do INSERT, que
- * precisa de dois mapas separados — `idsHmlPorTabela`/`idsProdPorTabela` —
- * porque ali os ids de origem, em PROD, são diferentes dos ids gerados em
- * HML).
+ * A travessia (semente conhecida vs. busca de satélite via
+ * `montarCondicaoBuscaSatelite`) é o roteiro puro
+ * `roteiroDescobertaGrafoEstrutural` (`shared/exclusaoEstrutural.js`),
+ * compartilhado com o script `scripts/limparCnpjHml.cjs`; este comando só o
+ * executa contra HML (`cy.executarRoteiroSqlEmAmbiente`). Só acumula os ids já
+ * existentes em HML por tabela (`idsPorTabela`, `{ [tabela]: Set<idEmHml> }`),
+ * reaproveitados diretamente como condição de busca de satélite da tabela
+ * seguinte (em HML, o id do pai já É o id usado pelas FKs das tabelas filhas,
+ * ao contrário do INSERT, que precisa de dois mapas separados —
+ * `idsHmlPorTabela`/`idsProdPorTabela` — porque ali os ids de origem, em PROD,
+ * são diferentes dos ids gerados em HML).
  * @param {string[]} ordemTabelas
  * @param {Object<string, Object[]>} sementes
  * @param {Object} mapeamento
  * @returns {Cypress.Chainable<Object<string, Set<number>>>}
  */
-Cypress.Commands.add('descobrirGrafoEstruturalCedenteEmHml', (ordemTabelas, sementes, mapeamento) => {
-  const idsPorTabela = {};
-  const tabelasJaProcessadas = new Set();
-
-  const registrarLinhas = (tabela, linhas) => {
-    idsPorTabela[tabela] = idsPorTabela[tabela] ?? new Set();
-    linhas.forEach((linha) => idsPorTabela[tabela].add(Number(linha.id)));
-    tabelasJaProcessadas.add(tabela);
-  };
-
-  return ordemTabelas
-    .filter((tabela) => classificarTabelaCedente(tabela).fase !== FASE_CATALOGO)
-    .reduce((acumulado, tabela) => {
-      const linhasSemente = sementes[tabela];
-
-      return acumulado.then(() => {
-        if (linhasSemente) {
-          registrarLinhas(tabela, linhasSemente);
-          return cy.wrap(null, { log: false });
-        }
-
-        const condicao = montarCondicaoBuscaSatelite(tabela, mapeamento, tabelasJaProcessadas, idsPorTabela);
-
-        if (!condicao) {
-          tabelasJaProcessadas.add(tabela);
-          return cy.wrap(null, { log: false });
-        }
-
-        return cy
-          .buscarLinhasSatelitesEmAmbiente('hml', tabela, condicao)
-          .then((linhas) => registrarLinhas(tabela, linhas));
-      });
-    }, cy.wrap(null, { log: false }))
-    .then(() => idsPorTabela);
-});
+Cypress.Commands.add('descobrirGrafoEstruturalCedenteEmHml', (ordemTabelas, sementes, mapeamento) =>
+  cy.executarRoteiroSqlEmAmbiente('hml', roteiroDescobertaGrafoEstrutural(ordemTabelas, sementes, mapeamento)),
+);
 
 /**
  * @description Executa em HML, na ordem informada (`ordemExclusao` —
  * sempre `ordenarTabelasParaExclusaoEstrutural`, filhas antes de pais, regra
- * 12 do `AGENTE.md`), o `DELETE` em lote (`montarDeleteEmLote`, lógica pura)
- * de cada tabela com ids descobertos por `cy.descobrirGrafoEstruturalCedenteEmHml`
- * — uma tabela sem nenhum id descoberto (não fazia parte do grafo deste
- * cedente em HML) é pulada, nunca um `DELETE` sem `WHERE`. Tabelas de
- * catálogo nunca são apagadas por este comando (são compartilhadas entre
- * cedentes — apagar quebraria outros registros que dependem delas).
+ * 12 do `AGENTE.md`), um `DELETE` por tabela com ids descobertos por
+ * `cy.descobrirGrafoEstruturalCedenteEmHml` (montados por
+ * `montarDeletesDaSelecao`/`montarDeleteEmLote`, lógica pura em
+ * `shared/exclusaoEstrutural.js`) — uma tabela sem nenhum id descoberto (não
+ * fazia parte do grafo deste cedente em HML) é pulada, nunca um `DELETE` sem
+ * `WHERE`. Tabelas de catálogo nunca são apagadas por este comando (são
+ * compartilhadas entre cedentes — apagar quebraria outros registros que
+ * dependem delas; `selecaoAPartirDeIdsPorTabela` as descarta).
  * @param {string[]} ordemExclusao
  * @param {Object<string, Set<number>>} idsPorTabela
  * @returns {Cypress.Chainable<Object<string, Set<number>>>}
  */
 Cypress.Commands.add('executarExclusaoEstruturalEmHml', (ordemExclusao, idsPorTabela) =>
-  ordemExclusao
-    .filter((tabela) => classificarTabelaCedente(tabela).fase !== FASE_CATALOGO)
-    .reduce((acumulado, tabela) => {
-      const deleteSql = montarDeleteEmLote(tabela, idsPorTabela[tabela]);
-
-      return acumulado.then(() => {
-        if (!deleteSql) return cy.wrap(null, { log: false });
-        return cy.executarQuery('hml', deleteSql);
-      });
-    }, cy.wrap(null, { log: false }))
+  montarDeletesDaSelecao(ordemExclusao, selecaoAPartirDeIdsPorTabela(idsPorTabela))
+    .reduce((acumulado, { sql }) => acumulado.then(() => cy.executarQuery('hml', sql)), cy.wrap(null, { log: false }))
     .then(() => idsPorTabela),
 );
+
+/**
+ * @description Executa, num ambiente (`prod`/`hml`), um roteiro SQL puro
+ * (função geradora que devolve `{ sql }` e recebe as linhas lidas, ver
+ * `shared/exclusaoEstrutural.js`), encadeando cada consulta em
+ * `cy.executarQuery` — a versão Cypress de `executarRoteiroSql`, para que a
+ * mesma lógica rode no Cypress e em script Node sem duplicação.
+ * @param {'prod'|'hml'} ambiente
+ * @param {Generator<{sql: string}, *, Object[]>} roteiro
+ * @returns {Cypress.Chainable<*>} o valor de retorno do roteiro.
+ */
+Cypress.Commands.add('executarRoteiroSqlEmAmbiente', (ambiente, roteiro) => {
+  const avancar = (linhas) => {
+    const passo = roteiro.next(linhas);
+    if (passo.done) return cy.wrap(passo.value, { log: false });
+    return cy.executarQuery(ambiente, passo.value.sql).then((registros) => avancar(registros ?? []));
+  };
+
+  return avancar(undefined);
+});

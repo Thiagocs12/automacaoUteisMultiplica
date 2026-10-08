@@ -390,6 +390,25 @@ export const normalizarDocumento = (valor) => {
 };
 
 /**
+ * @description Monta a condição SQL que compara uma coluna `cnpjCpf`
+ * (removendo os separadores de máscara usuais de CPF/CNPJ — `.`, `-`, `/`)
+ * com um documento já normalizado (só dígitos, ver `normalizarDocumento`).
+ * T-SQL não tem suporte nativo a regex; encadear `REPLACE` é suficiente para
+ * o conjunto fechado de caracteres de máscara usados nesses dois formatos de
+ * documento.
+ * @param {string} colunaCnpjCpf - Nome (ou `alias.coluna`) da coluna a comparar.
+ * @param {string} documentoNormalizado - Já passado por `normalizarDocumento` (só dígitos).
+ * @returns {string}
+ * @throws {Error} se o documento não for só dígitos (evita injetar texto livre na query).
+ */
+export const montarCondicaoDocumentoIgual = (colunaCnpjCpf, documentoNormalizado) => {
+  if (!/^\d+$/.test(String(documentoNormalizado ?? ''))) {
+    throw new Error(`[montarCondicaoDocumentoIgual] Documento deve conter só dígitos: "${documentoNormalizado}".`);
+  }
+  return `REPLACE(REPLACE(REPLACE(${colunaCnpjCpf}, '.', ''), '-', ''), '/', '') = '${documentoNormalizado}'`;
+};
+
+/**
  * @description Compara dois CNPJ/CPF já normalizando ambos. Dois documentos ausentes
  * (ambos normalizam para `null`) nunca são considerados coincidentes — a chave de
  * match do cedente exige um CNPJ/CPF real dos dois lados.
