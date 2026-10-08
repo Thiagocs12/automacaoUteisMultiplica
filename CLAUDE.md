@@ -281,12 +281,19 @@ node scripts/limparCnpjHml.cjs <cnpj> --simular   # só descobre, conta e checa 
   (finalizá-la faria o Multiflow abrir a esteira vinculada do modelo). O Multiflow só deixa finalizar
   quem tem grupo de **gestor do modelo** ou de **operador da subetapa atual** (`AcessoComponent`); o
   script antecipa essa checagem (`verificarPermissaoFinalizarEsteira`, mesma comparação de
-  `AccessTokenDTO.contemGroup`) para todas as esteiras antes de cancelar qualquer uma. O
+  `AccessTokenDTO.contemGroup`) para todas as esteiras antes de cancelar qualquer uma. Em HML o
+  usuário de `HML_API_USERNAME` está no grupo `/Superintendente Crédito`, gestor dos modelos de POC
+  "Beyond Prospect", "Beyond Prospect Renovação/Alteração/Prorrogação" e "Beyond Prospect
+  Homologação" (incluído pelo usuário em 2026-10-08); um modelo novo com outros gestores volta a
+  bloquear a limpeza até o usuário ganhar o grupo certo. O
   `anyFiltro` devolve `[]` também quando dá erro interno no serviço (o erro só vai para o log dele).
 - **Exclusão atômica**: todos os UPDATEs de ciclo e DELETEs (lotes de 1000 ids; tabela com
   autorreferência num DELETE só) vão num único lote `SET XACT_ABORT ON` + transação
   (`montarLoteTransacionalDeExclusao`) — qualquer erro desfaz tudo. Depois, confere que nenhuma raiz
-  nem linha selecionada sobrou.
+  nem linha selecionada sobrou. Referência de tempo: o CNPJ de evidência (285.041 linhas em 136
+  tabelas) levou 486 s no total, cerca de 5 min só de descoberta, sem estourar os 540 s do lote; um
+  CNPJ com só POC em andamento é bem mais rápido. Quando um ciclo tem mais de uma coluna anulável, a
+  escolhida pode variar entre execuções (todas são válidas).
 - **Saída**: contagem por tabela antes, esteiras canceladas (ids), linhas apagadas por tabela e a
   conferência; evidência completa (raízes, ids selecionados por tabela, esteiras, contagens) em
   `cypress/output/limpezaCnpjHml/<cnpj>-<data>.json`.
