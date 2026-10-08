@@ -85,14 +85,11 @@ Cypress.Commands.add('verificarTokens', (ambiente) => {
 const salvarTokenObtido = (ambiente, accessToken) => {
   const filePath = 'cypress/temp/tokens.json';
 
+  // Ver `cy.definirAmbiente` (`ambiente.js`): `cy.readFile` falharia se o arquivo ainda não existe.
   return cy
-    .readFile(filePath, { log: false, timeout: 5000 })
-    .then(
-      (existentes) => (typeof existentes === 'object' && existentes !== null ? existentes : {}),
-      (err) => {
-        if (err.code === 'ENOENT') return {};
-        throw new Error(`[obterToken] Erro ao ler tokens.json: ${err.message}`);
-      }
+    .task('lerJsonSeExistir', { caminhoArquivo: filePath }, { log: false })
+    .then((existentes) =>
+      typeof existentes === 'object' && existentes !== null && !Array.isArray(existentes) ? existentes : {}
     )
     .then((tokens) => {
       tokens[ambiente] = { token: accessToken };

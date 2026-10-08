@@ -6,8 +6,8 @@ const CAMINHO_TOKENS = 'cypress/temp/tokens.json';
  * @description Define e retorna os dados base para um ambiente específico,
  * incluindo URLs, credenciais e token de acesso.
  *
- * O token é lido de 'cypress/temp/tokens.json' a cada chamada (`cy.readFile`,
- * não `import` estático) — importante porque `cy.obterToken` pode gravar um
+ * O token é lido de 'cypress/temp/tokens.json' a cada chamada (`cy.task('lerJsonSeExistir')`,
+ * não `import` estático; arquivo ausente = sem token) — importante porque `cy.obterToken` pode gravar um
  * token novo no meio de um cenário (quando `cy.verificarTokens` detecta que o
  * salvo expirou), e as chamadas seguintes de `cy.definirAmbiente` dentro do
  * mesmo cenário precisam enxergar esse token novo imediatamente, não o que
@@ -26,15 +26,13 @@ const CAMINHO_TOKENS = 'cypress/temp/tokens.json';
  * @returns {Cypress.Chainable<{baseUrl, urlToken, loginUsername?, loginPassword?, clientId?, clientSecret?, token}>}
  */
 Cypress.Commands.add('definirAmbiente', (ambiente) => {
+  // `cy.task('lerJsonSeExistir')` em vez de `cy.readFile`: o `.then` do Cypress
+  // não aceita callback de rejeição, então `cy.readFile` num arquivo ausente
+  // (primeira execução, ou `cypress/temp/` limpo) falhava o cenário em vez de
+  // seguir sem token e deixar `cy.verificarTokens` obter um novo.
   return cy
-    .readFile(CAMINHO_TOKENS, { log: false, timeout: 5000 })
-    .then(
-      (tokens) => (typeof tokens === 'object' && tokens !== null ? tokens : {}),
-      (err) => {
-        if (err.code === 'ENOENT') return {};
-        throw new Error(`[definirAmbiente] Erro ao ler tokens.json: ${err.message}`);
-      }
-    )
+    .task('lerJsonSeExistir', { caminhoArquivo: CAMINHO_TOKENS }, { log: false })
+    .then((tokens) => (typeof tokens === 'object' && tokens !== null && !Array.isArray(tokens) ? tokens : {}))
     .then((tokens) => {
       const ambientes = {
         prod: {

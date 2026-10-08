@@ -56,34 +56,36 @@ function Acionar-DiagnosticoClaude([array]$dominiosComFalha, [string]$logFile) {
 
   $nomesFalha = ($dominiosComFalha -join ", ")
 
+  # So diagnostico, sem correcao: esta tarefa roda a partir do clone principal, que precisa
+  # ficar limpo na branch padrao (a proxima execucao agendada usaria um codigo nao revisado).
+  # A correcao segue o fluxo normal (branch agentic_*, worktree, PR), feita por um humano ou
+  # por um agente interativo. Por isso o Claude nao recebe nenhuma ferramenta de escrita e o
+  # relatorio e gravado por este script, a partir da resposta final dele.
   $prompt = @"
 Uma execucao agendada e nao-interativa (Windows Task Scheduler) da ferramenta de
 sincronizacao PROD -> HML deste projeto falhou nos seguintes dominios: $nomesFalha.
 
 O log completo desta execucao esta em: $logFile
 
-Leia o log, identifique a causa raiz da falha e aplique no codigo a correcao minima
-necessaria para resolver o problema. Regras obrigatorias:
-- NUNCA faca commit, push, reset, checkout ou qualquer outra operacao de git que
-  altere o historico ou o estado do repositorio. Deixe as mudancas apenas no
-  diretorio de trabalho (working tree), sem stage nem commit.
-- NUNCA edite .env, cypress/temp/tokens.json ou qualquer arquivo de credenciais.
+Leia o log e o codigo, e identifique a causa raiz da falha. Regras obrigatorias:
+- NAO altere nenhum arquivo: esta e uma investigacao somente leitura. A correcao
+  sera feita depois, fora desta execucao.
+- NUNCA leia .env, .env.*, cypress/temp/tokens.json ou qualquer arquivo de credenciais.
 - Respeite a regra de que producao (prod/keycloakProd) e somente leitura.
-- Se nao for possivel identificar ou corrigir a causa raiz com seguranca, NAO tente
-  algo arriscado: apenas registre o diagnostico e o motivo.
 
-Ao final, escreva um resumo curto (diagnostico, correcao aplicada ou motivo de nao
-ter corrigido, e o que revisar) em um arquivo markdown novo em: $relatorio
+Sua resposta final sera gravada como relatorio em markdown. Responda somente com o
+relatorio, curto, com as secoes: Diagnostico (causa raiz, com o trecho do log que a
+comprova), Alcance (dominios afetados e por que os demais passaram), Correcao proposta
+(arquivos e mudanca sugerida, sem aplicar) e Como validar.
 "@
 
-  Escrever-Log "Acionando Claude Code para diagnostico automatico (dominios: $nomesFalha)..."
+  Escrever-Log "Acionando Claude Code para diagnostico automatico, somente leitura (dominios: $nomesFalha)..."
 
   $claudeArgs = @(
     "-p", $prompt,
-    "--permission-mode", "acceptEdits",
     "--permission-prompts", "none",
-    "--allowedTools", "Read,Edit,Grep,Glob,Bash(git status),Bash(git diff *),Bash(git log *),Bash(npm run lint),Bash(npm run test:safety)",
-    "--disallowedTools", "Bash(git commit *),Bash(git push *),Bash(git reset *),Bash(git checkout *),Bash(git clean *),Bash(git branch -D *)",
+    "--allowedTools", "Read,Grep,Glob,Bash(git status),Bash(git diff *),Bash(git log *)",
+    "--disallowedTools", "Edit,Write,NotebookEdit,Bash(git commit *),Bash(git push *),Bash(git reset *),Bash(git checkout *),Bash(git clean *),Bash(git branch -D *)",
     "--output-format", "json",
     "--max-budget-usd", "2"
   )
@@ -92,10 +94,13 @@ ter corrigido, e o que revisar) em um arquivo markdown novo em: $relatorio
     $resultadoBruto = & claude @claudeArgs 2>&1
     $resultadoBruto | Out-File -FilePath $saidaClaudeJson -Encoding utf8
     Escrever-Log "Saida do Claude Code salva em: $saidaClaudeJson"
-    if (Test-Path $relatorio) {
+    try {
+      $resultadoJson = ($resultadoBruto | Where-Object { $_ -is [string] }) -join "`n" | ConvertFrom-Json
+      if ([string]::IsNullOrWhiteSpace($resultadoJson.result)) { throw "campo 'result' vazio" }
+      $resultadoJson.result | Out-File -FilePath $relatorio -Encoding utf8
       Escrever-Log "Relatorio de diagnostico gerado em: $relatorio"
-    } else {
-      Escrever-Log "Aviso: Claude Code rodou mas nao encontrei o relatorio esperado em $relatorio"
+    } catch {
+      Escrever-Log "Aviso: nao consegui extrair o relatorio da saida do Claude Code ($($_.Exception.Message)). Veja $saidaClaudeJson"
     }
   } catch {
     Escrever-Log "Erro ao acionar Claude Code para diagnostico: $($_.Exception.Message)"
