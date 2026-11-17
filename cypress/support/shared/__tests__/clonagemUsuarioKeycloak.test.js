@@ -9,6 +9,7 @@ import {
   clonarUsuariosEmLote,
   removerUsuariosClonadosComSucesso,
   normalizarUsername,
+  normalizarFranquias,
   parametrosClonagemUnicaCompletos,
 } from '../clonagemUsuarioKeycloak.js';
 
@@ -273,4 +274,41 @@ test('parametrosClonagemUnicaCompletos é false quando só parte dos parâmetros
   assert.equal(parametrosClonagemUnicaCompletos({ usuarioOrigem: 'fulano' }), false);
   assert.equal(parametrosClonagemUnicaCompletos({ usuarioOrigem: 'fulano', novoUsername: 'fulano.hml' }), false);
   assert.equal(parametrosClonagemUnicaCompletos({ novaSenha: 'SenhaForte123!' }), false);
+});
+
+test('normalizarFranquias aceita vírgula, ponto e vírgula ou espaço e devolve ids ordenados sem repetição', () => {
+  assert.equal(normalizarFranquias('1'), '1');
+  assert.equal(normalizarFranquias(2), '2');
+  assert.equal(normalizarFranquias('1;2'), '1,2');
+  assert.equal(normalizarFranquias('2, 1'), '1,2');
+  assert.equal(normalizarFranquias('1 2;2'), '1,2');
+});
+
+test('normalizarFranquias devolve null para valor vazio ou ausente (mantém a franquia da origem)', () => {
+  assert.equal(normalizarFranquias(undefined), null);
+  assert.equal(normalizarFranquias(null), null);
+  assert.equal(normalizarFranquias(''), null);
+  assert.equal(normalizarFranquias(' ; '), null);
+});
+
+test('normalizarFranquias recusa id que não seja numérico positivo', () => {
+  assert.throws(() => normalizarFranquias('1;abc'), /Franquia inválida/);
+  assert.throws(() => normalizarFranquias('0'), /Franquia inválida/);
+});
+
+test('montarPayloadNovoUsuario com idFranquia substitui só a franquia da origem e mantém os outros atributos', () => {
+  const origemComFranquia = { ...usuarioOrigem, attributes: { ...usuarioOrigem.attributes, idFranquia: ['1,2'] } };
+  const payload = montarPayloadNovoUsuario(origemComFranquia, 'fulano.hml', 'SenhaForte123!', false, '1');
+
+  assert.deepEqual(payload.attributes.idFranquia, ['1']);
+  assert.deepEqual(payload.attributes.idAnalista, usuarioOrigem.attributes.idAnalista);
+  assert.deepEqual(payload.attributes.cargoPrincipal, usuarioOrigem.attributes.cargoPrincipal);
+  assert.deepEqual(origemComFranquia.attributes.idFranquia, ['1,2']);
+});
+
+test('montarPayloadNovoUsuario sem idFranquia mantém a franquia copiada da origem', () => {
+  const origemComFranquia = { ...usuarioOrigem, attributes: { ...usuarioOrigem.attributes, idFranquia: ['1,2'] } };
+  const payload = montarPayloadNovoUsuario(origemComFranquia, 'fulano.hml', 'SenhaForte123!');
+
+  assert.deepEqual(payload.attributes.idFranquia, ['1,2']);
 });

@@ -48,7 +48,7 @@ O domínio **Grupos e Permissões** (grupos, realm roles, client roles e o vínc
 
 O domínio **Usuários** não sincroniza uma lista de registros — é uma ação pontual sob demanda que **clona usuário(s) do Keycloak de Produção para Homologação**, mantendo o resto igual (realm roles, client roles de todos os clients, grupos e atributos), em dois modos. O email do novo usuário **nunca é copiado do usuário de origem** — é sempre gerado, inválido/não-real e único (`{novoUsername}.{sufixo}@invalido.multiplica.local`), justamente para nunca colidir com um email já existente em HML.
 
-- **Único** (`@keycloakUsuario`): um usuário por execução, com novo username/senha informados via `--env` (`usuarioOrigem`, `novoUsername`, `novaSenha`). Sem os 3 parâmetros (ex.: rodando a suíte completa sem `tags=@keycloakUsuario`), o cenário não quebra — loga a mensagem orientativa e passa sem clonar.
+- **Único** (`@keycloakUsuario`): um usuário por execução, com novo username/senha informados via `--env` (`usuarioOrigem`, `novoUsername`, `novaSenha`). Sem os 3 parâmetros (ex.: rodando a suíte completa sem `tags=@keycloakUsuario`), o cenário não quebra — loga a mensagem orientativa e passa sem clonar. Opcional: `idFranquia` (ex.: `1`, `2` ou `1;2`) define as franquias do novo usuário no lugar das copiadas do usuário de origem; os demais atributos continuam copiados.
 - **Em lote** (`@clonarUsuariosEmLote`): todos os usuários de um mapa `usuarioProd: usuarioHml` lido do fixture `cypress/fixtures/usuariosParaClonar.json` (populado antes de rodar), numa única execução — cada usuário criado recebe a senha temporária fixa `Automacao@123`, com troca obrigatória no primeiro login. Um item problemático (usuário de origem não encontrado, role/grupo sem correspondente em HML, conflito de username em HML) não interrompe o lote — vira uma dúvida bloqueante só daquele item, e o processamento segue para o próximo. Ao final, os usuários clonados com sucesso são removidos do fixture (quem falhou permanece, para nova tentativa depois de corrigido) — fixture vazia (`{}`) é o estado normal de "nada pendente", não um erro.
 
 A lógica vive em `commands/usuariosKeycloak.js` + `utils/mapeamentoUsuarios.js`; ver detalhes em `CLAUDE.md`.
@@ -81,6 +81,8 @@ A clonagem de usuário única (`@keycloakUsuario`) é parametrizada a cada execu
 
 ```bash
 npx cypress run --env tags=@keycloakUsuario,usuarioOrigem=fulano,novoUsername=fulano.hml,novaSenha=SenhaForte123!
+# franquia definida (substitui a do usuário de origem):
+npx cypress run --env tags=@keycloakUsuario,usuarioOrigem=fulano,novoUsername=fulano.hml,novaSenha=SenhaForte123!,idFranquia=1
 ```
 
 A clonagem em lote (`@clonarUsuariosEmLote`) lê o mapa `usuarioProd: usuarioHml` de `cypress/fixtures/usuariosParaClonar.json` — popule esse arquivo antes de rodar:

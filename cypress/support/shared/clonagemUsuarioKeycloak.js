@@ -17,6 +17,34 @@
 export const normalizarUsername = (username) => (username ?? '').toLowerCase();
 
 /**
+ * @description Normaliza a lista de franquias informada para o novo usuário no mesmo
+ * formato que o Keycloak guarda no atributo `idFranquia` (ids separados por vírgula, ex.:
+ * `"1,2"`). Aceita vírgula, ponto e vírgula ou espaço como separador (`"1;2"`, `"1, 2"`),
+ * remove repetidos e ordena. Valor vazio ou ausente devolve `null` (mantém a franquia do
+ * usuário de origem). Qualquer item que não seja um id numérico positivo lança erro, para a
+ * clonagem nunca gravar uma franquia inválida.
+ * @param {string|undefined|null} valor
+ * @returns {string|null}
+ */
+export const normalizarFranquias = (valor) => {
+  const itens = String(valor ?? '')
+    .split(/[,;\s]+/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+  if (!itens.length) {
+    return null;
+  }
+
+  const invalidos = itens.filter((item) => !/^[1-9]\d*$/.test(item));
+  if (invalidos.length) {
+    throw new Error(`Franquia inválida para o novo usuário: "${invalidos.join('", "')}". Use ids numéricos, ex.: 1, 2 ou 1;2.`);
+  }
+
+  return [...new Set(itens.map(Number))].sort((a, b) => a - b).join(',');
+};
+
+/**
  * @description Gera um email inválido/não-real e único para o novo usuário em HML,
  * a partir do `novoUsername` (já exigido único em HML) combinado com um sufixo
  * aleatório e um domínio claramente não real. Nunca copiar o email do usuário de
@@ -41,10 +69,15 @@ export const gerarEmailInvalidoUnico = (novoUsername) => `${novoUsername}.${cryp
  * (mecanismo nativo do Keycloak para forçar troca no primeiro login) — usado pelo
  * modo em lote, que sempre cria com senha temporária fixa. O modo de execução única
  * (`--env`) nunca passa `true` aqui, preservando o comportamento original.
+ * @param {string|null} [idFranquia=null] - Franquias do novo usuário, já normalizadas por
+ * `normalizarFranquias` (ex.: `"1"` ou `"1,2"`). Quando informado, substitui o atributo
+ * `idFranquia` copiado do usuário de origem; os demais atributos continuam iguais. Sem ele,
+ * o atributo vem do usuário de origem, como antes.
  * @returns {object} Corpo de criação (`POST /users`) do novo usuário em HML.
  */
-export const montarPayloadNovoUsuario = (usuarioOrigem, novoUsername, novaSenha, temporary = false) => {
+export const montarPayloadNovoUsuario = (usuarioOrigem, novoUsername, novaSenha, temporary = false, idFranquia = null) => {
   const novoUsernameNormalizado = normalizarUsername(novoUsername);
+  const atributosOrigem = usuarioOrigem.attributes ?? {};
 
   return {
     username: novoUsernameNormalizado,
@@ -53,7 +86,7 @@ export const montarPayloadNovoUsuario = (usuarioOrigem, novoUsername, novaSenha,
     firstName: usuarioOrigem.firstName,
     lastName: usuarioOrigem.lastName,
     email: gerarEmailInvalidoUnico(novoUsernameNormalizado),
-    attributes: usuarioOrigem.attributes ?? {},
+    attributes: idFranquia ? { ...atributosOrigem, idFranquia: [idFranquia] } : atributosOrigem,
     requiredActions: usuarioOrigem.requiredActions ?? [],
     credentials: [{ type: 'password', value: novaSenha, temporary }],
   };

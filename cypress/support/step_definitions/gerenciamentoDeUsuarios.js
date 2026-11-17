@@ -9,6 +9,9 @@
 //
 //     npx cypress run --env tags=@keycloakUsuario,usuarioOrigem=fulano,novoUsername=fulano.hml,novaSenha=SenhaForte123!
 //
+//   Opcional: idFranquia (ex.: 1, 2 ou "1;2") define as franquias do novo usuário no
+//   lugar das copiadas do usuário de origem; sem ele, a franquia vem da origem.
+//
 // - Em lote (`@clonarUsuariosEmLote`), lendo o mapa `usuarioProd: usuarioHml` do
 //   fixture `cypress/fixtures/usuariosParaClonar.json` (populado antes de rodar):
 //
@@ -17,6 +20,7 @@
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 import {
   normalizarUsername,
+  normalizarFranquias,
   parametrosClonagemUnicaCompletos,
   MENSAGEM_PARAMETROS_CLONAGEM_UNICA_AUSENTES,
 } from '../shared/clonagemUsuarioKeycloak';
@@ -34,6 +38,7 @@ When('clono o usuário de produção informado via parâmetros de execução par
   const usuarioOrigem = Cypress.env('usuarioOrigem');
   const novoUsername = Cypress.env('novoUsername');
   const novaSenha = Cypress.env('novaSenha');
+  const idFranquia = normalizarFranquias(Cypress.env('idFranquia'));
 
   if (!parametrosClonagemUnicaCompletos({ usuarioOrigem, novoUsername, novaSenha })) {
     clonagemUnicaPulada = true;
@@ -48,7 +53,7 @@ When('clono o usuário de produção informado via parâmetros de execução par
   cy.verificarTokens('keycloakProd');
   cy.verificarTokens('keycloak');
 
-  return cy.clonarUsuarioKeycloak({ usuarioOrigem, novoUsername, novaSenha }).then((criado) => {
+  return cy.clonarUsuarioKeycloak({ usuarioOrigem, novoUsername, novaSenha, idFranquia }).then((criado) => {
     usuarioClonado = criado;
   });
 });

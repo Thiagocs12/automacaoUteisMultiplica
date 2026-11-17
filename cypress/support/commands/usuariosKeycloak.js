@@ -257,10 +257,11 @@ const buscarDadosDoUsuarioDeOrigem = (idOrigem) =>
  * @param {string} novaSenha - Nova senha.
  * @param {{realmRolesHml: Array<object>, clienteRolesHml: Array<object>, grupoIdsHml: Array<string>}} resolvidos - Roles/grupos já resolvidos em HML.
  * @param {boolean} [temporary=false] - Repassado a `montarPayloadNovoUsuario` (ver descrição lá) — `true` só no modo em lote.
+ * @param {string|null} [idFranquia=null] - Franquias do novo usuário (já normalizadas); substitui o `idFranquia` copiado do usuário de origem.
  * @returns {Cypress.Chainable<{id: string, username: string}>}
  */
-const criarUsuarioEAtribuir = (origem, novoUsername, novaSenha, { realmRolesHml, clienteRolesHml, grupoIdsHml }, temporary = false) => {
-  const payload = montarPayloadNovoUsuario(origem, novoUsername, novaSenha, temporary);
+const criarUsuarioEAtribuir = (origem, novoUsername, novaSenha, { realmRolesHml, clienteRolesHml, grupoIdsHml }, temporary = false, idFranquia = null) => {
+  const payload = montarPayloadNovoUsuario(origem, novoUsername, novaSenha, temporary, idFranquia);
 
   return cy
     .executarRequest2('keycloak', `${USUARIOS.urlUsuarios}/`, payload, 'POST')
@@ -312,10 +313,10 @@ const criarUsuarioEAtribuir = (origem, novoUsername, novaSenha, { realmRolesHml,
  * username) volta como `{ ok: false, motivo }`, para que o modo em lote possa
  * seguir para o próximo item. `cy.clonarUsuarioKeycloak` (modo único) converte isso
  * em `throw`.
- * @param {{usuarioOrigem: string, novoUsername: string, novaSenha: string, temporary?: boolean}} params
+ * @param {{usuarioOrigem: string, novoUsername: string, novaSenha: string, temporary?: boolean, idFranquia?: string|null}} params
  * @returns {Cypress.Chainable<{ok: boolean, motivo?: string, valor?: {id: string, username: string}}>}
  */
-const executarClonagem = ({ usuarioOrigem, novoUsername, novaSenha, temporary = false }) => {
+const executarClonagem = ({ usuarioOrigem, novoUsername, novaSenha, temporary = false, idFranquia = null }) => {
   const usuarioOrigemNormalizado = normalizarUsername(usuarioOrigem);
   const novoUsernameNormalizado = normalizarUsername(novoUsername);
 
@@ -362,6 +363,7 @@ const executarClonagem = ({ usuarioOrigem, novoUsername, novaSenha, temporary = 
                   grupoIdsHml: gruposResultado.valor,
                 },
                 temporary,
+                idFranquia,
               ).then((criado) => ({ ok: true, valor: criado }));
             });
           });
@@ -379,11 +381,11 @@ const executarClonagem = ({ usuarioOrigem, novoUsername, novaSenha, temporary = 
  * Nunca escreve em PROD (só GET, via `keycloakProd`) nem decide sozinho diante de
  * ambiguidade (ver módulo acima) — qualquer dúvida bloqueante lança erro descritivo,
  * interrompendo a clonagem (comportamento inalterado do modo de execução única).
- * @param {{usuarioOrigem: string, novoUsername: string, novaSenha: string}} params - Username de origem em PROD, e novo username/senha para HML.
+ * @param {{usuarioOrigem: string, novoUsername: string, novaSenha: string, idFranquia?: string|null}} params - Username de origem em PROD, novo username/senha para HML e, opcionalmente, as franquias do novo usuário (substituem as do usuário de origem).
  * @returns {Cypress.Chainable<{id: string, username: string}>} O novo usuário criado em HML (sem senha).
  */
-Cypress.Commands.add('clonarUsuarioKeycloak', ({ usuarioOrigem, novoUsername, novaSenha }) =>
-  executarClonagem({ usuarioOrigem, novoUsername, novaSenha, temporary: false }).then((resultado) => {
+Cypress.Commands.add('clonarUsuarioKeycloak', ({ usuarioOrigem, novoUsername, novaSenha, idFranquia = null }) =>
+  executarClonagem({ usuarioOrigem, novoUsername, novaSenha, temporary: false, idFranquia }).then((resultado) => {
     if (!resultado.ok) {
       throw new Error(`[clonarUsuarioKeycloak] ${resultado.motivo} Clonagem interrompida.`);
     }
